@@ -6,5 +6,5 @@
 - Caron Jacques Michel
 
 ## Description
-Projet de synthèse dans le cardre du dec en technique de l'informatique au CVM.
+Projet de synthèse dans le cardre du DEC en technique de l'informatique au CVM.
 Logiciel de simulation d'un environnement sonore.
