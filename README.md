@@ -1,2 +1,10 @@
 # Acoustic-Tracing
-Projet de synthèse C61-H26
+
+## Partenaires
+- Mailly-Niquay Joël
+- Landreville Yuta
+- Caron Jacques Michel
+
+## Description
+Projet de synthèse dans le cardre du dec en technique de l'informatique au CVM.
+Logiciel de simulation d'un environnement sonore.
