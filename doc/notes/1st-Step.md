@@ -22,12 +22,33 @@ Les rayons ayant parcouru une distance plus courte arrive plus tôt et plus fort
 
 Les rayons ayant parcouru une distance plus longues sont utiles pour la reverbe... Ils arrivent plus tard et moins fort et viennent de "partout".
 
-Il faut catégorisé ses 2 types de rayons pour que la moyenne des rayons courts permettent de donner la direction du son et les rayons long, on ne leur donne pas de direction mais servent à l'ambiance...
+Il faut catégorisé ces 2 types de rayons pour que la moyenne des rayons courts permettent de donner la direction du son et les rayons long, on ne leurs donnent pas de direction mais servent à l'ambiance...
 
+### Réflexion 5
+Le buffer du Temps, il faudrait que les particules avancent à la vitesse du son mais simuler cette vitesse serait une perte d'efficacité. On devrait stocker toutes les rayons ayant atteint une source sonore avec la distance que celle-ci dans un "buffer" pour ensuite les comparé avec la frame actuelle et les placer dans une ligne du temps pour les classer entre son direct ou son ambiant (reverbe).
+Mais
+A chaque frame on envoye des rayons et on réqupère les distances parcouru et les placer dans une ligne de temps pour savoir les quels viennent l'un avant l'autre. Le problème c'est que les rayons de la frame 1 et les rayons de la frame 2 se superpose et si on se déplace ou une nouvelle source de son apparait, ça devient problèmatique. À moins de voir la densité des sons ayant atteint leurs destination sur cette ligne du temps et les zones denses sont les sons clairs mais le problème si on a plusieurs son, il y aura un mélange des sons, devrait-t-on avoir un autre buffer ? 
+On pourrait générer un buffer par source de son pour rêgler le problème du mélanges des sons... Est-ce que l'on devrait ajout un buffer par son avant même de l'entendre ou pour sauver en ressources seulement si on atteint une source?
+Il faudrait que le buffer garde une ligne du temps de seulement les 2 dernières secondes au moins, on ne veut pas garder tout le son depuis le début et grâce à la vitesse du son on peux aller assez vite.
+Pour s'occuper du déplacement de la caméra, on pourrait donner moins d'importance au son en fonction de l'age du son, si dans la ligne du temps, il est trop dépasser il faut diminuer le volume pour privilégier les nouveaux sons plus proches. À chaque frame on réduit de 50% le poids de des sons perçu dans la frame d'avant même si le son est encore à venir dans la ligne du temps.
+Quand on parle du poids sur la ligne du temps, c'est l'importance du son au moment donné, la densité.
+On pourrait également modifier le pourcentage de réduction de poids en fonction de la distance parcouru par la caméra. Plus elle bouge plus le pourcentage est élevée.
+
+### Réflexion 6
+Pour augmenter la qualité. On devrait lancer les rayons normalement. Les rayons les plus courts sont les sons clairs qui définissent le son (direction etc) et les rayons qui sont plus long servent à la reverbe et l'ambiance. Mais on calcule ou est le dernier points qui est directement joignable de tout les rayons. Donc on veux savoir c'est quoi le dernier rebond qui est capable de directement rejoindre la caméra. On effectue une moyenne pondérée du dernier points de ces rayons, les rayons les plus courts sont favorisée et les rayons longs moins.
+Ce poids de pondération devrait plus tôt être défini par l'énergie que possède le rayon le plus fort.
 ---
+
+
 
 ### Recherches à faire
 
 #### Méthode de génération de points de départs
 
 #### NEE (Next Event Estimation)
+
+#### Filtre Temporel ou Néttoyage Brutal (Si on bouge, les sons doivent être readapter)
+
+#### Moyenne Mobile Exponentielle
+
+#### L'effet Haas dynamique
