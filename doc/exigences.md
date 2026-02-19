@@ -16,7 +16,8 @@ Faire un espace 3D dans lequel un utilisateur peux se déplacer de façon intuit
 |||
 
 ### Contraintes
-Doit être intuitif et configurable pour s'adapter à une préférence d'un utilisateur (Contrôles caméra)
+- Être Intuitif
+- Être Configurable pour s'adapter aux préférences des utilisateurs (Contrôles caméra)
 
 ---
 
