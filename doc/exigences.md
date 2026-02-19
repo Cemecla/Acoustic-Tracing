@@ -112,3 +112,38 @@ Il faut que le logiciel soit fonctionnel avec des ressources plus limités que l
 - Faire la charge de calculs du son sur le processeur.
 - Faire la charge de calcul du visuel sur la carte graphique.
 - Trouver le juste milieu entre rendu audio réaliste et performance de l'ordinateur.
+
+## Importations de scènes
+Être capable d'importer des scènes 3D, pour être utiliser dans au travers du logiciel.
+
+### Utilisateurs visées
+- Développeurs de Jeux vidéo
+- Architectes
+- Ingénieurs sons.
+
+### Importance
+|Importance|?|
+|---------|---|
+|Indispensable|
+|Souhaitable||
+|Optionnel|
+|Pour une version ultérieure|X|
+|||
+
+
+## Importations de son
+Être capable d'importer des fichiers audio dans un scénario et de pouvoir les utiliser aux travers des scènes.
+
+### Utilisateurs visées
+- Développeurs de Jeux vidéo
+- Architectes
+- Ingénieurs sons.
+
+### Importance
+|Importance|?|
+|---------|---|
+|Indispensable|
+|Souhaitable||
+|Optionnel|
+|Pour une version ultérieure|X|
+|||
