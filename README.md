@@ -11,7 +11,7 @@ Logiciel de simulation d'un environnement sonore.
 
 ## Crédits
 ### Libraries
-- Panda3D par Carnegie Mellon University
+- QT par QT Group
 - 
 -
 
