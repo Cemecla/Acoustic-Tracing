@@ -12,7 +12,7 @@ Logiciel de simulation d'un environnement sonore.
 ## Crédits
 ### Libraries
 - QT par QT Group
-- 
+- JUCE par Raw Material Software Limited
 -
 
 ### Assets
