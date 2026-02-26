@@ -1,0 +1,37 @@
+{
+    "title": "Default",
+    "desc": "Default description",
+    "data": {
+        "voxelSize": 1.0,
+        "chunkSize": 16,
+        "mapHeight": 500,
+        "mapWidth": 500,
+        "mapLenght": 500,
+        "userSpawnPos": [10, 10, 10],
+        "voxels": []
+    },
+    "scenario": [
+        {
+            "name": "sound1.wav",
+            "volume": 0.7,
+            "event": {
+                "type": "collisionEvent",
+                "value": {
+                    "pos": [1, 1, 1],
+                    "delta": 50
+                }
+            }
+        },
+        {
+            "name": "sound2.wav",
+            "volume": 0.1,
+            "event": {
+                "type": "timerEvent",
+                "value": {
+                    "pos": [1, 6, 7],
+                    "time": 500000
+                }
+            }
+        }
+    ]
+}
