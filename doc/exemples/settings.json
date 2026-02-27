@@ -1,0 +1,21 @@
+{
+    "audio": {
+
+    },
+    "graphic": {
+        "theme": "dark",
+        "occlusion": true
+    },
+    "config": {
+        "language": "fr",
+        "commands": {
+            "left": ["a"],
+            "right": ["d"],
+            "up": ["w"],
+            "down": ["s"],
+            "rotateX": ["q"],
+            "rotateY": ["e"],
+            "pause": ["echap"]
+        }
+    }
+}
