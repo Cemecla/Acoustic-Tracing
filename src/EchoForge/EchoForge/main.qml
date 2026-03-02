@@ -5,13 +5,13 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: "EchoForge"
+    title: "Echo Forge"
     Text {
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font.bold: true
-        font.pointSize: 42
-        text: "Hello World!"
+        font.pointSize: 24
+        text: "ECHO FORGE COMING SOON!"
     }
 }

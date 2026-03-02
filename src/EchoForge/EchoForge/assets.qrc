@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="logo">../../../assets/window_logo.png</file>
+    </qresource>
+</RCC>
