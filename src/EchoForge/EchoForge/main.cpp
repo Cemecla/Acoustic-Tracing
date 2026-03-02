@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     // This class must reside inside the main
     QGuiApplication app(argc, argv);
 
+    // Set the window logo 
     app.setWindowIcon(QIcon(":/images/logo"));
 
     // Creation of the Echo Forge Controller

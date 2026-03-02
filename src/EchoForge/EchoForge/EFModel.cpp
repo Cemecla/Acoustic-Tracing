@@ -2,7 +2,7 @@
 #include "EFController.h"
 
 
-EFModel::EFModel(EFController* parent): parent_(parent) 
+EFModel::EFModel(EFController* parent): m_parent(parent) 
 {
 }
 

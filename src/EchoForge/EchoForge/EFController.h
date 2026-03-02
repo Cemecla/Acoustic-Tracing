@@ -1,4 +1,5 @@
 #pragma once
+#include <Memory>
 
 class EFModel;
 class EFView;
@@ -7,9 +8,8 @@ class EFController
 {
 	public:
 		EFController();
-		~EFController();
 
 	private:
-		EFModel* model_;
-		EFView* view_;
+		std::unique_ptr<EFModel> m_model;
+		std::unique_ptr<EFView> m_view;
 };

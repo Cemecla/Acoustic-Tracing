@@ -9,6 +9,6 @@ class EFView
 		~EFView();
 	
 	private:
-		EFController* parent_;
-		QQmlApplicationEngine* qtEngine_;
+		EFController* m_parent;
+		QQmlApplicationEngine* m_qtEngine;
 };

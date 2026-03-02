@@ -9,5 +9,5 @@ class EFModel
 		~EFModel();
 	
 	private:
-		EFController* parent_;
+		EFController* m_parent;
 };

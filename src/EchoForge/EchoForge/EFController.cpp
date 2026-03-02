@@ -3,13 +3,6 @@
 #include "EFView.h"
 
 // Constructor
-EFController::EFController() {
-	model_ = new EFModel(this); 
-	view_ = new EFView(this);
-}
+EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(std::make_unique<EFView>(this)){
 
-// Deconstructor
-EFController::~EFController() {
-	delete model_;
-	delete view_;
 }

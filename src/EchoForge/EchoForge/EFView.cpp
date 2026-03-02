@@ -2,9 +2,9 @@
 #include "EFController.h"
 #include <QQmlApplicationEngine>
 
-EFView::EFView(EFController* parent) : parent_(parent), qtEngine_(new QQmlApplicationEngine)
+EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine)
 {
-	qtEngine_->load(QUrl(QStringLiteral("qrc:/qt/qml/echoforge/main.qml")));
+	m_qtEngine->load(QUrl(QStringLiteral("qrc:/qt/qml/echoforge/main.qml")));
 }
 
 EFView::~EFView()
