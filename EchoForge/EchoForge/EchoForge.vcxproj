@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6A0050E5-AF7F-4C9C-BC8A-207CA928AD61}</ProjectGuid>
+    <ProjectGuid>{B27CE17C-D930-4A43-BFC5-40C28994F36F}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
@@ -37,13 +37,13 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.10.2_msvc2022_64</QtInstall>
-    <QtModules>quick;quick3d;quickcontrols2</QtModules>
+    <QtModules>qml;quick;quick3d;quickcontrols2</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.10.2_msvc2022_64</QtInstall>
-    <QtModules>quick;quick3d;quickcontrols2</QtModules>
+    <QtModules>qml;quick;quick3d;quickcontrols2</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -95,7 +95,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <QtRcc Include="qml.qrc" />
-    <None Include="HelloWorld.qml" />
     <None Include="main.qml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,9 +21,6 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
-    <Filter Include="Source Files\QML Components">
-      <UniqueIdentifier>{4c05232d-3356-42f3-9dae-be337c108219}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,13 +29,8 @@
     <QtRcc Include="qml.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HelloWorld.qml">
-      <Filter>Source Files\QML Components</Filter>
-    </None>
     <None Include="main.qml">
-      <Filter>Source Files\QML Components</Filter>
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>

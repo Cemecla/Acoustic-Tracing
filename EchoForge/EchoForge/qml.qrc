@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/qt/qml/echoforge">
         <file>main.qml</file>
-        <file>HelloWorld.qml</file>
     </qresource>
 </RCC>
