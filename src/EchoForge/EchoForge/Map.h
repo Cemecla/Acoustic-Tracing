@@ -5,23 +5,14 @@
 enum class Materiel :uint8_t
 {
 	EMPTY,
-	STONE
+	STONE,
 };
 
 class Map
 {
-public:
-	Map();
-	~Map();
-
-private:
-
+	public:
+		Map();
+	
+	private:
+	
 };
-
-Map::Map()
-{
-}
-
-Map::~Map()
-{
-}

@@ -98,6 +98,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="EFController.cpp" />
     <ClCompile Include="EFModel.cpp" />
     <ClCompile Include="EFView.cpp" />
@@ -109,6 +110,7 @@
     <None Include="main.qml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Avatar.h" />
     <ClInclude Include="EFController.h" />
     <ClInclude Include="EFModel.h" />
     <ClInclude Include="EFView.h" />

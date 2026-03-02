@@ -1,6 +1,7 @@
 #include "EFController.h"
 #include <QGuiApplication>
 #include <qicon.h>
+#include "Avatar.h"
 
 int main(int argc, char *argv[])
 {

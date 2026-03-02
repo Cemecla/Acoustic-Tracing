@@ -6,3 +6,7 @@
 EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(std::make_unique<EFView>(this)){
 
 }
+
+bool EFController::mainLoop() {
+	return true;
+}

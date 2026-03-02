@@ -12,4 +12,6 @@ class EFController
 	private:
 		std::unique_ptr<EFModel> m_model;
 		std::unique_ptr<EFView> m_view;
+
+		bool mainLoop();
 };
