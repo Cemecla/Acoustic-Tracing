@@ -13,7 +13,8 @@ Logiciel de simulation d'un environnement sonore.
 ### Libraries
 - QT par QT Group
 - JUCE par Raw Material Software Limited
--
+- JSON for Modern C++ par Niels Lohmann
+- Eigen C++ par The Eigen Authors
 
 ### Assets
 -
