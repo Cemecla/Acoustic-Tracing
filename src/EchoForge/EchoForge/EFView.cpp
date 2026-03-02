@@ -1,6 +1,7 @@
+#include <QQmlApplicationEngine>
+
 #include "EFView.h"
 #include "EFController.h"
-#include <QQmlApplicationEngine>
 
 EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine)
 {

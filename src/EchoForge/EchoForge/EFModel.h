@@ -6,16 +6,39 @@
 using json = nlohmann::json;
 
 class EFController;
+class Map;
 
-class EFModel
-{
-	public:
-		EFModel(EFController* parent);
-		json loadJson(std::string name);
-		bool saveJson(json data, std::string name);
+#ifndef __EFModel__
+	#define __EFModel__
 
-		
+	class EFModel
+	{
+		public:
+			/**
+			*	Main constructor
+			*	desc: The EFModel is where the logic reside and take the Controller as the parent
+			*   param parent: EFController
+			*/
+			EFModel(EFController* parent);
+
+			/**
+			*	desc:
+			*   param name: string
+			*	return: json
+			*/
+			json loadJson(std::string name);
+
+			/**
+			*	desc:
+			*	param data: json
+			*   param name: string
+			*/
+			bool saveJson(json data, std::string name);
 	
-	private:
-		EFController* m_parent;
-};
+			
+		
+		private:
+			EFController* m_parent;
+	};
+
+#endif

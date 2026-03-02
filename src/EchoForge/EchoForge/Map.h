@@ -8,11 +8,16 @@ enum class Materiel :uint8_t
 	STONE,
 };
 
-class Map
-{
-	public:
-		Map();
-	
-	private:
-	
-};
+#ifndef __Map__
+	#define __Map__
+
+	class Map
+	{
+		public:
+			Map();
+		
+		private:
+		
+	};
+
+#endif

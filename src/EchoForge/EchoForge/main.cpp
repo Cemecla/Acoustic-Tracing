@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     #endif
     
     // Creation of the QGuiApplication
-    // This class must reside inside the main
+    // This object must reside inside the main
     QGuiApplication app(argc, argv);
 
     // Set the window logo 

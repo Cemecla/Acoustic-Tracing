@@ -1,7 +1,10 @@
-#include "EFModel.h"
-#include "EFController.h"
 #include <fstream>
 #include <iostream>
+
+#include "EFModel.h"
+#include "EFController.h"
+#include "Map.h"
+
 
 
 EFModel::EFModel(EFController* parent): m_parent(parent) 
