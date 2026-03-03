@@ -17,20 +17,19 @@
 			std::vector<float> m_currentPosition;
 
 	public:
-		//
-		// Méthode pour retirer l'énergie lors d'une collision
-		// - Prends un float de 0 à 1 pour l'absorption du matériel
-		void loseEnergy(float obsorption);
+		// Method : change energy with a absorption value
+		// - float  0 - 1 , absorption of materials
+		void loseEnergy(float absorption);
 
 		float getEnergy();
 		
-		// Méthode pour optenir la position actuelle du rayon
+		// Method: get current position of the ray
 		std::vector<float> getPosition();
-
-		//Méthode pour obtenir le temps depuis l'envoye du rayon
+		
+		//Method: get time (ms) since ray init
 		int getTimeDelta();
 
-		// Constructeur d'un Rayon
+		// Constructor
 		Ray(std::vector<float> position, std::vector<float> velocity);
 
 

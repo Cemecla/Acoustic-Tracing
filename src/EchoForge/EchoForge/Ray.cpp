@@ -15,7 +15,7 @@ Ray::Ray(std::vector<float> position, std::vector<float> velocity)
 
 void Ray::loseEnergy(float absorption) {
 	if (absorption > 0 && absorption > 1)
-		throw Error::OUT_OF_BOUNDS; // Erreure de TypeError
+		throw Error::OUT_OF_BOUNDS;
 	m_energy -= absorption * m_energy;
 };
 
