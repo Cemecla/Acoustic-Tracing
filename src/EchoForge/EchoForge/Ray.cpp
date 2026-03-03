@@ -2,7 +2,7 @@
 #include "Error.h"
 
 
-Ray::Ray(std::vector<float> position, std::vector<float> velocity)
+Ray::Ray(Vector::Vector3 position, Vector::Vector3 velocity)
 	: m_startPosition{ position }
 	, m_velocity{ velocity }
 	, m_energy(1.0f)
@@ -23,7 +23,7 @@ float Ray::getEnergy() {
 	return m_energy;
 };
 
-std::vector<float> Ray::getPosition() {
+Vector::Vector3 Ray::getPosition() {
 	return m_currentPosition;
 };
 
