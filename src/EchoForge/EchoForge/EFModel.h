@@ -8,8 +8,8 @@ using json = nlohmann::json;
 class EFController;
 class Map;
 
-#ifndef __EFModel__
-	#define __EFModel__
+#ifndef EF_MODEL_H
+	#define EF_MODEL_H
 
 	class EFModel
 	{

@@ -4,8 +4,8 @@
 class EFModel;
 class EFView;
 
-#ifndef __EFController__
-	#define __EFController__
+#ifndef EF_CONTROLLER_H
+	#define EF_CONTROLLER_H
 	class EFController
 	{
 		public:

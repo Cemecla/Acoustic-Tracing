@@ -1,40 +1,42 @@
 #include "Avatar.h"
 
+using namespace std;
+
 // AVATAR SECTION
-Avatar::Avatar(tuple<float, float, float> position, tuple<float, float, float> angles): m_head(make_unique<Head>(angles)), m_position(position)
+Avatar::Avatar(Vector::Vector3 position, Vector::Vector3 angles): m_head(angles), m_position(position)
 {
 
 }
 
-tuple<float, float, float> Avatar::getHeadAngles() {
-	return m_head->getAngles();
+Vector::Vector3 Avatar::getHeadAngles() {
+	return m_head.getAngles();
 }
 
-void Avatar::rotateHead(tuple<float, float, float> mods) {
-	m_head->rotate(mods);
+void Avatar::rotateHead(Vector::Vector3 mods) {
+	m_head.rotate(mods);
 }
 
-tuple<float, float, float> Avatar::getPosition() {
+Vector::Vector3 Avatar::getPosition() {
 	return m_position;
 }
 
-void Avatar::move(tuple<float, float, float> mods) {
+void Avatar::move(Vector::Vector3 mods) {
 	// m_position += mods;
 }
 
-void Avatar::moveTo(tuple<float, float, float> newPos) {
+void Avatar::moveTo(Vector::Vector3 newPos) {
 	m_position = newPos;
 }
 
 // HEAD SECTION
-Avatar::Head::Head(tuple<float, float, float> angles): m_angles(angles) {
+Avatar::Head::Head(Vector::Vector3 angles): m_angles(angles) {
 
 }
 
-void Avatar::Head::rotate(tuple<float, float, float> mods) {
+void Avatar::Head::rotate(Vector::Vector3 mods) {
 	// m_angles += mods;
 }
 
-tuple<float, float, float> Avatar::Head::getAngles() {
+Vector::Vector3 Avatar::Head::getAngles() {
 	return m_angles;
 }

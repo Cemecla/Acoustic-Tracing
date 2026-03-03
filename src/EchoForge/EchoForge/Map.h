@@ -8,8 +8,8 @@ enum class Materiel :uint8_t
 	STONE,
 };
 
-#ifndef __Map__
-	#define __Map__
+#ifndef MAP_H
+	#define MAP_H
 
 	class Map
 	{

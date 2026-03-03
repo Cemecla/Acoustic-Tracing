@@ -3,8 +3,8 @@
 #include <vector>
 #include <chrono>
 
-#ifndef __Ray__
-	#define __Ray__
+#ifndef RAY_H
+	#define RAY_H
 	
 	class Ray
 	{

@@ -2,8 +2,8 @@
 class EFController;
 class QQmlApplicationEngine;
 
-#ifndef __EFView__
-	#define __EFView__
+#ifndef EF_VIEW_H
+	#define EF_VIEW_H
 	class EFView
 	{
 		public:
