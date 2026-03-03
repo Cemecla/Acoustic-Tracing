@@ -24,6 +24,15 @@
     <Filter Include="Source Files\qml">
       <UniqueIdentifier>{4a7ba766-5896-42a6-b4f3-938267d3d0f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\RayManager">
+      <UniqueIdentifier>{5d2f84eb-319b-480c-b35b-a932e21441eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RayManager">
+      <UniqueIdentifier>{44b60b6a-18c5-481b-b8c7-0f0a0b4abb1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Constants">
+      <UniqueIdentifier>{f50a2b54-24db-4700-8d56-c2304775e62f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,11 +53,11 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Avatar.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source Files\RayManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,14 +73,17 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Avatar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Header Files\RayManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
