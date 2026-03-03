@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace Vector{
 	struct Vector2
 	{

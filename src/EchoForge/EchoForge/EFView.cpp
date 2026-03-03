@@ -11,3 +11,7 @@ EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlAppl
 EFView::~EFView()
 {
 }
+
+void EFView::update() {
+
+}

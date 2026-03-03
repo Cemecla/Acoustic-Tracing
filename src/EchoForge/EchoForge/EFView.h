@@ -9,6 +9,8 @@ class QQmlApplicationEngine;
 		public:
 			EFView(EFController* parent);
 			~EFView();
+
+			void update();
 		
 		private:
 			EFController* m_parent;

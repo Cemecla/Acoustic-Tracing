@@ -33,7 +33,14 @@ class Map;
 			*	param data: json
 			*   param name: string
 			*/
-			bool saveJson(json data, std::string name);
+			bool saveJson(const json& data, std::string name);
+
+			/**
+			*	desc:
+			*	param data: json
+			*   param name: string
+			*/
+			void update();
 	
 			
 		

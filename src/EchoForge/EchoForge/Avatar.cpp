@@ -8,23 +8,23 @@ Avatar::Avatar(Vector::Vector3 position, Vector::Vector3 angles): m_head(angles)
 
 }
 
-Vector::Vector3 Avatar::getHeadAngles() {
+const Vector::Vector3& Avatar::getHeadAngles() const {
 	return m_head.getAngles();
 }
 
-void Avatar::rotateHead(Vector::Vector3 mods) {
+void Avatar::rotateHead(const Vector::Vector3& mods) {
 	m_head.rotate(mods);
 }
 
-Vector::Vector3 Avatar::getPosition() {
+const Vector::Vector3& Avatar::getPosition() const{
 	return m_position;
 }
 
-void Avatar::move(Vector::Vector3 mods) {
+void Avatar::move(const Vector::Vector3& mods) {
 	// m_position += mods;
 }
 
-void Avatar::moveTo(Vector::Vector3 newPos) {
+void Avatar::moveTo(const Vector::Vector3& newPos) {
 	m_position = newPos;
 }
 
@@ -33,10 +33,10 @@ Avatar::Head::Head(Vector::Vector3 angles): m_angles(angles) {
 
 }
 
-void Avatar::Head::rotate(Vector::Vector3 mods) {
+void Avatar::Head::rotate(const Vector::Vector3& mods) {
 	// m_angles += mods;
 }
 
-Vector::Vector3 Avatar::Head::getAngles() {
+const Vector::Vector3& Avatar::Head::getAngles() const {
 	return m_angles;
 }

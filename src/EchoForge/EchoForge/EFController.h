@@ -13,12 +13,13 @@ class EFView;
 			*	Default constructor
 			*/
 			EFController();
+
+			bool run();
 	
 		private:
 			std::unique_ptr<EFModel> m_model;
 			std::unique_ptr<EFView> m_view;
-	
-			bool mainLoop();
-	};
 
+	};
+	
 #endif
