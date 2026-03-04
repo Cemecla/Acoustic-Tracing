@@ -21,7 +21,7 @@ const Vector::Vector3& Avatar::getPosition() const{
 }
 
 void Avatar::move(const Vector::Vector3& mods) {
-	// m_position += mods;
+	m_position += mods;
 }
 
 void Avatar::moveTo(const Vector::Vector3& newPos) {
@@ -34,7 +34,7 @@ Avatar::Head::Head(Vector::Vector3 angles): m_angles(angles) {
 }
 
 void Avatar::Head::rotate(const Vector::Vector3& mods) {
-	// m_angles += mods;
+	m_angles += mods;
 }
 
 const Vector::Vector3& Avatar::Head::getAngles() const {
