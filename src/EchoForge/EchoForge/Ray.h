@@ -6,7 +6,7 @@
 
 #ifndef RAY_H
 	#define RAY_H
-	
+	namespace Tracing{
 	class Ray
 	{
 		private:
@@ -35,6 +35,8 @@
 
 
 	};
+
+	}
 	
 
 #endif // !__Ray__
