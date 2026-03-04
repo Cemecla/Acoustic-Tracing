@@ -85,6 +85,12 @@
     <ClInclude Include="Error.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="RayManager.h">
+      <Filter>Header Files\RayManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DTO_RecievedRay.h">
+      <Filter>Header Files\RayManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="assets.qrc">

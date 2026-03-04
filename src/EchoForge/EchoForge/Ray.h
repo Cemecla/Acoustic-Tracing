@@ -6,7 +6,7 @@
 
 #ifndef RAY_H
 	#define RAY_H
-	
+	namespace Tracing{
 	class Ray
 	{
 		private:
@@ -20,7 +20,7 @@
 	public:
 		// Method : change energy with a absorption value
 		// - float  0 - 1 , absorption of materials
-		void loseEnergy(float absorption);
+		void loseEnergy(const float& absorptin);
 
 		float getEnergy();
 		
@@ -35,6 +35,8 @@
 
 
 	};
+
+	}
 	
 
 #endif // !__Ray__

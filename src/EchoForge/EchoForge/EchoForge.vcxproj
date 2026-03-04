@@ -111,12 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
+    <ClInclude Include="DTO_RecievedRay.h" />
     <ClInclude Include="EFController.h" />
     <ClInclude Include="EFModel.h" />
     <ClInclude Include="EFView.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="RayManager.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
