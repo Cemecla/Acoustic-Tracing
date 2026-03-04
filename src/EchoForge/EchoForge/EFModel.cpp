@@ -7,8 +7,8 @@
 
 
 
-EFModel::EFModel(EFController* parent): m_parent(parent) 
-{
+EFModel::EFModel(EFController* parent): m_parent(parent) {
+
 }
 
 void EFModel::update() {

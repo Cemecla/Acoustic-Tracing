@@ -3,8 +3,7 @@
 using namespace std;
 
 // AVATAR SECTION
-Avatar::Avatar(Vector::Vector3 position, Vector::Vector3 angles): m_head(angles), m_position(position)
-{
+Avatar::Avatar(Vector::Vector3 position, Vector::Vector3 angles): m_head(angles), m_position(position) {
 
 }
 
@@ -16,7 +15,7 @@ void Avatar::rotateHead(const Vector::Vector3& mods) {
 	m_head.rotate(mods);
 }
 
-const Vector::Vector3& Avatar::getPosition() const{
+const Vector::Vector3& Avatar::getPosition() const {
 	return m_position;
 }
 

@@ -1,14 +1,13 @@
 #pragma once
 
 namespace Vector {
-	struct Vector2
-	{
+	struct Vector2 {
 		float x{};
 		float y{};
 
 		/**
 		*	Main constructor
-		*	desc: 
+		*	desc: Vector2 need three value x, y
 		*   param x: float
 		*	param y: float
 		*/
@@ -18,7 +17,7 @@ namespace Vector {
 		}
 
 		/**
-		*   desc: Vector2 need two value x, y
+		*   desc: Add two Vector2 to create a new Vector2
 		*   param v: Vector2&
 		*/
 		Vector2 operator+(const Vector2& v) const {
@@ -26,7 +25,7 @@ namespace Vector {
 		}
 
 		/**
-		*	desc: Add two Vector2 to create a new Vector2
+		*	desc: Add a Vector3 to this Vector3 struct
 		*   param v: Vector2&
 		*/
 		void operator+=(const Vector2& v) {
@@ -35,8 +34,7 @@ namespace Vector {
 		}
 	};
 
-	struct Vector3
-	{
+	struct Vector3 {
 		float x{};
 		float y{};
 		float z{};

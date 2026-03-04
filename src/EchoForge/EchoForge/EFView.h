@@ -4,11 +4,9 @@ class QQmlApplicationEngine;
 
 #ifndef EF_VIEW_H
 	#define EF_VIEW_H
-	class EFView
-	{
+	class EFView {
 		public:
 			EFView(EFController* parent);
-			~EFView();
 
 			void update();
 		

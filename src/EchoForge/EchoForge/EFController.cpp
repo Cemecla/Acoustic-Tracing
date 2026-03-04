@@ -3,7 +3,7 @@
 #include "EFView.h"
 
 // Constructor
-EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(std::make_unique<EFView>(this)){
+EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(std::make_unique<EFView>(this)) {
 
 }
 

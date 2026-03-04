@@ -11,8 +11,7 @@ class Map;
 #ifndef EF_MODEL_H
 	#define EF_MODEL_H
 
-	class EFModel
-	{
+	class EFModel {
 		public:
 			/**
 			*	Main constructor

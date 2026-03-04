@@ -6,8 +6,7 @@ class EFView;
 
 #ifndef EF_CONTROLLER_H
 	#define EF_CONTROLLER_H
-	class EFController
-	{
+	class EFController {
 		public:
 			/**
 			*	Default constructor

@@ -4,8 +4,8 @@
 
 #ifndef AVATAR_H
 	#define AVATAR_H
-	class Avatar
-	{
+
+	class Avatar {
 		public:
 			/**
 			*	Main constructor
