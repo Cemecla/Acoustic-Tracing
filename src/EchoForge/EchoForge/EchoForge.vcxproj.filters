@@ -91,6 +91,9 @@
     <ClInclude Include="DTO_RecievedRay.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="assets.qrc">

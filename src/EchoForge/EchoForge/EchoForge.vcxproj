@@ -116,6 +116,7 @@
     <ClInclude Include="EFModel.h" />
     <ClInclude Include="EFView.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="RayManager.h" />
