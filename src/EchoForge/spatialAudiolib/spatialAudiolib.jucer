@@ -4,6 +4,9 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="KWbzeU" name="spatialAudiolib">
     <GROUP id="{394D1179-25A1-8B46-DFCC-DC9374885457}" name="Source">
+      <FILE id="QiYc2r" name="ListnerState.cpp" compile="1" resource="0"
+            file="Source/ListnerState.cpp"/>
+      <FILE id="z0ZbIl" name="ListnerState.h" compile="0" resource="0" file="Source/ListnerState.h"/>
       <FILE id="tUgETu" name="SoundSource.cpp" compile="1" resource="0" file="Source/SoundSource.cpp"/>
       <FILE id="eyJChg" name="SoundSource.h" compile="0" resource="0" file="Source/SoundSource.h"/>
       <FILE id="cwgF8h" name="SpatialAudioEngine.cpp" compile="1" resource="0"

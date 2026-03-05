@@ -11,17 +11,21 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "SoundSource.h"
+
 class SpatialAudioEngine
 {
 public:
-	//SpatialAudioEngine();
-	//~SpatialAudioEngine();
-
     void prepare(double sampleRate, int bufferSize);
     //void addSource(juce::AudioBuffer<float>& buffer);
-    void runProcessingLoop();
+     void addSource(const juce::String& filePath);
+
+    //void runProcessingLoop();
 
 private:
+    juce::AudioBuffer<float> m_mixBufferL;
+    juce::AudioBuffer<float> m_mixBufferR;
+    std::vector<SoundSource> m_sources;
 
 };
 
