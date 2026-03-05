@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Vector {
+namespace EF {
 	struct Vector2 {
 		float x{};
 		float y{};
@@ -31,6 +31,11 @@ namespace Vector {
 		void operator+=(const Vector2& v) {
 			x += v.x;
 			y += v.y;
+		}
+
+		void operator*=(const int& n) {
+			x *= n;
+			y *= n;
 		}
 	};
 
@@ -68,6 +73,12 @@ namespace Vector {
 			x += v.x;
 			y += v.y;
 			z += v.z;
+		}
+
+		void operator*=(const int& n) {
+			x *= n;
+			y *= n;
+			z *= n;
 		}
 	};
 }

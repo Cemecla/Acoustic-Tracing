@@ -2,7 +2,7 @@
 #include "Error.h"
 
 
-Tracing::Ray::Ray(Vector::Vector3 position, Vector::Vector3 velocity)
+Tracing::Ray::Ray(EF::Vector3 position, EF::Vector3 velocity)
 	: m_startPosition{ position }
 	, m_velocity{ velocity }
 	, m_energy(1.0f)
@@ -23,7 +23,7 @@ float Tracing::Ray::getEnergy() {
 	return m_energy;
 };
 
-Vector::Vector3 Tracing::Ray::getPosition() {
+EF::Vector3 Tracing::Ray::getPosition() {
 	return m_currentPosition;
 };
 

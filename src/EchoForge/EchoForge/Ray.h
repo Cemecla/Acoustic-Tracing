@@ -10,12 +10,12 @@
 	class Ray
 	{
 		private:
-			Vector::Vector3 m_startPosition;
-			Vector::Vector3 m_lastSeen;
+			EF::Vector3 m_startPosition;
+			EF::Vector3 m_lastSeen;
 			float m_energy;
 			std::chrono::high_resolution_clock::time_point m_time ;
-			Vector::Vector3 m_velocity;
-			Vector::Vector3 m_currentPosition;
+			EF::Vector3 m_velocity;
+			EF::Vector3 m_currentPosition;
 
 	public:
 		// Method : change energy with a absorption value
@@ -25,13 +25,13 @@
 		float getEnergy();
 		
 		// Method: get current position of the ray
-		Vector::Vector3 getPosition();
+		EF::Vector3 getPosition();
 		
 		//Method: get time (ms) since ray init
 		int getTimeDelta();
 
 		// Constructor
-		Ray(Vector::Vector3 position, Vector::Vector3 velocity);
+		Ray(EF::Vector3 position, EF::Vector3 velocity);
 
 
 	};
