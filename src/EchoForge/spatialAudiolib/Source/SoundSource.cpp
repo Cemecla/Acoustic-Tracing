@@ -24,9 +24,9 @@ void SoundSource::loadFromPath(const juce::String& filePath)
     if (reader != nullptr)
     {
         //create buffer of size of the audio file  (number of channel,size)
-        m_audioBuffer.setSize(1, reader->lengthInSamples);
+        m_audioBuffer.setSize(1, (int)reader->lengthInSamples);
         //filing up the buffer 
-        reader->read (&m_audioBuffer, 0, reader->lengthInSamples, readPosition,true,false);
+        reader->read (&m_audioBuffer, 0, (int)reader->lengthInSamples, readPosition,true,false);
         
     }
 }

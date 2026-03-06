@@ -146,6 +146,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CircularStereoBuffer.cpp"/>
     <ClCompile Include="..\..\Source\ListnerState.cpp"/>
     <ClCompile Include="..\..\Source\SoundSource.cpp"/>
     <ClCompile Include="..\..\Source\SpatialAudioEngine.cpp"/>
@@ -1328,6 +1329,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_events.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\CircularStereoBuffer.h"/>
     <ClInclude Include="..\..\Source\ListnerState.h"/>
     <ClInclude Include="..\..\Source\SoundSource.h"/>
     <ClInclude Include="..\..\Source\SpatialAudioEngine.h"/>

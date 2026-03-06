@@ -271,6 +271,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CircularStereoBuffer.cpp">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ListnerState.cpp">
       <Filter>spatialAudiolib\Source</Filter>
     </ClCompile>
@@ -1524,6 +1527,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\CircularStereoBuffer.h">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ListnerState.h">
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>

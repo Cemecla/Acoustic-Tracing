@@ -4,6 +4,10 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="KWbzeU" name="spatialAudiolib">
     <GROUP id="{394D1179-25A1-8B46-DFCC-DC9374885457}" name="Source">
+      <FILE id="inkM7a" name="CircularStereoBuffer.cpp" compile="1" resource="0"
+            file="Source/CircularStereoBuffer.cpp"/>
+      <FILE id="jGcJFP" name="CircularStereoBuffer.h" compile="0" resource="0"
+            file="Source/CircularStereoBuffer.h"/>
       <FILE id="QiYc2r" name="ListnerState.cpp" compile="1" resource="0"
             file="Source/ListnerState.cpp"/>
       <FILE id="z0ZbIl" name="ListnerState.h" compile="0" resource="0" file="Source/ListnerState.h"/>
