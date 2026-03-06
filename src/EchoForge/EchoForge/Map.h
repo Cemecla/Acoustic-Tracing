@@ -16,23 +16,26 @@ enum class Materiel: uint8_t {
 	#define MAP_H
 
 	class Map {
-		// Y is heigh axis, x width, z lenght
+		// Y is height axis, x width, z depth
 		public:
-			Map(int width, int height, int length);
-			const Materiel fetchMateriel(const int& x, const int& y, const int& z) const;
-			const std::uint8_t fetchMaterielId(const int& x, const int& y, const int& z) const;
+			Map();
+			Map(int width, int height, int depth);
+			Map(int width, int height, int depth, float voxelSizeCm);
+			const Materiel fetchMateriel(const int x, const int y, const int z) const;
+			const std::uint8_t fetchMaterielId(const int x, const int y, const int z) const;
 
-			void alterMateriel(const int& x, const int& y, const int& z, Materiel materiel);
-			void destroyMateriel(const int& x, const int& y, const int& z);
+			void alterMateriel(const int x, const int y, const int z, Materiel materiel);
+			void destroyMateriel(const int x, const int y, const int z);
 		
 		private:
 			int m_width;
 			int m_height;
-			int m_length;
+			int m_depth;
+			float m_voxelSizeCm;
 			std::vector<int> m_map;
 
-			const int findId(const int& x, const int& y, const int& z) const;
-			const bool assertOutOfBound(const int& x, const int& y, const int& z) const;
+			inline const int findId(const int x, const int y, const int z) const;
+			const bool assertOutOfBound(const int x, const int y, const int z) const;
 	};
 
 #endif
