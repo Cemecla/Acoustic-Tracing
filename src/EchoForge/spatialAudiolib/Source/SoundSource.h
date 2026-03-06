@@ -12,7 +12,8 @@
 #include <JuceHeader.h>
 #ifndef SOUNDSOURCE_H
 #define SOUNDSOURCE_H
-namespace yutaSound {
+
+namespace YutaSound {
 
     class SoundSource {
     public:
@@ -27,7 +28,7 @@ namespace yutaSound {
         //bool isPlaying = true;
 
         //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
-        int m_readPosition = 0;
+        int readPosition = 0;
 
 
     private:

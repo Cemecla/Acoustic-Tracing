@@ -9,13 +9,6 @@
 */
 
 #include "ListnerState.h"
+using namespace YutaSound;
 
-class ListnerState
-{
-public:
-	// will get azimuth angle and elevation angle of the head 
-
-private:
-
-};
 

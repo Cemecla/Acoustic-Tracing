@@ -14,7 +14,8 @@
 #include "SoundSource.h"
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H
-namespace yutaSound {
+
+namespace YutaSound {
 
     class SpatialAudioEngine
     {

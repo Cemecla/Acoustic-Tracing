@@ -9,7 +9,7 @@
 */
 
 #include "SoundSource.h"
-using namespace yutaSound;
+using namespace YutaSound;
 
 void SoundSource::loadFromPath(const juce::String& filePath) 
 {   
@@ -26,7 +26,7 @@ void SoundSource::loadFromPath(const juce::String& filePath)
         //create buffer of size of the audio file  (number of channel,size)
         m_audioBuffer.setSize(1, reader->lengthInSamples);
         //filing up the buffer 
-        reader->read (&m_audioBuffer, 0, reader->lengthInSamples, m_readPosition,true,false);
+        reader->read (&m_audioBuffer, 0, reader->lengthInSamples, readPosition,true,false);
         
     }
 }
