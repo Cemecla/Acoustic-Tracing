@@ -12,21 +12,27 @@
 
 #include <JuceHeader.h>
 #include "SoundSource.h"
+#ifndef SPATIALAUDIOENGINE_H
+#define SPATIALAUDIOENGINE_H
+namespace yutaSound {
 
-class SpatialAudioEngine
-{
-public:
-    void prepare(double sampleRate, int bufferSize);
-    //void addSource(juce::AudioBuffer<float>& buffer);
-     void addSource(const juce::String& filePath);
+    class SpatialAudioEngine
+    {
+    public:
+        void prepare(double sampleRate, int bufferSize);
+        void addSource(const juce::String& filePath);
+        //void runProcessingLoop();
 
-    //void runProcessingLoop();
+    private:
+        double m_sampleRate = 0.0;
+        int m_bufferSize = 0;
+        juce::AudioBuffer<float> m_mixBufferL;
+        juce::AudioBuffer<float> m_mixBufferR;
+        std::vector<SoundSource> m_sources;
 
-private:
-    juce::AudioBuffer<float> m_mixBufferL;
-    juce::AudioBuffer<float> m_mixBufferR;
-    std::vector<SoundSource> m_sources;
+    };
 
 };
 
+#endif
 

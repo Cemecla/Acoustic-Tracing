@@ -9,11 +9,12 @@
 */
 
 #include "SpatialAudioEngine.h"
-
+#include "SoundSource.h"
+using namespace yutaSound;
 
 void SpatialAudioEngine::prepare(double sampleRate, int bufferSize) {
-    double _sampleRate = sampleRate;
-    int _bufferSize = bufferSize;
+    m_sampleRate = sampleRate;
+    m_bufferSize = bufferSize;
 }
 
 void SpatialAudioEngine::addSource(const juce::String& filePath)

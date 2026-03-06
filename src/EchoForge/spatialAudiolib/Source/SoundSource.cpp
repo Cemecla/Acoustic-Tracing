@@ -9,23 +9,25 @@
 */
 
 #include "SoundSource.h"
+using namespace yutaSound;
 
 void SoundSource::loadFromPath(const juce::String& filePath) 
 {   
     // allow juce to read WAV to the list of accecpted audio file format 
-    m_formatManager.registerBasicFormats();
-    juce::File file(filePath);
-    //not sure redundency maybe its creating itself 2 time  in h?
-    auto* _reader(m_formatManager.createReaderFor(filePath));
+    juce::AudioFormatManager formatManager; 
+    formatManager.registerBasicFormats();
 
-    if (_reader != nullptr)
+    juce::File file(filePath);
+    
+    std::unique_ptr<juce::AudioFormatReader> reader(formatManager.createReaderFor(file));
+
+    if (reader != nullptr)
     {
         //create buffer of size of the audio file  (number of channel,size)
-        m_audioBuffer.setSize((int)1, (int)_reader->lengthInSamples);
+        m_audioBuffer.setSize(1, reader->lengthInSamples);
         //filing up the buffer 
-        _reader->read (&m_audioBuffer, 0, _reader->lengthInSamples, m_readPosition,true,false);
-        //delete the reader no more need but again i beleave it get self deleat because of the unique_ptr in the h
-        delete _reader;
+        reader->read (&m_audioBuffer, 0, reader->lengthInSamples, m_readPosition,true,false);
+        
     }
 }
 

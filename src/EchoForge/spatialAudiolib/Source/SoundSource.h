@@ -10,30 +10,35 @@
 
 #pragma once
 #include <JuceHeader.h>
+#ifndef SOUNDSOURCE_H
+#define SOUNDSOURCE_H
+namespace yutaSound {
 
-class SoundSource {
-public:
-    //function to load a audio file from a path 
-    void loadFromPath(const juce::String& filePath);
-    // getter that send a refference to audiobuffer
-    const juce::AudioBuffer<float>& getAudioBuffer() const;
+    class SoundSource {
+    public:
+        //function to load a audio file from a path 
+        void loadFromPath(const juce::String& filePath);
+        // getter that send a refference to audiobuffer
+        const juce::AudioBuffer<float>& getAudioBuffer() const;
 
-    //TODOO 
+        //TODOO 
 
-    //void changeistnerState();
-    //bool isPlaying = true;
+        //void changeistnerState();
+        //bool isPlaying = true;
+
+        //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
+        int m_readPosition = 0;
 
 
-    
-private:
-    // class that contain list of audio format to be able to read the file in the right format 
-    // may have to change later if we allready know that they are in 32bit float .wav 
-    juce::AudioFormatManager m_formatManager; 
-    // by using unique pointer on to the reader juce will delete itself after the loading of the sound donne 
-    std::unique_ptr<juce::AudioFormatReader> _reader;
-    //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
-    int m_readPosition = 0;
-    int m_id;
-    //specific buffer to save audio data in ram 
-    juce::AudioBuffer<float> m_audioBuffer;
+    private:
+
+        int m_id = 0;
+        //specific buffer to save audio data in ram 
+        juce::AudioBuffer<float> m_audioBuffer;
+    };
+
 };
+
+// have to separate declaration and definition 
+
+#endif
