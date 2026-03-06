@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace EF {
+namespace ef {
 	struct Vector2 {
 		float x{};
 		float y{};
