@@ -36,65 +36,26 @@ namespace Echo {
 
 	public:
 
-		Queue() : m_back(nullptr), m_front(nullptr) {};
+		Queue();
 
-		~Queue() {
-			while (!isEmpty())
-			{
-				pop();
-			}
-		};
+		~Queue();
 
 		// Add a Item to the back of the queue
-		const void push(const T& item) {
-			Item<T>* it = new Item<T>(item);
-			if (isEmpty()) {
-				m_front = it;
-				m_back = it;
-			}
-			else
-			{
-				m_back->m_next = it;
-				m_back = it;
-			}
-
-		};
+		const void push(const T& item);
 
 		// Remove a Item from the front of the queue
-		const T pop() {
-			if (m_front == nullptr) {
-				throw Error::UNDEFINED;
-			}
-			
-			Item<T>* temp = m_front;
+		const T pop();
 
-			m_front = m_front->m_next;
-			if (m_front == nullptr) {
-				m_back = nullptr;
-			}
-			else {
-			}
-			T value = temp->getData();
-			delete temp;
-			return value;
-			
-		};
+
 		// Get the Item at the front of the queue
-		const T& front() {
-			if (isEmpty()) {
-				throw Error::UNDEFINED;
-			}
-			return m_front->getData();
-		};
+		const T& front();
+
+
 		// Get the Item at the back of the queue
-		const T& back() {
-			if (isEmpty()) {
-				throw Error::UNDEFINED;
-			}
-		};
+		const T& back();
 
 		// Get if a queue is empty
-		const bool isEmpty() { return m_front == nullptr; };
+		const bool isEmpty();
 
 		// Get the size of the queue
 		const int size();
@@ -107,8 +68,91 @@ namespace Echo {
 
 
 
+	template<typename T>
+	Queue<T>::Queue() : m_back(nullptr), m_front(nullptr) {};
+
+
+	template<typename T>
+	Queue<T>::~Queue() {
+		while (!isEmpty())
+		{
+			pop();
+		}
+	};
+
+
+	template<typename T>
+	const void Queue<T>::push(const T& item) {
+		Item<T>* it = new Item<T>(item);
+		if (isEmpty()) {
+			m_front = it;
+			m_back = it;
+		}
+		else
+		{
+			m_back->m_next = it;
+			m_back = it;
+		}
+
+	};
+
+
+
+	template<typename T>
+	const T Queue<T>::pop() {
+		if (m_front == nullptr) {
+			throw Error::UNDEFINED;
+		}
+
+		Item<T>* temp = m_front;
+
+		m_front = m_front->m_next;
+		if (m_front == nullptr) {
+			m_back = nullptr;
+		}
+		else {
+		}
+		T value = temp->getData();
+		delete temp;
+		return value;
+
+	};
+
+	template<typename T>
+	const T& Queue<T>::front() {
+		if (isEmpty()) {
+			throw Error::UNDEFINED;
+		}
+		return m_front->getData();
+	};
+
+
+	template<typename T>
+	const T& Queue<T>::back() {
+		if (isEmpty()) {
+			throw Error::UNDEFINED;
+		}
+	};
+
+	template<typename T>
+	const bool Queue<T>::isEmpty() { return m_front == nullptr; };
+
+	template<typename T>
+	const int Queue<T>::size() {
+		int count = 0;
+
+		Item<T>* curr = m_front;
+		while (curr != nullptr)
+		{
+			count++;
+			curr = curr->m_next;
+
+		}
+
+		return count;
+	}
+
 }
 
 #endif // !QUEUE_H
-
 
