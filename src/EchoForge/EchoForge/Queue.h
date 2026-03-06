@@ -1,9 +1,10 @@
 #pragma once
 #include "Error.h"
 
+
 #ifndef QUEUE_H
 #define QUEUE_H
-namespace Echo {
+namespace EF {
 
 	template<typename T>
 	class Item {

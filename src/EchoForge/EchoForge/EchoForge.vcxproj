@@ -104,6 +104,7 @@
     <ClCompile Include="EFView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="RayManager.cpp" />
     <QtRcc Include="assets.qrc" />
     <ClCompile Include="Ray.cpp" />
     <QtRcc Include="qml.qrc" />
