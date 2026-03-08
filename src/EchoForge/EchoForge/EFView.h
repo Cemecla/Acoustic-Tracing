@@ -1,6 +1,7 @@
 #pragma once
 class EFController;
 class QQmlApplicationEngine;
+class UICommunicator;
 
 #ifndef EF_VIEW_H
 	#define EF_VIEW_H
@@ -13,6 +14,9 @@ class QQmlApplicationEngine;
 		private:
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;
+			UICommunicator* m_uiCommunicator;
+
+			void setupCommunicator();
 	};
 
 #endif
