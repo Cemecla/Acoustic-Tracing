@@ -59,6 +59,9 @@
     <ClCompile Include="Ray.cpp">
       <Filter>Source Files\RayManager</Filter>
     </ClCompile>
+    <ClCompile Include="RayManager.cpp">
+      <Filter>Source Files\RayManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EFController.h">
