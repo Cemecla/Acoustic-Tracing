@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-using namespace Tracing;
+using namespace tracing;
 
 
 RayManager::RayManager(int rayCount) : m_rayCount(rayCount), m_rayQueue{ new ef::Queue<std::vector<Ray>>() } {
@@ -11,7 +11,7 @@ RayManager::RayManager(int rayCount) : m_rayCount(rayCount), m_rayQueue{ new ef:
 }
 
 const void RayManager::update() {
-	RayManager::createRays(ef::Vector3(0.0f,0.0f,0.0f));
+	RayManager::createRays(ef::Vector3(0.0f,0.0f,0.0f)); // AT position 0,0,0 TODO: at avatar position
 }
 
 
@@ -28,7 +28,7 @@ const void RayManager::createRays(ef::Vector3 position) {
 
 		float incline = std::acos(1 - 2 * distance);
 		
-		float multiplier = 10.0f;
+		float multiplier = 0.5f;
 
 		float x = std::sin(incline) * std::cos(azimuth) * multiplier;
 		float y = std::sin(incline) * std::sin(azimuth) * multiplier;

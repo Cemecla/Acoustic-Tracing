@@ -6,7 +6,7 @@
 #ifndef RAYMANAGER_H
 	#define RAYMANAGER_H
 
-namespace Tracing {
+namespace tracing {
 
 
 	class RayManager
