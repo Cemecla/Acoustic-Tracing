@@ -201,15 +201,17 @@ namespace ef {
 			return sqrt(x * x + y * y + z * z);
 		}
 
-		inline void normalize() {
+		inline Vector3& normalize() {
 			if (x + y + z) // If all value at zero
-				return;
-				
+				return *this;
+
 			float mag = magnitude();
 
 			x /= mag;
 			y /= mag;
 			z /= mag;
+
+			return *this;
 		}
 
 		inline Vector3 normalizedCopy() const {
