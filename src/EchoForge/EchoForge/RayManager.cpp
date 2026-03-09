@@ -6,14 +6,14 @@
 using namespace Tracing;
 
 
-RayManager::RayManager(int rayCount) : m_rayCount(rayCount), m_rayQueue{ new EF::Queue<std::vector<Ray>>() } {
+RayManager::RayManager(int rayCount) : m_rayCount(rayCount), m_rayQueue{ new ef::Queue<std::vector<Ray>>() } {
 
 }
 
 
 
 
-const void RayManager::createRays(EF::Vector3 position) {
+const void RayManager::createRays(ef::Vector3 position) {
 	float incrementation = M_PI * 2.0f * PHI;
 	std::vector<Ray> rayList = {};
 
@@ -32,10 +32,10 @@ const void RayManager::createRays(EF::Vector3 position) {
 		float y = std::sin(incline) * std::sin(azimuth) * multiplier;
 		float z = std::cos(incline) * multiplier;
 
-		EF::Vector3 v = EF::Vector3(x, y,z);
+		ef::Vector3 v = ef::Vector3(x, y,z);
 
 		//TODO (Cemecla): set a default velocity according to position
-		Ray r = Ray(v, EF::Vector3(0.0f, 0.0f, 0.0f));
+		Ray r = Ray(v, ef::Vector3(0.0f, 0.0f, 0.0f));
 		rayList.push_back(r);
 
 	}

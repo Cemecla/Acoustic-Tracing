@@ -18,8 +18,8 @@ namespace Tracing {
 	private:
 		constexpr static float PHI = (1.0f + 2.2360679775f) / 2.0f;
 		int m_rayCount;
-		const void createRays(EF::Vector3 position);
-		EF::Queue<std::vector<Ray>> * m_rayQueue;
+		const void createRays(ef::Vector3 position);
+		ef::Queue<std::vector<Ray>> * m_rayQueue;
 	};
 
 };

@@ -4,7 +4,7 @@
 
 #ifndef QUEUE_H
 #define QUEUE_H
-namespace EF {
+namespace ef {
 
 	template<typename T>
 	class Item {
