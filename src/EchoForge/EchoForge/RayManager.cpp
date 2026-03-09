@@ -10,6 +10,9 @@ RayManager::RayManager(int rayCount) : m_rayCount(rayCount), m_rayQueue{ new ef:
 
 }
 
+const void RayManager::update() {
+	RayManager::createRays(ef::Vector3(0.0f,0.0f,0.0f));
+}
 
 
 
@@ -17,7 +20,6 @@ const void RayManager::createRays(ef::Vector3 position) {
 	float incrementation = M_PI * 2.0f * PHI;
 	std::vector<Ray> rayList = {};
 
-	//TODO: Make rays position relative to position
 
 	// From https://devforum.roblox.com/t/generating-equidistant-points-on-a-sphere/874144
 	for (int n = 0; n < m_rayCount; n++) {
@@ -32,10 +34,10 @@ const void RayManager::createRays(ef::Vector3 position) {
 		float y = std::sin(incline) * std::sin(azimuth) * multiplier;
 		float z = std::cos(incline) * multiplier;
 
-		ef::Vector3 v = ef::Vector3(x, y,z);
+		ef::Vector3 ray_start_absolute = ef::Vector3(x,y,z);
+		ef::Vector3 norm = ray_start_absolute.normalize();
 
-		//TODO (Cemecla): set a default velocity according to position
-		Ray r = Ray(v, ef::Vector3(0.0f, 0.0f, 0.0f));
+		Ray r = Ray(position+ ray_start_absolute, norm);
 		rayList.push_back(r);
 
 	}
