@@ -123,6 +123,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="RayManager.h" />
     <QtMoc Include="UICommunicator.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

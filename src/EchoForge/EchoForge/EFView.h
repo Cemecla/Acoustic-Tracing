@@ -10,6 +10,11 @@ class UICommunicator;
 			EFView(EFController* parent);
 
 			void update();
+			void startSimulation();
+			void saveSimulation();
+			void stopSimulation();
+			void saveSimulation(std::string url);
+			void loadSimulation(std::string url);
 		
 		private:
 			EFController* m_parent;

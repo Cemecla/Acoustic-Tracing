@@ -1,3 +1,5 @@
+#include <cctype>
+
 #include "UICommunicator.h"
 #include "EFView.h"
 
@@ -21,4 +23,42 @@ const ef::Vector3& UICommunicator::avatarPos() const {
 
 const ef::Vector3& UICommunicator::headAngles() const {
 	return m_angles;
+}
+
+void UICommunicator::startSimulation() {
+	m_parent->startSimulation();
+}
+
+void UICommunicator::stopSimulation() {
+
+}
+
+void UICommunicator::saveSimulation(std::string url) {
+
+}
+
+void UICommunicator::loadSimulation(std::string url) {
+
+}
+
+void UICommunicator::addBlock(const int x, const int y, const int z) {
+
+}
+
+void UICommunicator::destroyBlock(const int x, const int y, const int z) {
+
+}
+
+void UICommunicator::userInput(char input) {
+	input = std::tolower(input);
+
+	switch (input)
+	{
+		case 'a':
+			break;
+		case 'd':
+			break;
+		default:
+			break;
+	}
 }

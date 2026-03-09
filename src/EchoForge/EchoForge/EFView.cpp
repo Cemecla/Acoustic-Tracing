@@ -12,6 +12,22 @@ void EFView::setupCommunicator() {
 
 }
 
+void EFView::startSimulation() {
+
+}
+
+void EFView::saveSimulation() {
+
+}
+
+void EFView::stopSimulation(){}
+
+void EFView::saveSimulation(std::string url) {
+
+}
+
+void EFView::loadSimulation(std::string url){}
+
 void EFView::update() {
 
 }
