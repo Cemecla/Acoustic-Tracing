@@ -2,6 +2,8 @@
 #include <QGuiApplication>
 #include <qicon.h>
 #include "Avatar.h"
+#include "spatialAudioEngine.h"
+
 
 
 int main(int argc, char *argv[])
@@ -9,7 +11,10 @@ int main(int argc, char *argv[])
     #if defined(Q_OS_WIN) && QT_VERSION_CHECK(5, 6, 0) <= QT_VERSION && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     #endif
-    
+
+
+    //YutaSound::SpatialAudioEngine SPA;
+    //SPA.addSource();
     // Creation of the QGuiApplication
     // This object must reside inside the main
     QGuiApplication app(argc, argv);
