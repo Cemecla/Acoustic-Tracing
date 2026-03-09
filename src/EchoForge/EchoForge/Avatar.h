@@ -70,7 +70,6 @@
 				private:
 					// Variables
 					ef::Vector3 m_angles;
-			
 			};
 
 			// Variables
