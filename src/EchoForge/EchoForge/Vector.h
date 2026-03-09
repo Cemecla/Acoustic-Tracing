@@ -202,7 +202,7 @@ namespace ef {
 		}
 
 		inline Vector3& normalize() {
-			if (x + y + z) // If all value at zero
+			if (!(x + y + z)) // If all value at zero
 				return *this;
 
 			float mag = magnitude();
@@ -215,7 +215,7 @@ namespace ef {
 		}
 
 		inline Vector3 normalizedCopy() const {
-			if (x + y + z) // If all value at zero
+			if (!(x + y + z)) // If all value at zero
 				return Vector3(0, 0, 0);
 
 			float mag = magnitude();
