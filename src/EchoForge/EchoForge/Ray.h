@@ -6,7 +6,7 @@
 
 #ifndef RAY_H
 	#define RAY_H
-	namespace Tracing{
+	namespace tracing{
 	class Ray
 	{
 		private:
@@ -16,18 +16,28 @@
 			std::chrono::high_resolution_clock::time_point m_time ;
 			ef::Vector3 m_velocity;
 			ef::Vector3 m_currentPosition;
+			void m_next();
+
 
 	public:
-		// Method : change energy with a absorption value
-		// - float  0 - 1 , absorption of materials
+		/**
+		*	desc: This method removes energy to the ray depending on a material coefficient
+		*   param mods: float between 0 and 1.
+		*/
 		void loseEnergy(const float& absorptin);
 
 		float getEnergy();
+
 		
-		// Method: get current position of the ray
+		/**
+		*	desc: This method returns a position (x,y,z)
+		* 
+		*/
 		ef::Vector3 getPosition();
 		
-		//Method: get time (ms) since ray init
+		/**
+		*	desc: This method returns time delay since ray was launched in ms
+		*/
 		int getTimeDelta();
 
 		// Constructor

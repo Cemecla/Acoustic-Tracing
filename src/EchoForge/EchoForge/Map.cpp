@@ -1,8 +1,8 @@
 #include "Map.h"
 
-Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelSizeCm(1000.0){}
+Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelSizeCm(100.0){}
 
-Map::Map(int width, int height, int depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(1000.0) {}
+Map::Map(int width, int height, int depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(100.0) {}
 
 Map::Map(int width, int height, int depth, float voxelSizeCm): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(voxelSizeCm) {}
 

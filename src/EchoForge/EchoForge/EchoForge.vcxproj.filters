@@ -88,9 +88,6 @@
     <ClInclude Include="Ray.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
-    <ClInclude Include="Error.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
     <ClInclude Include="RayManager.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>

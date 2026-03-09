@@ -3,10 +3,11 @@
 #include "json.hpp"
 #include <string>
 
+#include "Map.h"
+
 using json = nlohmann::json;
 
 class EFController;
-class Map;
 
 #ifndef EF_MODEL_H
 	#define EF_MODEL_H
@@ -20,19 +21,21 @@ class Map;
 			*/
 			EFModel(EFController* parent);
 
+
+
 			/**
 			*	desc:
 			*   param name: string
 			*	return: json
 			*/
-			json loadJson(std::string name);
+			json loadJson(std::string& name);
 
 			/**
 			*	desc:
 			*	param data: json
 			*   param name: string
 			*/
-			bool saveJson(const json& data, std::string name);
+			bool saveJson(const json& data, std::string& name);
 
 			/**
 			*	desc:
@@ -45,6 +48,7 @@ class Map;
 		
 		private:
 			EFController* m_parent;
+			Map m_map;
 	};
 
 #endif

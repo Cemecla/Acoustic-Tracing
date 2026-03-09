@@ -2,7 +2,7 @@
 #include "Utils.h"
 
 
-Tracing::Ray::Ray(ef::Vector3 position, ef::Vector3 velocity)
+tracing::Ray::Ray(ef::Vector3 position, ef::Vector3 velocity)
 	: m_startPosition{ position }
 	, m_velocity{ velocity }
 	, m_energy(1.0f)
@@ -13,26 +13,30 @@ Tracing::Ray::Ray(ef::Vector3 position, ef::Vector3 velocity)
 };
 
 
-void Tracing::Ray::loseEnergy(const float& absorption) {
+void tracing::Ray::loseEnergy(const float& absorption) {
 	if (absorption > 0 && absorption > 1)
 		throw Error::PARAMETER_OUT_OF_BOUNDS;
 	m_energy -= absorption * m_energy;
 };
 
-float Tracing::Ray::getEnergy() {
+float tracing::Ray::getEnergy() {
 	return m_energy;
 };
 
-ef::Vector3 Tracing::Ray::getPosition() {
+ef::Vector3 tracing::Ray::getPosition() {
 	return m_currentPosition;
 };
 
-int Tracing::Ray::getTimeDelta() {
+int tracing::Ray::getTimeDelta() {
 	auto end = std::chrono::high_resolution_clock::now();
 	auto res = end - m_time;
 
 	return static_cast<int>(res.count());
 };
+
+void tracing::Ray::m_next() {
+	//TODO : DDA algorythme
+}
 
 
 
