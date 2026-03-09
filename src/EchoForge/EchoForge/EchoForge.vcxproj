@@ -104,6 +104,8 @@
     <ClCompile Include="EFView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="UICommunicator.cpp" />
+    <ClCompile Include="RayManager.cpp" />
     <QtRcc Include="assets.qrc" />
     <ClCompile Include="Ray.cpp" />
     <QtRcc Include="qml.qrc" />
@@ -116,9 +118,12 @@
     <ClInclude Include="EFModel.h" />
     <ClInclude Include="EFView.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="RayManager.h" />
+    <QtMoc Include="UICommunicator.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

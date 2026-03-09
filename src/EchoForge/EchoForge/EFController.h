@@ -6,19 +6,18 @@ class EFView;
 
 #ifndef EF_CONTROLLER_H
 	#define EF_CONTROLLER_H
-	class EFController
-	{
+	class EFController {
 		public:
 			/**
 			*	Default constructor
 			*/
 			EFController();
+			std::unique_ptr<EFModel> m_model;
+			std::unique_ptr<EFView> m_view;
 
 			bool run();
 	
 		private:
-			std::unique_ptr<EFModel> m_model;
-			std::unique_ptr<EFView> m_view;
 
 	};
 	
