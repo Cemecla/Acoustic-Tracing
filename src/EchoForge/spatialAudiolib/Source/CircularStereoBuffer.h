@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include <JuceHeader.h>
+#include "JuceHeader.h"
 #ifndef CIRCULARSTEREOBUFFER_H
 #define CIRCULARSTEREOBUFFER_H
 

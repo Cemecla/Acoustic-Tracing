@@ -2,7 +2,9 @@
 #include <QGuiApplication>
 #include <qicon.h>
 #include "Avatar.h"
-#include "spatialAudioEngine.h"
+//#include "JuceHeader.h"
+#include "SpatialAudioEngine.h"
+
 
 
 
@@ -13,7 +15,7 @@ int main(int argc, char *argv[])
     #endif
 
 
-    //YutaSound::SpatialAudioEngine SPA;
+    YutaSound::SpatialAudioEngine SPA;
     //SPA.addSource();
     // Creation of the QGuiApplication
     // This object must reside inside the main

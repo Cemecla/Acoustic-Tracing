@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <JuceHeader.h>
+#include "JuceHeader.h"
 #include "SoundSource.h"
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H

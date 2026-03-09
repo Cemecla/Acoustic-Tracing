@@ -68,6 +68,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>C:\eigen-5.0.0;C:\travail\Acoustic-Tracing\src\EchoForge\spatialAudiolib\Source;C:\travail\Acoustic-Tracing\src\EchoForge\spatialAudiolib\JuceLibraryCode;C:\JUCE\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\travail\Acoustic-Tracing\src\EchoForge\spatialAudiolib\Builds\VisualStudio2026\x64\Debug\Static Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
