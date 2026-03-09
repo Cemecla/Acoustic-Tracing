@@ -1,5 +1,5 @@
 #include "Ray.h"
-#include "Error.h"
+#include "Utils.h"
 
 
 Tracing::Ray::Ray(ef::Vector3 position, ef::Vector3 velocity)
