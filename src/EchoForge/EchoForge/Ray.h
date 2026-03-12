@@ -2,7 +2,8 @@
 
 #include <vector>
 #include <chrono>
-#include "Vector.h"
+//#include "Vector.h"
+#include <Eigen/Dense>
 
 #ifndef RAY_H
 	#define RAY_H
@@ -10,16 +11,21 @@
 	class Ray
 	{
 		private:
-			ef::Vector3 m_startPosition;
-			ef::Vector3 m_lastSeen;
+			Eigen::Vector3f m_startPosition;
+			Eigen::Vector3f m_lastSeen;
 			float m_energy;
 			std::chrono::high_resolution_clock::time_point m_time ;
-			ef::Vector3 m_velocity;
-			ef::Vector3 m_currentPosition;
+			Eigen::Vector3f m_velocity;
+			Eigen::Vector3f m_currentPosition;
 			void m_next();
+			Eigen::Vector3i m_voxelPos;
+			Eigen::Vector3i m_step;
+			Eigen::Vector3i m_tDelta;
+			Eigen::Vector3f m_tMax;
 
 
 	public:
+		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 		/**
 		*	desc: This method removes energy to the ray depending on a material coefficient
 		*   param mods: float between 0 and 1.
@@ -33,7 +39,7 @@
 		*	desc: This method returns a position (x,y,z)
 		* 
 		*/
-		ef::Vector3 getPosition();
+		Eigen::Vector3f getPosition();
 		
 		/**
 		*	desc: This method returns time delay since ray was launched in ms
@@ -41,7 +47,7 @@
 		int getTimeDelta();
 
 		// Constructor
-		Ray(ef::Vector3 position, ef::Vector3 velocity);
+		Ray(Eigen::Vector3f position, Eigen::Vector3f velocity);
 
 
 	};

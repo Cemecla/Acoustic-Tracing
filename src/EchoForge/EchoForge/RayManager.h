@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "Queue.h"
 #include "Ray.h"
+#include <Eigen/StdVector>
 
 #ifndef RAYMANAGER_H
 	#define RAYMANAGER_H
@@ -19,7 +20,8 @@ namespace tracing {
 		constexpr static float PHI = (1.0f + 2.2360679775f) / 2.0f;
 		int m_rayCount;
 		const void createRays(ef::Vector3 position);
-		ef::Queue<std::vector<Ray>> * m_rayQueue;
+		const void next_colision();
+		std::vector<Ray, Eigen::aligned_allocator<Ray>> m_activeRays;
 	};
 
 };

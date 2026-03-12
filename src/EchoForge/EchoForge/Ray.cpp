@@ -2,7 +2,7 @@
 #include "Utils.h"
 
 
-tracing::Ray::Ray(ef::Vector3 position, ef::Vector3 velocity)
+tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 	: m_startPosition{ position }
 	, m_velocity{ velocity }
 	, m_energy(1.0f)
@@ -10,6 +10,21 @@ tracing::Ray::Ray(ef::Vector3 position, ef::Vector3 velocity)
 	, m_lastSeen{ position }
 	, m_time{ std::chrono::high_resolution_clock::now() }
 {
+	m_voxelPos = m_currentPosition.array().floor().cast<int>();
+	m_step = m_velocity.array().sign().cast<int>();
+	m_tDelta = m_velocity.array().abs().inverse();
+
+	for (int i = 0; i < 3; ++i) {
+		if (m_velocity(i) > 0) {
+			m_tMax(i) = (std::floor(m_currentPosition(i) + 1.0f) - m_currentPosition(i)) * m_tDelta(i);
+		}
+		else if (m_velocity(i) < 0) {
+			m_tMax(i) = (m_currentPosition(i) - std::floor(m_currentPosition(i))) * m_tDelta(i);
+		}
+		else {
+			m_tMax(i) = std::numeric_limits<float>::infinity();
+		}
+	}
 };
 
 
@@ -23,7 +38,7 @@ float tracing::Ray::getEnergy() {
 	return m_energy;
 };
 
-ef::Vector3 tracing::Ray::getPosition() {
+Eigen::Vector3f tracing::Ray::getPosition() {
 	return m_currentPosition;
 };
 
@@ -35,7 +50,23 @@ int tracing::Ray::getTimeDelta() {
 };
 
 void tracing::Ray::m_next() {
-	//TODO : DDA algorythme
+	int axis;
+
+	if (m_tMax.x() < m_tMax.y()) {
+		if (m_tMax.x() < m_tMax.z()) axis = 0; 
+		else axis = 2;                        
+	}
+	else {
+		if (m_tMax.y() < m_tMax.z()) axis = 1;
+		else axis = 2;                         
+	}
+
+	float t_at_face = m_tMax(axis);
+
+	m_voxelPos(axis) += m_step(axis);
+	m_tMax(axis) += m_tDelta(axis);
+
+	m_currentPosition = m_startPosition + (t_at_face * m_velocity);
 }
 
 
