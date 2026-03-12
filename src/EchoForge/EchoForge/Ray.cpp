@@ -34,7 +34,7 @@ void tracing::Ray::loseEnergy(const float& absorption) {
 	m_energy -= absorption * m_energy;
 };
 
-float tracing::Ray::getEnergy() {
+const float tracing::Ray::getEnergy() const {
 	return m_energy;
 };
 

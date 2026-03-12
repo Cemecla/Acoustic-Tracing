@@ -32,7 +32,7 @@
 		*/
 		void loseEnergy(const float& absorptin);
 
-		float getEnergy();
+		const float getEnergy() const;
 
 		
 		/**
