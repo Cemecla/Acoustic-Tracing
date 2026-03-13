@@ -23,3 +23,13 @@ void SpatialAudioEngine::addSource(const juce::String& filePath)
     source.loadFromPath(filePath);
     m_sources.push_back(std::move(source));
 }
+
+void YutaSound::SpatialAudioEngine::runProcessingLoop()
+{
+    m_mixBuffer.clear();
+
+    for (auto& source : m_sources) 
+    {
+        
+    }
+}
