@@ -27,25 +27,24 @@ const void RayManager::update() {
 
 
 
-const void RayManager::createRays(ef::Vector3 position) {
+const void RayManager::createRays(Eigen::Vector3f position) {
 	float incrementation = M_PI * 2.0f * PHI;
 	// From https://devforum.roblox.com/t/generating-equidistant-points-on-a-sphere/874144
-	//for (int n = 0; n < m_rayCount; n++) {
-	//	float distance = (float)n / m_rayCount;
-	//	float azimuth = incrementation * n;
-	//	float incline = std::acos(1.0f - 2.0f * distance);
+	for (int n = 0; n < m_rayCount; n++) {
+		float distance = (float)n / m_rayCount;
+		float azimuth = incrementation * n;
+		float incline = std::acos(1.0f - 2.0f * distance);
 
-	//	float multiplier = 0.5f;
+		float multiplier = 0.5f;
 
-	//	float x = std::sin(incline) * std::cos(azimuth) * multiplier;
-	//	float y = std::sin(incline) * std::sin(azimuth) * multiplier;
-	//	float z = std::cos(incline) * multiplier;
+		float x = std::sin(incline) * std::cos(azimuth) * multiplier;
+		float y = std::sin(incline) * std::sin(azimuth) * multiplier;
+		float z = std::cos(incline) * multiplier;
 
-	//	ef::Vector3 offset(x, y, z);
+		Eigen::Vector3f offset( x, y, z );
 
-	//	ef::Vector3 direction = offset.normalize();
-// TODO (Cemecla): Remplacer les vecteurs ef par eigen
-	//	m_activeRays->emplace_back(position + offset, direction);
-	//}
+		Eigen::Vector3f direction = offset.normalized();
+		m_activeRays->emplace_back(position + offset, direction);
+	}
 }
 
