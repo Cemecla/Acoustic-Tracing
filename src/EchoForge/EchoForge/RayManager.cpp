@@ -11,17 +11,17 @@ RayManager::RayManager(int rayCount)
 	: m_rayCount(rayCount)
 {
 	// réserve de la mémoire
-	m_activeRays.reserve(m_rayCount * 2);
+	m_activeRays->reserve(m_rayCount * 2);
 }
 
 const void RayManager::update() {
-	RayManager::createRays(ef::Vector3(0.0f,0.0f,0.0f)); // AT position 0,0,0 TODO: at avatar position
+	//RayManager::createRays(ef::Vector3(0.0f,0.0f,0.0f)); // AT position 0,0,0 TODO: at avatar position
 
 
-	m_activeRays.erase(
-		std::remove_if(m_activeRays.begin(), m_activeRays.end(),
+	m_activeRays->erase(
+		std::remove_if(m_activeRays->begin(), m_activeRays->end(),
 			[](const Ray& r) { return r.getEnergy() <= 0.0f; }),
-		m_activeRays.end()
+		m_activeRays->end()
 	);
 }
 
@@ -30,21 +30,22 @@ const void RayManager::update() {
 const void RayManager::createRays(ef::Vector3 position) {
 	float incrementation = M_PI * 2.0f * PHI;
 	// From https://devforum.roblox.com/t/generating-equidistant-points-on-a-sphere/874144
-	for (int n = 0; n < m_rayCount; n++) {
-		float distance = (float)n / m_rayCount;
-		float azimuth = incrementation * n;
-		float incline = std::acos(1.0f - 2.0f * distance);
+	//for (int n = 0; n < m_rayCount; n++) {
+	//	float distance = (float)n / m_rayCount;
+	//	float azimuth = incrementation * n;
+	//	float incline = std::acos(1.0f - 2.0f * distance);
 
-		float multiplier = 0.5f;
+	//	float multiplier = 0.5f;
 
-		float x = std::sin(incline) * std::cos(azimuth) * multiplier;
-		float y = std::sin(incline) * std::sin(azimuth) * multiplier;
-		float z = std::cos(incline) * multiplier;
+	//	float x = std::sin(incline) * std::cos(azimuth) * multiplier;
+	//	float y = std::sin(incline) * std::sin(azimuth) * multiplier;
+	//	float z = std::cos(incline) * multiplier;
 
-		ef::Vector3 offset(x, y, z);
+	//	ef::Vector3 offset(x, y, z);
 
-		ef::Vector3 direction = offset.normalize();
-
-		m_activeRays.emplace_back(position + offset, direction);
-	}
+	//	ef::Vector3 direction = offset.normalize();
+// TODO (Cemecla): Remplacer les vecteurs ef par eigen
+	//	m_activeRays->emplace_back(position + offset, direction);
+	//}
+}
 

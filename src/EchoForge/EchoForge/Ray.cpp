@@ -1,6 +1,6 @@
 #include "Ray.h"
 #include "Utils.h"
-
+#include <limits>
 
 tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 	: m_startPosition{ position }

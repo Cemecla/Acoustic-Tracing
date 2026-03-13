@@ -20,7 +20,7 @@
 			void m_next();
 			Eigen::Vector3i m_voxelPos;
 			Eigen::Vector3i m_step;
-			Eigen::Vector3i m_tDelta;
+			Eigen::Vector3f m_tDelta;
 			Eigen::Vector3f m_tMax;
 
 
