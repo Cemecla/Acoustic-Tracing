@@ -7,24 +7,20 @@
 
 	class Avatar {
 		public:
-			/**
-			*	Main constructor
-			*	desc: The Avatar object need a starting position and angles positions to initialize it's nested Head object (See Head class)
-			*   param position: Vector3(x, y, z)
-			*	param angles:   Vector3(x, y, z)
-			*/
+			/// <summary>
+			/// Main constructor
+			/// desc: The Avatar object need a starting position and angles positions to initialize it's nested Head object (See Head class)
+			/// </summary>
+			/// <param name="position">Vector3(x, y, z)</param>
+			/// <param name="angles">Vector3(x, y, z)</param>
 			Avatar(ef::Vector3 position, ef::Vector3 angles);
 	
-			/**
-			*	desc: This method return the current x,y,z angle values of the Head
-			*	return: Vector3(x, y, z)
-			*/
+			/// <summary>This method return the current x,y,z angle values of the Head</summary>
+			/// <returns>Vector3(x, y, z)</returns>
 			const ef::Vector3& getHeadAngles() const;
 	
-			/**
-			*	desc: This method modify the current Head angles by the given Vector3
-			*   param mods: Vector3(x, y, z)
-			*/
+			///	<summary>This method modify the current Head angles by the given Vector3</summary>
+			/// <param name="mods">Vector3(x, y, z)</param>
 			void rotateHead(const ef::Vector3& mods);
 	
 			/**

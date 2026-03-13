@@ -9,6 +9,7 @@ class EFView;
 	#define UICOM_H
 	
 	/// <summary>
+	/// Testing
 	/// https://doc.qt.io/qt-6/qtqml-cppintegration-exposecppattributes.html
 	/// </summary>
 	class UICommunicator: public QObject {

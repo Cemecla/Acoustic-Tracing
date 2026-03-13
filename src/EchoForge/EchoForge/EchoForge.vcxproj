@@ -69,6 +69,7 @@
       <AdditionalIncludeDirectories>C:\eigen-5.0.0;..\spatialAudiolib\Source;..\spatialAudiolib\JuceLibraryCode;C:\JUCE\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\spatialAudiolib\Builds\VisualStudio2026\x64\Debug\Static Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
