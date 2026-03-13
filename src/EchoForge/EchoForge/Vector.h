@@ -66,6 +66,7 @@ namespace ef {
 		float y{};
 		float z{};
 
+
 		// ** CONSTRUCTOR **/
 		/**
 		*	Default constructor
