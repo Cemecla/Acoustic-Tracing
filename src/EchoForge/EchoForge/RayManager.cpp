@@ -3,12 +3,13 @@
 #include <cmath>
 #include <algorithm>
 
-
+#include "EFModel.h"
 using namespace tracing;
 
 
-RayManager::RayManager(int rayCount)
-	: m_rayCount(rayCount)
+RayManager::RayManager(EFModel* parent,int rayCount)
+	: m_rayCount(rayCount),
+	m_parent(parent)
 {
 	// réserve de la mémoire
 	m_activeRays->reserve(m_rayCount * 2);
@@ -16,6 +17,8 @@ RayManager::RayManager(int rayCount)
 
 const void RayManager::update() {
 	ef::Vector3 emitter(0.0f, 0.0f, 0.0f);// AT position 0,0,0 TODO: at avatar position
+	//ef::Vector3& emitter m_parent->map;// AT position 0,0,0 TODO: at avatar position
+
 
 
 	Eigen::Vector3f position;
