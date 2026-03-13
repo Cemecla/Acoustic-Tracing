@@ -15,9 +15,15 @@ RayManager::RayManager(int rayCount)
 }
 
 const void RayManager::update() {
-	//RayManager::createRays(ef::Vector3(0.0f,0.0f,0.0f)); // AT position 0,0,0 TODO: at avatar position
+	ef::Vector3 emitter(0.0f, 0.0f, 0.0f);// AT position 0,0,0 TODO: at avatar position
 
 
+	Eigen::Vector3f position;
+	position << emitter.x, emitter.y, emitter.z;
+
+	createRays(position);
+
+	//TODO: REFACTOR to single ray
 	m_activeRays->erase(
 		std::remove_if(m_activeRays->begin(), m_activeRays->end(),
 			[](const Ray& r) { return r.getEnergy() <= 0.0f; }),
