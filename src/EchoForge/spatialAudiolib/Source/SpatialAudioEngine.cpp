@@ -12,12 +12,21 @@
 #include "SoundSource.h"
 using namespace YutaSound;
 
-void SpatialAudioEngine::prepare(double sampleRate, int bufferSize) {
+SpatialAudioEngine::SpatialAudioEngine()
+{
+    juce::MessageManager::getInstance();
+}
+SpatialAudioEngine::~SpatialAudioEngine()
+{
+    juce::shutdownJuce_GUI();
+}
+
+void YutaSound::SpatialAudioEngine::prepare(double sampleRate, int bufferSize) {
     m_sampleRate = sampleRate;
     m_bufferSize = bufferSize;
 }
 
-void SpatialAudioEngine::addSource(const juce::String& filePath)
+void YutaSound::SpatialAudioEngine::addSource(const juce::String& filePath)
 {
     SoundSource source;
     source.loadFromPath(filePath);
@@ -47,4 +56,14 @@ void YutaSound::SpatialAudioEngine::runProcessingLoop()
         m_bufferSize
     );
 
+}
+
+void SpatialAudioEngine::start()
+{
+    m_deviceManager.initialise(0, 2, nullptr, true);
+    m_deviceManager.addAudioCallback(&m_audioCallback);
+}
+
+void YutaSound::SpatialAudioEngine::stop()
+{
 }

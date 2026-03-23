@@ -7,7 +7,7 @@
 
   ==============================================================================
 */
-
+#pragma once
 #include "JuceHeader.h"
 #ifndef CIRCULARSTEREOBUFFER_H
 #define CIRCULARSTEREOBUFFER_H

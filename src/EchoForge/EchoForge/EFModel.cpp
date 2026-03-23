@@ -10,16 +10,17 @@
 
 // TEMPORARY : m_avatar
 // TODO : MAKE numbers of ray configurable
-EFModel::EFModel(EFController* parent): 
-	m_parent(parent), 
-	m_map(Map(5, 5, 5)),
-	m_rayManager(tracing::RayManager(this,20))
-	{}
+EFModel::EFModel(EFController* parent) :
+	m_parent(parent),
+	m_map(Map(5, 5, 5)) {
+}
+	//m_rayManager(tracing::RayManager(this,20))
+	//{}
 
 void EFModel::update() {
 
 	// TODO : Ensure Avatar exists
-	m_rayManager.update();
+	//m_rayManager.update();
 
 
 }

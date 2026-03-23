@@ -13,10 +13,13 @@
       <FILE id="z0ZbIl" name="ListnerState.h" compile="0" resource="0" file="Source/ListnerState.h"/>
       <FILE id="tUgETu" name="SoundSource.cpp" compile="1" resource="0" file="Source/SoundSource.cpp"/>
       <FILE id="eyJChg" name="SoundSource.h" compile="0" resource="0" file="Source/SoundSource.h"/>
-      <FILE id="cwgF8h" name="SpatialAudioEngine.cpp" compile="1" resource="0"
-            file="Source/SpatialAudioEngine.cpp"/>
+      <FILE id="K2Q04x" name="AudioCallback.h" compile="0" resource="0" file="Source/AudioCallback.h"/>
+      <FILE id="AC1Ejp" name="AudioCallback.cpp" compile="1" resource="0"
+            file="Source/AudioCallback.cpp"/>
       <FILE id="Km2ckF" name="SpatialAudioEngine.h" compile="0" resource="0"
             file="Source/SpatialAudioEngine.h"/>
+      <FILE id="cwgF8h" name="SpatialAudioEngine.cpp" compile="1" resource="0"
+            file="Source/SpatialAudioEngine.cpp"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

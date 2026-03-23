@@ -15,14 +15,20 @@ int main(int argc, char *argv[])
     #endif
 
 
-    YutaSound::SpatialAudioEngine SPA;
-    //SPA.addSource();
+   
+
     // Creation of the QGuiApplication
     // This object must reside inside the main
     QGuiApplication app(argc, argv);
 
     // Set the window logo 
     app.setWindowIcon(QIcon(":/images/logo"));
+
+
+    YutaSound::SpatialAudioEngine engine;
+    engine.addSource("C:/Users/Administrateur.UTILISA-JI4UJPR/Documents/Acoustic-Tracing/assets/mooo.wav");
+    engine.start();
+
 
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();

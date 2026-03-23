@@ -11,7 +11,7 @@
 #include "CircularStereoBuffer.h"
 using namespace YutaSound;
 
-void YutaSound::CircularStereoBuffer::prepare(int bufferSize) // should be 512
+void CircularStereoBuffer::prepare(int bufferSize) // should be 512
 {
     //m_bufferL.resize(bufferSize, 0.0f);
     //m_bufferR.resize(bufferSize, 0.0f);
@@ -20,7 +20,7 @@ void YutaSound::CircularStereoBuffer::prepare(int bufferSize) // should be 512
     m_fifo.setTotalSize(bufferSize);
 }
 
-void YutaSound::CircularStereoBuffer::write(float* left, float* right, int numSamples)
+void CircularStereoBuffer::write(float* left, float* right, int numSamples)
 {
     const auto scope = m_fifo.write(numSamples);
 
@@ -41,7 +41,7 @@ void YutaSound::CircularStereoBuffer::write(float* left, float* right, int numSa
     }
 }
 
-void YutaSound::CircularStereoBuffer::read(float* left, float* right, int numSamples)
+void CircularStereoBuffer::read(float* left, float* right, int numSamples)
 {
     const auto scope = m_fifo.read(numSamples);
 

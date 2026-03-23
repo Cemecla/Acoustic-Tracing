@@ -280,6 +280,9 @@
     <ClCompile Include="..\..\Source\SoundSource.cpp">
       <Filter>spatialAudiolib\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\AudioCallback.cpp">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\SpatialAudioEngine.cpp">
       <Filter>spatialAudiolib\Source</Filter>
     </ClCompile>
@@ -1534,6 +1537,9 @@
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SoundSource.h">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioCallback.h">
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SpatialAudioEngine.h">

@@ -149,6 +149,7 @@
     <ClCompile Include="..\..\Source\CircularStereoBuffer.cpp"/>
     <ClCompile Include="..\..\Source\ListnerState.cpp"/>
     <ClCompile Include="..\..\Source\SoundSource.cpp"/>
+    <ClCompile Include="..\..\Source\AudioCallback.cpp"/>
     <ClCompile Include="..\..\Source\SpatialAudioEngine.cpp"/>
     <ClCompile Include="..\..\..\..\..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1332,6 +1333,7 @@
     <ClInclude Include="..\..\Source\CircularStereoBuffer.h"/>
     <ClInclude Include="..\..\Source\ListnerState.h"/>
     <ClInclude Include="..\..\Source\SoundSource.h"/>
+    <ClInclude Include="..\..\Source\AudioCallback.h"/>
     <ClInclude Include="..\..\Source\SpatialAudioEngine.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>

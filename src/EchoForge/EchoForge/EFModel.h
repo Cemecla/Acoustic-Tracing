@@ -51,7 +51,7 @@ class EFController;
 		private:
 			EFController* m_parent;
 			Map m_map;
-			tracing::RayManager m_rayManager;
+			//tracing::RayManager m_rayManager;
 	};
 
 #endif

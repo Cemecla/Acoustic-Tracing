@@ -1,0 +1,36 @@
+/*
+  ==============================================================================
+
+    AudioCallback.cpp
+    Created: 23 Mar 2026 10:52:08am
+    Author:  Administrateur
+
+  ==============================================================================
+*/
+
+#include "AudioCallback.h"
+using namespace YutaSound;
+
+YutaSound::AudioCallback::AudioCallback(CircularStereoBuffer& circularBuffer)
+    :m_circularBuffer(circularBuffer)
+{}
+
+void YutaSound::AudioCallback::audioDeviceIOCallbackWithContext(
+    const float* const* inputChannelData,
+    int numInputChannels,
+    float* const* outputChannelData,
+    int numOutputChannels,
+    int numSamples,
+    const juce::AudioIODeviceCallbackContext& context)
+{
+    m_circularBuffer.read(
+        outputChannelData[0],
+        outputChannelData[1],
+        numSamples
+    );
+}
+
+void YutaSound::AudioCallback::audioDeviceAboutToStart(juce::AudioIODevice* device)
+{}
+void YutaSound::AudioCallback::audioDeviceStopped()
+{}
