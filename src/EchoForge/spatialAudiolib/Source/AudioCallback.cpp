@@ -9,28 +9,29 @@
 */
 
 #include "AudioCallback.h"
-using namespace YutaSound;
+namespace YutaSound {
 
-YutaSound::AudioCallback::AudioCallback(CircularStereoBuffer& circularBuffer)
-    :m_circularBuffer(circularBuffer)
-{}
+    AudioCallback::AudioCallback(CircularStereoBuffer& circularBuffer)
+        :m_circularBuffer(circularBuffer)
+    {}
 
-void YutaSound::AudioCallback::audioDeviceIOCallbackWithContext(
-    const float* const* inputChannelData,
-    int numInputChannels,
-    float* const* outputChannelData,
-    int numOutputChannels,
-    int numSamples,
-    const juce::AudioIODeviceCallbackContext& context)
-{
-    m_circularBuffer.read(
-        outputChannelData[0],
-        outputChannelData[1],
-        numSamples
-    );
+    void AudioCallback::audioDeviceIOCallbackWithContext(
+        const float* const* inputChannelData,
+        int numInputChannels,
+        float* const* outputChannelData,
+        int numOutputChannels,
+        int numSamples,
+        const juce::AudioIODeviceCallbackContext& context)
+    {
+        m_circularBuffer.read(
+            outputChannelData[0],
+            outputChannelData[1],
+            numSamples
+        );
+    }
+
+    void AudioCallback::audioDeviceAboutToStart(juce::AudioIODevice* device)
+    {}
+    void AudioCallback::audioDeviceStopped()
+    {}
 }
-
-void YutaSound::AudioCallback::audioDeviceAboutToStart(juce::AudioIODevice* device)
-{}
-void YutaSound::AudioCallback::audioDeviceStopped()
-{}

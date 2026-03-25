@@ -38,6 +38,6 @@ namespace YutaSound {
 		CircularStereoBuffer& m_circularBuffer;
 	};
 
-};
+}
 
 #endif

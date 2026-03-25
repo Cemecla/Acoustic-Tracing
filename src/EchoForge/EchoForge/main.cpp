@@ -2,7 +2,7 @@
 #include <QGuiApplication>
 #include <qicon.h>
 #include "Avatar.h"
-//#include "JuceHeader.h"
+#include "JuceHeader.h"
 #include "SpatialAudioEngine.h"
 
 
@@ -14,24 +14,26 @@ int main(int argc, char *argv[])
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     #endif
 
-
-   
-
     // Creation of the QGuiApplication
     // This object must reside inside the main
     QGuiApplication app(argc, argv);
+    
+    // This perfectly bridges JUCE's background requirements with Qt's main thread.
+    juce::ScopedJuceInitialiser_GUI juceInit;
 
     // Set the window logo 
     app.setWindowIcon(QIcon(":/images/logo"));
 
 
     YutaSound::SpatialAudioEngine engine;
-    engine.addSource("C:/Users/Administrateur.UTILISA-JI4UJPR/Documents/Acoustic-Tracing/assets/mooo.wav");
+    engine.prepare(48000.0,512);
+    engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
     engine.start();
 
 
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();
+    //EFController efc;
 
     // Execution of QT Application
     return app.exec();

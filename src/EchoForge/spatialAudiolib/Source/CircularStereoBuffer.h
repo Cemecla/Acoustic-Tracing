@@ -21,7 +21,9 @@ namespace YutaSound {
 		void write(float* left, float* right, int numSamples); //for SpatialAudioENgine write into the circular buffer
 		void read(float* left, float* right, int numSamples); // for audio callback to get the content inthe buffer
 
-
+	int getFreeSpace() const {
+			return m_fifo.getFreeSpace();
+	}
 	private:
 		juce::AbstractFifo m_fifo{512}; //  handle the when  should write or read protection to 
 		juce::AudioBuffer<float> m_buffer;
@@ -30,5 +32,5 @@ namespace YutaSound {
 	};
 
 
-};
+}
 #endif

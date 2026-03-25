@@ -38,7 +38,7 @@ namespace YutaSound {
         juce::AudioBuffer<float> m_audioBuffer;
     };
 
-};
+}
 
 // have to separate declaration and definition 
 

@@ -20,11 +20,13 @@
 
 namespace YutaSound {
 
-    class SpatialAudioEngine
+    class SpatialAudioEngine : public juce::Thread
     {
     public:
         SpatialAudioEngine();
-        ~SpatialAudioEngine();
+        ~SpatialAudioEngine() override;
+
+        void run() override;
 
         void prepare(double sampleRate, int bufferSize);
         void addSource(const juce::String& filePath);
@@ -43,7 +45,7 @@ namespace YutaSound {
 
     };
 
-};
+}
 
 #endif
 
