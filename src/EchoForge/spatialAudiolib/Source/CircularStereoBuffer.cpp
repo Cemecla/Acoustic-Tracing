@@ -16,16 +16,14 @@ namespace YutaSound
     {
         //m_bufferL.resize(bufferSize, 0.0f);
         //m_bufferR.resize(bufferSize, 0.0f);
-        m_buffer.setSize(2, bufferSize);
+        int actualCapacity = bufferSize + 1;
+        m_buffer.setSize(2, actualCapacity);
         m_buffer.clear();
-        m_fifo.setTotalSize(bufferSize);
+        m_fifo.setTotalSize(actualCapacity);
     }
 
     void CircularStereoBuffer::write(float* left, float* right, int numSamples)
     {
-        juce::FloatVectorOperations::clear(left, numSamples);
-        juce::FloatVectorOperations::clear(right, numSamples);
-
         const auto scope = m_fifo.write(numSamples);
 
         if (scope.blockSize1 > 0)
@@ -47,6 +45,12 @@ namespace YutaSound
 
     void CircularStereoBuffer::read(float* left, float* right, int numSamples)
     {
+        if (m_fifo.getNumReady() < numSamples)
+        {
+            juce::FloatVectorOperations::clear(left, numSamples);
+            juce::FloatVectorOperations::clear(right, numSamples);
+            return; // not enough data yet
+        }
         const auto scope = m_fifo.read(numSamples);
 
         if (scope.blockSize1 > 0)

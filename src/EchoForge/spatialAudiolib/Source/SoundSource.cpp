@@ -27,6 +27,7 @@ namespace YutaSound {
             m_audioBuffer.setSize(1, (int)reader->lengthInSamples);
             //filing up the buffer 
             reader->read(&m_audioBuffer, 0, (int)reader->lengthInSamples, 0, true, false);
+            std::cout << "SUCCESS: Loaded WAV file! Samples: " << reader->lengthInSamples << std::endl;
         }
         else
         {
