@@ -12,15 +12,18 @@
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_map(Map(5, 5, 5)) {
+	m_map(Map(5, 5, 5)),
+	m_rayManager{this,10}
+{
 }
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
 
 void EFModel::update() {
 
-	// TODO : Ensure Avatar exists
-	//m_rayManager.update();
+	// Defensive
+	if (!m_avatar.has_value()) return;
+	m_rayManager.update();
 
 
 }
@@ -47,3 +50,7 @@ json EFModel::loadJson(std::string& name) {
 bool EFModel::saveJson(const json&, std::string& name) {
 	return true;
 }
+
+const std::optional<Avatar>& EFModel::getAvatar() const {
+	return m_avatar;
+};

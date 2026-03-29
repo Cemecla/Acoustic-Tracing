@@ -7,6 +7,8 @@
 #include "Avatar.h"
 #include "RayManager.h"
 
+#include <optional>
+
 using json = nlohmann::json;
 
 class EFController;
@@ -46,12 +48,14 @@ class EFController;
 			*/
 			void update();
 	
+			const std::optional<Avatar>& getAvatar() const;
 			
 		
 		private:
 			EFController* m_parent;
 			Map m_map;
-			//tracing::RayManager m_rayManager;
+			tracing::RayManager m_rayManager;
+			std::optional<Avatar> m_avatar;
 	};
 
 #endif

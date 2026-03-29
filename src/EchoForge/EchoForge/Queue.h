@@ -133,6 +133,7 @@ namespace ef {
 		if (isEmpty()) {
 			throw Error::UNDEFINED;
 		}
+		return m_back->getData();
 	};
 
 	template<typename T>

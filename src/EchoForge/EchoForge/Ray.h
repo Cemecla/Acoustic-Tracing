@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <chrono>
-//#include "Vector.h"
+#include "Vector.h"
 #include <Eigen/Dense>
 
 #ifndef RAY_H
@@ -11,17 +11,19 @@
 	class Ray
 	{
 		private:
+			Eigen::Vector3f m_spawnPosition;
+			Eigen::Vector3f m_currentPosition;
 			Eigen::Vector3f m_startPosition;
 			Eigen::Vector3f m_lastSeen;
 			float m_energy;
 			std::chrono::high_resolution_clock::time_point m_time ;
 			Eigen::Vector3f m_velocity;
-			Eigen::Vector3f m_currentPosition;
-			void m_next();
 			Eigen::Vector3i m_voxelPos;
 			Eigen::Vector3i m_step;
 			Eigen::Vector3f m_tDelta;
 			Eigen::Vector3f m_tMax;
+
+			int m_lastAxis;
 
 
 	public:
@@ -32,7 +34,17 @@
 		*/
 		void loseEnergy(const float& absorptin);
 
+		void advance();
+
 		const float getEnergy() const;
+
+		Eigen::Vector3i getVoxelPos() const;
+
+		Eigen::Vector3f getVelocity() const;
+
+		void redirect(const Eigen::Vector3f& newVelocity);
+
+		Eigen::Vector3f getHitNormal() const;
 
 		
 		/**

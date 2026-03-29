@@ -31,7 +31,7 @@ inline const int Map::findId(const int x, const int y, const int z) const {
 }
 
 const bool Map::assertOutOfBound(const int x, const int y, const int z) const {
-	if (0 > y > m_height || 0 > x > m_width || 0 > z > m_depth)
+	if (x < 0 || x >= m_width || y < 0 || y >= m_height || z < 0 || z >= m_depth)
 		return false;
 
 	return true;

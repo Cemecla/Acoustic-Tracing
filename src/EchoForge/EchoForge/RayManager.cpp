@@ -7,24 +7,32 @@
 using namespace tracing;
 
 
+
 RayManager::RayManager(EFModel* parent,int rayCount)
 	: m_rayCount(rayCount),
 	m_parent(parent)
 {
+
+	
 	// réserve de la mémoire
 	m_activeRays->reserve(m_rayCount * 2);
 }
 
 const void RayManager::update() {
-	ef::Vector3 emitter(0.0f, 0.0f, 0.0f);// AT position 0,0,0 TODO: at avatar position
-	//ef::Vector3& emitter m_parent->map;// AT position 0,0,0 TODO: at avatar position
+	ef::Vector3 avatar = m_parent->getAvatar().value().getPosition();
 
 
 
 	Eigen::Vector3f position;
-	position << emitter.x, emitter.y, emitter.z;
+	position << avatar.x, avatar.y, avatar.z;
 
-	createRays(position);
+
+	if (m_activeRays->empty()) {
+		createRays(position);
+	}
+	else {
+		next_colision();
+	}
 
 	//TODO: REFACTOR to single ray
 	m_activeRays->erase(
@@ -57,3 +65,5 @@ const void RayManager::createRays(Eigen::Vector3f position) {
 	}
 }
 
+const void tracing::RayManager::next_colision() {
+};

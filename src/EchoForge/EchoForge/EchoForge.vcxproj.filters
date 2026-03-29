@@ -67,9 +67,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EFController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EFView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,6 +95,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EFController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

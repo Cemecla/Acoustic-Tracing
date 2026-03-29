@@ -70,6 +70,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\spatialAudiolib\Builds\VisualStudio2026\x64\Debug\Static Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
