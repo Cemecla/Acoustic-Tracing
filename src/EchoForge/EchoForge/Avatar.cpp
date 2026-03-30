@@ -3,6 +3,10 @@
 using namespace std;
 
 // AVATAR SECTION
+Avatar::Avatar() : m_head(ef::Vector3(0,0,0)), m_position(ef::Vector3(0, 0, 0)) {
+
+}
+
 Avatar::Avatar(ef::Vector3 position, ef::Vector3 angles): m_head(angles), m_position(position) {
 
 }

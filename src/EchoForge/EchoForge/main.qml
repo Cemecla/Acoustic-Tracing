@@ -1,17 +1,27 @@
-import QtQuick 2.9
-import QtQuick.Window 2.2
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+
 
 Window {
+    id: mainWindow
     visible: true
-    width: 640
-    height: 480
+    minimumWidth: 800
+    minimumHeight: 600
     title: "Echo Forge"
-    Text {
+
+    color: "#d4d4d4"
+
+    Keys.onPressed: (event) => { if ( event.key === Qt.Key_F1 ) mainWindow.showFullScreen() }  
+
+    Shortcut {
+        sequences: Qt.Key_F1
+        onActivated: mainWindow.showFullScreen()
+    } 
+
+    StackView {
+        id: stackView
         anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.bold: true
-        font.pointSize: 24
-        text: "ECHO FORGE COMING SOON!"
+        initialItem: SplashPage {}
     }
 }

@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/qt/qml/echoforge">
         <file>main.qml</file>
+        <file>SplashPage.qml</file>
+        <file>SimulationPage.qml</file>
+        <file>MenuPage.qml</file>
     </qresource>
 </RCC>

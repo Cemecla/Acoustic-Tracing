@@ -116,6 +116,15 @@
     <None Include="main.qml">
       <Filter>Source Files\qml</Filter>
     </None>
+    <None Include="SplashPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="MenuPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="SimulationPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UICommunicator.h">
