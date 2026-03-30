@@ -107,6 +107,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EFController.cpp" />
     <ClCompile Include="EFModel.cpp" />
     <ClCompile Include="EFView.cpp" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="DTO_RecievedRay.h" />
     <ClInclude Include="EFController.h" />
     <ClInclude Include="EFModel.h" />

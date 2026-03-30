@@ -68,6 +68,9 @@
     <ClCompile Include="RayStrategy.cpp">
       <Filter>Source Files\RayManager</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\RayManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EFView.h">
@@ -104,6 +107,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RayStrategy.h">
+      <Filter>Header Files\RayManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
   </ItemGroup>
