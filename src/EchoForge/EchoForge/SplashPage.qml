@@ -12,6 +12,7 @@ Page {
     Text {
         anchors.centerIn: parent
         text: "ECHO FORGE"
+        font.pointSize: 48
     }
     
     Timer { 

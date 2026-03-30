@@ -7,38 +7,45 @@
 
 	class Avatar {
 		public:
-			Avatar();
-			/// <summary>
-			/// Main constructor
-			/// desc: The Avatar object need a starting position and angles positions to initialize it's nested Head object (See Head class)
-			/// </summary>
-			/// <param name="position">Vector3(x, y, z)</param>
-			/// <param name="angles">Vector3(x, y, z)</param>
-			Avatar(ef::Vector3 position, ef::Vector3 angles);
-	
-			/// <summary>This method return the current x,y,z angle values of the Head</summary>
-			/// <returns>Vector3(x, y, z)</returns>
-			const ef::Vector3& getHeadAngles() const;
-	
-			///	<summary>This method modify the current Head angles by the given Vector3</summary>
-			/// <param name="mods">Vector3(x, y, z)</param>
-			void rotateHead(const ef::Vector3& mods);
-	
 			/**
-			*	desc: This method modify the current position by the given Vector3
-			*   param mods: Vector3(x, y, z)
+			*	@summary Constructs an Avatar with default position and head orientation.
+			*/
+			Avatar();
+		
+			/**
+			*	@summary Constructs an Avatar with a starting position and initial head angles.
+			*	@param position Initial world position as Vector3(x, y, z).
+			*	@param angles Initial head angles as Vector3(x, y, z).
+			*/
+			Avatar(ef::Vector3 position, ef::Vector3 angles);
+		
+			/**
+			*	@summary Returns the current head rotation angles.
+			*	@return Constant reference to Vector3(x, y, z) representing head angles.
+			*/
+			const ef::Vector3& getHeadAngles() const;
+		
+			/**
+			*	@summary Rotates the head by adding the specified angle modifications.
+			*	@param mods Angle modifications as Vector3(x, y, z).
+			*/
+			void rotateHead(const ef::Vector3& mods);
+		
+			/**
+			*	@summary Moves the Avatar by adding the specified offset to its current position.
+			*	@param mods Movement offset as Vector3(x, y, z).
 			*/
 			void move(const ef::Vector3& mods);
-	
+		
 			/**
-			*	desc: This method change the current position to the given Vector3
-			*	param newPos: Vector3(x, y, z)
+			*	@summary Sets the Avatar's position to the specified coordinates.
+			*	@param newPos New absolute position as Vector3(x, y, z).
 			*/
 			void moveTo(const ef::Vector3& newPos);
-	
+		
 			/**
-			*	desc: This method return the current position of the Avatar
-			*   return: Vector3(x, y, z)
+			*	@summary Returns the current world position of the Avatar.
+			*	@return Constant reference to Vector3(x, y, z) representing position.
 			*/
 			const ef::Vector3& getPosition() const;
 		
@@ -46,32 +53,31 @@
 			class Head {
 				public:
 					/**
-					*	Main constructor
-					*	desc: The Head object need starting angles positions
-					*	param angles: Vector3(x, y, z)
+					*	@summary Constructs a Head with the specified initial rotation angles.
+					*	@param angles Initial angles as Vector3(x, y, z).
 					*/
 					Head(ef::Vector3 angles);
-	
+		
 					/**
-					*	desc: This method rotate the current Head angles from the given values
-					*   mods: Vector3(x, y, z)
+					*	@summary Rotates the head by adding the specified angle modifications.
+					*	@param mods Angle modifications as Vector3(x, y, z).
 					*/
 					void rotate(const ef::Vector3& mods);
-
+		
 					/**
-					*	desc: This method return the angles of the Head
-					*   return: Vector3(x, y, z)
+					*	@summary Returns the current rotation angles of the head.
+					*	@return Constant reference to Vector3(x, y, z) representing angles.
 					*/
 					const ef::Vector3& getAngles() const;
-	
+		
 				private:
 					// Variables
 					ef::Vector3 m_angles;
 			};
-
+		
 			// Variables
 			Head m_head;
 			ef::Vector3 m_position;
-	};
+		};
 
 #endif

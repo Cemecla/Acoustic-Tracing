@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     YutaSound::SpatialAudioEngine engine;
     engine.prepare(48000.0,512);
-    engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
+    engine.addSource("../../../../Acoustic-Tracing/assets/mooo1945.mp3");
     engine.start();
 
 
