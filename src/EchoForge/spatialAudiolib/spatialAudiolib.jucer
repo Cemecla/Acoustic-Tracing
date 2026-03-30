@@ -4,6 +4,12 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="KWbzeU" name="spatialAudiolib">
     <GROUP id="{394D1179-25A1-8B46-DFCC-DC9374885457}" name="Source">
+      <FILE id="AC1Ejp" name="AudioCallback.cpp" compile="1" resource="0"
+            file="Source/AudioCallback.cpp"/>
+      <FILE id="K2Q04x" name="AudioCallback.h" compile="0" resource="0" file="Source/AudioCallback.h"/>
+      <FILE id="YFt1G7" name="AudioManager.cpp" compile="1" resource="0"
+            file="Source/AudioManager.cpp"/>
+      <FILE id="eVWhbb" name="AudioManager.h" compile="0" resource="0" file="Source/AudioManager.h"/>
       <FILE id="inkM7a" name="CircularStereoBuffer.cpp" compile="1" resource="0"
             file="Source/CircularStereoBuffer.cpp"/>
       <FILE id="jGcJFP" name="CircularStereoBuffer.h" compile="0" resource="0"
@@ -11,15 +17,14 @@
       <FILE id="QiYc2r" name="ListnerState.cpp" compile="1" resource="0"
             file="Source/ListnerState.cpp"/>
       <FILE id="z0ZbIl" name="ListnerState.h" compile="0" resource="0" file="Source/ListnerState.h"/>
+      <FILE id="pcb2pA" name="SoundRemaining.h" compile="0" resource="0"
+            file="Source/SoundRemaining.h"/>
       <FILE id="tUgETu" name="SoundSource.cpp" compile="1" resource="0" file="Source/SoundSource.cpp"/>
       <FILE id="eyJChg" name="SoundSource.h" compile="0" resource="0" file="Source/SoundSource.h"/>
-      <FILE id="K2Q04x" name="AudioCallback.h" compile="0" resource="0" file="Source/AudioCallback.h"/>
-      <FILE id="AC1Ejp" name="AudioCallback.cpp" compile="1" resource="0"
-            file="Source/AudioCallback.cpp"/>
-      <FILE id="Km2ckF" name="SpatialAudioEngine.h" compile="0" resource="0"
-            file="Source/SpatialAudioEngine.h"/>
       <FILE id="cwgF8h" name="SpatialAudioEngine.cpp" compile="1" resource="0"
             file="Source/SpatialAudioEngine.cpp"/>
+      <FILE id="Km2ckF" name="SpatialAudioEngine.h" compile="0" resource="0"
+            file="Source/SpatialAudioEngine.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
