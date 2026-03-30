@@ -13,7 +13,8 @@
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
 	m_map(Map(5, 5, 5)),
-	m_rayManager{this,10}
+	m_rayManager{this,10},
+	m_avatar(Avatar())
 {
 }
 	//m_rayManager(tracing::RayManager(this,20))

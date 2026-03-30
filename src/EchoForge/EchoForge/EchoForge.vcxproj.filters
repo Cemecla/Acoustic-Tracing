@@ -68,6 +68,9 @@
     <ClCompile Include="RayStrategy.cpp">
       <Filter>Source Files\RayManager</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\RayManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EFView.h">
@@ -106,6 +109,9 @@
     <ClInclude Include="RayStrategy.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files\RayManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="assets.qrc">
@@ -114,6 +120,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="main.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="SplashPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="MenuPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="SimulationPage.qml">
       <Filter>Source Files\qml</Filter>
     </None>
   </ItemGroup>

@@ -10,7 +10,8 @@ using namespace tracing;
 
 RayManager::RayManager(EFModel* parent,int rayCount)
 	: m_rayCount(rayCount),
-	m_parent(parent)
+	m_parent(parent),
+	m_collisionManager{}
 {
 
 	
@@ -66,4 +67,5 @@ const void RayManager::createRays(Eigen::Vector3f position) {
 }
 
 const void tracing::RayManager::next_colision() {
+
 };

@@ -107,6 +107,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EFController.cpp" />
     <ClCompile Include="EFModel.cpp" />
     <ClCompile Include="EFView.cpp" />
@@ -115,6 +116,9 @@
     <ClCompile Include="RayStrategy.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
+    <None Include="MenuPage.qml" />
+    <None Include="SimulationPage.qml" />
+    <None Include="SplashPage.qml" />
     <QtRcc Include="assets.qrc" />
     <ClCompile Include="Ray.cpp" />
     <QtRcc Include="qml.qrc" />
@@ -122,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="DTO_RecievedRay.h" />
     <ClInclude Include="EFController.h" />
     <ClInclude Include="EFModel.h" />

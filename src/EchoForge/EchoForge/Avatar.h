@@ -7,6 +7,7 @@
 
 	class Avatar {
 		public:
+			Avatar();
 			/// <summary>
 			/// Main constructor
 			/// desc: The Avatar object need a starting position and angles positions to initialize it's nested Head object (See Head class)

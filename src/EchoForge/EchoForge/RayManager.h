@@ -1,8 +1,11 @@
 #pragma once
+#include <random>
+#include <Eigen/StdVector>
+
 #include "Vector.h"
 #include "Queue.h"
 #include "Ray.h"
-#include <Eigen/StdVector>
+#include "CollisionManager.h"
 
 #ifndef RAYMANAGER_H
 	#define RAYMANAGER_H
@@ -26,6 +29,9 @@ namespace tracing {
 		const void next_colision();
 		std::unique_ptr<std::vector<Ray>> m_activeRays = std::make_unique<std::vector<Ray>>();
 		EFModel* m_parent;
+
+		CollisionManager m_collisionManager;
+
 	
 
 	};
