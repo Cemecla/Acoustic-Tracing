@@ -112,6 +112,7 @@
     <ClCompile Include="EFView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="RayStrategy.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
     <QtRcc Include="assets.qrc" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="RayManager.h" />
     <QtMoc Include="UICommunicator.h" />
+    <ClInclude Include="RayStrategy.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

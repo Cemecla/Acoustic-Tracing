@@ -65,6 +65,9 @@
     <ClCompile Include="UICommunicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RayStrategy.cpp">
+      <Filter>Source Files\RayManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EFView.h">
@@ -99,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="EFController.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayStrategy.h">
+      <Filter>Header Files\RayManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
