@@ -18,12 +18,12 @@ class UICommunicator;
 			void stopSimulation();
 			void saveSimulation(std::string url);
 			void loadSimulation(std::string url);
+			void play(std::string url) const;
 		
 		private:
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;
 			UICommunicator* m_uiCommunicator;
-
 			void setupCommunicator();
 	};
 

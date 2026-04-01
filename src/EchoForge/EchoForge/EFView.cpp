@@ -34,3 +34,7 @@ void EFView::loadSimulation(std::string url){}
 void EFView::update() {
 
 }
+
+void EFView::play(std::string url) const {
+
+}

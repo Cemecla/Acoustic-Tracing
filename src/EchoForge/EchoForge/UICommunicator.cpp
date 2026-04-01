@@ -56,7 +56,7 @@ void UICommunicator::testing(const QString& value) {
 }
 
 void UICommunicator::playtest(const QString& url) {
-
+	m_parent->play(url.toStdString());
 }
 
 void UICommunicator::userInput(char input) {

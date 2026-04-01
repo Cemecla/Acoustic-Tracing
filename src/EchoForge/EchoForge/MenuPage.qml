@@ -130,6 +130,33 @@ Page {
                 Layout.fillHeight: true
                 color: "transparent"
             }
+
+            ColumnLayout {
+                width: 100
+                Layout.fillWidth: false
+                Layout.fillHeight: true
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color: "transparent"
+                }
+                
+                Image {
+                    source: "qrc:/images/github"
+                    Layout.preferredWidth: 100
+                    Layout.preferredHeight: 100
+                    fillMode: Image.PreserveAspectFit
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            Qt.openUrlExternally("https://github.com/Cemecla/Acoustic-Tracing")
+                        }
+                    }
+                }
+            }
         }
     }
 }
