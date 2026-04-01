@@ -13,10 +13,11 @@ Page {
     ColumnLayout {
         id: mainColumn
         anchors.fill: parent
-        
+
         Rectangle {
             height: 100
             Layout.fillWidth: true
+            Layout.topMargin: 20
             color: "transparent"
 
             Text {
@@ -34,11 +35,17 @@ Page {
                 width: 200
                 Layout.fillHeight: true
                 Layout.leftMargin: 20
+                Layout.bottomMargin: 20
+
+                Rectangle {
+                    Layout.fillHeight: true
+                    color: "transparent"
+                }
 
                 Button { 
                     id: bScenario
                     text: "Play Scenario"
-                    font.pixelSize: 24
+                    font.pointSize: 24
                     Layout.preferredWidth: parent.width
                     onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SimulationPage.qml"))
 
@@ -59,9 +66,9 @@ Page {
                 Button { 
                     id: bDev
                     text: "Dev Mode"
-                    font.pixelSize: 24
+                    font.pointSize: 24
                     Layout.preferredWidth: parent.width
-
+                    onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/DevMode.qml"))
                     background: Rectangle {
                         color: bDev.hovered ? "#000000" : "transparent"
                     }
@@ -79,9 +86,9 @@ Page {
                 Button { 
                     id: bOptions
                     text: "Options"
-                    font.pixelSize: 24
+                    font.pointSize: 24
                     Layout.preferredWidth: parent.width
-
+                    onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/OptionPage.qml"))
                     background: Rectangle {
                         color: bOptions.hovered ? "#000000" : "transparent"
                     }
@@ -99,7 +106,7 @@ Page {
                 Button { 
                     id: bquit
                     text: "Quit" 
-                    font.pixelSize: 24
+                    font.pointSize: 24
                     onClicked: Qt.quit()
                     Layout.preferredWidth: parent.width
 

@@ -55,6 +55,10 @@ void UICommunicator::testing(const QString& value) {
 	qDebug() << value;
 }
 
+void UICommunicator::playtest(const QString& url) {
+
+}
+
 void UICommunicator::userInput(char input) {
 	input = std::tolower(input);
 

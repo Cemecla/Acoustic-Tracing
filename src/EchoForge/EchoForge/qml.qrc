@@ -4,5 +4,7 @@
         <file>SplashPage.qml</file>
         <file>SimulationPage.qml</file>
         <file>MenuPage.qml</file>
+        <file>OptionPage.qml</file>
+        <file>DevMode.qml</file>
     </qresource>
 </RCC>

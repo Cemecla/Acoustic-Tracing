@@ -35,7 +35,10 @@ class EFView;
 			Q_INVOKABLE void userInput(char input);
 			Q_INVOKABLE void addBlock(int x, int y, int z);
 			Q_INVOKABLE void destroyBlock(int x, int y, int z);
+
 			Q_INVOKABLE void testing(const QString& value);
+			Q_INVOKABLE void playtest(const QString& url);
+
 
 		signals:
 			void avatarPosChanged();
