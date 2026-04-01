@@ -1,10 +1,13 @@
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 #include "EFView.h"
 #include "EFController.h"
 #include "UICommunicator.h"
 
-EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine) {
+EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine), m_uiCommunicator(new UICommunicator(this)){
+	QQmlContext* context = m_qtEngine->rootContext();
+	context->setContextProperty("communicator", m_uiCommunicator);
 	m_qtEngine->load(QUrl(QStringLiteral("qrc:/qt/qml/echoforge/main.qml")));
 }
 

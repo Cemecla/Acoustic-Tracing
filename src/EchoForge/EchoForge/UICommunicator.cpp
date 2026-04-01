@@ -1,4 +1,6 @@
 #include <cctype>
+#include <iostream>
+#include <QDebug>
 
 #include "UICommunicator.h"
 #include "EFView.h"
@@ -33,11 +35,11 @@ void UICommunicator::stopSimulation() {
 
 }
 
-void UICommunicator::saveSimulation(std::string url) {
+void UICommunicator::saveSimulation(const QString& url) {
 
 }
 
-void UICommunicator::loadSimulation(std::string url) {
+void UICommunicator::loadSimulation(const QString& url) {
 
 }
 
@@ -47,6 +49,10 @@ void UICommunicator::addBlock(const int x, const int y, const int z) {
 
 void UICommunicator::destroyBlock(const int x, const int y, const int z) {
 
+}
+
+void UICommunicator::testing(const QString& value) {
+	qDebug() << value;
 }
 
 void UICommunicator::userInput(char input) {

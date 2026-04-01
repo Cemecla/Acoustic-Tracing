@@ -21,7 +21,7 @@ Page {
         Button {
             anchors.horizontalCenter: mainColumn.horizontalCenter
             text: "To Menu"
-            onClicked: stackView.pop()
+            onClicked: communicator.testing("Test")
         }
     }
 }

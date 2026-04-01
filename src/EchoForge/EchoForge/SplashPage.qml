@@ -16,7 +16,7 @@ Page {
     }
     
     Timer { 
-        interval: 10000; running: true;
+        interval: 1000; running: true;
         onTriggered: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/MenuPage.qml"))
     }
 }

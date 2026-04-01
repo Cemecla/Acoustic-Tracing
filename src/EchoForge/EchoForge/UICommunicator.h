@@ -30,11 +30,12 @@ class EFView;
 
 			Q_INVOKABLE void startSimulation();
 			Q_INVOKABLE void stopSimulation();
-			Q_INVOKABLE void saveSimulation(std::string url);
-			Q_INVOKABLE void loadSimulation(std::string url);
+			Q_INVOKABLE void saveSimulation(const QString& url);
+			Q_INVOKABLE void loadSimulation(const QString& url);
 			Q_INVOKABLE void userInput(char input);
 			Q_INVOKABLE void addBlock(int x, int y, int z);
 			Q_INVOKABLE void destroyBlock(int x, int y, int z);
+			Q_INVOKABLE void testing(const QString& value);
 
 		signals:
 			void avatarPosChanged();

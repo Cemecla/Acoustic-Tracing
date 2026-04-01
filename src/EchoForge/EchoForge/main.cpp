@@ -1,4 +1,5 @@
 #include "EFController.h"
+#include <QQuickStyle>
 #include <QGuiApplication>
 #include <qicon.h>
 #include "Avatar.h"
@@ -23,17 +24,17 @@ int main(int argc, char *argv[])
 
     // Set the window logo 
     app.setWindowIcon(QIcon(":/images/logo"));
+    QQuickStyle::setStyle("Basic");
 
 
     YutaSound::SpatialAudioEngine engine;
     engine.prepare(48000.0,512);
     engine.addSource("../../../../Acoustic-Tracing/assets/mooo1945.mp3");
-    engine.start();
+    // engine.start();
 
 
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();
-    //EFController efc;
 
     // Execution of QT Application
     return app.exec();
