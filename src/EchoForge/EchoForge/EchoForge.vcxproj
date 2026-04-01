@@ -76,6 +76,9 @@
       <AdditionalLibraryDirectories>..\spatialAudiolib\Builds\VisualStudio2026\x64\Debug\Static Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>spatialAudiolib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Xdcmake>
+      <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -111,8 +114,10 @@
     <ClCompile Include="EFController.cpp" />
     <ClCompile Include="EFModel.cpp" />
     <ClCompile Include="EFView.cpp" />
+    <ClCompile Include="EFWorldLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Materiel.cpp" />
     <ClCompile Include="RayStrategy.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
@@ -131,6 +136,9 @@
     <ClInclude Include="EFController.h" />
     <ClInclude Include="EFModel.h" />
     <ClInclude Include="EFView.h" />
+    <ClInclude Include="EFWorld.h" />
+    <ClInclude Include="EFWorldLoader.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Map.h" />

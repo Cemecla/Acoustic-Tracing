@@ -1,0 +1,30 @@
+[
+    {
+        "name": "empty",
+        "isPassable": true,
+        "scatteringCoefficient": [0, 0, 0],
+        "normal": [0, 0, 0],
+        "energyLoss": [0, 0, 0]
+    },
+    {
+        "name": "stone",
+        "isPassable": false,
+        "scatteringCoefficient": [0, 0, 0],
+        "normal": [0, 0, 0],
+        "energyLoss": [0, 0, 0]
+    },
+    {
+        "name": "glass",
+        "isPassable": false,
+        "scatteringCoefficient": [0, 0, 0],
+        "normal": [0, 0, 0],
+        "energyLoss": [0, 0, 0]
+    },
+    {
+        "name": "wood",
+        "isPassable": false,
+        "scatteringCoefficient": [0, 0, 0],
+        "normal": [0, 0, 0],
+        "energyLoss": [0, 0, 0]
+    }
+]

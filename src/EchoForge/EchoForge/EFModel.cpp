@@ -6,7 +6,9 @@
 #include "EFModel.h"
 #include "EFController.h"
 #include "Map.h"
+#include "EFWorldLoader.h"
 
+using namespace ef;
 
 // TEMPORARY : m_avatar
 // TODO : MAKE numbers of ray configurable
@@ -15,10 +17,13 @@ EFModel::EFModel(EFController* parent) :
 	m_map(Map(5, 5, 5)),
 	m_rayManager{this,10},
 	m_avatar(Avatar())
-{
-}
+{}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
+
+void EFModel::loadWorld(std::string& filename) {
+	json mapfile = loadJson(filename);
+}
 
 void EFModel::update() {
 
@@ -26,11 +31,10 @@ void EFModel::update() {
 	if (!m_avatar.has_value()) return;
 	m_rayManager.update();
 
-
 }
 
-json EFModel::loadJson(std::string& name) {
-	std::ifstream file(name);
+json EFModel::loadJson(std::string& filename) {
+	std::ifstream file(filename);
 
 	if (!file.is_open())
 	{
@@ -48,7 +52,7 @@ json EFModel::loadJson(std::string& name) {
 	return json::parse(strdata);
 }
 
-bool EFModel::saveJson(const json&, std::string& name) {
+bool EFModel::saveJson(const json&, std::string& filename) {
 	return true;
 }
 
