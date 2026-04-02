@@ -9,12 +9,13 @@ namespace ef {
 		float x{};
 		float y{};
 
+		constexpr Vector2() : x(0), y(0) {}
 		/**
 		*	@summary Constructs a 2D vector with the specified x and y components.
 		*	@param x The horizontal component.
 		*	@param y The vertical component.
 		*/
-		Vector2(float x, float y): x(x), y(y) {}
+		constexpr Vector2(float x, float y): x(x), y(y) {}
 
 		/**
 		*   @summary Returns a new Vector2 representing the sum of this vector and another.
@@ -73,18 +74,18 @@ namespace ef {
 		}
 	};
 
-
+	template<typename T>
 	struct Vector3 {
-		float x{};
-		float y{};
-		float z{};
+		T x{};
+		T y{};
+		T z{};
 
 
 		// ** CONSTRUCTOR **/
 		/**
 		*	@summary Constructs a Vector3 initialized to (0, 0, 0).
 		*/
-		Vector3() : x(0), y(0), z(0) {}
+		constexpr Vector3() : x(0), y(0), z(0) {}
 
 		/**
 		*	@summary Constructs a 3D vector with the specified x, y, and z components.
@@ -92,7 +93,7 @@ namespace ef {
 		*	@param y The y component.
 		*   @param z The z component.
 		*/
-		Vector3(float x, float y, float z): x(x), y(y), z(z) {}
+		constexpr Vector3(T x, T y, T z): x(x), y(y), z(z) {}
 
 		// ** VECTOR OPERATION ** //
 		/**
@@ -100,7 +101,7 @@ namespace ef {
 		*   @param v The vector to add.
 		*	@return A new Vector3 containing the component-wise addition result.
 		*/
-		inline Vector3 operator+(const Vector3& v) const {
+		inline Vector3<T> operator+(const Vector3<T>& v) const {
 			return { x + v.x, y + v.y, z + v.z };
 		}
 
@@ -109,7 +110,7 @@ namespace ef {
 		*   @param v The vector to subtract.
 		*	@return A new Vector3 containing the component-wise subtraction result.
 		*/
-		inline Vector3 operator-(const Vector3& v) const {
+		inline Vector3<T> operator-(const Vector3<T>& v) const {
 			return { x - v.x, y - v.y, z - v.z };
 		}
 
@@ -118,7 +119,7 @@ namespace ef {
 		*   @param v The vector to multiply with.
 		*	@return A new Vector3 containing the component-wise multiplication result.
 		*/
-		inline Vector3 operator*(const Vector3& v) const {
+		inline Vector3<T> operator*(const Vector3& v) const {
 			return { x * v.x, y * v.y, z * v.z };
 		}
 
@@ -127,7 +128,7 @@ namespace ef {
 		*   @param v The vector to divide by.
 		*	@return A new Vector3 containing the component-wise division result.
 		*/
-		inline Vector3 operator/(const Vector3& v) const {
+		inline Vector3<T> operator/(const Vector3<T>& v) const {
 			return { x / v.x, y / v.y, z / v.z };
 		}
 
@@ -135,7 +136,7 @@ namespace ef {
 		*	@summary Adds another Vector3 to this vector in place.
 		*   @param v The vector to add.
 		*/
-		inline void operator+=(const Vector3& v) {
+		inline void operator+=(const Vector3<T>& v) {
 			x += v.x;
 			y += v.y;
 			z += v.z;
@@ -145,7 +146,7 @@ namespace ef {
 		*	@summary Subtracts another Vector3 from this vector in place.
 		*   @param v The vector to subtract.
 		*/
-		inline void operator-=(const Vector3& v) {
+		inline void operator-=(const Vector3<T>& v) {
 			x -= v.x;
 			y -= v.y;
 			z -= v.z;
@@ -155,7 +156,7 @@ namespace ef {
 		*	@summary Multiplies this vector component-wise by another Vector3 in place.
 		*   @param v The vector to multiply with.
 		*/
-		inline void operator*=(const Vector3& v) {
+		inline void operator*=(const Vector3<T>& v) {
 			x *= v.x;
 			y *= v.y;
 			z *= v.z;
@@ -165,7 +166,7 @@ namespace ef {
 		*	@summary Divides this vector component-wise by another Vector3 in place.
 		*   @param v The vector to divide by.
 		*/
-		inline void operator/=(const Vector3& v) {
+		inline void operator/=(const Vector3<T>& v) {
 			x /= v.x;
 			y /= v.y;
 			z /= v.z;
@@ -217,7 +218,7 @@ namespace ef {
 		*	@param n The scalar value to add.
 		*	@return A new Vector3 containing the result.
 		*/
-		inline Vector3 operator+(const float n) {
+		inline Vector3<T> operator+(const float n) {
 			return { x + n, y + n, z + n };
 		}
 
@@ -226,7 +227,7 @@ namespace ef {
 		*	@param n The scalar value to subtract.
 		*	@return A new Vector3 containing the result.
 		*/
-		inline Vector3 operator-(const float n) {
+		inline Vector3<T> operator-(const float n) {
 			return { x - n, y - n, z - n };
 		}
 
@@ -235,7 +236,7 @@ namespace ef {
 		*	@param n The scalar multiplier.
 		*	@return A new Vector3 containing the result.
 		*/
-		inline Vector3 operator*(const float n) {
+		inline Vector3<T> operator*(const float n) {
 			return { x * n, y * n, z * n };
 		}
 
@@ -244,7 +245,7 @@ namespace ef {
 		*	@param n The scalar divisor.
 		*	@return A new Vector3 containing the result.
 		*/
-		inline Vector3 operator/(const float n) {
+		inline Vector3<T> operator/(const float n) {
 			return { x / n, y / n, z / n };
 		}
 
@@ -261,7 +262,7 @@ namespace ef {
 		*	@summary Normalizes this vector in place to have a magnitude of 1 when possible.
 		*	@return A reference to this normalized vector.
 		*/
-		inline Vector3& normalize() {
+		inline Vector3<T>& normalize() {
 			if (!(x + y + z)) // If all value at zero
 				return *this;
 
@@ -278,9 +279,9 @@ namespace ef {
 		*	@summary Returns a normalized copy of this vector.
 		*	@return A new Vector3 with magnitude 1 when possible, otherwise a zero vector.
 		*/
-		inline Vector3 normalizedCopy() const {
+		inline Vector3<T> normalizedCopy() const {
 			if (!(x + y + z)) // If all value at zero
-				return Vector3(0, 0, 0);
+				return Vector3<T>(0, 0, 0);
 
 			float mag = magnitude();
 
@@ -296,24 +297,40 @@ namespace ef {
 		*	@param v The other vector.
 		*	@return The scalar dot product result.
 		*/
-		inline float dot(Vector3& v) const {
+		inline float dot(Vector3<T>& v) const {
 			return x * v.x + y * v.y + z * v.z;
 		}
 
 		/**
 		*	@summary Computes the average of multiple Vector3 values.
 		*	@return A Vector3 representing the average.
+		*	https://stackoverflow.com/questions/1448119/how-to-write-a-function-that-takes-an-iterator-or-collection-in-a-generic-way
 		*/
-		inline static Vector3 average() {
-			
+		template<class Iterator>
+		inline static auto average(Iterator first, Iterator last) {
+			//int count = 0;
+			//Vector3<T> avgVec = Vector3<T>();
+
+			//for (auto it = first; it != last; std::next(it)) {
+			//	avgVec += *it;
+			//	count++;
+			//}
+
+			//return avgVec / count;
 		}
 
 		/**
 		*	@summary Computes a weighted average of multiple Vector3 values.
 		*	@return A Vector3 representing the weighted average.
 		*/
-		inline static Vector3 weightedAverage() {
+		template<class Iterator>
+		inline static Vector3<T> weightedAverage(Iterator first, Iterator last) {
 			
 		}
 	};
+
+	using Vector3F = Vector3<float>;
+	using Vector3I = Vector3<int>;
+	using Vector3L = Vector3<long>;
+	using Vector3D = Vector3<double>;
 }

@@ -10,7 +10,7 @@ public:
 	~DOT_RecievedRay();
 
 private:
-	ef::Vector3 m_lastSeen;
+	ef::Vector3F m_lastSeen;
 	float m_energy;
 	int m_timeDelta;
 	std::uint8_t m_emitterID;

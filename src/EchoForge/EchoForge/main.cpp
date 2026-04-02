@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     engine.prepare(48000.0,512);
     engine.addSource("../../../../Acoustic-Tracing/assets/mooo1945.mp3");
     engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
-    engine.start();
+    // engine.start();
 
 
     // Creation of the Echo Forge Controller

@@ -1,7 +1,4 @@
 #include "EFWorldLoader.h"
-#include "EFWorld.h"
-#include "Avatar.h"
-#include "Map.h"
 
 using namespace ef;
 
