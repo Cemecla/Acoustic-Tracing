@@ -114,6 +114,7 @@
     <ClCompile Include="EFController.cpp" />
     <ClCompile Include="EFModel.cpp" />
     <ClCompile Include="EFView.cpp" />
+    <ClCompile Include="EFWorld.cpp" />
     <ClCompile Include="EFWorldLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -121,7 +122,10 @@
     <ClCompile Include="RayStrategy.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
-    <None Include="DevMode.qml" />
+    <None Include="CreditPage.qml" />
+    <None Include="DevModePage.qml" />
+    <None Include="MainLayout.qml" />
+    <None Include="MenuButton.qml" />
     <None Include="MenuPage.qml" />
     <None Include="OptionPage.qml" />
     <None Include="SimulationPage.qml" />

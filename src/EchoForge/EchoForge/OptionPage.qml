@@ -1,17 +1,8 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
-Page {
-    width: Window.width
-    height: Window.height
-
-    background : Rectangle {
-        color: "#d4d4d4"
-    }
-
-    Text {
-        text: "Option Coming Soon!"
-        anchors.centerIn: parent
-        font.pointSize: 46
-    }
+MainLayout {
+    maintitle: "Option"
+    
 }

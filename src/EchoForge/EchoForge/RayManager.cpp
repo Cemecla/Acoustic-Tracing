@@ -20,7 +20,7 @@ RayManager::RayManager(EFModel* parent,int rayCount)
 }
 
 const void RayManager::update() {
-	ef::Vector3 avatar = m_parent->getAvatar().value().getPosition();
+	ef::Vector3F avatar = m_parent->getAvatar().value().getPosition();
 
 
 

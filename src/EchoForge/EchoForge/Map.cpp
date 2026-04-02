@@ -17,7 +17,7 @@ const Material& Map::fetchMaterial(const int x, const int y, const int z) const 
 	return m_materials[materialIndex];
 }
 
-const Material& Map::fetchMaterial(const Vector3& position) const {
+const Material& Map::fetchMaterial(const Vector3I& position) const {
 	int mapIndex = findMapIndex(position);
 
 	int materialIndex = m_map[mapIndex];
@@ -41,7 +41,7 @@ const int Map::fetchMaterialId(const int x, const int y, const int z) const {
 	return m_map[mapIndex];
 }
 
-const int Map::fetchMaterialId(const Vector3& position) const {
+const int Map::fetchMaterialId(const Vector3I& position) const {
 	int mapIndex = findMapIndex(position);
 	return m_map[mapIndex];
 }
@@ -50,7 +50,7 @@ void Map::alterVoxelMaterial(const int x, const int y, const int z, int id) {
 
 }
 
-void Map::alterVoxelMaterial(const Vector3& position, int id) {
+void Map::alterVoxelMaterial(const Vector3I& position, int id) {
 
 }
 
@@ -58,7 +58,7 @@ void Map::destroyVoxelMaterial(const int x, const int y, const int z) {
 
 }
 
-void Map::destroyVoxelMaterial(const Vector3& position) {
+void Map::destroyVoxelMaterial(const Vector3I& position) {
 
 }
 
@@ -66,7 +66,7 @@ inline const int Map::findMapIndex(const int x, const int y, const int z) const 
 	return z * (m_height * m_width) + y * m_width + x; // To test and verify
 }
 
-inline const int Map::findMapIndex(const Vector3& position) const {
+inline const int Map::findMapIndex(const Vector3I& position) const {
 	return position.z * (m_height * m_width) + position.y * m_width + position.x;
 }
 

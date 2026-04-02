@@ -1,4 +1,5 @@
 #pragma once
+#include "EFWorld.h"
 
 #include "json.hpp"
 
@@ -6,15 +7,12 @@ using json = nlohmann::json;
 
 namespace ef {
 
-	struct EFWorld;
-	class Avatar;
-	class Map;
-
 	class EFWorldLoader
 	{
 		public:
 			static EFWorld build(const json& mapJson);
 			static EFWorld build(const json& mapJson, const json& materialJson);
+			static json build(const EFWorld& efWorld);
 
 		private:
 			EFWorldLoader() = delete;

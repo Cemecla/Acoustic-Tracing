@@ -5,6 +5,9 @@
         <file>SimulationPage.qml</file>
         <file>MenuPage.qml</file>
         <file>OptionPage.qml</file>
-        <file>DevMode.qml</file>
+        <file>MainLayout.qml</file>
+        <file>MenuButton.qml</file>
+        <file>DevModePage.qml</file>
+        <file>CreditPage.qml</file>
     </qresource>
 </RCC>

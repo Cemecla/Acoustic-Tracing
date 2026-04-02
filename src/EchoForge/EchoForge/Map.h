@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <vector>
+#include "Vector.h"
 #include "Material.h"
 
 
@@ -17,9 +18,6 @@
 	#define MAP_H
 
 	namespace ef {
-	
-		struct Vector3;
-	
 		class Map {
 			// Y is height axis, x width, z depth
 			public:
@@ -28,17 +26,17 @@
 				Map(int width, int height, int depth, float voxelSizeCm);
 	
 				const Material& fetchMaterial(const int x, const int y, const int z) const;
-				const Material& fetchMaterial(const Vector3& position) const;
+				const Material& fetchMaterial(const Vector3I& position) const;
 	
 				const int fetchMaterialId(const Material& material) const;
 				const int fetchMaterialId(const int x, const int y, const int z) const;
-				const int fetchMaterialId(const Vector3& position) const;
+				const int fetchMaterialId(const Vector3I& position) const;
 	
 				void alterVoxelMaterial(const int x, const int y, const int z, int id);
-				void alterVoxelMaterial(const Vector3& position, int id);
+				void alterVoxelMaterial(const Vector3I& position, int id);
 	
 				void destroyVoxelMaterial(const int x, const int y, const int z);
-				void destroyVoxelMaterial(const Vector3& position);
+				void destroyVoxelMaterial(const Vector3I& position);
 	
 			private:
 				int m_width;
@@ -56,7 +54,7 @@
 	
 				inline const int findMapIndex(const int x, const int y, const int z) const;
 	
-				inline const int findMapIndex(const Vector3& position) const;
+				inline const int findMapIndex(const Vector3I& position) const;
 	
 				const bool assertOutOfBound(const int x, const int y, const int z) const;
 		};
