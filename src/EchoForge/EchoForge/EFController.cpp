@@ -10,3 +10,7 @@ EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(s
 bool EFController::run() {
 	return true;
 }
+
+void EFController::loadSimulation(std::string& url) {
+	m_model->loadWorld(url);
+}

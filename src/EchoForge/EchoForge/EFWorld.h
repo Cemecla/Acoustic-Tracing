@@ -9,6 +9,7 @@ namespace ef {
 		Avatar avatar;
 		Map map;
 
+		EFWorld();
 		EFWorld(Avatar avatar, Map map);
 
 	};

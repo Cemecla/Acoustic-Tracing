@@ -1,5 +1,8 @@
 #include <QQmlApplicationEngine>
+#include <QGuiApplication>
 #include <QQmlContext>
+#include <qicon.h>
+#include <QQuickStyle>
 
 #include "EFView.h"
 #include "EFController.h"
@@ -7,8 +10,17 @@
 
 EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine), m_uiCommunicator(new UICommunicator(this)){
 	QQmlContext* context = m_qtEngine->rootContext();
+
 	context->setContextProperty("communicator", m_uiCommunicator);
+
+	QQuickStyle::setStyle("Basic");
+
 	m_qtEngine->load(QUrl(QStringLiteral("qrc:/qt/qml/echoforge/main.qml")));
+}
+
+void EFView::setupQGuiApplication(QGuiApplication& app) const {
+	// Set the window logo 
+	app.setWindowIcon(QIcon(":/images/logo"));
 }
 
 void EFView::setupCommunicator() {
@@ -23,18 +35,22 @@ void EFView::saveSimulation() {
 
 }
 
-void EFView::stopSimulation(){}
-
-void EFView::saveSimulation(std::string url) {
+void EFView::stopSimulation() {
 
 }
 
-void EFView::loadSimulation(std::string url){}
+void EFView::saveSimulation(std::string& url) {
+
+}
+
+void EFView::loadSimulation(std::string& url) {
+	m_parent->loadSimulation(url);
+}
 
 void EFView::update() {
 
 }
 
-void EFView::play(std::string url) const {
+void EFView::play(std::string& url) const {
 
 }

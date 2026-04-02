@@ -23,6 +23,7 @@ EFModel::EFModel(EFController* parent) :
 
 void EFModel::loadWorld(std::string& filename) {
 	json mapfile = loadJson(filename);
+	EFWorldLoader::build(mapfile);
 }
 
 void EFModel::update() {

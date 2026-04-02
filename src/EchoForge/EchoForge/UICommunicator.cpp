@@ -40,7 +40,8 @@ void UICommunicator::saveSimulation(const QString& url) {
 }
 
 void UICommunicator::loadSimulation(const QString& url) {
-
+	std::string urlconverted = url.toStdString();
+	m_parent->loadSimulation(urlconverted);
 }
 
 void UICommunicator::addBlock(const int x, const int y, const int z) {
@@ -56,7 +57,8 @@ void UICommunicator::testing(const QString& value) {
 }
 
 void UICommunicator::playtest(const QString& url) {
-	m_parent->play(url.toStdString());
+	std::string urlconverted = url.toStdString();
+	m_parent->play(urlconverted);
 }
 
 void UICommunicator::userInput(char input) {

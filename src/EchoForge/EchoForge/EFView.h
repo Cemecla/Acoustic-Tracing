@@ -4,6 +4,7 @@
 
 class EFController;
 class QQmlApplicationEngine;
+class QGuiApplication;
 class UICommunicator;
 
 #ifndef EF_VIEW_H
@@ -16,9 +17,10 @@ class UICommunicator;
 			void startSimulation();
 			void saveSimulation();
 			void stopSimulation();
-			void saveSimulation(std::string url);
-			void loadSimulation(std::string url);
-			void play(std::string url) const;
+			void saveSimulation(std::string& url);
+			void loadSimulation(std::string& url);
+			void play(std::string& url) const;
+			void setupQGuiApplication(QGuiApplication& app) const;
 		
 		private:
 			EFController* m_parent;

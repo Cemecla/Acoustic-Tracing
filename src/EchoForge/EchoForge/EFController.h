@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <string>
 
 class EFModel;
 class EFView;
@@ -16,6 +17,7 @@ class EFView;
 			std::unique_ptr<EFView> m_view;
 
 			bool run();
+			void loadSimulation(std::string& url);
 	
 		private:
 

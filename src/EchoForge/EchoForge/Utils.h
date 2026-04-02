@@ -7,8 +7,6 @@ enum class Direction {
 	DOWN
 };
 
-
-
 #ifndef ERROR_H
 #define ERROR_H
 enum Error {
@@ -16,6 +14,7 @@ enum Error {
 	FILE_NOT_FOUND = 2,
 	PATH_NOT_FOUND = 3,
 	ACCESS_DENIED = 5,
+	ERROR_INVALID_DATA = 13,
 	TYPE = 200,
 	PARAMETER_OUT_OF_BOUNDS = 5913
 };

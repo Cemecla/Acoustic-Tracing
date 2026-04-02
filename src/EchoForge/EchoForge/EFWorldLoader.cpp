@@ -1,19 +1,23 @@
 #include "EFWorldLoader.h"
+#include <QDebug>
 
 using namespace ef;
 
-//EFWorld EFWorldLoader::build(const json& mapJson) {
-//	isMapValid(mapJson);
-//}
-//
+EFWorld EFWorldLoader::build(const json& mapJson) {
+	if (isMapValid(mapJson)) {
+		std::string title = mapJson["title"].get<std::string>();
+	}
+	return EFWorld();
+}
+
 //EFWorld EFWorldLoader::build(const json& mapJson, const json& materialJson) {
 //	isMapValid(mapJson);
 //	isMaterialsValid(materialJson);
 //}
 //
-//bool EFWorldLoader::isMapValid(const json& json) {
-//
-//}
+bool EFWorldLoader::isMapValid(const json& json) {
+	return true;
+}
 //
 //bool EFWorldLoader::isMaterialsValid(const json& json) {
 //

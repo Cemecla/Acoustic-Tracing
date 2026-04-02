@@ -3,4 +3,7 @@
         <file alias="logo">../../../assets/window_logo.png</file>
         <file alias="github">../../../assets/github_logo.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+	    <file alias="buttonSound">../../../assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
+	</qresource>
 </RCC>
