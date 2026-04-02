@@ -43,34 +43,6 @@ namespace YutaSound {
         m_circularBuffer.prepare(bufferSize * 2 + 1);
     }
 
-
-    //void SpatialAudioEngine::runProcessingLoop()
-    //{
-    //    DBG("Thread is running! Processing audio...");
-
-    //    m_mixBuffer.clear();
-
-    //    for (auto& source : m_sources)
-    //    {
-    //        auto sampleAvaileble = source.getAudioBuffer().getNumSamples() - source.readPosition;
-    //        auto samplesThisBlock = juce::jmin(m_bufferSize, sampleAvaileble);
-
-    //        m_mixBuffer.addFrom(0, 0, source.getAudioBuffer(), 0, source.readPosition, samplesThisBlock, 0.5f);
-    //        m_mixBuffer.addFrom(1, 0, source.getAudioBuffer(), 0, source.readPosition, samplesThisBlock, 0.5f);
-
-    //        source.readPosition += samplesThisBlock;
-
-    //        if (source.readPosition >= source.getAudioBuffer().getNumSamples())
-    //            source.readPosition = 0;
-    //    }
-    //    m_circularBuffer.write(
-    //        m_mixBuffer.getWritePointer(0),
-    //        m_mixBuffer.getWritePointer(1),
-    //        m_bufferSize
-    //    );
-
-    //}
-
     void SpatialAudioEngine::start()
     {
         // The 'false' here prevents JUCE from scanning MIDI, 
