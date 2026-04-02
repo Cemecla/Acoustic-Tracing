@@ -13,7 +13,7 @@
 
 namespace YutaSound {
 
-    SpatialAudioEngine::SpatialAudioEngine() : juce::Thread("ProcessingThread") 
+    SpatialAudioEngine::SpatialAudioEngine(AudioManager& audiomanager) : juce::Thread("ProcessingThread"), m_audioManager(audiomanager)
     {}
 
     SpatialAudioEngine::~SpatialAudioEngine()
@@ -29,7 +29,7 @@ namespace YutaSound {
             // only write when buffer needs more data
             while (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
-                runProcessingLoop();
+                m_audioManager.runProcessingLoop(m_circularBuffer);
             }
             // sleep a tiny amount then check again
             wait(1);
@@ -39,47 +39,37 @@ namespace YutaSound {
     void SpatialAudioEngine::prepare(double sampleRate, int bufferSize) {
         std::cout << "i am preaparing " << std::endl;
 
-        m_sampleRate = sampleRate;
         m_bufferSize = bufferSize;
-        m_mixBuffer.setSize(2, bufferSize);
         m_circularBuffer.prepare(bufferSize * 2 + 1);
     }
 
-    void SpatialAudioEngine::addSource(const juce::String& filePath)
-    {
-        std::cout << "i am adding source "<< std::endl;
-        SoundSource source;
-        source.loadFromPath(filePath);
-        m_sources.push_back(std::move(source));
 
-    }
+    //void SpatialAudioEngine::runProcessingLoop()
+    //{
+    //    DBG("Thread is running! Processing audio...");
 
-    void SpatialAudioEngine::runProcessingLoop()
-    {
-        DBG("Thread is running! Processing audio...");
+    //    m_mixBuffer.clear();
 
-        m_mixBuffer.clear();
+    //    for (auto& source : m_sources)
+    //    {
+    //        auto sampleAvaileble = source.getAudioBuffer().getNumSamples() - source.readPosition;
+    //        auto samplesThisBlock = juce::jmin(m_bufferSize, sampleAvaileble);
 
-        for (auto& source : m_sources)
-        {
-            auto sampleAvaileble = source.getAudioBuffer().getNumSamples() - source.readPosition;
-            auto samplesThisBlock = juce::jmin(m_bufferSize, sampleAvaileble);
+    //        m_mixBuffer.addFrom(0, 0, source.getAudioBuffer(), 0, source.readPosition, samplesThisBlock, 0.5f);
+    //        m_mixBuffer.addFrom(1, 0, source.getAudioBuffer(), 0, source.readPosition, samplesThisBlock, 0.5f);
 
-            m_mixBuffer.addFrom(0, 0, source.getAudioBuffer(), 0, source.readPosition, samplesThisBlock, 0.5f);
-            m_mixBuffer.addFrom(1, 0, source.getAudioBuffer(), 0, source.readPosition, samplesThisBlock, 0.5f);
+    //        source.readPosition += samplesThisBlock;
 
-            source.readPosition += samplesThisBlock;
+    //        if (source.readPosition >= source.getAudioBuffer().getNumSamples())
+    //            source.readPosition = 0;
+    //    }
+    //    m_circularBuffer.write(
+    //        m_mixBuffer.getWritePointer(0),
+    //        m_mixBuffer.getWritePointer(1),
+    //        m_bufferSize
+    //    );
 
-            if (source.readPosition >= source.getAudioBuffer().getNumSamples())
-                source.readPosition = 0;
-        }
-        m_circularBuffer.write(
-            m_mixBuffer.getWritePointer(0),
-            m_mixBuffer.getWritePointer(1),
-            m_bufferSize
-        );
-
-    }
+    //}
 
     void SpatialAudioEngine::start()
     {
