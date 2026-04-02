@@ -30,6 +30,8 @@ namespace tracing {
 		std::unique_ptr<std::vector<Ray>> m_activeRays = std::make_unique<std::vector<Ray>>();
 		EFModel* m_parent;
 
+		std::mt19937 m_rng{ std::random_device{}() };
+
 		CollisionManager m_collisionManager;
 
 	

@@ -2,6 +2,7 @@
 
 #include "RayStrategy.h"
 #include "Ray.h"
+#include <random>
 
 namespace tracing{
 
@@ -11,6 +12,7 @@ namespace tracing{
 	public:
 		CollisionManager() = default;
 		~CollisionManager() = default;
+		std::unique_ptr<RayStrategy> decision(Ray& ray, float materialCoefficient, std::mt19937& rng);
 
 	private:
 		//TODO Refaire les threshold
@@ -19,7 +21,6 @@ namespace tracing{
 		const float m_transmission_threshold = 0.30;
 
 
-		std::unique_ptr<RayStrategy> decision(Ray& ray, float& materialCoefficient);
 
 
 	};
