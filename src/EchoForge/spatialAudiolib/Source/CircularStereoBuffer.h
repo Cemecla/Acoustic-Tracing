@@ -25,7 +25,7 @@ namespace YutaSound {
 			return m_fifo.getFreeSpace();
 	}
 	private:
-		juce::AbstractFifo m_fifo{512}; //  handle the when  should write or read protection to 
+		juce::AbstractFifo m_fifo{1}; //  handle the when  should write or read protection to 
 		juce::AudioBuffer<float> m_buffer;
 		//std::vector<float> m_bufferL;
 		//std::vector<float> m_bufferR;

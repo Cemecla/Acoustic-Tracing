@@ -14,9 +14,6 @@
             file="Source/CircularStereoBuffer.cpp"/>
       <FILE id="jGcJFP" name="CircularStereoBuffer.h" compile="0" resource="0"
             file="Source/CircularStereoBuffer.h"/>
-      <FILE id="QiYc2r" name="ListnerState.cpp" compile="1" resource="0"
-            file="Source/ListnerState.cpp"/>
-      <FILE id="z0ZbIl" name="ListnerState.h" compile="0" resource="0" file="Source/ListnerState.h"/>
       <FILE id="pcb2pA" name="SoundRemaining.h" compile="0" resource="0"
             file="Source/SoundRemaining.h"/>
       <FILE id="tUgETu" name="SoundSource.cpp" compile="1" resource="0" file="Source/SoundSource.cpp"/>
