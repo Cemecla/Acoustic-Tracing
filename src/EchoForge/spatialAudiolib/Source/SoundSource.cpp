@@ -13,12 +13,12 @@ namespace YutaSound {
 
     void SoundSource::loadFromPath(const juce::String& filePath)
     {
-        // allow juce to read WAV to the list of accecpted audio file format 
+        
         juce::AudioFormatManager formatManager;
         formatManager.registerBasicFormats();
 
         juce::File file = juce::File::getCurrentWorkingDirectory().getChildFile(filePath);
-
+        DBG("Trying to load: " + file.getFullPathName());
         std::unique_ptr<juce::AudioFormatReader> reader(formatManager.createReaderFor(file));
 
         if (reader != nullptr)
@@ -27,12 +27,12 @@ namespace YutaSound {
             m_audioBuffer.setSize(1, (int)reader->lengthInSamples);
             //filing up the buffer 
             reader->read(&m_audioBuffer, 0, (int)reader->lengthInSamples, 0, true, false);
-            std::cout << "SUCCESS: Loaded WAV file! Samples: " << reader->lengthInSamples << std::endl;
+            DBG("SUCCESS: Loaded WAV file! Samples: " + juce::String(reader->lengthInSamples));
         }
         else
         {
             // Optional: Print a warning if the file isn't found so you aren't left guessing!
-            std::cout << "Failed to load audio file: " << file.getFullPathName().toStdString() << std::endl;
+            DBG("Failed to load: " + file.getFullPathName());
         }
     }
 

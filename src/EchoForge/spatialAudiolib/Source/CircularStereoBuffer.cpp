@@ -12,14 +12,12 @@
 namespace YutaSound
 {
 
-    void CircularStereoBuffer::prepare(int bufferSize) // should be 512
+    void CircularStereoBuffer::prepare(int capacity) // caller passes bufferSize + 1
     {
-        //m_bufferL.resize(bufferSize, 0.0f);
-        //m_bufferR.resize(bufferSize, 0.0f);
-        int actualCapacity = bufferSize + 1;
-        m_buffer.setSize(2, actualCapacity);
+
+        m_buffer.setSize(2, capacity);
         m_buffer.clear();
-        m_fifo.setTotalSize(actualCapacity);
+        m_fifo.setTotalSize(capacity);
     }
 
     void CircularStereoBuffer::write(float* left, float* right, int numSamples)

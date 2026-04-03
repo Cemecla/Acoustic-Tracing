@@ -11,10 +11,10 @@
 #pragma once
 #define JUCE_MIDI_ENABLED 0
 #include "JuceHeader.h"
-//#include "SoundSource.h"
 #include "AudioCallback.h"
 #include "AudioManager.h"
 #include "CircularStereoBuffer.h"
+#include "SoundSource.h"
 
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H
@@ -29,17 +29,26 @@ namespace YutaSound {
 
         void run() override;
         void prepare(double sampleRate, int bufferSize);
+        void addSource(const juce::String& filePath);
         void start();
         void stop();
 
     private:
         int m_bufferSize = 0;
+        double m_sampleRate = 0.0;
         
-        AudioManager m_audioManager;
+        AudioManager& m_audioManager;
+
+        std::vector<SoundSource>     m_sources;
+        juce::AudioBuffer<float>     m_mixBuffer;
+
+        // TODO: std::vector<StereoDelayLine>  m_delayLines;
+        // TODO: std::vector<FilterChain>      m_activeChains;
+        // TODO: std::vector<FilterChain>      m_shadowChains;
+
         CircularStereoBuffer m_circularBuffer;
         AudioCallback m_audioCallback { m_circularBuffer };
         juce::AudioDeviceManager m_deviceManager;
-
     };
 
 }

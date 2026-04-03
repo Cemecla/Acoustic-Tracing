@@ -32,7 +32,7 @@ namespace YutaSound {
         int readPosition = 0;
 
     private:
-        int m_id = 0;
+        //int m_id = 0;
         //specific buffer to save audio data in ram 
         juce::AudioBuffer<float> m_audioBuffer;
     };
