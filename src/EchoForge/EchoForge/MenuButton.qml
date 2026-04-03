@@ -9,17 +9,17 @@ Button {
     id: menuButton
     font.pointSize: 24
     Layout.preferredWidth: parent.width
+
+    onHoveredChanged: () => {
+        if (hovered) {
+            hoverSound.play();
+        }
+    }
    
     SoundEffect {
         id: hoverSound
         source: "qrc:/sounds/buttonSound"
         loops: 1
-    }
-    
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        onEntered : hoverSound.play()
     }
     
     background: Rectangle {

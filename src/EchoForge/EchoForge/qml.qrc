@@ -9,5 +9,6 @@
         <file>MenuButton.qml</file>
         <file>DevModePage.qml</file>
         <file>CreditPage.qml</file>
+        <file>SimulationScreen.qml</file>
     </qresource>
 </RCC>
