@@ -16,7 +16,7 @@
 #ifndef AUDIOMANAGER_H
 #define AUDIOMANAGER_H
 
-namespace YutaSound {
+namespace yutasound {
 
     class AudioManager
     {

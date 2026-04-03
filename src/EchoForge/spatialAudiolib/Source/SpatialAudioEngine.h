@@ -19,7 +19,7 @@
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H
 
-namespace YutaSound {
+namespace yutasound {
 
     class SpatialAudioEngine : public juce::Thread
     {

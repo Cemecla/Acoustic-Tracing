@@ -12,7 +12,7 @@
 #ifndef CIRCULARSTEREOBUFFER_H
 #define CIRCULARSTEREOBUFFER_H
 
-namespace YutaSound {
+namespace yutasound {
 
 	class CircularStereoBuffer
 	{

@@ -9,7 +9,8 @@
 */
 
 #include "AudioCallback.h"
-namespace YutaSound {
+
+namespace yutasound {
 
     AudioCallback::AudioCallback(CircularStereoBuffer& circularBuffer)
         :m_circularBuffer(circularBuffer)

@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
     // This perfectly bridges JUCE's background requirements with Qt's main thread.
     juce::ScopedJuceInitialiser_GUI juceInit;
 
-    YutaSound::AudioManager audioManager;
-    YutaSound::SpatialAudioEngine engine(audioManager);
+    yutasound::AudioManager audioManager;
+    yutasound::SpatialAudioEngine engine(audioManager);
 
     
     audioManager.prepare(48000.0, 512);

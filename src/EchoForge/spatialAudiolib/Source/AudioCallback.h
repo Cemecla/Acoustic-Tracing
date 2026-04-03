@@ -15,7 +15,7 @@
 #ifndef AUDIOCALLBACK_H
 #define AUDIOCALLBACK_H
 
-namespace YutaSound {
+namespace yutasound {
 	class AudioCallback : public juce::AudioIODeviceCallback
 	{
 	public:

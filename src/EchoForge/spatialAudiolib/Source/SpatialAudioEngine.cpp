@@ -11,7 +11,7 @@
 #include "SpatialAudioEngine.h"
 #include "SoundSource.h"
 
-namespace YutaSound {
+namespace yutasound {
 
     SpatialAudioEngine::SpatialAudioEngine(AudioManager& audiomanager) 
         : juce::Thread("ProcessingThread"), m_audioManager(audiomanager)

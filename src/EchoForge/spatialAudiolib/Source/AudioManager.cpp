@@ -11,7 +11,7 @@
 #include "AudioManager.h"
 #include "CircularStereoBuffer.h"
 
-namespace YutaSound {
+namespace yutasound {
 
     void AudioManager::prepare(double sampleRate, int bufferSize)
     {

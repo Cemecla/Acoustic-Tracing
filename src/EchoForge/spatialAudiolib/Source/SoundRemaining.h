@@ -11,7 +11,7 @@
 #pragma once
 #ifndef SOUNDREMAINING_H
 #define SOUNDREMAINING_H
-namespace YutaSound {
+namespace yutasound {
     struct SoundRemaining
     {
         float lowRemaining = 1.0f;

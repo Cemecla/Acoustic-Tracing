@@ -15,7 +15,7 @@
 #ifndef SOUNDSOURCE_H
 #define SOUNDSOURCE_H
 
-namespace YutaSound {
+namespace yutasound {
 
     class SoundSource {
     public:

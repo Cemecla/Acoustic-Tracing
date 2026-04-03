@@ -9,7 +9,8 @@
 */
 
 #include "CircularStereoBuffer.h"
-namespace YutaSound
+
+namespace yutasound
 {
 
     void CircularStereoBuffer::prepare(int capacity) // caller passes bufferSize + 1

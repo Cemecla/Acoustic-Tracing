@@ -9,7 +9,8 @@
 */
 
 #include "SoundSource.h"
-namespace YutaSound {
+
+namespace yutasound {
 
     void SoundSource::loadFromPath(const juce::String& filePath)
     {
