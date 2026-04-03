@@ -28,7 +28,7 @@ namespace YutaSound {
         m_sampleRate = sampleRate;
         m_bufferSize = bufferSize;
         m_mixBuffer.setSize(2, bufferSize);
-        m_circularBuffer.prepare(bufferSize + 1);
+        m_circularBuffer.prepare(bufferSize * 4 + 1);
     }
 
     void SpatialAudioEngine::addSource(const juce::String& filePath)
@@ -41,21 +41,17 @@ namespace YutaSound {
 
     void SpatialAudioEngine::run()
     {
-        DBG("SAE run started, bufferSize: " + juce::String(m_bufferSize));
         while (!threadShouldExit())
         {
-            // only write when buffer needs more data
-            while (m_circularBuffer.getFreeSpace() >= m_bufferSize)
+            if (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
+                DBG("SAE writing block...");
                 m_mixBuffer.clear();
 
                 for (auto& source : m_sources)
                 {
                     auto samplesAvailable = source.getAudioBuffer().getNumSamples() - source.readPosition;
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
-
-                    // TODO: apply delayLine[i] for ITD
-                    // TODO: apply activeChain[i] for ILD + pinna
 
                     m_mixBuffer.addFrom(0, 0, source.getAudioBuffer(), 0,
                         source.readPosition, samplesThisBlock, 0.5f);
@@ -67,23 +63,31 @@ namespace YutaSound {
                         source.readPosition = 0;
                 }
 
-                // TODO: swap shadow -> active chains here (block boundary)
-
                 m_circularBuffer.write(
                     m_mixBuffer.getWritePointer(0),
                     m_mixBuffer.getWritePointer(1),
                     m_bufferSize
                 );
             }
-            wait(1);
+            else
+            {
+                wait(1); // only sleep when buffer is actually full
+            }
         }
     }
 
     void SpatialAudioEngine::start()
     {   
+        auto error = m_deviceManager.initialiseWithDefaultDevices(0, 2);
+        if (error.isNotEmpty())
+            DBG("AudioDeviceManager error: " + error);
+        else
+            DBG("AudioDeviceManager initialized OK");
         m_deviceManager.initialiseWithDefaultDevices(0, 2);
         m_deviceManager.addAudioCallback(&m_audioCallback);
         // 2. Start the background loop
+        DBG("AudioCallback added");
+
         startThread();
     }
 
