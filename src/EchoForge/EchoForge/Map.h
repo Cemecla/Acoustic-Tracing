@@ -39,6 +39,9 @@
 	
 				void destroyVoxelMaterial(const int x, const int y, const int z);
 				void destroyVoxelMaterial(const Vector3I& position);
+
+				inline const bool isInBound(const int x, const int y, const int z) const;
+
 	
 			private:
 				unsigned m_width;
@@ -59,7 +62,6 @@
 	
 				inline const int findMapIndex(const Vector3I& position) const;
 	
-				inline const bool isInBound(const int x, const int y, const int z) const;
 		};
 	}
 

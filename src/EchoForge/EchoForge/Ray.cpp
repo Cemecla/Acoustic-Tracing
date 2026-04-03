@@ -7,7 +7,7 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 	, m_currentPosition{ position }
 	, m_startPosition{ position }
 	, m_velocity{ velocity }
-	, m_energy(1.0f)
+	, m_energy{1.0f,1.0f,1.0f}
 	, m_lastSeen{ position }
 	, m_time{ std::chrono::high_resolution_clock::now() }
 	, m_lastAxis()
@@ -18,13 +18,13 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 };
 
 
-void tracing::Ray::loseEnergy(const float& absorption) {
-	if (absorption < 0.0f || absorption > 1.0f)
+void tracing::Ray::loseEnergy(const Eigen::Vector3f& absorption) {
+	if (absorption.minCoeff() < 0.0f || absorption.maxCoeff() > 1.0f)
 		throw Error::PARAMETER_OUT_OF_BOUNDS;
 	m_energy -= absorption * m_energy;
 };
 
-const float tracing::Ray::getEnergy() const {
+const Eigen::Vector3f& tracing::Ray::getEnergy() const {
 	return m_energy;
 };
 

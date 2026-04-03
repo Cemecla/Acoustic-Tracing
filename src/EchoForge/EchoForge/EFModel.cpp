@@ -61,3 +61,5 @@ bool EFModel::saveJson(const json&, std::string& filename) {
 const std::optional<Avatar>& EFModel::getAvatar() const {
 	return m_avatar;
 };
+
+const Map& EFModel::getMap() const { return m_map; }

@@ -49,6 +49,8 @@ class EFController;
 			void update();
 	
 			const std::optional<ef::Avatar>& getAvatar() const;
+
+			const ef::Map& getMap() const;
 			
 		
 		private:

@@ -15,7 +15,7 @@
 			Eigen::Vector3f m_currentPosition;
 			Eigen::Vector3f m_startPosition;
 			Eigen::Vector3f m_lastSeen;
-			float m_energy;
+			Eigen::Vector3f m_energy;
 			std::chrono::high_resolution_clock::time_point m_time ;
 			Eigen::Vector3f m_velocity;
 			Eigen::Vector3i m_voxelPos;
@@ -32,11 +32,11 @@
 		*	desc: This method removes energy to the ray depending on a material coefficient
 		*   param mods: float between 0 and 1.
 		*/
-		void loseEnergy(const float& absorptin);
+		void loseEnergy(const Eigen::Vector3f& absorption);
 
 		void advance();
 
-		const float getEnergy() const;
+		const Eigen::Vector3f& getEnergy() const;
 
 		Eigen::Vector3i getVoxelPos() const;
 

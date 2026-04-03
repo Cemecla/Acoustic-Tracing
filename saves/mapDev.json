@@ -19,14 +19,14 @@
             {
                 "name": "empty",
                 "isPassable": true,
-                "scatteringCoefficient": [0,0,0],
+                "scatteringCoefficient": 0.01,
                 "normal": [0,0,0],
                 "energyLoss": [0,0,0]
             },
             {
                 "name": "empty",
                 "isPassable": true,
-                "scatteringCoefficient": [0,0,0],
+                "scatteringCoefficient": 0.4,
                 "normal": [0,0,0],
                 "energyLoss": [0,0,0]
             }

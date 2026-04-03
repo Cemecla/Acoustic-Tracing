@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <Eigen/Dense>
 
 // temporay -> prompt : Don't change the code and don't comment on it. I wish to modify/add <summary> comment for all the function. Can you modify and add those comments
 
@@ -325,7 +326,42 @@ namespace ef {
 		*/
 		template<class Iterator>
 		inline static Vector3<T> weightedAverage(Iterator first, Iterator last) {
-			
+
+		}
+
+		// ** EIGEN CONVERSION ** //
+		/**
+		*	@summary Converts this vector to an Eigen::Vector3f.
+		*	@return An Eigen::Vector3f with the same components cast to float.
+		*/
+		inline Eigen::Vector3f toEigen() const {
+			return { (float)x, (float)y, (float)z };
+		}
+
+		/**
+		*	@summary Converts this vector to an Eigen::Vector3i.
+		*	@return An Eigen::Vector3i with the same components cast to int.
+		*/
+		inline Eigen::Vector3i toEigenI() const {
+			return { (int)x, (int)y, (int)z };
+		}
+
+		/**
+		*	@summary Creates a Vector3 from an Eigen::Vector3f.
+		*	@param v The Eigen vector to convert.
+		*	@return A new Vector3 with components cast to T.
+		*/
+		inline static Vector3<T> fromEigen(const Eigen::Vector3f& v) {
+			return { (T)v.x(), (T)v.y(), (T)v.z() };
+		}
+
+		/**
+		*	@summary Creates a Vector3 from an Eigen::Vector3i.
+		*	@param v The Eigen vector to convert.
+		*	@return A new Vector3 with components cast to T.
+		*/
+		inline static Vector3<T> fromEigenI(const Eigen::Vector3i& v) {
+			return { (T)v.x(), (T)v.y(), (T)v.z() };
 		}
 	};
 

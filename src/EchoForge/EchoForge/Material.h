@@ -8,14 +8,14 @@ namespace ef {
 	{
 		std::string name{};
 		bool isPassable{};
-		Vector3F scatteringCoefficient{};
+		float scatteringCoefficient{};
 		Vector3F normal{};
 		Vector3F energyLoss{};
 		
 
 		Material();
 
-		Material(std::string name, bool isPassable, Vector3F energyLoss, Vector3F scatteringCoefficient, Vector3F normal);
+		Material(std::string name, bool isPassable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal);
 
 		const bool operator==(Material& material) const {
 			return name == name;

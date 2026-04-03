@@ -23,7 +23,7 @@ namespace tracing {
 		const void update();
 	private:
 		constexpr static float PHI = (1.0f + 2.2360679775f) / 2.0f;
-		constexpr static float k_absorption[5] = {0.001,0.97f,0.20f,0.65f,1.0f}; // Temporary
+		//constexpr static float k_absorption[5] = {0.001,0.97f,0.20f,0.65f,1.0f}; // Temporary
 		int m_rayCount;
 		const void createRays(Eigen::Vector3f position);
 		const void next_colision();
