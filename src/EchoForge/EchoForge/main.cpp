@@ -22,10 +22,11 @@ int main(int argc, char *argv[])
     // This perfectly bridges JUCE's background requirements with Qt's main thread.
     juce::ScopedJuceInitialiser_GUI juceInit;
 
-    YutaSound::SpatialAudioEngine engine;
-    engine.prepare(48000.0,512);
-    engine.addSource("../../../../Acoustic-Tracing/assets/mooo1945.mp3");
-    engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
+
+    //YutaSound::SpatialAudioEngine engine;
+    //engine.prepare(48000.0,512);
+    //engine.addSource("../../../../Acoustic-Tracing/assets/mooo1945.mp3");
+    //engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
     // engine.start();
 
     // Creation of the Echo Forge Controller

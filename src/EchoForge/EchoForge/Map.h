@@ -2,6 +2,8 @@
 
 #include <cstdint>
 #include <vector>
+#include <string>
+
 #include "Vector.h"
 #include "Material.h"
 
@@ -22,8 +24,8 @@
 			// Y is height axis, x width, z depth
 			public:
 				Map();
-				Map(int width, int height, int depth);
-				Map(int width, int height, int depth, float voxelSizeCm);
+				Map(unsigned width, unsigned height, unsigned depth);
+				Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm);
 	
 				const Material& fetchMaterial(const int x, const int y, const int z) const;
 				const Material& fetchMaterial(const Vector3I& position) const;
@@ -39,10 +41,11 @@
 				void destroyVoxelMaterial(const Vector3I& position);
 	
 			private:
-				int m_width;
-				int m_height;
-				int m_depth;
+				unsigned m_width;
+				unsigned m_height;
+				unsigned m_depth;
 				float m_voxelSizeCm;
+				std::string name;
 				std::vector<Material> m_materials;
 				std::vector<int> m_map = {
 					1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -56,10 +59,8 @@
 	
 				inline const int findMapIndex(const Vector3I& position) const;
 	
-				const bool assertOutOfBound(const int x, const int y, const int z) const;
+				inline const bool isInBound(const int x, const int y, const int z) const;
 		};
-	
-	
 	}
 
 #endif

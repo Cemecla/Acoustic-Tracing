@@ -1,27 +1,29 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
 Page {
-    width: Window.width
-    height: Window.height
+    anchors.fill: parent
 
     background : Rectangle {
         color: "#d4d4d4"
     }
 
-    Column {
+    ColumnLayout {
         id: mainColumn
-        anchors.centerIn: parent
+        anchors.fill: parent
 
-        Text {
-            anchors.horizontalCenter: mainColumn.horizontalCenter
-            text: "Simulation!"
+        SimulationScreen {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
         Button {
+            height: 40
+            Layout.fillWidth: true
             anchors.horizontalCenter: mainColumn.horizontalCenter
             text: "To Menu"
-            onClicked: communicator.testing("Test")
+            onClicked: communicator.loadSimulation("C:/travail/Acoustic-Tracing/saves/mapDev.json")
         }
     }
 }

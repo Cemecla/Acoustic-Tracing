@@ -5,9 +5,9 @@ using namespace ef;
 
 Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelSizeCm(100.0) {}
 
-Map::Map(int width, int height, int depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(100.0) {}
+Map::Map(unsigned width, unsigned height, unsigned depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(100.0) {}
 
-Map::Map(int width, int height, int depth, float voxelSizeCm): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(voxelSizeCm) {}
+Map::Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(voxelSizeCm) {}
 
 const Material& Map::fetchMaterial(const int x, const int y, const int z) const {
 	int mapIndex = findMapIndex(x, y, z);
@@ -70,9 +70,7 @@ inline const int Map::findMapIndex(const Vector3I& position) const {
 	return position.z * (m_height * m_width) + position.y * m_width + position.x;
 }
 
-const bool Map::assertOutOfBound(const int x, const int y, const int z) const {
-	if (x < 0 || x >= m_width || y < 0 || y >= m_height || z < 0 || z >= m_depth)
-		return false;
-
-	return true;
+// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
+inline const bool Map::isInBound(const int x, const int y, const int z) const {
+	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
 }

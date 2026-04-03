@@ -7,6 +7,7 @@
 #include "EFController.h"
 #include "Map.h"
 #include "EFWorldLoader.h"
+#include "Utils.h"
 
 using namespace ef;
 
@@ -39,7 +40,7 @@ json EFModel::loadJson(std::string& filename) {
 
 	if (!file.is_open())
 	{
-		return json{};
+		throw Error::FILE_NOT_FOUND;
 	}
 
 	std::ostringstream data;
