@@ -40,7 +40,10 @@
 				void destroyVoxelMaterial(const int x, const int y, const int z);
 				void destroyVoxelMaterial(const Vector3I& position);
 
-				inline const bool isInBound(const int x, const int y, const int z) const;
+				// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
+				inline const bool isInBound(const int x, const int y, const int z) const {
+					return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
+				}
 
 	
 			private:

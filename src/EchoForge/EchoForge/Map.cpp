@@ -70,7 +70,7 @@ inline const int Map::findMapIndex(const Vector3I& position) const {
 	return position.z * (m_height * m_width) + position.y * m_width + position.x;
 }
 
-// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
-inline const bool Map::isInBound(const int x, const int y, const int z) const {
-	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
-}
+//// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
+//inline const bool Map::isInBound(const int x, const int y, const int z) const {
+//	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
+//}

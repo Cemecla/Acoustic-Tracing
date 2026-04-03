@@ -21,7 +21,7 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 void tracing::Ray::loseEnergy(const Eigen::Vector3f& absorption) {
 	if (absorption.minCoeff() < 0.0f || absorption.maxCoeff() > 1.0f)
 		throw Error::PARAMETER_OUT_OF_BOUNDS;
-	m_energy -= absorption * m_energy;
+	m_energy -= absorption.cwiseProduct(m_energy);
 };
 
 const Eigen::Vector3f& tracing::Ray::getEnergy() const {
