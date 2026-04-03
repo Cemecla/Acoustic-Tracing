@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include "SimulationLoop.h"
 
 class EFModel;
 class EFView;
@@ -16,11 +17,11 @@ class EFView;
 			std::unique_ptr<EFModel> m_model;
 			std::unique_ptr<EFView> m_view;
 
-			bool run();
+			void run(float delta);
 			void loadSimulation(std::string& url);
 	
 		private:
-
+			SimulationLoop m_simulationLoop;
 	};
 	
 #endif

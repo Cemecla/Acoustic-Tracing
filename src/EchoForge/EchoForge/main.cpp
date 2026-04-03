@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     audioManager.prepare(48000.0, 512);
     engine.prepare(48000.0, 512);
     engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
-    engine.start();
+    // engine.start();
 
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();

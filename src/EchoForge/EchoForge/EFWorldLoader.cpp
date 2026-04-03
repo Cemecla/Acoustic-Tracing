@@ -8,7 +8,14 @@ using namespace ef;
 EFWorld EFWorldLoader::build(const json& mapJson) {
 	if (isMapValid(mapJson)) {
 		std::string title = mapJson["title"];
+		std::string desc = mapJson["desc"];
+		json mapData = mapJson["data"];
+
+		int voxelSize = mapData["voxelSize"];
+
 		qDebug() << title;
+		qDebug() << desc;
+		qDebug() << voxelSize;
 	}
 	else
 	{

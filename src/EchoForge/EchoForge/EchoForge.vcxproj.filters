@@ -33,6 +33,12 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{f50a2b54-24db-4700-8d56-c2304775e62f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\qml\Components">
+      <UniqueIdentifier>{534b1cf3-8728-40f0-bbba-83b03e3a682d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\qml\Layouts">
+      <UniqueIdentifier>{fe70a609-b16f-4dc4-b9c3-9d27b85102ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -70,6 +76,18 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Source Files\RayManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EFWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EFWorldLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materiel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulationLoop.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +130,15 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
+    <ClInclude Include="EFWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EFWorldLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="assets.qrc">
@@ -131,9 +158,30 @@
     <None Include="SimulationPage.qml">
       <Filter>Source Files\qml</Filter>
     </None>
+    <None Include="CreditPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="DevModePage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="MainLayout.qml">
+      <Filter>Source Files\qml\Layouts</Filter>
+    </None>
+    <None Include="OptionPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
+    <None Include="SimulationScreen.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="MenuButton.qml">
+      <Filter>Source Files\qml\Layouts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UICommunicator.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SimulationLoop.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

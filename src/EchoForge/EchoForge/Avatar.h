@@ -18,6 +18,14 @@
 				*	@param angles Initial head angles as Vector3(x, y, z).
 				*/
 				Avatar(Vector3F position, Vector3F angles);
+
+				/**
+				*	@summary Constructs an Avatar with a starting position, initial head angles and speed.
+				*	@param position Initial world position as Vector3(x, y, z).
+				*	@param angles Initial head angles as Vector3(x, y, z).
+				*	@param speed Initial speed as Vector3(x, y, z).
+				*/
+				Avatar(Vector3F position, Vector3F angles, float speed);
 	
 				/**
 				*	@summary Returns the current head rotation angles.
@@ -35,7 +43,7 @@
 				*	@summary Moves the Avatar by adding the specified offset to its current position.
 				*	@param mods Movement offset as Vector3(x, y, z).
 				*/
-				void move(const Vector3F& mods);
+				const Vector3F& move(const Vector3F& mods);
 	
 				/**
 				*	@summary Sets the Avatar's position to the specified coordinates.
@@ -48,6 +56,10 @@
 				*	@return Constant reference to Vector3(x, y, z) representing position.
 				*/
 				const Vector3F& getPosition() const;
+
+				float getSpeed() const;
+
+				float setSpeed(float speed);
 	
 			private:
 				class Head {
@@ -78,6 +90,8 @@
 				// Variables
 				Head m_head;
 				Vector3F m_position;
+				float m_speed;
+
 		};
 	}
 #endif
