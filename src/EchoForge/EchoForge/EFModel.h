@@ -46,7 +46,7 @@ class EFController;
 			*	param data: json
 			*   param name: string
 			*/
-			void update();
+			void update(float delta);
 	
 			const std::optional<ef::Avatar>& getAvatar() const;
 
@@ -57,9 +57,7 @@ class EFController;
 			const std::string MATERIAL_FILENAME = "";
 
 			EFController* m_parent;
-			ef::Map m_map;
 			tracing::RayManager m_rayManager;
-			std::optional<ef::Avatar> m_avatar;
 			std::optional<ef::EFWorld> m_world;
 	};
 

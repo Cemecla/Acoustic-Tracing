@@ -47,7 +47,7 @@ void EFView::loadSimulation(std::string& url) {
 	m_parent->loadSimulation(url);
 }
 
-void EFView::update() {
+void EFView::update(float delta) {
 
 }
 

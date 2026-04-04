@@ -25,7 +25,7 @@
 			public:
 				Map();
 				Map(unsigned width, unsigned height, unsigned depth);
-				Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm);
+				Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels);
 	
 				const Material& fetchMaterial(const int x, const int y, const int z) const;
 				const Material& fetchMaterial(const Vector3I& position) const;
@@ -53,18 +53,13 @@
 				float m_voxelSizeCm;
 				std::string name;
 				std::vector<Material> m_materials;
-				std::vector<int> m_map = {
-					1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-					1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
-					1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
-					1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
-					1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-				};
+				std::vector<int> m_voxels;
 	
 				inline const int findMapIndex(const int x, const int y, const int z) const;
 	
 				inline const int findMapIndex(const Vector3I& position) const;
-	
+
+				void buildEmptyMap();
 		};
 	}
 

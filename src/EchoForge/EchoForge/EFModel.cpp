@@ -15,22 +15,20 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_map(Map(5, 5, 5)),
-	m_rayManager{this,10},
-	m_avatar(Avatar())
+	m_rayManager{this,10}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
 
 void EFModel::loadWorld(std::string& filename) {
 	json mapfile = loadJson(filename);
-	EFWorldLoader::build(mapfile);
+	m_world = EFWorldLoader::build(mapfile);
 }
 
-void EFModel::update() {
+void EFModel::update(float delta) {
 
 	// Defensive
-	if (!m_avatar.has_value()) return;
+	if (!m_world.has_value()) return;
 	m_rayManager.update();
 
 }
@@ -59,7 +57,9 @@ bool EFModel::saveJson(const json&, std::string& filename) {
 }
 
 const std::optional<Avatar>& EFModel::getAvatar() const {
-	return m_avatar;
+	return m_world->avatar;
 };
 
-const Map& EFModel::getMap() const { return m_map; }
+const Map& EFModel::getMap() const {
+	return m_world->map; 
+}

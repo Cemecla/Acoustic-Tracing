@@ -13,7 +13,7 @@ class UICommunicator;
 		public:
 			EFView(EFController* parent);
 
-			void update();
+			void update(float delta);
 			void startSimulation();
 			void saveSimulation();
 			void stopSimulation();
