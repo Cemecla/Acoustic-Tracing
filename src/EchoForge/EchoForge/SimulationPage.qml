@@ -22,7 +22,7 @@ Page {
             height: 40
             Layout.fillWidth: true
             anchors.horizontalCenter: mainColumn.horizontalCenter
-            text: "To Menu"
+            text: "Start Simulation"
             onClicked: communicator.loadSimulation("C:/travail/Acoustic-Tracing/saves/mapDev.json")
         }
     }

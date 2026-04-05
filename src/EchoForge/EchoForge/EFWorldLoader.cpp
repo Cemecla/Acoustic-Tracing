@@ -6,6 +6,10 @@
 
 using namespace ef;
 
+const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1));
+
+const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, Vector3F(0, 0, 0), 0.0, Vector3F(0, 0, 0));
+
 EFWorld EFWorldLoader::build(const json& mapJson) {
 	if (isMapValid(mapJson)) {
 		std::string title = mapJson["title"];
@@ -13,21 +17,11 @@ EFWorld EFWorldLoader::build(const json& mapJson) {
 
 		json mapData = mapJson["data"];
 
-		float voxelSize = mapData["voxelSize"];
+		std::vector<Material> materials = buildMaterials({});
 
-		unsigned mapWidth = mapData["mapWidth"];
+		Map map = buildMap(mapData, materials);
 
-		unsigned mapHeight = mapData["mapHeight"];
-
-		unsigned mapDepth = mapData["mapDepth"];
-
-		std::vector<float> userSpawnPos = mapData["userSpawnPos"];
-
-		std::vector<int> voxels = mapData["voxel"];
-
-		Map map = Map(mapWidth, mapHeight, mapDepth, voxelSize, voxels);
-
-		Avatar avatar = Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2]), Vector3F());
+		Avatar avatar = buildAvatar(mapData);
 
 		return EFWorld(avatar, map);
 	}
@@ -38,23 +32,75 @@ EFWorld EFWorldLoader::build(const json& mapJson) {
 	return EFWorld();
 }
 
-//EFWorld EFWorldLoader::build(const json& mapJson, const json& materialJson) {
-//	isMapValid(mapJson);
-//	isMaterialsValid(materialJson);
-//}
+EFWorld EFWorldLoader::build(const json& mapJson, const json& materialJson) {
+	if (isMapValid(mapJson) && isMaterialsValid(materialJson)) {
+		std::string title = mapJson["title"];
+		std::string desc = mapJson["desc"];
+
+		json mapData = mapJson["data"];
+
+		std::vector<Material> materials = buildMaterials(materialJson);
+
+		Map map = buildMap(mapData, materials);
+
+		Avatar avatar = buildAvatar(mapData);
+
+		return EFWorld(avatar, map);
+	}
+	else
+	{
+		throw Error::ERROR_INVALID_DATA;
+	}
+	return EFWorld();
+}
 
 bool EFWorldLoader::isMapValid(const json& json) {
 	return true;
 }
 
-//bool EFWorldLoader::isMaterialsValid(const json& json) {
-//
-//}
-//
-//Avatar EFWorldLoader::buildAvatar() {
-//
-//}
-//
-//Map EFWorldLoader::buildMap() {
-//
-//}
+bool EFWorldLoader::isMaterialsValid(const json& json) {
+	return true;
+}
+
+Avatar EFWorldLoader::buildAvatar(const json& mapData) {
+	std::vector<float> userSpawnPos = mapData["userSpawnPos"];
+	return Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2]), Vector3F());
+}
+
+Map EFWorldLoader::buildMap(const json& mapData, std::vector<Material> materials) {
+	float voxelSize = mapData["voxelSize"];
+
+	unsigned mapWidth = mapData["mapWidth"];
+
+	unsigned mapHeight = mapData["mapHeight"];
+
+	unsigned mapDepth = mapData["mapDepth"];
+
+	std::vector<int> voxels = mapData["voxel"];
+
+	return Map(mapWidth, mapHeight, mapDepth, voxelSize, voxels, materials);
+}
+
+std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
+	std::vector<Material> materials = {};
+	materials.push_back(OUT_MATERIAL);
+	materials.push_back(EMPTY_MATERIAL);
+
+	for(json materialData : materialJson)
+	{
+		std::string name = materialData["name"];
+		bool isPassable = materialData["isPassable"];
+		float scatteringCoefficient = materialData["scatteringCoefficient"];
+		std::vector<float> normalBrut = materialData["normal"];
+		std::vector<float> energyLossBrut = materialData["energyLoss"];
+
+		Vector3F energyLoss = Vector3F(energyLossBrut[0], energyLossBrut[1], energyLossBrut[2]);
+		Vector3F normal = Vector3F(normalBrut[0], normalBrut[1], normalBrut[2]);
+
+		Material nm = Material(name, isPassable, energyLoss, scatteringCoefficient, normal);
+
+		materials.push_back(nm);
+	}
+
+	return materials;
+}

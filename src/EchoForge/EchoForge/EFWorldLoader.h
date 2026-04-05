@@ -15,12 +15,15 @@ namespace ef {
 			static json build(const EFWorld& efWorld);
 
 		private:
+			static const Material EMPTY_MATERIAL;
+			static const Material OUT_MATERIAL;
+
 			EFWorldLoader() = delete;
 
 			static bool isMaterialsValid(const json& json);
 			static bool isMapValid(const json& json);
-			static Avatar buildAvatar();
-			static Map buildMap();
-
+			static Avatar buildAvatar(const json& mapData);
+			static Map buildMap(const json& mapData, std::vector<Material> materials);
+			static std::vector<Material> buildMaterials(const json& materialJson);
 	};
 }
