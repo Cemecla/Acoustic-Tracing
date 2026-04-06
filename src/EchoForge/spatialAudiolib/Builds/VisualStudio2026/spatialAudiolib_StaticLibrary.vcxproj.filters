@@ -286,6 +286,9 @@
     <ClCompile Include="..\..\Source\SpatialAudioEngine.cpp">
       <Filter>spatialAudiolib\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\StereoDelayLine.cpp">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
     </ClCompile>
@@ -1546,6 +1549,9 @@
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SpatialAudioEngine.h">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\StereoDelayLine.h">
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">

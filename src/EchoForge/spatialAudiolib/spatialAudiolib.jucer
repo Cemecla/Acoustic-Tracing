@@ -22,6 +22,10 @@
             file="Source/SpatialAudioEngine.cpp"/>
       <FILE id="Km2ckF" name="SpatialAudioEngine.h" compile="0" resource="0"
             file="Source/SpatialAudioEngine.h"/>
+      <FILE id="fgACDM" name="StereoDelayLine.cpp" compile="1" resource="0"
+            file="Source/StereoDelayLine.cpp"/>
+      <FILE id="OgYIcY" name="StereoDelayLine.h" compile="0" resource="0"
+            file="Source/StereoDelayLine.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
