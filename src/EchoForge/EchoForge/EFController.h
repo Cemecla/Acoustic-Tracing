@@ -19,6 +19,7 @@ class EFView;
 
 			void run(float delta);
 			void loadSimulation(std::string& url);
+			void startSimulation();
 	
 		private:
 			SimulationLoop m_simulationLoop;

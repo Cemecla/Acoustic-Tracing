@@ -3,15 +3,16 @@
 
 using namespace ef;
 
-Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelSizeCm(100.0), m_voxels({}) {
+Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelSizeCm(100.0), m_voxels({}), m_materials({}) {
 	buildEmptyMap();
 }
 
-Map::Map(unsigned width, unsigned height, unsigned depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(100.0), m_voxels({}) {
+Map::Map(unsigned width, unsigned height, unsigned depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(100.0), m_voxels({}), m_materials({}) {
 	buildEmptyMap();
 }
 
-Map::Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(voxelSizeCm), m_voxels(voxels) {}
+Map::Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels, std::vector<Material> materials): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(voxelSizeCm), m_voxels(voxels), m_materials(materials) {
+}
 
 const Material& Map::fetchMaterial(const int x, const int y, const int z) const {
 	int mapIndex = findMapIndex(x, y, z);
@@ -83,5 +84,5 @@ void Map::buildEmptyMap() {
 	m_voxels.clear();
 	int voxelsTotal = m_width * m_height * m_depth;
 	for (int i = 0; i < voxelsTotal; i++)
-		m_voxels.push_back(0);
+		m_voxels.push_back(1);
 }

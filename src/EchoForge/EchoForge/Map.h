@@ -25,7 +25,7 @@
 			public:
 				Map();
 				Map(unsigned width, unsigned height, unsigned depth);
-				Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels);
+				Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels, std::vector<Material> materials);
 	
 				const Material& fetchMaterial(const int x, const int y, const int z) const;
 				const Material& fetchMaterial(const Vector3I& position) const;
