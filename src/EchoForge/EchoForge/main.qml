@@ -12,7 +12,7 @@ Window {
 
     color: "#d4d4d4"
 
-    Keys.onPressed: (event) => { if ( event.key === Qt.Key_F1 ) mainWindow.showFullScreen() }  
+    Keys.onPressed: (event) => { if ( event.key == Qt.Key_F1 ) mainWindow.showFullScreen() }  
 
     Shortcut {
         sequences: Qt.Key_F1
