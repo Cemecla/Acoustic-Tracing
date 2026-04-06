@@ -28,6 +28,7 @@ namespace yutasound {
     //            source.azimuth = azimuth;
     //            source.elevation = elevation;
     //            source.soundRemaining = soundRemaining;
+    //            compteITD_(source.azimuth, source.elevation);
     //            // TODO: call computeITD_ and computeILD_ here later
     //            break;
     //        }
@@ -36,8 +37,14 @@ namespace yutasound {
 
     float AudioManager::computeITD_(float azimuth, float elevation)
     {
-        // TODO: implement Woodworth formula
-        return 0.0f;
+        constexpr float r = 0.0875f;
+        constexpr float c = 343.0f;
+        float azRad = azimuth * (juce::MathConstants<float>::pi / 180.0f);
+        float elRad = elevation * (juce::MathConstants<float>::pi / 180.0f);
+
+        float thetaEff = std::cos(elRad) * std::sin(azRad);
+        float ITD = (r / c) * (std::asin(thetaEff) + thetaEff);
+        return ITD * (float)m_sampleRate; // convertion into samples
     }
 
     float AudioManager::computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining)

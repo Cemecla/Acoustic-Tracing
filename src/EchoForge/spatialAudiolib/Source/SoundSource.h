@@ -24,8 +24,8 @@ namespace yutasound {
         // getter that send a refference to audiobuffer
         const juce::AudioBuffer<float>& getAudioBuffer() const;
 
-        float azimuth = 0.0f;
-        float elevation = 0.0f;
+        float azimuth = 0.0f; // degrees, -180 to +180
+        float elevation = 0.0f; // degrees,  -90 to +90
         SoundRemaining soundRemaining;
 
         //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 

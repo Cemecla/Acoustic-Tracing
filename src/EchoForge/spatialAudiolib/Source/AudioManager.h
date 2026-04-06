@@ -24,10 +24,10 @@ namespace yutasound {
         //void updateSource(const juce::String& md5Name, float azimuth, float elevation, SoundRemaining soundRemaining);
         // TODO: void compute_(Listener, SoundSource, SpatialFilterChain& shadow);
         // TODO: void updateListener(position, azimuth, elevation);
+        
 
     private:
         double m_sampleRate = 0.0;
-
 
         float computeITD_(float azimuth, float elevation);
         float computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining);

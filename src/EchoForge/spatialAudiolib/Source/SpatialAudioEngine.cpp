@@ -29,6 +29,8 @@ namespace yutasound {
         m_bufferSize = bufferSize;
         m_mixBuffer.setSize(2, bufferSize);
         m_circularBuffer.prepare(bufferSize * 4 + 1);
+        for (auto& delayline : m_delayLines)
+            delayline.prepare(m_sampleRate, m_bufferSize);
     }
 
     void SpatialAudioEngine::addSource(const juce::String& filePath)
@@ -36,7 +38,11 @@ namespace yutasound {
         SoundSource source;
         source.loadFromPath(filePath);
         m_sources.push_back(std::move(source));
-        // TODO: push matching delayLine, activeChain, shadowChain
+
+        StereoDelayLine dl;
+        dl.prepare(m_sampleRate, m_bufferSize);
+        m_delayLines.push_back(std::move(dl));
+        // TODO: push matching activeChain, shadowChain
     }
 
     void SpatialAudioEngine::run()
@@ -48,15 +54,22 @@ namespace yutasound {
                 DBG("SAE writing block...");
                 m_mixBuffer.clear();
 
-                for (auto& source : m_sources)
+                for (int i = 0; i < m_sources.size(); i++)
                 {
+                    auto& source = m_sources[i];
+                    auto& delayLine = m_delayLines[i];
                     auto samplesAvailable = source.getAudioBuffer().getNumSamples() - source.readPosition;
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
-
-                    m_mixBuffer.addFrom(0, 0, source.getAudioBuffer(), 0,
-                        source.readPosition, samplesThisBlock, 0.5f);
-                    m_mixBuffer.addFrom(1, 0, source.getAudioBuffer(), 0,
-                        source.readPosition, samplesThisBlock, 0.5f);
+                    
+                    for (int n = 0; n < samplesThisBlock; n++)
+                    {
+                        float monoSample = source.getAudioBuffer().getSample(0, source.readPosition + n);
+                        //float itd = m_audioManager.computeITD_(45.0f, 0.0f);
+                        auto stereo = delayLine.process(monoSample, -20.0f);
+                        //dereference operator
+                        *m_mixBuffer.getWritePointer(0, n) += stereo.left;
+                        *m_mixBuffer.getWritePointer(1, n) += stereo.right;
+                    }
 
                     source.readPosition += samplesThisBlock;
                     if (source.readPosition >= source.getAudioBuffer().getNumSamples())
@@ -83,7 +96,6 @@ namespace yutasound {
             DBG("AudioDeviceManager error: " + error);
         else
             DBG("AudioDeviceManager initialized OK");
-        m_deviceManager.initialiseWithDefaultDevices(0, 2);
         m_deviceManager.addAudioCallback(&m_audioCallback);
         // 2. Start the background loop
         DBG("AudioCallback added");
