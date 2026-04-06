@@ -167,7 +167,7 @@
     <None Include="MainLayout.qml">
       <Filter>Source Files\qml\Layouts</Filter>
     </None>
-    <None Include="OptionPage.qml">
+    <None Include="SoundTesting.qml">
       <Filter>Source Files\qml</Filter>
     </None>
     <None Include="SimulationScreen.qml">
@@ -175,6 +175,9 @@
     </None>
     <None Include="MenuButton.qml">
       <Filter>Source Files\qml\Layouts</Filter>
+    </None>
+    <None Include="OptionPage.qml">
+      <Filter>Source Files\qml</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

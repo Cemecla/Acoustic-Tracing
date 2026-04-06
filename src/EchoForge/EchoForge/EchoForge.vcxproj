@@ -123,13 +123,14 @@
     <ClCompile Include="SimulationLoop.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
+    <None Include="OptionPage.qml" />
     <None Include="SimulationScreen.qml" />
     <None Include="CreditPage.qml" />
     <None Include="DevModePage.qml" />
     <None Include="MainLayout.qml" />
     <None Include="MenuButton.qml" />
     <None Include="MenuPage.qml" />
-    <None Include="OptionPage.qml" />
+    <None Include="SoundTesting.qml" />
     <None Include="SimulationPage.qml" />
     <None Include="SplashPage.qml" />
     <QtRcc Include="assets.qrc" />

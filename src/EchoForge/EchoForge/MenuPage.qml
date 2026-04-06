@@ -25,6 +25,11 @@ MainLayout {
             buttonText: "Dev Mode"
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/DevModePage.qml"))
         }
+
+        MenuButton { 
+            buttonText: "Sound Testing"
+            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SoundTesting.qml"))
+        }
         
         MenuButton { 
             buttonText: "Option"
