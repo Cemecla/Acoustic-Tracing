@@ -4,20 +4,36 @@
         "isPassable": false,
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
-        "energyLoss": [0, 0, 0]
+        "energyLoss": [0.01, 0.02, 0.025]
     },
     {
         "name": "glass",
         "isPassable": false,
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
-        "energyLoss": [0, 0, 0]
+        "energyLoss": [0.35, 0.18, 0.04]
     },
     {
         "name": "wood",
         "isPassable": false,
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
-        "energyLoss": [0, 0, 0]
+        "energyLoss": [0.13, 0.085, 0.065]
+    },
+    {
+         
+        "name": "fabric",
+        "isPassable": false,
+        "scatteringCoefficient": 0.0,
+        "normal": [0, 0, 0],
+        "energyLoss": [0.10, 0.35, 0.60]
+    },
+    {
+        "name": "cardbord",
+        "isPassable": false,
+        "scatteringCoefficient": 0.0,
+        "normal": [0, 0, 0],
+        "energyLoss": [0.05, 0.15, 0.30]
     }
+
 ]
