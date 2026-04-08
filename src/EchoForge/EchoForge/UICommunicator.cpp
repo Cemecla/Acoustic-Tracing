@@ -62,6 +62,11 @@ void UICommunicator::playtest(const QString& url) {
 	m_parent->play(urlconverted);
 }
 
+void UICommunicator::stoptest(const QString& url) {
+	std::string urlconverted = url.toStdString();
+	m_parent->stop(urlconverted);
+}
+
 void UICommunicator::userInput(char input) {
 	input = std::tolower(input);
 

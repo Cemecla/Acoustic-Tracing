@@ -24,5 +24,10 @@ MainLayout {
             buttonText: "Play"
             onClicked: communicator.playtest("../../../../Acoustic-Tracing/assets/mooo.wav");
         }
+
+        MenuButton {
+            buttonText: "Stop"
+            onClicked: communicator.stoptest("../../../../Acoustic-Tracing/assets/mooo.wav");
+        }
     }
 }

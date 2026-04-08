@@ -35,6 +35,7 @@ class UICommunicator: public QObject {
 
 		Q_INVOKABLE void testing(const QString& value);
 		Q_INVOKABLE void playtest(const QString& url);
+		Q_INVOKABLE void stoptest(const QString& url);
 
 
 	signals:

@@ -64,5 +64,9 @@ void EFView::updateElevationAzimuth(float azimuth, float elevation) {
 }
 
 void EFView::play(std::string& url) const {
+	m_audioManager->play();
+}
 
+void EFView::stop(std::string& url) const {
+	m_audioManager->stop();
 }

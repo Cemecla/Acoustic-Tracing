@@ -24,6 +24,7 @@ class UICommunicator;
 			void saveSimulation(std::string& url);
 			void loadSimulation(std::string& url);
 			void play(std::string& url) const;
+			void stop(std::string& url) const;
 			void setupQGuiApplication(QGuiApplication& app) const;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
 			//void setupAudioManager(yutasound::AudioManager* audioManager);
