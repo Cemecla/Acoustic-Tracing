@@ -35,7 +35,7 @@ Button {
         Rectangle {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            width: menuButton.hovered ? 10 : 0
+            width: menuButton.hovered ? 5 : 0
             color: "#FFA500"
             opacity: menuButton.hovered ? 1 : 0
 

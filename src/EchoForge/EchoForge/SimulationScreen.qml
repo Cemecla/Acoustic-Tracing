@@ -1,15 +1,26 @@
 ﻿import QtQuick
 import QtQuick3D
+import QtQuick3D.Helpers
 
 View3D {
+    property var baseSize: 100
+    id: view3DMain
     anchors.fill: parent
     camera: camera
 
     environment: SceneEnvironment {
-        backgroundMode: SceneEnvironment.SkyBox
-        lightProbe: Texture {
-            source: "qrc:/skybox/blueSky.exr"
-        }
+        backgroundMode: SceneEnvironment.Color
+        clearColor : "lightblue"
+        // lightProbe: Texture {
+        //     source: "qrc:/skybox/blueSky.exr"
+        // }
+    }
+
+    AxisHelper {
+    }
+
+    WasdController {
+        controlledObject: camera
     }
 
     PerspectiveCamera {
@@ -34,8 +45,8 @@ View3D {
     Model {
         materials: DefaultMaterial { diffuseColor: "orange" }
         source: "#Cube"
-        scale: Qt.vector3d(0.8, 0.8, 0.8)
-        position: Qt.vector3d(100, 0, 0)
+        scale: Qt.vector3d(1, 1, 1)
+        position: Qt.vector3d(view3DMain.baseSize / 2, view3DMain.baseSize / 2, view3DMain.baseSize / 2)
 
         // NumberAnimation on eulerRotation.y {
         //     from: 0
@@ -43,6 +54,13 @@ View3D {
         //     duration: 4000
         //     loops: Animation.Infinite
         // }
+    }
+
+    Model {
+            materials: DefaultMaterial { diffuseColor: "green" }
+            source: "#Cube"
+            scale: Qt.vector3d(1, 1, 1)
+            position: Qt.vector3d(view3DMain.baseSize + view3DMain.baseSize / 2, view3DMain.baseSize / 2, view3DMain.baseSize / 2)
     }
 
     FocusScope {

@@ -176,6 +176,9 @@
     <None Include="MenuButton.qml">
       <Filter>Source Files\qml\Layouts</Filter>
     </None>
+    <None Include="SoundTestingPage.qml">
+      <Filter>Source Files\qml</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UICommunicator.h">

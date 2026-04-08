@@ -1,10 +1,12 @@
 #include "EFWorldLoader.h"
 #include "Utils.h"
 #include <vector>
+#include <typeinfo>
 
 #include <QDebug>
 
 using namespace ef;
+using namespace std;
 
 const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1));
 
@@ -54,11 +56,59 @@ EFWorld EFWorldLoader::build(const json& mapJson, const json& materialJson) {
 	return EFWorld();
 }
 
-bool EFWorldLoader::isMapValid(const json& json) {
+bool EFWorldLoader::isMapValid(const json& jsonData) {
+
+	if (isValid<string>(jsonData, "title")) {
+		qDebug() << true;
+	}
+
+	if (isValid<string>(jsonData, "desc")) {
+		qDebug() << true;
+	}
+
+	if (isValid<nlohmann::json>(jsonData, "data")) {
+		json dataVoxels = jsonData["data"];
+		if (isValid<unsigned>(dataVoxels, "voxelSize")) {
+			qDebug() << true;
+		}
+
+		if (isValid<unsigned>(dataVoxels, "chunkSize")) {
+			qDebug() << true;
+		}
+
+		if (isValid<unsigned>(dataVoxels, "mapWidth")) {
+			qDebug() << true;
+		}
+
+		if (isValid<unsigned>(dataVoxels, "mapHeight")) {
+			qDebug() << true;
+		}
+
+		if (isValid<unsigned>(dataVoxels, "mapDepth")) {
+			qDebug() << true;
+		}
+
+		if (isValid<vector<float>>(dataVoxels, "userSpawnPos")) {
+			qDebug() << true;
+		}
+
+		if (isValid<vector<int>>(dataVoxels, "voxel")) {
+			qDebug() << true;
+		}
+	}
 	return true;
 }
 
-bool EFWorldLoader::isMaterialsValid(const json& json) {
+template<typename T>
+bool EFWorldLoader::isValid(const json& jsonData, string key) {
+	if (jsonData.contains(key))
+		if (typeid(jsonData[key]) == typeid(T))
+			return true;
+	qDebug() << false;
+	return false;
+}
+
+bool EFWorldLoader::isMaterialsValid(const json& jsonData) {
 	return true;
 }
 

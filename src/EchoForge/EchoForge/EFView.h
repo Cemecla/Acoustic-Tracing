@@ -2,6 +2,10 @@
 
 #include <string>
 
+#include "JuceHeader.h"
+#include "AudioManager.h"
+#include "SpatialAudioEngine.h"
+
 class EFController;
 class QQmlApplicationEngine;
 class QGuiApplication;
@@ -21,12 +25,16 @@ class UICommunicator;
 			void loadSimulation(std::string& url);
 			void play(std::string& url) const;
 			void setupQGuiApplication(QGuiApplication& app) const;
+			void setupAudioManager(yutasound::AudioManager* audioManager);
+			//void setupAudioManager(yutasound::AudioManager* audioManager);
 		
 		private:
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;
+			yutasound::AudioManager* m_audioManager = nullptr;
 			UICommunicator* m_uiCommunicator;
 			void setupCommunicator();
+			void updateElevationAzimuth(float a, float e);
 	};
 
 #endif

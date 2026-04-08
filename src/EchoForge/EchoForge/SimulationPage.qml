@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick3D.Helpers
 
 Page {
     anchors.fill: parent
@@ -14,8 +15,14 @@ Page {
         anchors.fill: parent
 
         SimulationScreen {
+            id: viewScreen
             Layout.fillWidth: true
             Layout.fillHeight: true
+        }
+
+        DebugView {
+            source: viewScreen
+            resourceDetailsVisible: true
         }
 
         Button {

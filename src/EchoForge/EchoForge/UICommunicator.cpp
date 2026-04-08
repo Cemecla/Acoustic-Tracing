@@ -5,6 +5,7 @@
 #include "UICommunicator.h"
 #include "EFView.h"
 
+
 UICommunicator::UICommunicator(EFView* view): m_parent(view), m_pos(ef::Vector3F()), m_angles(ef::Vector3F()) {}
 
 UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(pos), m_angles(angles) {}
@@ -36,7 +37,7 @@ void UICommunicator::stopSimulation() {
 }
 
 void UICommunicator::saveSimulation(const QString& url) {
-
+	
 }
 
 void UICommunicator::loadSimulation(const QString& url) {

@@ -8,7 +8,7 @@
 #include "EFController.h"
 #include "UICommunicator.h"
 
-EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine), m_uiCommunicator(new UICommunicator(this)){
+EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlApplicationEngine), m_uiCommunicator(new UICommunicator(this)) {
 	QQmlContext* context = m_qtEngine->rootContext();
 
 	context->setContextProperty("communicator", m_uiCommunicator);
@@ -17,6 +17,14 @@ EFView::EFView(EFController* parent) : m_parent(parent), m_qtEngine(new QQmlAppl
 
 	m_qtEngine->load(QUrl(QStringLiteral("qrc:/qt/qml/echoforge/main.qml")));
 }
+
+void EFView::setupAudioManager(yutasound::AudioManager* audioManager) {
+	m_audioManager = audioManager;
+}
+
+//void EFView::setupAudioEngine(SpatialAudioEngine) {
+//
+//}
 
 void EFView::setupQGuiApplication(QGuiApplication& app) const {
 	// Set the window logo 
@@ -49,6 +57,10 @@ void EFView::loadSimulation(std::string& url) {
 
 void EFView::update(float delta) {
 
+}
+
+void EFView::updateElevationAzimuth(float azimuth, float elevation) {
+	//m_audioManager->updateListener();
 }
 
 void EFView::play(std::string& url) const {
