@@ -18,6 +18,16 @@ namespace yutasound {
         m_sampleRate = sampleRate;
     }
 
+    void AudioManager::play() { m_isPlaying = true; }
+    void AudioManager::stop() { m_isPlaying = false; }
+    bool AudioManager::isPlaying() const { return m_isPlaying; }
+
+
+
+
+    void AudioManager::updateListner(float azimuth, float elevation)
+    {}
+
     //void AudioManager::updateSource(const juce::String& md5Name, float azimuth, float elevation,
     //    SoundRemaining soundRemaining)
     //{

@@ -49,6 +49,12 @@ namespace yutasound {
     {
         while (!threadShouldExit())
         {
+            if (!m_audioManager.isPlaying())
+            {
+                wait(1);
+                continue;
+            }
+
             if (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
                 DBG("SAE writing block...");
