@@ -86,3 +86,7 @@ const void tracing::RayManager::next_colision() {
 		}
 	}
 };
+
+const bool RayManager::hasLineOfSight(Eigen::Vector3f& from, Eigen::Vector3f& to) {
+// Détecter si un rayon traverse un bloc quand il arrive à une source
+}

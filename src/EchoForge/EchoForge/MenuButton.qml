@@ -21,9 +21,33 @@ Button {
         source: "qrc:/sounds/buttonSound"
         loops: 1
     }
-    
-    background: Rectangle {
-        color: menuButton.hovered ? "#000000" : "transparent"
+
+    background: Item {
+        Rectangle {
+            anchors.fill: parent
+            color: "black"
+            opacity: menuButton.hovered ? 0.15 : 0
+            Behavior on opacity {
+                NumberAnimation { duration: 150 }
+            }
+        }
+
+        Rectangle {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: menuButton.hovered ? 10 : 0
+            color: "#FFA500"
+            opacity: menuButton.hovered ? 1 : 0
+
+            Behavior on opacity {
+                NumberAnimation { duration: 150 }
+            }
+
+            Behavior on width {
+                NumberAnimation { duration: 150 }
+            }
+        }
+
     }
     
     contentItem: Text {
@@ -33,5 +57,11 @@ Button {
         color: menuButton.hovered ? "#FFFFFF" : "#000000"
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
+        anchors.fill: parent
+        anchors.leftMargin: menuButton.hovered ? 15 : 0
+
+        Behavior on anchors.leftMargin {
+            NumberAnimation { duration: 120 }
+        }
     }
 }

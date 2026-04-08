@@ -4,6 +4,9 @@
         <file alias="github">../../../assets/github_logo.png</file>
     </qresource>
     <qresource prefix="/sounds">
-	    <file alias="buttonSound">../../../assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
-	</qresource>
+        <file alias="buttonSound">../../../assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
+    </qresource>
+    <qresource prefix="/skybox">
+        <file alias="blueSky.exr">../../../assets/skybox/qwantani_morning_puresky_4k.exr</file>
+    </qresource>
 </RCC>
