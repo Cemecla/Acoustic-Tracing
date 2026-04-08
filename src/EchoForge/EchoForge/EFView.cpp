@@ -59,8 +59,8 @@ void EFView::update(float delta) {
 
 }
 
-void EFView::updateElevationAzimuth(float azimuth, float elevation) {
-	//m_audioManager->updateListener();
+void EFView::updateListener(const float azimuth, const float elevation) const {
+	m_audioManager->updateListner(azimuth, elevation);
 }
 
 void EFView::play(std::string& url) const {

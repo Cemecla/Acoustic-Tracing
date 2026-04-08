@@ -67,6 +67,11 @@ void UICommunicator::stoptest(const QString& url) {
 	m_parent->stop(urlconverted);
 }
 
+void UICommunicator::updateTestSlider(const float azimuth, const float elevation) {
+
+	m_parent->updateListener(azimuth, elevation);
+}
+
 void UICommunicator::userInput(char input) {
 	input = std::tolower(input);
 

@@ -27,7 +27,7 @@ class UICommunicator;
 			void stop(std::string& url) const;
 			void setupQGuiApplication(QGuiApplication& app) const;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
-			//void setupAudioManager(yutasound::AudioManager* audioManager);
+			void updateListener(const float azimuth, const float elevation) const;
 		
 		private:
 			EFController* m_parent;
@@ -35,7 +35,6 @@ class UICommunicator;
 			yutasound::AudioManager* m_audioManager = nullptr;
 			UICommunicator* m_uiCommunicator;
 			void setupCommunicator();
-			void updateElevationAzimuth(float a, float e);
 	};
 
 #endif
