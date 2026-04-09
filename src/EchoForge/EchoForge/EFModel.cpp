@@ -67,3 +67,14 @@ const std::optional<Avatar>& EFModel::getAvatar() const {
 const Map& EFModel::getMap() const {
 	return m_world->map; 
 }
+
+std::vector<ef::Emitter> EFModel::getActiveSounds() {
+	if (!m_world.has_value()) return {};
+
+	std::vector<ef::Emitter> result;
+	std::copy_if(m_world->emitters.begin(), m_world->emitters.end(),
+		std::back_inserter(result),
+		[](const ef::Emitter& s) { return s.isActive; });
+
+	return result;
+}

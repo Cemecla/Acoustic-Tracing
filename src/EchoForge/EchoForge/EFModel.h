@@ -51,6 +51,8 @@ class EFController;
 			const std::optional<ef::Avatar>& getAvatar() const;
 
 			const ef::Map& getMap() const;
+
+			std::vector<ef::Emitter> getActiveSounds();
 			
 		
 		private:

@@ -29,7 +29,7 @@ namespace tracing {
 		const void next_colision();
 		std::unique_ptr<std::vector<Ray>> m_activeRays = std::make_unique<std::vector<Ray>>();
 		EFModel* m_parent;
-		const bool hasLineOfSight(Eigen::Vector3f& from ,Eigen::Vector3f& to);
+		const bool hasLineOfSight(const Eigen::Vector3f& from ,const Eigen::Vector3f& to);
 
 		std::mt19937 m_rng{ std::random_device{}() };
 

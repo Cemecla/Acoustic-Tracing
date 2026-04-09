@@ -80,6 +80,12 @@ const void tracing::RayManager::next_colision() {
 		r.loseEnergy(mat.energyLoss.toEigen());
 
 		if (!mat.isPassable) {
+			for (const ef::Emitter& emitter : m_parent->getActiveSounds()) {
+				if (hasLineOfSight(r.getPosition(), emitter.position.toEigen())) {
+					// → créer DTO_RecievedRay et l'ajouter au batch
+				}
+			}
+
 			auto strategy = m_collisionManager.decision(r, mat.scatteringCoefficient, m_rng);
 			Eigen::Vector3f newDir = strategy->getNextDirection(r.getVelocity(), r.getHitNormal(), m_rng);
 			r.redirect(newDir);
@@ -87,6 +93,33 @@ const void tracing::RayManager::next_colision() {
 	}
 };
 
-//const bool RayManager::hasLineOfSight(Eigen::Vector3f& from, Eigen::Vector3f& to) {
-//// Détecter si un rayon traverse un bloc quand il arrive à une source
-//}
+const bool RayManager::hasLineOfSight( const Eigen::Vector3f& from, const Eigen::Vector3f& to) {
+// Détecter si un rayon traverse un bloc quand il arrive à une source
+	const ef::Map& map = m_parent->getMap();
+
+
+	Eigen::Vector3f delta = to - from;
+	float maxDist = delta.norm();
+	if (maxDist < 1e-4f) return true;
+	Ray shadowRay(from, delta.normalized());
+	Eigen::Vector3i targetVoxel = to.array().floor().cast<int>();
+
+	int maxSteps = static_cast<int>(maxDist * 2.0f) + 5;
+	shadowRay.advance();
+
+
+	for (int i = 0; i < maxSteps; ++i) {
+		Eigen::Vector3i pos = shadowRay.getVoxelPos();
+
+		if (pos == targetVoxel) return true;
+
+		if (!map.isInBound(pos.x(), pos.y(), pos.z())) return false;
+
+		ef::Material mat = map.fetchMaterial(ef::Vector3I::fromEigenI(pos));
+		if (!mat.isPassable) return false;
+
+		shadowRay.advance();
+	}
+
+	return false;
+}
