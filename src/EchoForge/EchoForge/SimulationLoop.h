@@ -24,5 +24,4 @@ private:
 
 	void update();
 	void init(int intervalMsec);
-
 };

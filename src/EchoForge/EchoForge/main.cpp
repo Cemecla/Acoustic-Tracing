@@ -9,6 +9,8 @@
 #include "AudioManager.h"
 #include "SpatialAudioEngine.h"
 
+using namespace yutasound;
+using namespace juce;
 
 int main(int argc, char *argv[])
 {
@@ -21,21 +23,24 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     
     // This perfectly bridges JUCE's background requirements with Qt's main thread.
-    juce::ScopedJuceInitialiser_GUI juceInit;
+    ScopedJuceInitialiser_GUI juceInit;
 
-    yutasound::AudioManager audioManager;
-    yutasound::SpatialAudioEngine engine(audioManager);
+    AudioManager audioManager;
+    SpatialAudioEngine engine(audioManager);
 
-    
     audioManager.prepare(48000.0, 512);
     engine.prepare(48000.0, 512);
     engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
-    // engine.start();
+    engine.start();
 
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();
 
     efc->m_view->setupQGuiApplication(app);
+
+    efc->m_view->setupAudioManager(&audioManager);
+
+    //efc->m_view->setupAudioEngine(&engine);
 
     // Execution of QT Application
     return app.exec();

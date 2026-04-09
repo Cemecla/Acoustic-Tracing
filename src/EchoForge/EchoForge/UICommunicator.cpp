@@ -5,6 +5,7 @@
 #include "UICommunicator.h"
 #include "EFView.h"
 
+
 UICommunicator::UICommunicator(EFView* view): m_parent(view), m_pos(ef::Vector3F()), m_angles(ef::Vector3F()) {}
 
 UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(pos), m_angles(angles) {}
@@ -36,7 +37,7 @@ void UICommunicator::stopSimulation() {
 }
 
 void UICommunicator::saveSimulation(const QString& url) {
-
+	
 }
 
 void UICommunicator::loadSimulation(const QString& url) {
@@ -59,6 +60,16 @@ void UICommunicator::testing(const QString& value) {
 void UICommunicator::playtest(const QString& url) {
 	std::string urlconverted = url.toStdString();
 	m_parent->play(urlconverted);
+}
+
+void UICommunicator::stoptest(const QString& url) {
+	std::string urlconverted = url.toStdString();
+	m_parent->stop(urlconverted);
+}
+
+void UICommunicator::updateTestSlider(const float azimuth, const float elevation) {
+
+	m_parent->updateListener(azimuth, elevation);
 }
 
 void UICommunicator::userInput(char input) {

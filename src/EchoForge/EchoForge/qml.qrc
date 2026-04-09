@@ -10,5 +10,6 @@
         <file>DevModePage.qml</file>
         <file>CreditPage.qml</file>
         <file>SimulationScreen.qml</file>
+        <file>SoundTestingPage.qml</file>
     </qresource>
 </RCC>

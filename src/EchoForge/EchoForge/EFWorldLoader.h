@@ -20,8 +20,12 @@ namespace ef {
 
 			EFWorldLoader() = delete;
 
-			static bool isMaterialsValid(const json& json);
-			static bool isMapValid(const json& json);
+			static bool isMaterialsValid(const json& jsonData);
+			static bool isMapValid(const json& jsonData);
+
+			template<typename T>
+			static bool isValid(const json& jsonData, std::string key);
+
 			static Avatar buildAvatar(const json& mapData);
 			static Map buildMap(const json& mapData, std::vector<Material> materials);
 			static std::vector<Material> buildMaterials(const json& materialJson);
