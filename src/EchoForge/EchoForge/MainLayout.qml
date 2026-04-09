@@ -4,8 +4,6 @@ import QtQuick.Layouts
 
 
 Page {
-    anchors.fill: parent
-
     default property alias content: innerContainer.data
     property alias maintitle: titleText.text
 
@@ -32,8 +30,6 @@ Page {
 
         RowLayout {
             id: innerContainer
-            Layout.fillWidth: true
-            Layout.fillHeight: true
         }
     }
 }

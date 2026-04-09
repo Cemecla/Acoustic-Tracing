@@ -2,7 +2,8 @@
     "title": "DevTest",
     "desc": "Map de test",
     "data": {
-        "voxelSize" : 100,
+        "voxelUnitSize" : 100,
+	"unitValue": 100,
         "chunkSize" : 16,
         "mapWidth": 5,
         "mapHeight" : 5,

@@ -4,6 +4,8 @@ import QtQuick.Layouts
 
 MainLayout {
     maintitle: "Sound Testing"
+    anchors.fill: parent
+
     ColumnLayout {
         width: 200
         Layout.fillHeight: true

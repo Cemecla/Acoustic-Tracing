@@ -4,5 +4,6 @@ import QtQuick.Layouts
 
 MainLayout {
     maintitle: "Option"
+    anchors.fill: parent
     
 }

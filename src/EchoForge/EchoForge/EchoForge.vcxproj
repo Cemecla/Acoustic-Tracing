@@ -118,11 +118,14 @@
     <ClCompile Include="EFWorldLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapDataModel.cpp" />
     <ClCompile Include="Materiel.cpp" />
     <ClCompile Include="RayStrategy.cpp" />
     <ClCompile Include="SimulationLoop.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
+    <None Include="LoadingPage.qml" />
+    <None Include="SimulationSelectionPage.qml" />
     <None Include="SoundTestingPage.qml" />
     <None Include="SimulationScreen.qml" />
     <None Include="CreditPage.qml" />
@@ -147,6 +150,7 @@
     <ClInclude Include="EFView.h" />
     <ClInclude Include="EFWorld.h" />
     <ClInclude Include="EFWorldLoader.h" />
+    <QtMoc Include="MapDataModel.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Ray.h" />

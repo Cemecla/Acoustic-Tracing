@@ -6,25 +6,25 @@
 #include "EFView.h"
 
 
-UICommunicator::UICommunicator(EFView* view): m_parent(view), m_pos(ef::Vector3F()), m_angles(ef::Vector3F()) {}
+UICommunicator::UICommunicator(EFView* view): m_parent(view), m_pos(QVector3D()), m_angles(QVector3D()) {}
 
-UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(pos), m_angles(angles) {}
+UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(QVector3D(pos.x, pos.y, pos.z)), m_angles(QVector3D(angles.x, angles.y, angles.z)) {}
 
-void UICommunicator::setAvatarPos(ef::Vector3F& v) {
+void UICommunicator::setAvatarPos(QVector3D& v) {
 	m_pos = v;
 	emit avatarPosChanged();
 }
 
-void UICommunicator::setHeadAngles(ef::Vector3F& v) {
+void UICommunicator::setHeadAngles(QVector3D& v) {
 	m_angles = v;
 	emit headAnglesChanged();
 }
 
-const ef::Vector3F& UICommunicator::avatarPos() const {
+const QVector3D UICommunicator::avatarPos() const {
 	return m_pos;
 }
 
-const ef::Vector3F& UICommunicator::headAngles() const {
+const QVector3D UICommunicator::headAngles() const {
 	return m_angles;
 }
 

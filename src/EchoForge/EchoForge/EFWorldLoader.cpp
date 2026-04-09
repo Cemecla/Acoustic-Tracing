@@ -118,7 +118,9 @@ Avatar EFWorldLoader::buildAvatar(const json& mapData) {
 }
 
 Map EFWorldLoader::buildMap(const json& mapData, std::vector<Material> materials) {
-	float voxelSize = mapData["voxelSize"];
+	int voxelUnitSize = mapData["voxelUnitSize"];
+
+	int unitSize = mapData["unitValue"];
 
 	unsigned mapWidth = mapData["mapWidth"];
 
@@ -128,7 +130,7 @@ Map EFWorldLoader::buildMap(const json& mapData, std::vector<Material> materials
 
 	std::vector<int> voxels = mapData["voxel"];
 
-	return Map(mapWidth, mapHeight, mapDepth, voxelSize, voxels, materials);
+	return Map(mapWidth, mapHeight, mapDepth, voxelUnitSize, unitSize, voxels, materials);
 }
 
 std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {

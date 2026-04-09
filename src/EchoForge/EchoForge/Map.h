@@ -25,11 +25,15 @@
 			public:
 				Map();
 				Map(unsigned width, unsigned height, unsigned depth);
-				Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels, std::vector<Material> materials);
+				Map(unsigned width, unsigned height, unsigned depth, int voxelUnitValueCm, int voxelUnitSize, std::vector<int> voxels, std::vector<Material> materials);
 	
+				const Material& fetchMaterial(const float x, const float y, const float z) const;
 				const Material& fetchMaterial(const int x, const int y, const int z) const;
+				const Material& fetchMaterial(const Vector3F& worldPosition) const;
 				const Material& fetchMaterial(const Vector3I& position) const;
 	
+				const int fetchMaterialId(const float x, const float y, const float z) const;
+				const int fetchMaterialId(const Vector3F& worldPosition) const;
 				const int fetchMaterialId(const Material& material) const;
 				const int fetchMaterialId(const int x, const int y, const int z) const;
 				const int fetchMaterialId(const Vector3I& position) const;
@@ -50,11 +54,17 @@
 				unsigned m_width;
 				unsigned m_height;
 				unsigned m_depth;
-				float m_voxelSizeCm;
+				int m_voxelUnitSize;
+				int m_voxelUnitValueCm;
 				std::string name;
 				std::vector<Material> m_materials;
 				std::vector<int> m_voxels;
 	
+
+				inline const int findWorldPositionIndex(const Vector3F& worldPosition) const;
+
+				inline const int findWorldPositionIndex(const float x, const float y, const float z) const;
+
 				inline const int findMapIndex(const int x, const int y, const int z) const;
 	
 				inline const int findMapIndex(const Vector3I& position) const;

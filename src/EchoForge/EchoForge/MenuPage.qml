@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 MainLayout {
     maintitle: "ECHO FORGE"
+    anchors.fill: parent
 
     ColumnLayout {
         width: 200
@@ -18,7 +19,7 @@ MainLayout {
 
         MenuButton {
             buttonText: "Simulation" 
-            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SimulationPage.qml"))
+            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SimulationSelectionPage.qml"))
         }
         
         MenuButton { 

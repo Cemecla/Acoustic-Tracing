@@ -11,5 +11,7 @@
         <file>CreditPage.qml</file>
         <file>SimulationScreen.qml</file>
         <file>SoundTestingPage.qml</file>
+        <file>SimulationSelectionPage.qml</file>
+        <file>LoadingPage.qml</file>
     </qresource>
 </RCC>

@@ -2,8 +2,7 @@
 import QtQuick.Controls
 
 Page {
-    width: Window.width
-    height: Window.height
+    anchors.fill: parent
 
     background : Rectangle {
         color: "#d4d4d4"

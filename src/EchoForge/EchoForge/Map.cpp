@@ -2,16 +2,17 @@
 #include "Material.h"
 
 using namespace ef;
+using namespace std;
 
-Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelSizeCm(100.0), m_voxels({}), m_materials({}) {
+Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelUnitValueCm(100), m_voxelUnitSize(100), m_voxels({}), m_materials({}) {
 	buildEmptyMap();
 }
 
-Map::Map(unsigned width, unsigned height, unsigned depth): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(100.0), m_voxels({}), m_materials({}) {
+Map::Map(unsigned width, unsigned height, unsigned depth): m_width(width), m_height(height), m_depth(depth), m_voxelUnitValueCm(100), m_voxelUnitSize(100), m_voxels({}), m_materials({}) {
 	buildEmptyMap();
 }
 
-Map::Map(unsigned width, unsigned height, unsigned depth, float voxelSizeCm, std::vector<int> voxels, std::vector<Material> materials): m_width(width), m_height(height), m_depth(depth), m_voxelSizeCm(voxelSizeCm), m_voxels(voxels), m_materials(materials) {
+Map::Map(unsigned width, unsigned height, unsigned depth, int voxelUnitValueCm, int voxelUnitSize, std::vector<int> voxels, std::vector<Material> materials): m_width(width), m_height(height), m_depth(depth), m_voxelUnitValueCm(voxelUnitValueCm), m_voxelUnitSize(voxelUnitSize), m_voxels(voxels), m_materials(materials) {
 }
 
 const Material& Map::fetchMaterial(const int x, const int y, const int z) const {
@@ -73,6 +74,48 @@ inline const int Map::findMapIndex(const int x, const int y, const int z) const 
 
 inline const int Map::findMapIndex(const Vector3I& position) const {
 	return position.z * (m_height * m_width) + position.y * m_width + position.x;
+}
+
+inline const int Map::findWorldPositionIndex(const Vector3F& worldPosition) const {
+	int nx = (int)floor(worldPosition.x / m_voxelUnitSize);
+	int ny = (int)floor(worldPosition.y / m_voxelUnitSize);
+	int nz = (int)floor(worldPosition.z / m_voxelUnitSize);
+
+	return findMapIndex(nx, ny, nz);
+}
+
+inline const int Map::findWorldPositionIndex(const float x, const float y, const float z) const {
+	int nx = (int)floor(x / m_voxelUnitSize);
+	int ny = (int)floor(y / m_voxelUnitSize);
+	int nz = (int)floor(z / m_voxelUnitSize);
+
+	return findMapIndex(nx, ny, nz);
+}
+
+const Material& Map::fetchMaterial(const Vector3F& worldPosition) const {
+	int mapIndex = findWorldPositionIndex(worldPosition);
+
+	int materialIndex = m_voxels[mapIndex];
+
+	return m_materials[materialIndex];
+}
+
+const Material& Map::fetchMaterial(const float x, const float y, const float z) const {
+	int mapIndex = findWorldPositionIndex(x, y, z);
+
+	int materialIndex = m_voxels[mapIndex];
+
+	return m_materials[materialIndex];
+}
+
+const int Map::fetchMaterialId(const float x, const float y, const float z) const {
+	int mapIndex = findWorldPositionIndex(x, y, z);
+	return m_voxels[mapIndex];
+}
+
+const int Map::fetchMaterialId(const Vector3F& worldPosition) const {
+	int mapIndex = findWorldPositionIndex(worldPosition);
+	return m_voxels[mapIndex];
 }
 
 //// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/

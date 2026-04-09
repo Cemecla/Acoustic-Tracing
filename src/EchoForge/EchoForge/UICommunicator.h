@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject>
 #include <string>
+#include <QVector3D>
 #include "Vector.h"
 
 class EFView;
@@ -15,15 +16,16 @@ class UICommunicator: public QObject {
 		UICommunicator(EFView* view);
 		UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles);
 		// READ -> Getter WRITE -> Setter NOTIFY -> SIGNAL
-		Q_PROPERTY(ef::Vector3F avatarPos READ avatarPos WRITE setAvatarPos NOTIFY avatarPosChanged);
-		Q_PROPERTY(ef::Vector3F headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
+		Q_PROPERTY(QVector3D avatarPos READ avatarPos WRITE setAvatarPos NOTIFY avatarPosChanged);
+		Q_PROPERTY(QVector3D headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
+		Q_PROPERTY(QVector3D headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
 
 
-		const ef::Vector3F& avatarPos() const;
-		const ef::Vector3F& headAngles() const;
+		const QVector3D avatarPos() const;
+		const QVector3D headAngles() const;
 
-		void setAvatarPos(ef::Vector3F& v);
-		void setHeadAngles(ef::Vector3F& v);
+		void setAvatarPos(QVector3D& v);
+		void setHeadAngles(QVector3D& v);
 
 		Q_INVOKABLE void startSimulation();
 		Q_INVOKABLE void stopSimulation();
@@ -44,7 +46,7 @@ class UICommunicator: public QObject {
 		void headAnglesChanged();
 
 	private:
-		ef::Vector3F m_pos;
-		ef::Vector3F m_angles;
+		QVector3D m_pos;
+		QVector3D m_angles;
 		EFView* m_parent;
 };

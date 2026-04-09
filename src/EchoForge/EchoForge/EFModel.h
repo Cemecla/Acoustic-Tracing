@@ -3,6 +3,7 @@
 #include "json.hpp"
 #include <string>
 #include <optional>
+#include <vector>
 
 #include "Map.h"
 #include "Avatar.h"
@@ -34,6 +35,7 @@ class EFController;
 			*/
 			json loadJson(std::string& filename);
 
+			const std::vector<std::string> getFilesFrom(std::string directoryPath = "./", std::string extensionType = nullptr);
 			/**
 			*	desc:
 			*	param data: json
