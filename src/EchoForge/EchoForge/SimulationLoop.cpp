@@ -10,7 +10,7 @@ void SimulationLoop::setCallback(std::function<void(float)> callback) {
 }
 
 void SimulationLoop::stop() {
-	m_timer.start();
+	m_timer.stop();
 }
 
 void SimulationLoop::start() {

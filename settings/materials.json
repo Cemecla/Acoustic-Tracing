@@ -2,6 +2,8 @@
     {
         "name": "stone",
         "isPassable": false,
+        "isInstantiable": true,
+        "color": [120, 120, 120, 255],
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
         "energyLoss": [0.01, 0.02, 0.025]
@@ -9,6 +11,8 @@
     {
         "name": "glass",
         "isPassable": false,
+        "isInstantiable": true,
+        "color": [255, 255, 255, 100],
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
         "energyLoss": [0.35, 0.18, 0.04]
@@ -16,14 +20,17 @@
     {
         "name": "wood",
         "isPassable": false,
+        "isInstantiable": true,
+        "color": [125, 100, 49, 255],
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
         "energyLoss": [0.13, 0.085, 0.065]
     },
     {
-         
         "name": "fabric",
         "isPassable": false,
+        "isInstantiable": true,
+        "color": [255, 0, 0, 255],
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
         "energyLoss": [0.10, 0.35, 0.60]
@@ -31,6 +38,8 @@
     {
         "name": "cardbord",
         "isPassable": false,
+        "isInstantiable": true,
+        "color": [154, 108, 0, 255],
         "scatteringCoefficient": 0.0,
         "normal": [0, 0, 0],
         "energyLoss": [0.05, 0.15, 0.30]

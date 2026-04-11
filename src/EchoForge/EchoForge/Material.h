@@ -2,20 +2,24 @@
 
 #include <string>
 #include "Vector.h"
+#include "Utils.h"
+#include <optional>
 
 namespace ef {
 	struct Material
 	{
 		std::string name{};
 		bool isPassable{};
+		bool isInstantiable{};
 		float scatteringCoefficient{};
 		Vector3F normal{};
 		Vector3F energyLoss{};
+		ColorRGBA color;
 		
 
 		Material();
 
-		Material(std::string name, bool isPassable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal);
+		Material(std::string name, bool isPassable, bool isInstantiable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal, ColorRGBA color = ColorRGBA{});
 
 		const bool operator==(Material& material) const {
 			return name == name;

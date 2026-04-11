@@ -6,6 +6,8 @@
 #include "AudioManager.h"
 #include "SpatialAudioEngine.h"
 
+#include "Map.h"
+
 class EFController;
 class QQmlApplicationEngine;
 class QGuiApplication;
@@ -28,6 +30,7 @@ class UICommunicator;
 			void setupQGuiApplication(QGuiApplication& app) const;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
 			void updateListener(const float azimuth, const float elevation) const;
+			void buildMap(ef::Map& map);
 		
 		private:
 			EFController* m_parent;

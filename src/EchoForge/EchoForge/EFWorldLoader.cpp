@@ -8,9 +8,9 @@
 using namespace ef;
 using namespace std;
 
-const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1));
+const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1));
 
-const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, Vector3F(0, 0, 0), 0.0, Vector3F(0, 0, 0));
+const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0, 0, 0), 0.0, Vector3F(0, 0, 0));
 
 EFWorld EFWorldLoader::build(const json& mapJson) {
 	if (isMapValid(mapJson)) {
@@ -141,15 +141,18 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 	for(json materialData : materialJson)
 	{
 		std::string name = materialData["name"];
+		std::vector<uint8_t> colorBrut = materialData["color"];
 		bool isPassable = materialData["isPassable"];
+		bool isInstantiable = materialData["isInstantiable"];
 		float scatteringCoefficient = materialData["scatteringCoefficient"];
 		std::vector<float> normalBrut = materialData["normal"];
 		std::vector<float> energyLossBrut = materialData["energyLoss"];
 
 		Vector3F energyLoss = Vector3F(energyLossBrut[0], energyLossBrut[1], energyLossBrut[2]);
 		Vector3F normal = Vector3F(normalBrut[0], normalBrut[1], normalBrut[2]);
+		ColorRGBA colorRGB = ColorRGBA(colorBrut[0], colorBrut[1], colorBrut[2], colorBrut[3]);
 
-		Material nm = Material(name, isPassable, energyLoss, scatteringCoefficient, normal);
+		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, colorRGB);
 
 		materials.push_back(nm);
 	}

@@ -16,6 +16,8 @@ void EFController::run(float delta) {
 
 void EFController::loadSimulation(std::string& url) {
 	m_model->loadWorld(url);
+	ef::Map map = m_model->getMap();
+	m_view->buildMap(map);
 	m_simulationLoop.start();
 }
 

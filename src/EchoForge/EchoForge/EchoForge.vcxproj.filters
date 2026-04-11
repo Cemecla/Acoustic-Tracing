@@ -54,6 +54,9 @@
     <Filter Include="Header Files\MVC">
       <UniqueIdentifier>{cc2b8686-ff41-417e-8134-2d872eaf936b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\qml\Shaders">
+      <UniqueIdentifier>{3572315b-802c-405e-b428-c33989febaf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -105,6 +108,12 @@
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
     <ClCompile Include="MapDataModel.cpp">
+      <Filter>Source Files\QtObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelInstancing.cpp">
+      <Filter>Header Files\QtObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkInstancing.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,6 +212,12 @@
     <None Include="LoadingPage.qml">
       <Filter>Source Files\qml\Pages</Filter>
     </None>
+    <None Include="voxel.vert">
+      <Filter>Source Files\qml\Shaders</Filter>
+    </None>
+    <None Include="voxel.frag">
+      <Filter>Source Files\qml\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">
@@ -212,6 +227,9 @@
       <Filter>Header Files\QtObject</Filter>
     </QtMoc>
     <QtMoc Include="MapDataModel.h">
+      <Filter>Header Files\QtObject</Filter>
+    </QtMoc>
+    <QtMoc Include="ChunkInstancing.h">
       <Filter>Header Files\QtObject</Filter>
     </QtMoc>
   </ItemGroup>

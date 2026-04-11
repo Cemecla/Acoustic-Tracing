@@ -2,7 +2,10 @@
 #include <QObject>
 #include <string>
 #include <QVector3D>
+#include <QVariant>
 #include "Vector.h"
+#include "Map.h"
+#include "ChunkInstancing.h"
 
 class EFView;
 
@@ -18,11 +21,11 @@ class UICommunicator: public QObject {
 		// READ -> Getter WRITE -> Setter NOTIFY -> SIGNAL
 		Q_PROPERTY(QVector3D avatarPos READ avatarPos WRITE setAvatarPos NOTIFY avatarPosChanged);
 		Q_PROPERTY(QVector3D headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
-		Q_PROPERTY(QVector3D headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
+		Q_PROPERTY(ChunkInstancing* voxelInstances READ voxelInstances NOTIFY chunkInstancingsChanged);
 
-
-		const QVector3D avatarPos() const;
-		const QVector3D headAngles() const;
+		QVector3D avatarPos() const;
+		QVector3D headAngles() const;
+		ChunkInstancing* voxelInstances();
 
 		void setAvatarPos(QVector3D& v);
 		void setHeadAngles(QVector3D& v);
@@ -40,13 +43,16 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void stoptest(const QString& url);
 		Q_INVOKABLE void updateTestSlider(const float azimuth, const float elevation);
 
+		void buildMap(ef::Map& map);
 
 	signals:
 		void avatarPosChanged();
 		void headAnglesChanged();
+		void chunkInstancingsChanged();
 
 	private:
 		QVector3D m_pos;
 		QVector3D m_angles;
+		ChunkInstancing* m_voxelInstances;
 		EFView* m_parent;
 };

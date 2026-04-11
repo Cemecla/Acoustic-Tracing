@@ -23,7 +23,7 @@ EFModel::EFModel(EFController* parent) :
 void EFModel::loadWorld(std::string& filename) {
 	json mapfile = loadJson(filename);
 	// HARDCODED change later
-	std::string str = "C:/travail/Acoustic-Tracing/settings/materials.json";
+	std::string str = "../../../settings/materials.json";
 	// HARDCODED change later
 	json materialfile = loadJson(str);
 	m_world = EFWorldLoader::build(mapfile, materialfile);

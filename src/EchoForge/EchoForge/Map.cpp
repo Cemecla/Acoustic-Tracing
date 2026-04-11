@@ -18,6 +18,7 @@ Map::Map(unsigned width, unsigned height, unsigned depth, int voxelUnitValueCm, 
 const Material& Map::fetchMaterial(const int x, const int y, const int z) const {
 	int mapIndex = findMapIndex(x, y, z);
 
+	assert(mapIndex >= 0 && mapIndex < m_voxels.size());
 	int materialIndex = m_voxels[mapIndex];
 
 	return m_materials[materialIndex];
@@ -128,4 +129,32 @@ void Map::buildEmptyMap() {
 	int voxelsTotal = m_width * m_height * m_depth;
 	for (int i = 0; i < voxelsTotal; i++)
 		m_voxels.push_back(1);
+}
+
+const unsigned Map::getWidth() const {
+	return m_width;
+}
+
+const unsigned Map::getHeight() const {
+	return m_height;
+}
+
+const unsigned Map::getDepth() const {
+	return m_depth;
+}
+
+const int Map::countVoxels() const {
+	return m_voxels.size();
+}
+
+const int Map::getUnitSize() const {
+	return m_voxelUnitSize;
+}
+
+const int Map::getUnitValue() const {
+	return m_voxelUnitValueCm;
+}
+
+const std::string Map::getName() const {
+	return m_name;
 }

@@ -6,5 +6,10 @@
     <qresource prefix="/sounds">
         <file alias="buttonSound">../../../assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
     </qresource>
-    <qresource prefix="/skybox"/>
+    <qresource prefix="/skybox">
+    </qresource>
+    <qresource prefix="/shaders">
+        <file>voxel.frag</file>
+        <file>voxel.vert</file>
+    </qresource>
 </RCC>

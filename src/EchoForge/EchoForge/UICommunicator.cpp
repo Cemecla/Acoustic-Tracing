@@ -4,11 +4,12 @@
 
 #include "UICommunicator.h"
 #include "EFView.h"
+#include "Material.h"
 
 
-UICommunicator::UICommunicator(EFView* view): m_parent(view), m_pos(QVector3D()), m_angles(QVector3D()) {}
+UICommunicator::UICommunicator(EFView* view) : m_parent(view), m_pos(QVector3D()), m_angles(QVector3D()), m_voxelInstances(new ChunkInstancing()) {}
 
-UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(QVector3D(pos.x, pos.y, pos.z)), m_angles(QVector3D(angles.x, angles.y, angles.z)) {}
+UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(QVector3D(pos.x, pos.y, pos.z)), m_angles(QVector3D(angles.x, angles.y, angles.z)), m_voxelInstances(new ChunkInstancing()) {}
 
 void UICommunicator::setAvatarPos(QVector3D& v) {
 	m_pos = v;
@@ -20,12 +21,17 @@ void UICommunicator::setHeadAngles(QVector3D& v) {
 	emit headAnglesChanged();
 }
 
-const QVector3D UICommunicator::avatarPos() const {
+QVector3D UICommunicator::avatarPos() const {
 	return m_pos;
 }
 
-const QVector3D UICommunicator::headAngles() const {
+QVector3D UICommunicator::headAngles() const {
 	return m_angles;
+}
+
+ChunkInstancing* UICommunicator::voxelInstances()
+{
+	return m_voxelInstances;
 }
 
 void UICommunicator::startSimulation() {
@@ -84,4 +90,8 @@ void UICommunicator::userInput(char input) {
 		default:
 			break;
 	}
+}
+
+void UICommunicator::buildMap(ef::Map& map) {	
+	m_voxelInstances->setChunk(map);
 }

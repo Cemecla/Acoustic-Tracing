@@ -37,13 +37,13 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.10.2_msvc2022_64</QtInstall>
-    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d</QtModules>
+    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.10.2_msvc2022_64</QtInstall>
-    <QtModules>qml;quick;quick3d;quickcontrols2</QtModules>
+    <QtModules>qml;quick;quick3d;quickcontrols2;core</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -80,6 +80,11 @@
     <Xdcmake>
       <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
     </Xdcmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -125,6 +130,7 @@
     <ClCompile Include="SimulationLoop.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
+    <ClCompile Include="ChunkInstancing.cpp" />
     <None Include="LoadingPage.qml" />
     <None Include="SimulationSelectionPage.qml" />
     <None Include="SoundTestingPage.qml" />
@@ -137,6 +143,8 @@
     <None Include="OptionPage.qml" />
     <None Include="SimulationPage.qml" />
     <None Include="SplashPage.qml" />
+    <None Include="voxel.frag" />
+    <None Include="voxel.vert" />
     <QtRcc Include="assets.qrc" />
     <ClCompile Include="Ray.cpp" />
     <QtRcc Include="qml.qrc" />
@@ -151,6 +159,7 @@
     <ClInclude Include="EFView.h" />
     <ClInclude Include="EFWorld.h" />
     <ClInclude Include="EFWorldLoader.h" />
+    <QtMoc Include="ChunkInstancing.h" />
     <QtMoc Include="MapDataModel.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Queue.h" />

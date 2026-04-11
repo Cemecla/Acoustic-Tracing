@@ -30,7 +30,7 @@ Page {
             Layout.fillWidth: true
             anchors.horizontalCenter: mainColumn.horizontalCenter
             text: "Start Simulation"
-            onClicked: communicator.loadSimulation("C:/travail/Acoustic-Tracing/saves/mapDev.json")
+            onClicked: communicator.loadSimulation("../../../../Acoustic-Tracing/saves/DevTest.json")
         }
     }
 }

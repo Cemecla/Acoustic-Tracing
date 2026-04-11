@@ -3,17 +3,19 @@ import QtQuick3D
 import QtQuick3D.Helpers
 
 View3D {
-    property var baseSize: 100
+    property int baseSize: 100
     id: view3DMain
     anchors.fill: parent
     camera: camera
 
     environment: SceneEnvironment {
-        backgroundMode: SceneEnvironment.Color
-        clearColor : "lightblue"
-        // lightProbe: Texture {
-        //     source: "qrc:/skybox/blueSky.exr"
-        // }
+        backgroundMode: SceneEnvironment.SkyBox
+        lightProbe: Texture {
+            textureData: ProceduralSkyTextureData {
+                sunEnergy: 60.0
+                textureQuality: ProceduralSkyTextureData.SkyTextureQualityLow
+            }
+        }
     }
 
     AxisHelper {
@@ -43,24 +45,15 @@ View3D {
     }
 
     Model {
-        materials: DefaultMaterial { diffuseColor: "orange" }
         source: "#Cube"
-        scale: Qt.vector3d(1, 1, 1)
-        position: Qt.vector3d(view3DMain.baseSize / 2, view3DMain.baseSize / 2, view3DMain.baseSize / 2)
+        
+        instancing: communicator.voxelInstances
 
-        // NumberAnimation on eulerRotation.y {
-        //     from: 0
-        //     to: 360
-        //     duration: 4000
-        //     loops: Animation.Infinite
-        // }
-    }
-
-    Model {
-            materials: DefaultMaterial { diffuseColor: "green" }
-            source: "#Cube"
-            scale: Qt.vector3d(1, 1, 1)
-            position: Qt.vector3d(view3DMain.baseSize + view3DMain.baseSize / 2, view3DMain.baseSize / 2, view3DMain.baseSize / 2)
+        materials: CustomMaterial {
+            shadingMode: CustomMaterial.Shaded
+            vertexShader: "qrc:/shaders/voxel.vert"
+            fragmentShader: "qrc:/shaders/voxel.frag"
+        }
     }
 
     FocusScope {

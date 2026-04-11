@@ -70,3 +70,7 @@ void EFView::play(std::string& url) const {
 void EFView::stop(std::string& url) const {
 	m_audioManager->stop();
 }
+
+void EFView::buildMap(ef::Map& map) {
+	m_uiCommunicator->buildMap(map);
+}

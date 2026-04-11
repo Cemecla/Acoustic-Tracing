@@ -24,7 +24,7 @@ namespace yutasound {
         int numSamples,
         const juce::AudioIODeviceCallbackContext& context)
     {
-        DBG("AudioCallback called");
+        // DBG("AudioCallback called");
         m_circularBuffer.read(
             outputChannelData[0],
             outputChannelData[1],

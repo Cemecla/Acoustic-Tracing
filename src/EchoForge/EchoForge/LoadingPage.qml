@@ -4,11 +4,12 @@ import QtQuick.Layouts
 
 Page {
     property bool isLoading: true
+    id: loadingPage
     Layout.fillHeight: true
     Layout.fillWidth: true
     
     Rectangle {
-        visible: isLoading
+        visible: loadingPage.isLoading
         anchors.fill: parent
         color: "white"
         Text {
@@ -19,13 +20,14 @@ Page {
     }
 
     Loader {
+        active: true
         anchors.fill: parent
         asynchronous: true
         source: "SimulationPage.qml"
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                isLoading = false
+                loadingPage.isLoading = false
             }
         }
     }
