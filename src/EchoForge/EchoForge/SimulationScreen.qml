@@ -1,5 +1,5 @@
 ﻿import QtQuick
-import QtQuick3D
+import QtQuick3D 6.5
 import QtQuick3D.Helpers
 
 View3D {
@@ -29,6 +29,8 @@ View3D {
         id: camera
         position: Qt.vector3d(0, 600, 0)
         eulerRotation: Qt.vector3d(-90, 0, 0)
+        clipNear: 10
+        clipFar: 100000
     }
 
     DirectionalLight {

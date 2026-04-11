@@ -1,6 +1,6 @@
-VARYING vec4 vColor;
+VARYING vec4 vInstanceColor;
 
 void MAIN()
 {
-    vColor = vec4(1.0); 
+	vInstanceColor = INSTANCE_COLOR;
 }
