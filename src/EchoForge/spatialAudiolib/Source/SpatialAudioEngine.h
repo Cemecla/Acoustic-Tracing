@@ -15,8 +15,7 @@
 #include "AudioManager.h"
 #include "CircularStereoBuffer.h"
 #include "StereoDelayLine.h"
-#include "SoundSource.h"
-
+    
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H
 
@@ -30,7 +29,7 @@ namespace yutasound {
 
         void run() override;
         void prepare(double sampleRate, int bufferSize);
-        void addSource(const juce::String& filePath);
+        void addProcessingSlot();
         void start();
         void stop();
 
@@ -40,9 +39,10 @@ namespace yutasound {
         
         AudioManager& m_audioManager;
 
-        std::vector<SoundSource>     m_sources;
+        //std::vector<SoundSource>     m_sources;
         juce::AudioBuffer<float>     m_mixBuffer;
         std::vector<StereoDelayLine>  m_delayLines;
+        std::vector<int> m_readPositions;
 
         // TODO: std::vector<FilterChain>      m_activeChains;
         // TODO: std::vector<FilterChain>      m_shadowChains;

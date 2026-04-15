@@ -30,8 +30,16 @@ int main(int argc, char *argv[])
 
     audioManager.prepare(48000.0, 512);
     engine.prepare(48000.0, 512);
-    engine.addSource("../../../../Acoustic-Tracing/assets/mooo.wav");
-    engine.start();
+
+    audioManager.onSourceAdded = [&engine](int id)
+        {
+            engine.addProcessingSlot();
+        };
+
+    // trigger lazy load of source 0
+    yutasound::SoundRemaining defaultRemaining;
+
+    audioManager.updateSoundSource(0, 0.0f, 0.0f, defaultRemaining);
 
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();
@@ -40,7 +48,8 @@ int main(int argc, char *argv[])
 
     efc->m_view->setupAudioManager(&audioManager);
 
-    //efc->m_view->setupAudioEngine(&engine);
+    engine.start();
+
 
     // Execution of QT Application
     return app.exec();

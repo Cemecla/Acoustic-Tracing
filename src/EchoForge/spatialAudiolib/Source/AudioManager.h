@@ -21,16 +21,21 @@ namespace yutasound {
     {
     public:
         void prepare(double sampleRate, int bufferSize);
-        //void updateListner(float azimuth, float elevation, position)
-        void updateListner(float azimuth, float elevation);
-        //void updateSource(const juce::String& md5Name, float azimuth, float elevation, SoundRemaining soundRemaining);
+        void updateSoundSource(int id, float azimuth, float elevation, SoundRemaining soundRemaining);
+        
         // TODO: void compute_(Listener, SoundSource, SpatialFilterChain& shadow);
         // TODO: void updateListener(position, azimuth, elevation);
         void play();
         void stop();
         bool isPlaying() const;
 
+        // test callback strategy
+        std::function<void(int)> onSourceAdded;
+        const std::vector<SoundSource>& getSources() const;
     private:
+        void loadSource_(int id);
+        
+        std::vector<SoundSource>  m_sources;
         double m_sampleRate = 0.0;
 
         std::atomic<bool> m_isPlaying {false};

@@ -9,7 +9,6 @@
 */
 
 #include "AudioManager.h"
-#include "CircularStereoBuffer.h"
 
 namespace yutasound {
 
@@ -21,29 +20,46 @@ namespace yutasound {
     void AudioManager::play() { m_isPlaying = true; }
     void AudioManager::stop() { m_isPlaying = false; }
     bool AudioManager::isPlaying() const { return m_isPlaying; }
+    const std::vector<SoundSource>& AudioManager::getSources()const {
+        return m_sources; // TODO: thread safety - main thread writes, SAE thread reads
+    }
 
+    void AudioManager::loadSource_(int id)
+    {
+        SoundSource source;
+        source.id = id;
+        source.loadFromPath("../../../../Acoustic-Tracing/assets/mooo.wav");
+        m_sources.push_back(std::move(source));
 
+    }
 
+    void AudioManager::updateSoundSource(int id, float azimuth, float elevation, SoundRemaining soundRemaining)
+    {
+        // check if source exists
+        
 
-    void AudioManager::updateListner(float azimuth, float elevation)
-    {}
+        auto it = std::find_if(m_sources.begin(), m_sources.end(),
+            [id](const SoundSource& s) { return s.id == id; });
+        // if not → loadSource_(id)
+        
+        if (it == m_sources.end())
+        {
+            // NEW source → lazy load
+            loadSource_(id);
 
-    //void AudioManager::updateSource(const juce::String& md5Name, float azimuth, float elevation,
-    //    SoundRemaining soundRemaining)
-    //{
-    //    for (auto& source : m_sources)
-    //    {
-    //        if (source.md5Name == md5Name)
-    //        {
-    //            source.azimuth = azimuth;
-    //            source.elevation = elevation;
-    //            source.soundRemaining = soundRemaining;
-    //            compteITD_(source.azimuth, source.elevation);
-    //            // TODO: call computeITD_ and computeILD_ here later
-    //            break;
-    //        }
-    //    }
-    //}
+            if(onSourceAdded) onSourceAdded(id);
+            
+            it = std::find_if(m_sources.begin(), m_sources.end(),
+                [id](const SoundSource& s) { return s.id == id; });
+        }
+
+        it->azimuth = azimuth;
+        it->elevation = elevation;
+        it->soundRemaining = soundRemaining;
+        it->itdSamples = computeITD_(azimuth, elevation);
+        // then compute ITD/ILD
+        // update shadowChain[id]
+    }
 
     float AudioManager::computeITD_(float azimuth, float elevation)
     {

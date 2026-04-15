@@ -9,7 +9,6 @@
 */
 
 #include "SpatialAudioEngine.h"
-#include "SoundSource.h"
 
 namespace yutasound {
 
@@ -33,15 +32,16 @@ namespace yutasound {
             delayline.prepare(m_sampleRate, m_bufferSize);
     }
 
-    void SpatialAudioEngine::addSource(const juce::String& filePath)
+    void SpatialAudioEngine::addProcessingSlot()
     {
-        SoundSource source;
-        source.loadFromPath(filePath);
-        m_sources.push_back(std::move(source));
+        //SoundSource source;
+        //source.loadFromPath(filePath);
+        //m_sources.push_back(std::move(source));
 
         StereoDelayLine dl;
         dl.prepare(m_sampleRate, m_bufferSize);
         m_delayLines.push_back(std::move(dl));
+        m_readPositions.push_back(0);
         // TODO: push matching activeChain, shadowChain
     }
 
@@ -60,26 +60,28 @@ namespace yutasound {
                 DBG("SAE writing block...");
                 m_mixBuffer.clear();
 
-                for (int i = 0; i < m_sources.size(); i++)
+                for (int i = 0; i < m_audioManager.getSources().size(); i++)
                 {
-                    auto& source = m_sources[i];
+                    auto& source = m_audioManager.getSources()[i];
                     auto& delayLine = m_delayLines[i];
-                    auto samplesAvailable = source.getAudioBuffer().getNumSamples() - source.readPosition;
+                    int& readPos = m_readPositions[i];
+                    auto samplesAvailable = source.getAudioBuffer().getNumSamples() - readPos;
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
                     
                     for (int n = 0; n < samplesThisBlock; n++)
                     {
-                        float monoSample = source.getAudioBuffer().getSample(0, source.readPosition + n);
+                        float monoSample = source.getAudioBuffer().getSample(0, readPos + n);
                         //float itd = m_audioManager.computeITD_(45.0f, 0.0f);
-                        auto stereo = delayLine.process(monoSample, -20.0f);
+                        float itd = m_audioManager.getSources()[i].itdSamples;
+                        auto stereo = delayLine.process(monoSample, itd);
                         //dereference operator
                         *m_mixBuffer.getWritePointer(0, n) += stereo.left;
                         *m_mixBuffer.getWritePointer(1, n) += stereo.right;
                     }
 
-                    source.readPosition += samplesThisBlock;
-                    if (source.readPosition >= source.getAudioBuffer().getNumSamples())
-                        source.readPosition = 0;
+                    readPos += samplesThisBlock;
+                    if (readPos >= source.getAudioBuffer().getNumSamples())
+                        readPos = 0;
                 }
 
                 m_circularBuffer.write(

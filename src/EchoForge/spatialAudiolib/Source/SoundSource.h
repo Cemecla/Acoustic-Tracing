@@ -31,9 +31,13 @@ namespace yutasound {
         //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
         int readPosition = 0;
 
+        int id = -1;
+        float itdSamples = 0.0f;
+
     private:
-        //int m_id = 0;
+        
         //specific buffer to save audio data in ram 
+
         juce::AudioBuffer<float> m_audioBuffer;
     };
 

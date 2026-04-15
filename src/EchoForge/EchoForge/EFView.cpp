@@ -60,7 +60,11 @@ void EFView::update(float delta) {
 }
 
 void EFView::updateListener(const float azimuth, const float elevation) const {
-	m_audioManager->updateListner(azimuth, elevation);
+	if (m_audioManager)
+	{
+		yutasound::SoundRemaining fakeRemaining; 
+		m_audioManager->updateSoundSource(0, azimuth, elevation, fakeRemaining);
+	}
 }
 
 void EFView::play(std::string& url) const {
