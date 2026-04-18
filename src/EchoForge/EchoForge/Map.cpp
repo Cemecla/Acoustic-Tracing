@@ -119,6 +119,17 @@ const int Map::fetchMaterialId(const Vector3F& worldPosition) const {
 	return m_voxels[mapIndex];
 }
 
+inline const Vector3I Map::getPositionFromId(const int index) const {
+	int x = index % m_width;
+	int y = (int)std::floor((index / m_width) % m_height);
+	int z = (int)std::floor(index / (m_height * m_depth));
+	return Vector3I(x, y, z);
+}
+
+const std::vector<int> Map::getActiveVoxelsId() const {
+	return m_activeVoxelsId;
+}
+
 //// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
 //inline const bool Map::isInBound(const int x, const int y, const int z) const {
 //	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;

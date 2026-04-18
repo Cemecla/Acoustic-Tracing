@@ -44,12 +44,15 @@
 				void destroyVoxelMaterial(const int x, const int y, const int z);
 				void destroyVoxelMaterial(const Vector3I& position);
 
+				inline const Vector3I getPositionFromId(const int index) const;
+
 				const unsigned getWidth() const;
 				const unsigned getHeight() const;
 				const unsigned getDepth() const;
 				const int countVoxels() const;
 				const int getUnitSize() const;
 				const int getUnitValue() const;
+				const std::vector<int> getActiveVoxelsId() const;
 				const std::string getName() const;
 
 				// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
@@ -67,6 +70,7 @@
 				std::string m_name;
 				std::vector<Material> m_materials;
 				std::vector<int> m_voxels;
+				std::vector<int> m_activeVoxelsId;
 	
 
 				inline const int findWorldPositionIndex(const Vector3F& worldPosition) const;

@@ -117,6 +117,28 @@ Avatar EFWorldLoader::buildAvatar(const json& mapData) {
 	return Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2]), Vector3F());
 }
 
+std::vector<int> EFWorldLoader::searchValidVoxels(std::vector<int> voxels, std::vector<Material> materials) {
+	std::vector<int> validMaterialsId = {};
+	std::vector<int> validVoxelsId = {};
+
+	for (int i = 0; i < materials.size(); i++) {
+		if (materials[i].isInstantiable) {
+			validMaterialsId.push_back(i);
+		}
+	}
+
+	for (int i = 0; i < voxels.size(); i++) {
+		auto iter = std::find(validMaterialsId.begin(), validMaterialsId.end(), voxels[i]);
+
+		if (iter != validMaterialsId.end())
+		{
+			validVoxelsId.push_back(i);
+		}
+	}
+	
+	return validMaterialsId;
+}
+
 Map EFWorldLoader::buildMap(const json& mapData, std::vector<Material> materials) {
 	int voxelUnitSize = mapData["voxelUnitSize"];
 

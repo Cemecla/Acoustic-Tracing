@@ -32,9 +32,9 @@ int main(int argc, char *argv[])
     engine.prepare(48000.0, 512);
 
     audioManager.onSourceAdded = [&engine](int id)
-        {
-            engine.addProcessingSlot();
-        };
+    {
+        engine.addProcessingSlot();
+    };
 
     // trigger lazy load of source 0
     yutasound::SoundRemaining defaultRemaining;

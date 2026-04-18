@@ -29,5 +29,7 @@ namespace ef {
 			static Avatar buildAvatar(const json& mapData);
 			static Map buildMap(const json& mapData, std::vector<Material> materials);
 			static std::vector<Material> buildMaterials(const json& materialJson);
+
+			static std::vector<int> searchValidVoxels(std::vector<int> voxels, std::vector<Material> materials);
 	};
 }

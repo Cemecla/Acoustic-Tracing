@@ -4,7 +4,7 @@
 #include <QtQuick3D/QQuick3DObject>
 #include "Map.h"
 
-class ChunkInstancing  : public QQuick3DInstancing
+class ChunkInstancing : public QQuick3DInstancing
 {
 	Q_OBJECT
 	QML_ELEMENT
@@ -20,5 +20,6 @@ protected:
 private:
 	QByteArray m_buffer;
 	int m_count = 0;
+	int id;
 };
 

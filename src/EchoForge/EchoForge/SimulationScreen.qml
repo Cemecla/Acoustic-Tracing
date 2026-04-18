@@ -4,9 +4,10 @@ import QtQuick3D.Helpers
 
 View3D {
     property int baseSize: 100
+    property bool debugEnable: true
     id: view3DMain
     anchors.fill: parent
-    camera: camera
+    camera: topCamera
 
     environment: SceneEnvironment {
         backgroundMode: SceneEnvironment.SkyBox
@@ -19,18 +20,20 @@ View3D {
     }
 
     AxisHelper {
+        visible: view3DMain.debugEnable
     }
 
     WasdController {
-        controlledObject: camera
+        controlledObject: topCamera
     }
 
     PerspectiveCamera {
-        id: camera
+        id: topCamera
         position: Qt.vector3d(0, 600, 0)
         eulerRotation: Qt.vector3d(-90, 0, 0)
-        clipNear: 10
-        clipFar: 100000
+        clipNear: 5
+        clipFar: 1000000
+        frustumCullingEnabled: false
     }
 
     DirectionalLight {
@@ -48,11 +51,10 @@ View3D {
 
     Model {
         source: "#Cube"
-        
+        // pickable: true
         instancing: communicator.voxelInstances
 
         materials: CustomMaterial {
-            shadingMode: CustomMaterial.Shaded
             vertexShader: "qrc:/shaders/voxel.vert"
             fragmentShader: "qrc:/shaders/voxel.frag"
         }

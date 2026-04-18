@@ -9,6 +9,10 @@
         "mapHeight" : 10,
         "mapDepth": 9,
         "userSpawnPos": [100.0, 100.0, 100.0],
+        "instantiableIndexes": {
+            "isValid": false,
+            "indexes": []
+        },
         "voxel": [
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     4, 4, 2, 2, 2, 2, 2, 2, 2, 2,

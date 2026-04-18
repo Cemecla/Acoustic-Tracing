@@ -110,9 +110,6 @@
     <ClCompile Include="MapDataModel.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelInstancing.cpp">
-      <Filter>Header Files\QtObject</Filter>
-    </ClCompile>
     <ClCompile Include="ChunkInstancing.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
