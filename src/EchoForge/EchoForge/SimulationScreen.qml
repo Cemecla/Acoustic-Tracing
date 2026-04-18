@@ -55,6 +55,8 @@ View3D {
         instancing: communicator.voxelInstances
 
         materials: CustomMaterial {
+            shadingMode: CustomMaterial.Shaded
+            
             vertexShader: "qrc:/shaders/voxel.vert"
             fragmentShader: "qrc:/shaders/voxel.frag"
         }

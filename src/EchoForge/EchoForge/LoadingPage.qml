@@ -19,10 +19,10 @@ Page {
     }
 
     Component.onCompleted: {
-        communicator.loadSimulation("../../../../Acoustic-Tracing/saves/generatedMap2.json")
+        communicator.loadSimulation(mapUrl)
     }
 
-    
+
     Rectangle {
         visible: loadingPage.isLoading
         anchors.fill: parent

@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Qt.labs.folderlistmodel
 
 MainLayout {
     maintitle: "Map Selection"
@@ -8,11 +9,25 @@ MainLayout {
 
     ScrollView {
         ListView {
-            model: 20
+            model: folderModel
             delegate: ItemDelegate {
-                text: "Item " + index
-                onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/LoadingPage.qml"))
-                required property int index
+                required property string fileName
+                required property string filePath
+
+                contentItem: Text {
+                    text: fileName
+                    color: "black"
+                    font.pixelSize: 16
+                    verticalAlignment: Text.AlignVCenter
+                }
+                onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/LoadingPage.qml"), { mapUrl: filePath })
+            }
+
+            FolderListModel {
+                id: folderModel
+                folder: Qt.resolvedUrl("file:../../../../Acoustic-Tracing/saves/")
+                nameFilters: ["*.json"]
+                showDirs: false
             }
         }
     }
