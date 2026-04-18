@@ -4,9 +4,24 @@ import QtQuick.Layouts
 
 Page {
     property bool isLoading: true
+    property string mapUrl
+
     id: loadingPage
     Layout.fillHeight: true
     Layout.fillWidth: true
+
+    Connections {
+        target: communicator
+
+        function onSimulationLoaded() {
+            simulationLoader.active = true
+        }
+    }
+
+    Component.onCompleted: {
+        communicator.loadSimulation("../../../../Acoustic-Tracing/saves/generatedMap2.json")
+    }
+
     
     Rectangle {
         visible: loadingPage.isLoading
@@ -20,7 +35,8 @@ Page {
     }
 
     Loader {
-        active: true
+        id: simulationLoader
+        active: false
         anchors.fill: parent
         asynchronous: true
         source: "SimulationPage.qml"

@@ -25,12 +25,12 @@ Page {
             resourceDetailsVisible: true
         }
 
-        Button {
-            height: 40
-            Layout.fillWidth: true
-            anchors.horizontalCenter: mainColumn.horizontalCenter
-            text: "Start Simulation"
-            onClicked: communicator.loadSimulation("../../../../Acoustic-Tracing/saves/DevTest.json")
-        }
+        // Button {
+        //     height: 40
+        //     Layout.fillWidth: true
+        //     anchors.horizontalCenter: mainColumn.horizontalCenter
+        //     text: "Start Simulation"
+        //     onClicked: communicator.loadSimulation("../../../../Acoustic-Tracing/saves/DevTest.json")
+        // }
     }
 }

@@ -31,6 +31,7 @@ class UICommunicator;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
 			void updateListener(const float azimuth, const float elevation) const;
 			void buildMap(ef::Map& map);
+			void simulationLoaded() const;
 		
 		private:
 			EFController* m_parent;

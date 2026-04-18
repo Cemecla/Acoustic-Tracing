@@ -1,6 +1,8 @@
 #include <cctype>
 #include <iostream>
 #include <QDebug>
+#include <QtConcurrent>
+#include <QMetaObject>
 
 #include "UICommunicator.h"
 #include "EFView.h"
@@ -47,8 +49,18 @@ void UICommunicator::saveSimulation(const QString& url) {
 }
 
 void UICommunicator::loadSimulation(const QString& url) {
-	std::string urlconverted = url.toStdString();
-	m_parent->loadSimulation(urlconverted);
+
+	QtConcurrent::run([this, url]() {
+
+		std::string urlconverted = url.toStdString();
+		m_parent->loadSimulation(urlconverted);
+
+		QMetaObject::invokeMethod(
+			this,
+			[this]() { emit simulationLoaded(); },
+			Qt::QueuedConnection
+		);
+	});
 }
 
 void UICommunicator::addBlock(const int x, const int y, const int z) {
@@ -94,4 +106,8 @@ void UICommunicator::userInput(char input) {
 
 void UICommunicator::buildMap(ef::Map& map) {	
 	m_voxelInstances->setChunk(map);
+}
+
+void UICommunicator::callSimulationLoaded() {
+	emit simulationLoaded();
 }

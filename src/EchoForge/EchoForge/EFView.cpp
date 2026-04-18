@@ -55,6 +55,10 @@ void EFView::loadSimulation(std::string& url) {
 	m_parent->loadSimulation(url);
 }
 
+void EFView::simulationLoaded() const {
+	m_uiCommunicator->callSimulationLoaded();
+}
+
 void EFView::update(float delta) {
 
 }
