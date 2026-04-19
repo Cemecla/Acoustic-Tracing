@@ -6,6 +6,7 @@
 #include "Vector.h"
 #include "Map.h"
 #include "ChunkInstancing.h"
+#include "Avatar.h"
 
 class EFView;
 
@@ -43,7 +44,8 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void stoptest(const QString& url);
 		Q_INVOKABLE void updateTestSlider(const float azimuth, const float elevation);
 
-		void buildMap(ef::Map& map);
+		void buildMap(const ef::Map& map);
+		void setupAvatar(const ef::Avatar& avatar);
 		void callSimulationLoaded();
 
 	signals:

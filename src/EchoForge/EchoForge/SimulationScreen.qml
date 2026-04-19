@@ -3,24 +3,34 @@ import QtQuick3D 6.5
 import QtQuick3D.Helpers
 
 View3D {
+    required property bool debugEnable
     property int baseSize: 100
-    property bool debugEnable: true
+
     id: view3DMain
     anchors.fill: parent
     camera: topCamera
 
-    environment: SceneEnvironment {
+    environment: ExtendedSceneEnvironment {
         backgroundMode: SceneEnvironment.SkyBox
+        lensFlareEnabled: true
+        lensFlareApplyDirtTexture: true
         lightProbe: Texture {
             textureData: ProceduralSkyTextureData {
                 sunEnergy: 60.0
+                sunLongitude: 280.0
                 textureQuality: ProceduralSkyTextureData.SkyTextureQualityLow
             }
+        }
+
+        InfiniteGrid {
+            visible: view3DMain.debugEnable
+            gridInterval: 100
         }
     }
 
     AxisHelper {
         visible: view3DMain.debugEnable
+        enableXYGrid: true
     }
 
     WasdController {
@@ -41,12 +51,12 @@ View3D {
         eulerRotation.y: 45
     }
 
-    Model {
+    ReconBot {
         id: avatarModel
-        materials: DefaultMaterial { diffuseColor: "blue" }
-        source: "#Sphere"
-        scale: Qt.vector3d(0.6, 0.6, 0.6)
-        position: Qt.vector3d(0, 100, 0)
+        scale: Qt.vector3d(20, 20, 20)
+        position: communicator.avatarPos
+        eulerRotation: communicator.headPos
+        opacity: 0.5
     }
 
     Model {

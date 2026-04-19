@@ -69,15 +69,15 @@ void Map::destroyVoxelMaterial(const Vector3I& position) {
 
 }
 
-inline const int Map::findMapIndex(const int x, const int y, const int z) const {
+const int Map::findMapIndex(const int x, const int y, const int z) const {
 	return z * (m_height * m_width) + y * m_width + x; // To test and verify
 }
 
-inline const int Map::findMapIndex(const Vector3I& position) const {
+const int Map::findMapIndex(const Vector3I& position) const {
 	return position.z * (m_height * m_width) + position.y * m_width + position.x;
 }
 
-inline const int Map::findWorldPositionIndex(const Vector3F& worldPosition) const {
+const int Map::findWorldPositionIndex(const Vector3F& worldPosition) const {
 	int nx = (int)floor(worldPosition.x / m_voxelUnitSize);
 	int ny = (int)floor(worldPosition.y / m_voxelUnitSize);
 	int nz = (int)floor(worldPosition.z / m_voxelUnitSize);
@@ -85,7 +85,7 @@ inline const int Map::findWorldPositionIndex(const Vector3F& worldPosition) cons
 	return findMapIndex(nx, ny, nz);
 }
 
-inline const int Map::findWorldPositionIndex(const float x, const float y, const float z) const {
+const int Map::findWorldPositionIndex(const float x, const float y, const float z) const {
 	int nx = (int)floor(x / m_voxelUnitSize);
 	int ny = (int)floor(y / m_voxelUnitSize);
 	int nz = (int)floor(z / m_voxelUnitSize);
@@ -119,14 +119,14 @@ const int Map::fetchMaterialId(const Vector3F& worldPosition) const {
 	return m_voxels[mapIndex];
 }
 
-inline const Vector3I Map::getPositionFromId(const int index) const {
+Vector3I Map::getPositionFromId(int index) const {
 	int x = index % m_width;
 	int y = (int)std::floor((index / m_width) % m_height);
 	int z = (int)std::floor(index / (m_height * m_depth));
 	return Vector3I(x, y, z);
 }
 
-const std::vector<int> Map::getActiveVoxelsId() const {
+const std::vector<int>& Map::getActiveVoxelsId() const {
 	return m_activeVoxelsId;
 }
 
@@ -141,6 +141,8 @@ void Map::buildEmptyMap() {
 	for (int i = 0; i < voxelsTotal; i++)
 		m_voxels.push_back(1);
 }
+
+
 
 const unsigned Map::getWidth() const {
 	return m_width;
@@ -168,4 +170,12 @@ const int Map::getUnitValue() const {
 
 const std::string Map::getName() const {
 	return m_name;
+}
+
+const std::vector<int>& Map::getVoxels() const {
+	return m_voxels;
+}
+
+const std::vector<Material>& Map::getRawMaterials() const {
+	return m_materials;
 }

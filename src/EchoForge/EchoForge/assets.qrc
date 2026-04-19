@@ -6,10 +6,14 @@
     <qresource prefix="/sounds">
         <file alias="buttonSound">../../../assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
     </qresource>
-    <qresource prefix="/skybox">
-    </qresource>
     <qresource prefix="/shaders">
         <file>voxel.frag</file>
         <file>voxel.vert</file>
+    </qresource>
+    <qresource prefix="/maps">
+        <file alias="reconBotMaps">maps/ReconBot.png</file>
+    </qresource>
+    <qresource prefix="/meshes">
+        <file alias="reconBotMeshes">meshes/defaultobject_mesh.mesh</file>
     </qresource>
 </RCC>

@@ -1,73 +1,67 @@
 #include "ChunkInstancing.h"
 #include <qdebug.h>
-#include <omp.h>
-#include <random>
 
 #include "Vector.h"
+
+// https://doc.qt.io/qt-6/qtquick3d-custominstancing-example.html
 
 ChunkInstancing::ChunkInstancing(QQuick3DObject *parent): QQuick3DInstancing(parent)
 {
 
 }
 
-
 void ChunkInstancing::setChunk(const ef::Map& map) {
-	m_buffer.clear();
+
 	int temp_count = 0;
 
 	int voxelUnitSize = map.getUnitSize();
 
 	int halfVoxelSize = voxelUnitSize / 2;
 
-	//#pragma omp parallel for
-	//for (int validId : map.getActiveVoxelsId()) {
-	//	const ef::Vector3I pos = map.getPositionFromId(validId);
-	//	ef::Material material = map.fetchMaterial(pos);
+	QVector3D rotation(0, 0, 0);
+	QVector3D scale(1, 1, 1);
 
-
-	//	QVector3D translation(pos.x * voxelUnitSize + halfVoxelSize, pos.y * voxelUnitSize + halfVoxelSize, pos.z * voxelUnitSize + halfVoxelSize);
-	//	QVector3D scale(0.2, 0.2, 0.2);
-	//	QVector3D rotation(0, 0, 0);
-	//	QColor color(255, 255, 255, 255);
-
-	//	temp_count++;
-	//	auto entry = calculateTableEntry(translation, scale, rotation, color);
-	//	m_buffer.append(reinterpret_cast<const char*>(&entry), sizeof(entry));
-	//}
+	const std::vector<ef::Material>& rawMaterials = map.getRawMaterials();
+	const std::vector<int>& voxels = map.getVoxels();
 
 	qDebug() << "start";
 
-	// 1. Seed the engine with a non-deterministic random device
-	std::random_device rd;
+	m_buffer.clear();
+	m_buffer.reserve(voxels.size() * sizeof(InstanceTableEntry));
 
-	// 2. Use the Mersenne Twister engine for high-quality randomness
-	std::mt19937 gen(rd());
-
-	// 3. Define the distribution range [min, max] (inclusive)
-	std::uniform_int_distribution<> dist(0, 255);
-
+	int i = 0;
+	int count = 0;
 	for (int d = 0; d < map.getDepth(); d++) {
+
+		int df = d * voxelUnitSize + halfVoxelSize;
+
 		for (int h = 0; h < map.getHeight(); h++) {
+
+			int hf = h * voxelUnitSize + halfVoxelSize;
+
 			for (int w = 0; w < map.getWidth(); w++) {
-				ef::Material material = map.fetchMaterial(w, h, d);
+
+				const ef::Material& material = rawMaterials[voxels[i++]];
 
 				if (!material.isInstantiable)
 				{
 					continue;
 				}
 
-				QVector3D translation(w * voxelUnitSize + halfVoxelSize, h * voxelUnitSize + halfVoxelSize, d * voxelUnitSize + halfVoxelSize);
-				QVector3D scale(1, 1, 1);
-				QVector3D rotation(0, 0, 0);
+				QVector3D translation(w * voxelUnitSize + halfVoxelSize, hf, df);
 				QColor color(material.color.r, material.color.g, material.color.b, material.color.a);
-				temp_count++;
-				auto entry = calculateTableEntry(translation, scale, rotation, color);
+
+				QVector4D custom = { material.metalness, material.roughness, material.specular, 0.0 };
+
+				auto entry = calculateTableEntry(translation, scale, rotation, color, custom);
 				m_buffer.append(reinterpret_cast<const char*>(&entry), sizeof(entry));
+
+				count++;
 			}
 		}
 	}
 
-	m_count = temp_count;
+	m_count = count;
 	qDebug() << "end";
 	markDirty();
 }

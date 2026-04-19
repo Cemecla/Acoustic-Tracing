@@ -7,6 +7,7 @@
 #include "SoundRemaining.h" 
 
 #include "Map.h"
+#include "Avatar.h"
 
 class EFController;
 class QQmlApplicationEngine;
@@ -29,8 +30,9 @@ class UICommunicator;
 			void stop(std::string& url) const;
 			void setupQGuiApplication(QGuiApplication& app) const;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
+			void setupAvatar(const ef::Avatar& avatar);
 			void updateListener(const float azimuth, const float elevation) const;
-			void buildMap(ef::Map& map);
+			void buildMap(const ef::Map& map);
 			void simulationLoaded() const;
 		
 		private:

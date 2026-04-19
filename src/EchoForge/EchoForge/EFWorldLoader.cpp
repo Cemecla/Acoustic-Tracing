@@ -170,11 +170,15 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 		std::vector<float> normalBrut = materialData["normal"];
 		std::vector<float> energyLossBrut = materialData["energyLoss"];
 
+		float metalness = materialData["metalness"];
+		float specular = materialData["specular"];
+		float roughness = materialData["roughness"];
+
 		Vector3F energyLoss = Vector3F(energyLossBrut[0], energyLossBrut[1], energyLossBrut[2]);
 		Vector3F normal = Vector3F(normalBrut[0], normalBrut[1], normalBrut[2]);
 		ColorRGBA colorRGB = ColorRGBA(colorBrut[0], colorBrut[1], colorBrut[2], colorBrut[3]);
 
-		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, colorRGB);
+		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, colorRGB, roughness, metalness, specular);
 
 		materials.push_back(nm);
 	}

@@ -19,12 +19,12 @@ MainLayout {
 
         MenuButton {
             buttonText: "Simulation" 
-            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SimulationSelectionPage.qml"))
+            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SimulationSelectionPage.qml"), { debugMode: false })
         }
         
         MenuButton { 
             buttonText: "Dev Mode"
-            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/DevModePage.qml"))
+            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SimulationSelectionPage.qml"), { debugMode: true })
         }
 
         MenuButton {

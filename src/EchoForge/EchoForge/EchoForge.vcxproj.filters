@@ -113,6 +113,12 @@
     <ClCompile Include="ChunkInstancing.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
+    <ClCompile Include="RayInstancing.cpp">
+      <Filter>Header Files\QtObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RayInstancing.cpp">
+      <Filter>Source Files\QtObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -215,6 +221,9 @@
     <None Include="voxel.frag">
       <Filter>Source Files\qml\Shaders</Filter>
     </None>
+    <None Include="ReconBot.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">
@@ -227,6 +236,9 @@
       <Filter>Header Files\QtObject</Filter>
     </QtMoc>
     <QtMoc Include="ChunkInstancing.h">
+      <Filter>Header Files\QtObject</Filter>
+    </QtMoc>
+    <QtMoc Include="RayInstancing.h">
       <Filter>Header Files\QtObject</Filter>
     </QtMoc>
   </ItemGroup>

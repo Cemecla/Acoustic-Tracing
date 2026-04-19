@@ -37,13 +37,13 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.11.0_msvc2022_64</QtInstall>
-    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core;quickcontrols2;multimedia;quick3d;core</QtModules>
+    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.11.0_msvc2022_64</QtInstall>
-    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core;quick3d;quickcontrols2;core</QtModules>
+    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -126,12 +126,14 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapDataModel.cpp" />
     <ClCompile Include="Materiel.cpp" />
+    <ClCompile Include="RayInstancing.cpp" />
     <ClCompile Include="RayStrategy.cpp" />
     <ClCompile Include="SimulationLoop.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
     <ClCompile Include="ChunkInstancing.cpp" />
     <None Include="LoadingPage.qml" />
+    <None Include="ReconBot.qml" />
     <None Include="SimulationSelectionPage.qml" />
     <None Include="SoundTestingPage.qml" />
     <None Include="SimulationScreen.qml" />
@@ -165,6 +167,7 @@
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Map.h" />
+    <QtMoc Include="RayInstancing.h" />
     <ClInclude Include="RayManager.h" />
     <QtMoc Include="UICommunicator.h" />
     <ClInclude Include="RayStrategy.h" />

@@ -1,0 +1,38 @@
+import QtQuick
+import QtQuick3D
+
+Node {
+    id: node
+
+    // Resources
+    Texture {
+        id: reconBot_png_texture
+        objectName: "ReconBot.png"
+        generateMipmaps: true
+        mipFilter: Texture.Linear
+        source: "qrc:/maps/reconBotMaps"
+    }
+
+    PrincipledMaterial {
+        id: palette_material
+        objectName: "palette"
+        baseColorMap: reconBot_png_texture
+        indexOfRefraction: 1
+    }
+
+    // Nodes:
+    Node {
+        id: reconBot_obj
+        objectName: "ReconBot.obj"
+        Model {
+            id: defaultobject
+            objectName: "defaultobject"
+            source: "qrc:/meshes/reconBotMeshes"
+            materials: [
+                palette_material
+            ]
+        }
+    }
+
+    // Animations:
+}

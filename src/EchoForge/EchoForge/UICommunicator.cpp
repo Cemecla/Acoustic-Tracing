@@ -104,9 +104,20 @@ void UICommunicator::userInput(char input) {
 	}
 }
 
-void UICommunicator::buildMap(ef::Map& map) {	
+void UICommunicator::buildMap(const ef::Map& map) {	
 	m_voxelInstances->setChunk(map);
 }
+
+void UICommunicator::setupAvatar(const ef::Avatar& avatar) {
+	ef::Vector3 pos = avatar.getPosition();
+	QVector3D qpos = QVector3D(pos.x, pos.y, pos.z);
+	setAvatarPos(qpos);
+
+	ef::Vector3 angle = avatar.getHeadAngles();
+	QVector3D qangle = QVector3D(angle.x, angle.y, angle.z);
+	setHeadAngles(qangle);
+}
+
 
 void UICommunicator::callSimulationLoaded() {
 	emit simulationLoaded();

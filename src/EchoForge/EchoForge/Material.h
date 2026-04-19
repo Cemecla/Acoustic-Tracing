@@ -3,7 +3,6 @@
 #include <string>
 #include "Vector.h"
 #include "Utils.h"
-#include <optional>
 
 namespace ef {
 	struct Material
@@ -15,11 +14,13 @@ namespace ef {
 		Vector3F normal{};
 		Vector3F energyLoss{};
 		ColorRGBA color;
-		
+		float roughness{};
+		float metalness{};
+		float specular{};
 
 		Material();
 
-		Material(std::string name, bool isPassable, bool isInstantiable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal, ColorRGBA color = ColorRGBA{});
+		Material(std::string name, bool isPassable, bool isInstantiable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal, ColorRGBA color = ColorRGBA{}, float roughness = 0, float metalness = 0, float specular = 0);
 
 		const bool operator==(Material& material) const {
 			return name == name;

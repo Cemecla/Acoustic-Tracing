@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 Page {
     property bool isLoading: true
+    required property bool debugMode
     property string mapUrl
 
     id: loadingPage
@@ -14,6 +15,7 @@ Page {
         target: communicator
 
         function onSimulationLoaded() {
+            simulationLoader.setSource("SimulationPage.qml", {"debugEnable": loadingPage.debugMode})
             simulationLoader.active = true
         }
     }
@@ -39,11 +41,11 @@ Page {
         active: false
         anchors.fill: parent
         asynchronous: true
-        source: "SimulationPage.qml"
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                loadingPage.isLoading = false
+                communicator.startSimulation();
+                loadingPage.isLoading = false;
             }
         }
     }

@@ -3,12 +3,12 @@
     "desc": "Map de test",
     "data": {
         "voxelUnitSize" : 100,
-	    "unitValue": 100,
+	"unitValue": 100,
         "chunkSize" : 16,
         "mapWidth": 10,
         "mapHeight" : 10,
         "mapDepth": 9,
-        "userSpawnPos": [100.0, 100.0, 100.0],
+        "userSpawnPos": [-100.0, 100.0, -100.0],
         "instantiableIndexes": {
             "isValid": false,
             "indexes": []

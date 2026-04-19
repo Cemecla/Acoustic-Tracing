@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick3D.Helpers
 
 Page {
+    required property bool debugEnable
+    id: simulationPage
     anchors.fill: parent
 
     background : Rectangle {
@@ -18,9 +20,11 @@ Page {
             id: viewScreen
             Layout.fillWidth: true
             Layout.fillHeight: true
+            debugEnable: simulationPage.debugEnable
         }
 
         DebugView {
+            visible: simulationPage.debugEnable
             source: viewScreen
             resourceDetailsVisible: true
         }

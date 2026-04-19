@@ -4,6 +4,8 @@ import QtQuick.Controls
 import Qt.labs.folderlistmodel
 
 MainLayout {
+    required property bool debugMode
+    id: selectionPage
     maintitle: "Map Selection"
     anchors.fill: parent
 
@@ -20,7 +22,7 @@ MainLayout {
                     font.pixelSize: 16
                     verticalAlignment: Text.AlignVCenter
                 }
-                onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/LoadingPage.qml"), { mapUrl: filePath })
+                onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/LoadingPage.qml"), { mapUrl: filePath, debugMode: selectionPage.debugMode })
             }
 
             FolderListModel {

@@ -35,8 +35,12 @@ void EFView::setupCommunicator() {
 
 }
 
-void EFView::startSimulation() {
+void EFView::setupAvatar(const ef::Avatar& avatar) {
+	m_uiCommunicator->setupAvatar(avatar);
+}
 
+void EFView::startSimulation() {
+	m_parent->startSimulation();
 }
 
 void EFView::saveSimulation() {
@@ -79,6 +83,6 @@ void EFView::stop(std::string& url) const {
 	m_audioManager->stop();
 }
 
-void EFView::buildMap(ef::Map& map) {
+void EFView::buildMap(const ef::Map& map) {
 	m_uiCommunicator->buildMap(map);
 }
