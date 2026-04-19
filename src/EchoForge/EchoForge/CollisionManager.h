@@ -15,10 +15,9 @@ namespace tracing{
 		std::unique_ptr<RayStrategy> decision(Ray& ray, float materialCoefficient, std::mt19937& rng);
 
 	private:
-		//TODO Refaire les threshold
-		const float m_diffuse_threshold = 0.30;
-		const float m_specular_threshold = 0.30;
-		const float m_transmission_threshold = 0.30;
+		// Proportion fixe du son qui traverse le mur (indépendante du matériau)
+		// Le reste est partagé entre diffus et spéculaire selon materialCoefficient
+		const float m_transmission_prob = 0.10f;
 
 
 

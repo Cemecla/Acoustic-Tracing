@@ -13,7 +13,6 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 	, m_lastAxis()
 {
 	m_voxelPos = m_currentPosition.array().floor().cast<int>();
-
 	redirect(velocity);
 };
 
@@ -70,6 +69,7 @@ Eigen::Vector3f tracing::Ray::getVelocity() const{
 };
 
 void tracing::Ray::redirect(const Eigen::Vector3f& newVelocity) {
+	m_bouncePositions.push_back(m_currentPosition);
 	m_startPosition = m_currentPosition;
 	m_velocity = newVelocity;
 

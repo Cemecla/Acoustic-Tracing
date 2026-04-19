@@ -56,6 +56,8 @@ class EFController;
 
 			const ef::Map& getMap() const;
 
+			[[nodiscard]] const std::vector<ef::Emitter>& getEmitters() const;
+
 			std::vector<ef::Emitter> getActiveSounds();
 			
 		
@@ -65,6 +67,10 @@ class EFController;
 			EFController* m_parent;
 			tracing::RayManager m_rayManager;
 			std::optional<ef::EFWorld> m_world;
+
+			// TODO: remplacer par le vrai processing audio
+			void processBatch();
+			int m_debugFrameCount = 0;
 	};
 
 #endif

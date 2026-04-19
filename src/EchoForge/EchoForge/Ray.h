@@ -23,8 +23,9 @@
 			Eigen::Vector3f m_tDelta;
 			Eigen::Vector3f m_tMax;
 
-			int m_lastAxis;
-
+			int  m_lastAxis;
+		bool m_wasInSolid = false;
+		std::vector<Eigen::Vector3f> m_bouncePositions;
 
 	public:
 		EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -45,6 +46,11 @@
 		void redirect(const Eigen::Vector3f& newVelocity);
 
 		Eigen::Vector3f getHitNormal() const;
+
+		bool wasInSolid() const { return m_wasInSolid; }
+		void setInSolid(bool value) { m_wasInSolid = value; }
+
+		[[nodiscard]] const std::vector<Eigen::Vector3f>& getBouncePositions() const { return m_bouncePositions; }
 
 		
 		/**

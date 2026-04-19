@@ -1,7 +1,9 @@
 #include <fstream>
-#include <iostream>
 #include <sstream>
 #include <string>
+#include <algorithm>
+#include <map>
+#include <QDebug>
 
 #include "EFModel.h"
 #include "EFController.h"
@@ -27,6 +29,10 @@ void EFModel::loadWorld(std::string& filename) {
 	// HARDCODED change later
 	json materialfile = loadJson(str);
 	m_world = EFWorldLoader::build(mapfile, materialfile);
+
+	// TODO: remplacer par le chargement depuis le JSON (scenarioItem)
+	ef::Emitter testEmitter{ 0, ef::Vector3F(5.0f, 1.0f, 5.0f), 1.0f, true };
+	m_world->emitters.push_back(testEmitter);
 }
 
 void EFModel::update(float delta) {
@@ -34,7 +40,62 @@ void EFModel::update(float delta) {
 	// Defensive
 	if (!m_world.has_value()) return;
 	m_rayManager.update();
+	processBatch();
 
+}
+
+void EFModel::processBatch() {
+	const auto& batch = m_rayManager.getReceivedRays();
+	// Test généré par IA
+	// Throttle : log toutes les 60 frames pour ne pas spammer
+	constexpr int LOG_INTERVAL = 10;
+	if (++m_debugFrameCount % LOG_INTERVAL != 0) {
+		m_rayManager.clearReceivedRays();
+		return;
+	}
+
+	if (batch.empty()) {
+		qDebug() << "[RayDebug] Frame" << m_debugFrameCount << "| Aucun rayon reçu";
+		m_rayManager.clearReceivedRays();
+		return;
+	}
+
+	// Grouper par emitter pour un résumé lisible
+	std::map<uint8_t, std::vector<const DTO_RecievedRay*>> byEmitter;
+	for (const auto& ray : batch)
+		byEmitter[ray.getEmitterID()].push_back(&ray);
+
+	const bool hasAmbient = byEmitter.contains(tracing::RayManager::AMBIENT_EMITTER_ID);
+	qDebug() << "[RayDebug] Frame" << m_debugFrameCount
+	         << "| Total reçus :" << batch.size()
+	         << "| Emitters actifs :" << (byEmitter.size() - (hasAmbient ? 1 : 0))
+	         << "| Rayons sortis (ambiant) :" << (hasAmbient ? byEmitter.at(tracing::RayManager::AMBIENT_EMITTER_ID).size() : 0);
+
+	for (const auto& [emitterID, rays] : byEmitter) {
+		if (emitterID == tracing::RayManager::AMBIENT_EMITTER_ID) continue;
+		float avgEnergy = 0.f;
+		float minEnergy = 1.f;
+		float maxEnergy = 0.f;
+		float avgDelay  = 0.f;
+
+		for (const auto* r : rays) {
+			float e = r->getEnergy().magnitude();
+			avgEnergy += e;
+			minEnergy  = std::min(minEnergy, e);
+			maxEnergy  = std::max(maxEnergy, e);
+			avgDelay  += static_cast<float>(r->getTimeDelta());
+		}
+		avgEnergy /= rays.size();
+		avgDelay  /= rays.size();
+
+		qDebug() << "  Emitter" << emitterID
+		         << "| rayons :" << rays.size()
+		         << "| énergie moy/min/max :"
+		         << avgEnergy << "/" << minEnergy << "/" << maxEnergy
+		         << "| délai moy (ns) :" << avgDelay;
+	}
+
+	m_rayManager.clearReceivedRays();
 }
 
 json EFModel::loadJson(std::string& filename) {
@@ -70,6 +131,10 @@ const Avatar& EFModel::getAvatar(int temporary) const {
 
 const Map& EFModel::getMap() const {
 	return m_world->map; 
+}
+
+const std::vector<ef::Emitter>& EFModel::getEmitters() const {
+	return m_world->emitters;
 }
 
 std::vector<ef::Emitter> EFModel::getActiveSounds() {

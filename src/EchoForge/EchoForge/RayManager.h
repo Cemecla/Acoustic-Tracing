@@ -1,11 +1,14 @@
 #pragma once
 #include <random>
+#include <numbers>
+#include <ranges>
 #include <Eigen/StdVector>
 
 #include "Vector.h"
 #include "Queue.h"
 #include "Ray.h"
 #include "CollisionManager.h"
+#include "DTO_RecievedRay.h"
 
 #ifndef RAYMANAGER_H
 	#define RAYMANAGER_H
@@ -19,23 +22,28 @@ namespace tracing {
 	class RayManager
 	{
 	public:
+		static constexpr std::uint8_t AMBIENT_EMITTER_ID = 255;
+
 		RayManager(EFModel* parent,int rayCount);
 		const void update();
+
+		[[nodiscard]] const std::vector<DTO_RecievedRay>& getReceivedRays() const;
+		void clearReceivedRays();
+
+		[[nodiscard]] std::vector<std::vector<ef::Vector3F>> getRayPaths() const;
+
 	private:
-		constexpr static float PHI = (1.0f + 2.2360679775f) / 2.0f;
-		//constexpr static float k_absorption[5] = {0.001,0.97f,0.20f,0.65f,1.0f}; // Temporary
 		int m_rayCount;
 		const void createRays(Eigen::Vector3f position);
 		const void next_colision();
 		std::unique_ptr<std::vector<Ray>> m_activeRays = std::make_unique<std::vector<Ray>>();
+		std::vector<DTO_RecievedRay> m_receivedRays;
 		EFModel* m_parent;
 		const bool hasLineOfSight(const Eigen::Vector3f& from ,const Eigen::Vector3f& to);
 
 		std::mt19937 m_rng{ std::random_device{}() };
 
 		CollisionManager m_collisionManager;
-
-	
 
 	};
 
