@@ -13,7 +13,7 @@ EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(s
 void EFController::run(float delta) {
 	m_model->update(delta);
 	m_view->update(delta);
-	qDebug() << delta;
+	// qDebug() << delta;
 }
 
 void EFController::loadSimulation(std::string& url) {

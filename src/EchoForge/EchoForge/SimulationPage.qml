@@ -14,8 +14,7 @@ Page {
 
         SimulationScreen {
             id: viewScreen
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            anchors.fill: parent
             debugEnable: simulationPage.debugEnable
         }
 

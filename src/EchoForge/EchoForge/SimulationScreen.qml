@@ -1,14 +1,16 @@
 ﻿import QtQuick
-import QtQuick3D 6.5
+import QtQuick3D 6.11
 import QtQuick3D.Helpers
 
 View3D {
     required property bool debugEnable
+    property bool isFirstPerson: false
+
+    
     property int baseSize: 100
 
     id: view3DMain
-    anchors.fill: parent
-    camera: topCamera
+    camera: debugEnable ? freeCamera : isFirstPerson ? avatarCamera : topCamera
 
     environment: ExtendedSceneEnvironment {
         backgroundMode: SceneEnvironment.SkyBox
@@ -34,16 +36,35 @@ View3D {
     }
 
     WasdController {
-        controlledObject: topCamera
+        controlledObject: freeCamera
+    }
+
+    Keys.onPressed: (event) => {
+        if (event.key === Qt.Key_C) {
+            isFirstPerson = !isFirstPerson
+        }
     }
 
     PerspectiveCamera {
-        id: topCamera
-        position: Qt.vector3d(0, 600, 0)
-        eulerRotation: Qt.vector3d(-90, 0, 0)
+        id: freeCamera
+        position: Qt.vector3d(0,0,0)
         clipNear: 5
         clipFar: 1000000
         frustumCullingEnabled: false
+    }
+
+    PerspectiveCamera {
+        property var vec: Qt.vector3d(
+            communicator.avatarPos.x,
+            communicator.avatarPos.y + 600,
+            communicator.avatarPos.z
+        )
+        id: topCamera
+        position: vec
+        clipNear: 5
+        clipFar: 1000000
+        frustumCullingEnabled: false
+        lookAtNode: avatarModel
     }
 
     DirectionalLight {
@@ -51,12 +72,30 @@ View3D {
         eulerRotation.y: 45
     }
 
-    ReconBot {
-        id: avatarModel
-        scale: Qt.vector3d(20, 20, 20)
+    Node {
+
+        id: avatarNode
         position: communicator.avatarPos
         eulerRotation: communicator.headPos
-        opacity: 0.5
+        
+        PerspectiveCamera {
+            id: avatarCamera
+            clipNear: 5
+            position: Qt.vector3d(0, 90, 0)
+            clipFar: 1000000
+            frustumCullingEnabled: false
+        }
+
+        Model {
+            source: "#Sphere"
+            id: avatarModel
+            scale: Qt.vector3d(1, 1, 1)
+
+            materials: DefaultMaterial {
+                lighting: DefaultMaterial.NoLighting
+                diffuseColor: "gray"
+            }
+        }
     }
 
     Model {
@@ -116,21 +155,21 @@ View3D {
             onTriggered: {
                 var speed = 10
 
-                if (cameraFocus.forward)  camera.position.z -= speed
-                if (cameraFocus.backward) camera.position.z += speed
-                if (cameraFocus.leftside) camera.position.x -= speed
-                if (cameraFocus.rightside) camera.position.x += speed
+                // if (cameraFocus.forward)  camera.position.z -= speed
+                // if (cameraFocus.backward) camera.position.z += speed
+                // if (cameraFocus.leftside) camera.position.x -= speed
+                // if (cameraFocus.rightside) camera.position.x += speed
 
-                if (cameraFocus.forward)  avatarModel.position.z -= speed
-                if (cameraFocus.backward) avatarModel.position.z += speed
-                if (cameraFocus.leftside) avatarModel.position.x -= speed
-                if (cameraFocus.rightside) avatarModel.position.x += speed
+                if (cameraFocus.forward) communicator.avatarPos.z -= speed
+                if (cameraFocus.backward) communicator.avatarPos.z += speed
+                if (cameraFocus.leftside) communicator.avatarPos.x -= speed
+                if (cameraFocus.rightside) communicator.avatarPos.x += speed
 
-                if (cameraFocus.rotateLeft) camera.eulerRotation.z -= speed - 5
-                if (cameraFocus.rotateRight) camera.eulerRotation.z += speed - 5
+                // if (cameraFocus.rotateLeft) camera.eulerRotation.z -= speed - 5
+                // if (cameraFocus.rotateRight) camera.eulerRotation.z += speed - 5
 
-                if (cameraFocus.rotateLeft) avatarModel.eulerRotation.z -= speed - 5
-                if (cameraFocus.rotateRight) avatarModel.eulerRotation.z += speed - 5
+                // if (cameraFocus.rotateLeft) communicator.avatarPos.z -= speed - 5
+                // if (cameraFocus.rotateRight) communicator.avatarPos.z += speed - 5
             }
         }
     }

@@ -3,11 +3,10 @@
 #include "EFController.h"
 #include "EFView.h"
 
-#include "Avatar.h"
-
 #include "JuceHeader.h"
 #include "AudioManager.h"
 #include "SpatialAudioEngine.h"
+#include <qdebug.h>
 
 using namespace yutasound;
 using namespace juce;
@@ -17,6 +16,8 @@ int main(int argc, char *argv[])
     #if defined(Q_OS_WIN) && QT_VERSION_CHECK(5, 6, 0) <= QT_VERSION && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     #endif
+
+    qDebug() << QT_VERSION_STR;
 
     // Creation of the QGuiApplication
     // This object must reside inside the main
@@ -49,7 +50,6 @@ int main(int argc, char *argv[])
     efc->m_view->setupAudioManager(&audioManager);
 
     engine.start();
-
 
     // Execution of QT Application
     return app.exec();

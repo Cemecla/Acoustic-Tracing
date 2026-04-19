@@ -63,7 +63,6 @@ MainLayout {
             }
         }
 
-
         Text {
             text: `Azimuth: ${azimuthSlider.value}`;
         }
