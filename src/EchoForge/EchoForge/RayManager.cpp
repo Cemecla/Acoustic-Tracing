@@ -11,26 +11,21 @@ using namespace tracing;
 
 
 
-RayManager::RayManager(EFModel* parent,int rayCount)
+RayManager::RayManager(EFModel* parent, int rayCount, int raysPerFrame)
 	: m_rayCount(rayCount),
+	m_raysPerFrame(raysPerFrame),
 	m_parent(parent),
 	m_collisionManager{}
 {
-	// réserve de la mémoire
 	m_activeRays->reserve(m_rayCount * 2);
 }
 
 const void RayManager::update() {
 	Eigen::Vector3f position = m_parent->getAvatar().value().getPosition().toEigen();
 
-	if (m_activeRays->empty()) {
-		createRays(position);
-	}
-	else {
-		next_colision();
-	}
+	next_colision();
+	createRays(position, m_raysPerFrame);
 
-	//TODO: REFACTOR to single ray
 	std::erase_if(*m_activeRays, [](const Ray& r) {
 		return r.getEnergy().maxCoeff() <= 0.01f;
 	});
@@ -38,10 +33,11 @@ const void RayManager::update() {
 
 
 
-const void RayManager::createRays(Eigen::Vector3f position) {
+const void RayManager::createRays(Eigen::Vector3f position, int count) {
 	constexpr float incrementation = std::numbers::pi_v<float> * 2.0f * std::numbers::phi_v<float>;
 	// From https://devforum.roblox.com/t/generating-equidistant-points-on-a-sphere/874144
-	for (int n : std::views::iota(0, m_rayCount)) {
+	for (int i = 0; i < count; ++i) {
+		int n = m_nextRayIndex % m_rayCount;
 		float distance = static_cast<float>(n) / m_rayCount;
 		float azimuth  = incrementation * n;
 		float incline  = std::acos(1.0f - 2.0f * distance);
@@ -55,6 +51,7 @@ const void RayManager::createRays(Eigen::Vector3f position) {
 		Eigen::Vector3f offset(x, y, z);
 		Eigen::Vector3f direction = offset.normalized();
 		m_activeRays->emplace_back(position + offset, direction);
+		++m_nextRayIndex;
 	}
 }
 
@@ -68,10 +65,11 @@ const void tracing::RayManager::next_colision() {
 
 		if (!map.isInBound(pos.x(), pos.y(), pos.z())) {
 			m_receivedRays.emplace_back(
-				ef::Vector3F::fromEigen(r.getPosition()),
-				ef::Vector3F::fromEigen(r.getEnergy()),
-				r.getTimeDelta(),
-				AMBIENT_EMITTER_ID
+				r.getPosition(),
+				r.getEnergy(),
+				r.getStepCount(),
+				AMBIENT_EMITTER_ID,
+				r.getBouncePositions()
 			);
 			r.loseEnergy(Eigen::Vector3f(1.0f, 1.0f, 1.0f));
 			continue;
@@ -90,10 +88,11 @@ const void tracing::RayManager::next_colision() {
 
 				for (const auto& emitter : visibleEmitters) {
 					m_receivedRays.emplace_back(
-						ef::Vector3F::fromEigen(r.getPosition()),
-						ef::Vector3F::fromEigen(r.getEnergy()),
-						r.getTimeDelta(),
-						static_cast<std::uint8_t>(emitter.sound_id)
+						r.getPosition(),
+						r.getEnergy(),
+						r.getStepCount(),
+						static_cast<std::uint8_t>(emitter.sound_id),
+						r.getBouncePositions()
 					);
 				}
 

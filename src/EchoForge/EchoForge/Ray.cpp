@@ -9,7 +9,6 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 	, m_velocity{ velocity }
 	, m_energy{1.0f,1.0f,1.0f}
 	, m_lastSeen{ position }
-	, m_time{ std::chrono::high_resolution_clock::now() }
 	, m_lastAxis()
 {
 	m_voxelPos = m_currentPosition.array().floor().cast<int>();
@@ -31,14 +30,9 @@ Eigen::Vector3f tracing::Ray::getPosition() {
 	return m_currentPosition;
 };
 
-int tracing::Ray::getTimeDelta() {
-	auto end = std::chrono::high_resolution_clock::now();
-	auto res = end - m_time;
-
-	return static_cast<int>(res.count());
-};
 
 void tracing::Ray::advance() {
+	++m_stepCount;
 	int axis;
 
 	if (m_tMax.x() < m_tMax.y()) {

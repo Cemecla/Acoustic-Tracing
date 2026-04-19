@@ -17,7 +17,7 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_rayManager{this,10}
+	m_rayManager{this,100,50}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
@@ -73,26 +73,21 @@ void EFModel::processBatch() {
 
 	for (const auto& [emitterID, rays] : byEmitter) {
 		if (emitterID == tracing::RayManager::AMBIENT_EMITTER_ID) continue;
-		float avgEnergy = 0.f;
-		float minEnergy = 1.f;
-		float maxEnergy = 0.f;
-		float avgDelay  = 0.f;
+		Eigen::Vector3f avgEnergy = Eigen::Vector3f::Zero();
+		float avgSteps = 0.f;
 
 		for (const auto* r : rays) {
-			float e = r->getEnergy().magnitude();
-			avgEnergy += e;
-			minEnergy  = std::min(minEnergy, e);
-			maxEnergy  = std::max(maxEnergy, e);
-			avgDelay  += static_cast<float>(r->getTimeDelta());
+			avgEnergy += r->getEnergy();
+			avgSteps  += static_cast<float>(r->getStepCount());
 		}
-		avgEnergy /= rays.size();
-		avgDelay  /= rays.size();
+		avgEnergy /= static_cast<float>(rays.size());
+		avgSteps  /= static_cast<float>(rays.size());
 
 		qDebug() << "  Emitter" << emitterID
 		         << "| rayons :" << rays.size()
-		         << "| énergie moy/min/max :"
-		         << avgEnergy << "/" << minEnergy << "/" << maxEnergy
-		         << "| délai moy (ns) :" << avgDelay;
+		         << "| énergie moy (H/M/L) :"
+		         << avgEnergy.x() << "/" << avgEnergy.y() << "/" << avgEnergy.z()
+		         << "| steps moy :" << avgSteps;
 	}
 
 	m_rayManager.clearReceivedRays();

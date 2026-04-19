@@ -24,7 +24,7 @@ namespace tracing {
 	public:
 		static constexpr std::uint8_t AMBIENT_EMITTER_ID = 255;
 
-		RayManager(EFModel* parent,int rayCount);
+		RayManager(EFModel* parent, int rayCount, int raysPerFrame = 10);
 		const void update();
 
 		[[nodiscard]] const std::vector<DTO_RecievedRay>& getReceivedRays() const;
@@ -34,7 +34,9 @@ namespace tracing {
 
 	private:
 		int m_rayCount;
-		const void createRays(Eigen::Vector3f position);
+		int m_raysPerFrame;
+		int m_nextRayIndex = 0;
+		const void createRays(Eigen::Vector3f position, int count);
 		const void next_colision();
 		std::unique_ptr<std::vector<Ray>> m_activeRays = std::make_unique<std::vector<Ray>>();
 		std::vector<DTO_RecievedRay> m_receivedRays;

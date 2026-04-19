@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <chrono>
 #include "Vector.h"
 #include <Eigen/Dense>
 
@@ -16,7 +15,7 @@
 			Eigen::Vector3f m_startPosition;
 			Eigen::Vector3f m_lastSeen;
 			Eigen::Vector3f m_energy;
-			std::chrono::high_resolution_clock::time_point m_time ;
+			int             m_stepCount = 0;
 			Eigen::Vector3f m_velocity;
 			Eigen::Vector3i m_voxelPos;
 			Eigen::Vector3i m_step;
@@ -59,10 +58,7 @@
 		*/
 		Eigen::Vector3f getPosition();
 		
-		/**
-		*	desc: This method returns time delay since ray was launched in ms
-		*/
-		int getTimeDelta();
+		int getStepCount() const { return m_stepCount; }
 
 		// Constructor
 		Ray(Eigen::Vector3f position, Eigen::Vector3f velocity);
