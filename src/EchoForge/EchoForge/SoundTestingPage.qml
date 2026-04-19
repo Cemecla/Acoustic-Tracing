@@ -7,7 +7,6 @@ import QtQuick.Dialogs
 MainLayout {
     id: mainLayout
     maintitle: "Sound Testing"
-    anchors.fill: parent
     property string filepath: ""
     property bool isAzimuthRotating: false
     property bool isElevationRotating: false
@@ -52,23 +51,12 @@ MainLayout {
             text: `Elevation: ${elevationSlider.value}`;
         }
 
-        Slider {
+        OptionSlider {
             id: elevationSlider
             from: -90
-            value: 0
+            initialValue: 0
             to: 90
             stepSize: 0.5
-
-            // https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
-            handle: Rectangle {
-                x: elevationSlider.leftPadding + elevationSlider.visualPosition * (elevationSlider.availableWidth - width)
-                y: elevationSlider.topPadding + elevationSlider.availableHeight / 2 - height / 2
-                implicitWidth: 10
-                implicitHeight: 10
-                radius: 10
-                color: elevationSlider.pressed ? "#f0f0f0" : "#f6f6f6"
-                border.color: "#bdbebf"
-            }
 
             onValueChanged: {
                 communicator.updateTestSlider(azimuthSlider.value, value);
@@ -79,25 +67,13 @@ MainLayout {
         Text {
             text: `Azimuth: ${azimuthSlider.value}`;
         }
-        
-        Slider {
+       
+        OptionSlider {
             id: azimuthSlider
             from: -180
-            value: 0
+            initialValue: 0
             to: 180
             stepSize: 0.5
-
-            
-            // https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
-            handle: Rectangle {
-                x: azimuthSlider.leftPadding + azimuthSlider.visualPosition * (azimuthSlider.availableWidth - width)
-                y: azimuthSlider.topPadding + azimuthSlider.availableHeight / 2 - height / 2
-                implicitWidth: 10
-                implicitHeight: 10
-                radius: 10
-                color: azimuthSlider.pressed ? "#f0f0f0" : "#f6f6f6"
-                border.color: "#bdbebf"
-            }
 
             onValueChanged: {
                 communicator.updateTestSlider(value, elevationSlider.value);

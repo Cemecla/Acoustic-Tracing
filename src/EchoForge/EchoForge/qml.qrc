@@ -14,5 +14,8 @@
         <file>SimulationSelectionPage.qml</file>
         <file>LoadingPage.qml</file>
         <file>ReconBot.qml</file>
+        <file>OptionCycleButton.qml</file>
+        <file>ArrowButton.qml</file>
+        <file>OptionSlider.qml</file>
     </qresource>
 </RCC>

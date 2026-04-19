@@ -22,13 +22,14 @@ void EFView::setupAudioManager(yutasound::AudioManager* audioManager) {
 	m_audioManager = audioManager;
 }
 
-//void EFView::setupAudioEngine(SpatialAudioEngine) {
-//
-//}
-
 void EFView::setupQGuiApplication(QGuiApplication& app) const {
-	// Set the window logo 
 	app.setWindowIcon(QIcon(":/images/logo"));
+
+	app.setOrganizationName("Projet de synthèse");
+
+	app.setOrganizationDomain("github.com/Cemecla/Acoustic-Tracing");
+
+	app.setApplicationName("Echo Forge");
 }
 
 void EFView::setupCommunicator() {

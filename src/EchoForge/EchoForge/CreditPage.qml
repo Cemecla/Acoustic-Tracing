@@ -4,7 +4,6 @@ import QtQuick.Layouts
 
 MainLayout {
     maintitle: "Credit"
-    anchors.fill: parent
     
     ColumnLayout {
         anchors.fill: parent

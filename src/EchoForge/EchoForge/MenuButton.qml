@@ -4,12 +4,13 @@ import QtQuick.Layouts
 import QtMultimedia
 
 Button { 
-    property alias buttonText: menuButton.text
+    property alias buttonText: btnRoot.text
 
-    id: menuButton
+    id: btnRoot
     font.pointSize: 24
     Layout.preferredWidth: parent.width
 
+    // SOUND EFFECT
     onHoveredChanged: () => {
         if (hovered) {
             hoverSound.play();
@@ -22,11 +23,12 @@ Button {
         loops: 1
     }
 
+    // ANIMATED BACKGROUND
     background: Item {
         Rectangle {
             anchors.fill: parent
             color: "black"
-            opacity: menuButton.hovered ? 0.15 : 0
+            opacity: btnRoot.hovered ? 0.15 : 0
             Behavior on opacity {
                 NumberAnimation { duration: 150 }
             }
@@ -35,9 +37,9 @@ Button {
         Rectangle {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            width: menuButton.hovered ? 5 : 0
+            width: btnRoot.hovered ? 5 : 0
             color: "#FFA500"
-            opacity: menuButton.hovered ? 1 : 0
+            opacity: btnRoot.hovered ? 1 : 0
 
             Behavior on opacity {
                 NumberAnimation { duration: 150 }
@@ -50,15 +52,16 @@ Button {
 
     }
     
+    // BUTTON TEXT
     contentItem: Text {
-        text: menuButton.text
-        font: menuButton.font
+        text: btnRoot.text
+        font: btnRoot.font
         opacity: enabled ? 1.0 : 0.3
-        color: menuButton.hovered ? "#FFFFFF" : "#000000"
+        color: btnRoot.hovered ? "#FFFFFF" : "#000000"
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         anchors.fill: parent
-        anchors.leftMargin: menuButton.hovered ? 15 : 0
+        anchors.leftMargin: btnRoot.hovered ? 15 : 0
 
         Behavior on anchors.leftMargin {
             NumberAnimation { duration: 120 }

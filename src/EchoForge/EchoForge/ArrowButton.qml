@@ -1,0 +1,30 @@
+﻿import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+
+Button {
+    enum Side {
+        Right,
+        Left
+    }
+
+    property int side: ArrowButton.Side.Left
+
+    id: nextBtn
+    text: side == ArrowButton.Side.Left ? "◀" : "▶"
+    font.pointSize: 11
+    implicitWidth: 28
+    implicitHeight: 28
+    background: Rectangle {
+        color: nextBtn.hovered ? "#44000000" : "transparent"
+        radius: 2
+    }
+
+    contentItem: Text {
+        text: nextBtn.text
+        font: nextBtn.font
+        color: "#111111"
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
+}

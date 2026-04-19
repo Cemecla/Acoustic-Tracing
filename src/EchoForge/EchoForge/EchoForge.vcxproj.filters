@@ -57,6 +57,18 @@
     <Filter Include="Source Files\qml\Shaders">
       <UniqueIdentifier>{3572315b-802c-405e-b428-c33989febaf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\qml\Node3D">
+      <UniqueIdentifier>{7f97e95e-7a70-48b5-b823-57f218e264d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WorldElement">
+      <UniqueIdentifier>{e2a5aa2a-b6f2-46bf-b76d-ba630b7bb4b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\WorldElement">
+      <UniqueIdentifier>{06d442b7-dea9-4b81-a8b6-5777f29d40d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{44f45b0d-3e7d-4f30-ab69-0fad51d5ee56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -65,12 +77,6 @@
     <QtRcc Include="qml.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Avatar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Ray.cpp">
       <Filter>Source Files\RayManager</Filter>
     </ClCompile>
@@ -82,15 +88,6 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Source Files\RayManager</Filter>
-    </ClCompile>
-    <ClCompile Include="EFWorld.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EFWorldLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Materiel.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EFController.cpp">
       <Filter>Source Files\MVC</Filter>
@@ -119,17 +116,23 @@
     <ClCompile Include="RayInstancing.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
+    <ClCompile Include="Materiel.cpp">
+      <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
+    <ClCompile Include="Avatar.cpp">
+      <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
+    <ClCompile Include="EFWorld.cpp">
+      <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
+    <ClCompile Include="EFWorldLoader.cpp">
+      <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Avatar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
@@ -139,26 +142,11 @@
     <ClInclude Include="DTO_RecievedRay.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RayStrategy.h">
       <Filter>Header Files\RayManager</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Header Files\RayManager</Filter>
-    </ClInclude>
-    <ClInclude Include="EFWorld.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EFWorldLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EFController.h">
       <Filter>Header Files\MVC</Filter>
@@ -168,6 +156,30 @@
     </ClInclude>
     <ClInclude Include="EFView.h">
       <Filter>Header Files\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="Avatar.h">
+      <Filter>Header Files\WorldElement</Filter>
+    </ClInclude>
+    <ClInclude Include="EFWorld.h">
+      <Filter>Header Files\WorldElement</Filter>
+    </ClInclude>
+    <ClInclude Include="EFWorldLoader.h">
+      <Filter>Header Files\WorldElement</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\WorldElement</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\WorldElement</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +233,16 @@
     <None Include="voxel.frag">
       <Filter>Source Files\qml\Shaders</Filter>
     </None>
+    <None Include="OptionCycleButton.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="ArrowButton.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
     <None Include="ReconBot.qml">
+      <Filter>Source Files\qml\Node3D</Filter>
+    </None>
+    <None Include="OptionSlider.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
   </ItemGroup>

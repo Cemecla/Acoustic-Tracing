@@ -7,7 +7,6 @@ MainLayout {
     required property bool debugMode
     id: selectionPage
     maintitle: "Map Selection"
-    anchors.fill: parent
 
     ScrollView {
         ListView {

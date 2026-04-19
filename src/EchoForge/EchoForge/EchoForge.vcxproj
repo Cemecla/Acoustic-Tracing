@@ -132,7 +132,10 @@
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />
     <ClCompile Include="ChunkInstancing.cpp" />
+    <None Include="ArrowButton.qml" />
     <None Include="LoadingPage.qml" />
+    <None Include="OptionCycleButton.qml" />
+    <None Include="OptionSlider.qml" />
     <None Include="ReconBot.qml" />
     <None Include="SimulationSelectionPage.qml" />
     <None Include="SoundTestingPage.qml" />

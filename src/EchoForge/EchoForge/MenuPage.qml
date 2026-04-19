@@ -4,7 +4,6 @@ import QtQuick.Layouts
 
 MainLayout {
     maintitle: "ECHO FORGE"
-    anchors.fill: parent
 
     ColumnLayout {
         width: 200

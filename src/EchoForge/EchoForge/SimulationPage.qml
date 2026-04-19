@@ -8,10 +8,6 @@ Page {
     id: simulationPage
     anchors.fill: parent
 
-    background : Rectangle {
-        color: "#d4d4d4"
-    }
-
     ColumnLayout {
         id: mainColumn
         anchors.fill: parent
@@ -28,13 +24,5 @@ Page {
             source: viewScreen
             resourceDetailsVisible: true
         }
-
-        // Button {
-        //     height: 40
-        //     Layout.fillWidth: true
-        //     anchors.horizontalCenter: mainColumn.horizontalCenter
-        //     text: "Start Simulation"
-        //     onClicked: communicator.loadSimulation("../../../../Acoustic-Tracing/saves/DevTest.json")
-        // }
     }
 }
