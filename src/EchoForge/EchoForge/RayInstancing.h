@@ -10,9 +10,10 @@ class RayInstancing : public QQuick3DInstancing
 
 public:
 	RayInstancing(QQuick3DObject *parent = nullptr);
-	~RayInstancing();
 
 	void setRays();
+	void clearBuffer();
+	void prepareBuffer(int batchSize);
 
 protected:
 	QByteArray getInstanceBuffer(int* instanceCount) override;

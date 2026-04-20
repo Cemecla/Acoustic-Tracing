@@ -111,9 +111,6 @@
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
     <ClCompile Include="RayInstancing.cpp">
-      <Filter>Header Files\QtObject</Filter>
-    </ClCompile>
-    <ClCompile Include="RayInstancing.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
     <ClCompile Include="Materiel.cpp">
@@ -130,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
+    <ClCompile Include="RayInstancing.cpp">
+      <Filter>Source Files\QtObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

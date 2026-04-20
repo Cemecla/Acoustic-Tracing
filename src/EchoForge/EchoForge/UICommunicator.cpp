@@ -7,11 +7,12 @@
 #include "UICommunicator.h"
 #include "EFView.h"
 #include "Material.h"
+#include "DTO_RecievedRay.h"
 
 
-UICommunicator::UICommunicator(EFView* view) : m_parent(view), m_pos(QVector3D()), m_angles(QVector3D()), m_voxelInstances(new ChunkInstancing()) {}
+UICommunicator::UICommunicator(EFView* view) : m_parent(view), m_pos(QVector3D()), m_angles(QVector3D()), m_voxelInstances(new ChunkInstancing()), m_rayInstances(new RayInstancing()) {}
 
-UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(QVector3D(pos.x, pos.y, pos.z)), m_angles(QVector3D(angles.x, angles.y, angles.z)), m_voxelInstances(new ChunkInstancing()) {}
+UICommunicator::UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles) : m_parent(view), m_pos(QVector3D(pos.x, pos.y, pos.z)), m_angles(QVector3D(angles.x, angles.y, angles.z)), m_voxelInstances(new ChunkInstancing()), m_rayInstances(new RayInstancing()){}
 
 void UICommunicator::setAvatarPos(QVector3D& v) {
 	m_pos = v;
@@ -31,9 +32,12 @@ QVector3D UICommunicator::headAngles() const {
 	return m_angles;
 }
 
-ChunkInstancing* UICommunicator::voxelInstances()
-{
+ChunkInstancing* UICommunicator::voxelInstances() {
 	return m_voxelInstances;
+}
+
+RayInstancing* UICommunicator::rayInstances() {
+	return m_rayInstances;
 }
 
 void UICommunicator::startSimulation() {
@@ -50,7 +54,7 @@ void UICommunicator::saveSimulation(const QString& url) {
 
 void UICommunicator::loadSimulation(const QString& url) {
 
-	QtConcurrent::run([this, url]() {
+	auto _ = QtConcurrent::run([this, url]() {
 
 		std::string urlconverted = url.toStdString();
 		m_parent->loadSimulation(urlconverted);
@@ -102,6 +106,10 @@ void UICommunicator::userInput(char input) {
 		default:
 			break;
 	}
+}
+
+void UICommunicator::updateRayInstances(const DTO_RecievedRay& receivedRays) {
+	
 }
 
 void UICommunicator::buildMap(const ef::Map& map) {	

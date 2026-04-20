@@ -19,7 +19,7 @@ MainLayout {
         }
 
         Repeater {
-            model: ["Joel Mailly-Niquay", "Yuta Landreville", "Jacques Michel Charon"]
+            model: ["Joel Mailly-Niquay", "Yuta Landreville", "Jacques Michel Caron"]
 
             Text {
                 required property string modelData

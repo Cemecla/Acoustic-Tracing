@@ -69,11 +69,23 @@ View3D {
 
     DirectionalLight {
         eulerRotation.x: -45
-        eulerRotation.y: 45
+        eulerRotation.y: 280
+    }
+
+    Model {
+        source: "#Rectangle"
+        id: ray
+        scale: Qt.vector3d(1, 1, 1)
+        position: Qt.vector3d(1, 1, 1)
+        eulerRotation.z: 90
+        castsShadows: false
+        materials: DefaultMaterial {
+            lighting: DefaultMaterial.NoLighting
+            diffuseColor: "red"
+        }
     }
 
     Node {
-
         id: avatarNode
         position: communicator.avatarPos
         eulerRotation: communicator.headPos
@@ -102,7 +114,6 @@ View3D {
         source: "#Cube"
         // pickable: true
         instancing: communicator.voxelInstances
-
         materials: CustomMaterial {
             shadingMode: CustomMaterial.Shaded
             

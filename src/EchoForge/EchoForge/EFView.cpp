@@ -25,15 +25,11 @@ void EFView::setupAudioManager(yutasound::AudioManager* audioManager) {
 void EFView::setupQGuiApplication(QGuiApplication& app) const {
 	app.setWindowIcon(QIcon(":/images/logo"));
 
-	app.setOrganizationName("Projet de synthèse");
+	app.setOrganizationName("Rotten Peach");
 
-	app.setOrganizationDomain("github.com/Cemecla/Acoustic-Tracing");
+	app.setOrganizationDomain("rotten-peach.com");
 
 	app.setApplicationName("Echo Forge");
-}
-
-void EFView::setupCommunicator() {
-
 }
 
 void EFView::setupAvatar(const ef::Avatar& avatar) {
