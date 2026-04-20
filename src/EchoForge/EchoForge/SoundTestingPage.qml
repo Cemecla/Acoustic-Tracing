@@ -69,9 +69,9 @@ MainLayout {
        
         OptionSlider {
             id: azimuthSlider
-            from: -179
+            from: -180
             initialValue: 0
-            to: 179
+            to: 180
             stepSize: 0.5
 
             onValueChanged: {
@@ -100,8 +100,8 @@ MainLayout {
             id: rotationAzimuth
             target: azimuthSlider
             property: "value"
-            from: -179
-            to: 179
+            from: -180
+            to: 180
             duration: 4000
             loops: Animation.Infinite
             running: false

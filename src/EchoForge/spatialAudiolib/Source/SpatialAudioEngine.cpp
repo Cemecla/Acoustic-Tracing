@@ -34,14 +34,16 @@ namespace yutasound {
 
     void SpatialAudioEngine::addProcessingSlot()
     {
-        //SoundSource source;
-        //source.loadFromPath(filePath);
-        //m_sources.push_back(std::move(source));
-
         StereoDelayLine dl;
         dl.prepare(m_sampleRate, m_bufferSize);
         m_delayLines.push_back(std::move(dl));
+
         m_readPositions.push_back(0);
+        
+        juce::SmoothedValue<float> smoothed;
+        smoothed.reset(m_sampleRate, 0.05);
+        m_smoothedITD.push_back(std::move(smoothed));
+
         // TODO: push matching activeChain, shadowChain
     }
 

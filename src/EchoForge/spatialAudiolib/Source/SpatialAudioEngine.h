@@ -43,6 +43,8 @@ namespace yutasound {
         juce::AudioBuffer<float>     m_mixBuffer;
         std::vector<StereoDelayLine>  m_delayLines;
         std::vector<int> m_readPositions;
+        // to atenuate the pop when azimuth jump from 180 deg to -180 deg
+        std::vector<juce::SmoothedValue<float>> m_smoothedITD;
 
         // TODO: std::vector<FilterChain>      m_activeChains;
         // TODO: std::vector<FilterChain>      m_shadowChains;
