@@ -67,13 +67,22 @@ namespace yutasound {
                     int& readPos = m_readPositions[i];
                     auto samplesAvailable = source.getAudioBuffer().getNumSamples() - readPos;
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
-                    
+                   
+                    float itd = m_audioManager.getSources()[i].itdSamples;
+                    ILDGain ild = m_audioManager.getSources()[i].ildGain;
                     for (int n = 0; n < samplesThisBlock; n++)
                     {
                         float monoSample = source.getAudioBuffer().getSample(0, readPos + n);
                         //float itd = m_audioManager.computeITD_(45.0f, 0.0f);
-                        float itd = m_audioManager.getSources()[i].itdSamples;
+                        
                         auto stereo = delayLine.process(monoSample, itd);
+                        
+                        //temporal application of ild effect to the far ear since filter are not ready as planned 
+                        if (itd > 0.0f)
+                            stereo.left *= ild.mid;
+                        else if (itd < 0.0f)
+                            stereo.right *= ild.mid;
+                        
                         //dereference operator
                         *m_mixBuffer.getWritePointer(0, n) += stereo.left;
                         *m_mixBuffer.getWritePointer(1, n) += stereo.right;
