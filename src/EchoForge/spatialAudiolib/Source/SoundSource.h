@@ -16,6 +16,14 @@
 #define SOUNDSOURCE_H
 
 namespace yutasound {
+    
+    // struct that will hold ild gain after calcule to be used an apply in the filters
+    struct ILDGain
+    {
+        float low  = 1.0f;
+        float mid  = 1.0f;
+        float high = 1.0f;
+    };
 
     class SoundSource {
     public:
@@ -26,13 +34,15 @@ namespace yutasound {
 
         float azimuth = 0.0f; // degrees, -180 to +180
         float elevation = 0.0f; // degrees,  -90 to +90
+        float itdSamples = 0.0f;
+        ILDGain ildGain;
         SoundRemaining soundRemaining;
 
         //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
         int readPosition = 0;
 
         int id = -1;
-        float itdSamples = 0.0f;
+        
 
     private:
         
