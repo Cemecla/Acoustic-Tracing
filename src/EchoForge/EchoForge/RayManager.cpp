@@ -91,7 +91,7 @@ const void tracing::RayManager::next_colision() {
 						r.getPosition(),
 						r.getEnergy(),
 						r.getStepCount(),
-						static_cast<std::uint8_t>(emitter.sound_id),
+						static_cast<std::uint8_t>(emitter.m_id),
 						r.getBouncePositions()
 					);
 				}
@@ -112,20 +112,6 @@ const std::vector<DTO_RecievedRay>& RayManager::getReceivedRays() const {
 	return m_receivedRays;
 }
 
-std::vector<std::vector<ef::Vector3F>> RayManager::getRayPaths() const {
-	std::vector<std::vector<ef::Vector3F>> paths;
-	paths.reserve(m_activeRays->size());
-
-	for (const Ray& r : *m_activeRays) {
-		const auto& bounces = r.getBouncePositions();
-		auto& path = paths.emplace_back();
-		path.reserve(bounces.size());
-
-		for (const Eigen::Vector3f& p : bounces)
-			path.push_back(ef::Vector3F::fromEigen(p));
-	}
-	return paths;
-}
 
 void RayManager::clearReceivedRays() {
 	m_receivedRays.clear();

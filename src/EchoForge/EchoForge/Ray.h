@@ -54,7 +54,6 @@
 		
 		/**
 		*	desc: This method returns a position (x,y,z)
-		* 
 		*/
 		Eigen::Vector3f getPosition();
 		

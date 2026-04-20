@@ -31,7 +31,7 @@ void EFModel::loadWorld(std::string& filename) {
 	m_world = EFWorldLoader::build(mapfile, materialfile);
 
 	// TODO: remplacer par le chargement depuis le JSON (scenarioItem)
-	ef::Emitter testEmitter{ 0, ef::Vector3F(5.0f, 1.0f, 5.0f), 1.0f, true };
+	ef::Emitter testEmitter{0, 0, ef::Vector3F(5.0f, 1.0f, 5.0f), 1.0f, true };
 	m_world->emitters.push_back(testEmitter);
 }
 
