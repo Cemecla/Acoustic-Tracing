@@ -40,6 +40,7 @@ namespace yutasound {
 
         auto it = std::find_if(m_sources.begin(), m_sources.end(),
             [id](const SoundSource& s) { return s.id == id; });
+            
         // if not → loadSource_(id)
         
         if (it == m_sources.end())
@@ -57,7 +58,7 @@ namespace yutasound {
         it->elevation = elevation;
         it->soundRemaining = soundRemaining;
         it->itdSamples = computeITD_(azimuth, elevation);
-        // then compute ITD/ILD
+        it->ildGain = computeILD_(azimuth,elevation, soundRemaining);
         // update shadowChain[id]
     }
 
@@ -73,9 +74,18 @@ namespace yutasound {
         return ITD * (float)m_sampleRate; // convertion into samples
     }
 
-    float AudioManager::computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining)
+    ILDGain AudioManager::computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining)
     {
-        // TODO: implement ILD
-        return 1.0f;
+        float azRAD = azimuth * (juce::MathConstants<float>::pi / 180.0f);
+
+        // aproximate calcule for testing - replace with Brown-Duda filter later
+        // Reference: Brown & Duda 1998 "A Structural Model for Binaural Sound Synthesis"
+        float baseILD = (1.0f + std::cos(azRAD)) / 2.0f;
+        ILDGain gain;
+        gain.low = baseILD * soundRemaining.lowRemaining;
+        gain.mid = baseILD * soundRemaining.midRemaining;
+        gain.high = baseILD * soundRemaining.highRemaining;
+
+        return gain;
     }
 }

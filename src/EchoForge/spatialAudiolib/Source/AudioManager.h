@@ -41,7 +41,7 @@ namespace yutasound {
         std::atomic<bool> m_isPlaying {false};
 
         float computeITD_(float azimuth, float elevation);
-        float computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining);
+        ILDGain computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining);
 
 
     };
