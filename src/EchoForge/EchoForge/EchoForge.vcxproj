@@ -128,6 +128,8 @@
     <ClCompile Include="Materiel.cpp" />
     <ClCompile Include="RayInstancing.cpp" />
     <ClCompile Include="RayStrategy.cpp" />
+    <ClCompile Include="Scenario.cpp" />
+    <ClCompile Include="Scenario.h" />
     <ClCompile Include="SimulationLoop.cpp" />
     <ClCompile Include="UICommunicator.cpp" />
     <ClCompile Include="RayManager.cpp" />

@@ -131,6 +131,12 @@
     <ClCompile Include="RayInstancing.cpp">
       <Filter>Source Files\QtObject</Filter>
     </ClCompile>
+    <ClCompile Include="Scenario.h">
+      <Filter>Header Files\WorldElement</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario.cpp">
+      <Filter>Source Files\WorldElement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">

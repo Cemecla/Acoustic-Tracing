@@ -1,49 +1,45 @@
 #pragma once
 
+#include <Vector.h>
+#include <thread>
+#include <atomic>
+#include <chrono>
+#include <functional>
+
+
+
 namespace ef {
-
-
-
 
 	class Scenario
 	{
 	public:
-		Scenario();
+		explicit Scenario(std::chrono::milliseconds tick_rate = std::chrono::milliseconds(100));
 		~Scenario();
+
+		using Condition = std::function<bool()>;
+		using Action = std::function<void()>;
+
+		void update(const float delta);
+
+		void add_event(Action action,Condition condition);
+
+		void stop();
+
+		void start();
 
 	private:
 
-		enum class ConditionType
+		struct Event
 		{
-			Positional,
-			Timer
-		};
-		
-
-		class Condition
-		{
-		public:
-			Condition(ConditionType type)
-			{
-			}
-
-		private:
-			ConditionType m_type;
-
-
+			Condition condition;
+			Action action;
 		};
 
+	
 
-
-
-
+		std::vector<Event> events_;
+		std::thread thread_;
+		std::atomic<bool> running_{ false };
+		std::chrono::microseconds tick_rate_;
 	};
-
-	Scenario::Scenario()
-	{
-	}
-
-	Scenario::~Scenario()
-	{
-	}
 }
