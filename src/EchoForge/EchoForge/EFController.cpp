@@ -25,5 +25,6 @@ void EFController::loadSimulation(std::string& url) {
 }
 
 void EFController::startSimulation() {
+	m_model->startScenario();
 	m_simulationLoop.start();
 }

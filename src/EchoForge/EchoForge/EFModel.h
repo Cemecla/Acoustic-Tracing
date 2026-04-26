@@ -9,6 +9,7 @@
 #include "Avatar.h"
 #include "RayManager.h"
 #include "EFWorld.h"
+#include "Scenario.h"
 
 using json = nlohmann::json;
 
@@ -49,7 +50,9 @@ class EFController;
 			*   param name: string
 			*/
 			void update(float delta);
-	
+
+			void startScenario();
+
 			const std::optional<ef::Avatar>& getAvatar() const;
 
 			const ef::Avatar& getAvatar(int temporary) const;
@@ -59,17 +62,21 @@ class EFController;
 			[[nodiscard]] const std::vector<ef::Emitter>& getEmitters() const;
 
 			std::vector<ef::Emitter> getActiveSounds();
-			
-		
+
+
 		private:
 			const std::string MATERIAL_FILENAME = "";
 
 			EFController* m_parent;
 			tracing::RayManager m_rayManager;
 			std::optional<ef::EFWorld> m_world;
+			// m_scenario déclaré APRÈS m_world : détruit en premier (ordre inverse),
+			// joint le thread avant que m_world soit libéré.
+			ef::Scenario m_scenario;
 
 			// TODO: remplacer par le vrai processing audio
 			void processBatch();
+			void buildScenario();
 			int m_debugFrameCount = 0;
 	};
 

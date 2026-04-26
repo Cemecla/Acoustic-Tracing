@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <map>
+#include <chrono>
 #include <QDebug>
 
 #include "EFModel.h"
@@ -30,9 +31,37 @@ void EFModel::loadWorld(std::string& filename) {
 	json materialfile = loadJson(str);
 	m_world = EFWorldLoader::build(mapfile, materialfile);
 
-	// TODO: remplacer par le chargement depuis le JSON (scenarioItem)
-	ef::Emitter testEmitter{0, 0, ef::Vector3F(5.0f, 1.0f, 5.0f), 1.0f, true };
-	m_world->emitters.push_back(testEmitter);
+	buildScenario();
+}
+
+void EFModel::buildScenario() {
+	if (!m_world.has_value()) return;
+
+	const auto startTime = std::chrono::steady_clock::now();
+
+	for (int i = 0; i < static_cast<int>(m_world->emitters.size()); ++i) {
+		if (m_world->emitters[i].eventType != EventType::TIME) continue;
+
+		float triggerTime = m_world->emitters[i].triggerTime;
+
+		m_scenario.add_event(
+			[this, i]() {
+				m_world->emitters[i].isActive = true;
+				qDebug() << "[Scenario] Emetteur" << i << "activé";
+			},
+			[this, i, triggerTime, startTime]() -> bool {
+				if (!m_world.has_value()) return false;
+				if (m_world->emitters[i].isActive) return false;
+				auto elapsed = std::chrono::steady_clock::now() - startTime;
+				return std::chrono::duration<float>(elapsed).count() >= triggerTime;
+			}
+		);
+	}
+}
+
+
+void EFModel::startScenario() {
+	m_scenario.start();
 }
 
 void EFModel::update(float delta) {
@@ -125,7 +154,7 @@ const Avatar& EFModel::getAvatar(int temporary) const {
 }
 
 const Map& EFModel::getMap() const {
-	return m_world->map; 
+	return m_world->map;
 }
 
 const std::vector<ef::Emitter>& EFModel::getEmitters() const {

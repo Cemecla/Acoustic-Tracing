@@ -25,7 +25,9 @@ EFWorld EFWorldLoader::build(const json& mapJson) {
 
 		Avatar avatar = buildAvatar(mapData);
 
-		return EFWorld(avatar, map);
+		EFWorld world(avatar, map);
+		world.emitters = buildEmitters(mapJson);
+		return world;
 	}
 	else
 	{
@@ -47,7 +49,9 @@ EFWorld EFWorldLoader::build(const json& mapJson, const json& materialJson) {
 
 		Avatar avatar = buildAvatar(mapData);
 
-		return EFWorld(avatar, map);
+		EFWorld world(avatar, map);
+		world.emitters = buildEmitters(mapJson);
+		return world;
 	}
 	else
 	{
@@ -114,7 +118,8 @@ bool EFWorldLoader::isMaterialsValid(const json& jsonData) {
 
 Avatar EFWorldLoader::buildAvatar(const json& mapData) {
 	std::vector<float> userSpawnPos = mapData["userSpawnPos"];
-	return Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2]), Vector3F());
+	const float voxelUnitSize = mapData.value("voxelUnitSize", 1.0f);
+	return Avatar(Vector3F(userSpawnPos[0] / voxelUnitSize, userSpawnPos[1] / voxelUnitSize, userSpawnPos[2] / voxelUnitSize), Vector3F());
 }
 
 std::vector<int> EFWorldLoader::searchValidVoxels(std::vector<int> voxels, std::vector<Material> materials) {
@@ -135,7 +140,7 @@ std::vector<int> EFWorldLoader::searchValidVoxels(std::vector<int> voxels, std::
 			validVoxelsId.push_back(i);
 		}
 	}
-	
+
 	return validMaterialsId;
 }
 
@@ -184,4 +189,53 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 	}
 
 	return materials;
+}
+
+std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
+	std::vector<Emitter> emitters;
+
+	if (!mapJson.contains("scenarioItems")) return emitters;
+
+	const float voxelUnitSize = mapJson.value("/data/voxelUnitSize"_json_pointer, 1.0f);
+
+	const auto& items = mapJson["scenarioItems"];
+	int id = 0;
+
+	for (const auto& item : items) {
+		std::string filename = item.value("filename", "");
+		float volume         = item.value("volume", 1.0f);
+		bool loop            = item.value("loop", false);
+
+		Vector3F position;
+		if (item.contains("position")) {
+			std::vector<float> pos = item["position"];
+			position = Vector3F(pos[0] / voxelUnitSize, pos[1] / voxelUnitSize, pos[2] / voxelUnitSize);
+		}
+
+		EventType eventType  = EventType::COLLISION;
+		float triggerTime    = 0.0f;
+		Vector3F triggerDelta;
+
+		if (item.contains("event")) {
+			const auto& event = item["event"];
+			std::string typeStr = event.value("type", "collision");
+
+			if (typeStr == "timer") {
+				eventType   = EventType::TIME;
+				triggerTime = event.value("time", 0.0f) / 1000.0f;
+			}
+			else if (typeStr == "collision") {
+				if (event.contains("delta")) {
+					std::vector<float> d = event["delta"];
+					triggerDelta = Vector3F(d[0], d[1], d[2]);
+				}
+			}
+		}
+		// appeller Librarian pour avoir les id des sons et non pas id
+		emitters.push_back(Emitter{ id, id, filename, position, volume, loop, false, eventType, triggerTime, triggerDelta });
+		id++;
+	}
+
+	//qDebug() << "[EFWorldLoader] scenarioItems chargés :" << emitters.size();
+	return emitters;
 }
