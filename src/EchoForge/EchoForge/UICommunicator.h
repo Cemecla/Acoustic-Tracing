@@ -9,6 +9,7 @@
 #include "ChunkInstancing.h"
 #include "RayInstancing.h"
 #include "Avatar.h"
+#include "Utils.h"
 
 class EFView;
 class DTO_RecievedRay;
@@ -40,7 +41,7 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void stopSimulation();
 		Q_INVOKABLE void saveSimulation(const QString& url);
 		Q_INVOKABLE void loadSimulation(const QString& url);
-		Q_INVOKABLE void userInput(char input);
+		Q_INVOKABLE void userInput(int key, bool pressed);
 		Q_INVOKABLE void addBlock(int x, int y, int z);
 		Q_INVOKABLE void destroyBlock(int x, int y, int z);
 
@@ -50,9 +51,10 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void updateTestSlider(const float azimuth, const float elevation);
 
 		void buildMap(const ef::Map& map);
-		void updateRayInstances(const DTO_RecievedRay& receivedRays);
+		void updateRayInstances(const std::vector<DTO_RecievedRay>& rays);
 		void setupAvatar(const ef::Avatar& avatar);
 		void callSimulationLoaded();
+		const Inputs& getInputs() const;
 
 	signals:
 		void avatarPosChanged();
@@ -68,4 +70,6 @@ class UICommunicator: public QObject {
 		ChunkInstancing* m_voxelInstances;
 		RayInstancing* m_rayInstances;
 		EFView* m_parent;
+
+		Inputs m_inputs{};
 };

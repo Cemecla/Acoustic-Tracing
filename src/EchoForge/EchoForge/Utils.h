@@ -36,3 +36,13 @@ struct ColorRGBA
 	
 	}
 };
+
+
+struct Inputs {
+	bool forward = false;
+	bool backward = false;
+	bool left = false;
+	bool right = false;
+	bool rotLeft = false;
+	bool rotRight = false;
+};

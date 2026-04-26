@@ -1,6 +1,7 @@
 #include "EFController.h"
 #include "EFModel.h"
 #include "EFView.h"
+#include "Utils.h"
 #include <qdebug.h>
 
 // Constructor
@@ -13,7 +14,6 @@ EFController::EFController(): m_model(std::make_unique<EFModel>(this)), m_view(s
 void EFController::run(float delta) {
 	m_model->update(delta);
 	m_view->update(delta);
-	// qDebug() << delta;
 }
 
 void EFController::loadSimulation(std::string& url) {
@@ -22,6 +22,14 @@ void EFController::loadSimulation(std::string& url) {
 	ef::Avatar avatar = m_model->getAvatar(true);
 	m_view->buildMap(map);
 	m_view->setupAvatar(avatar);
+}
+
+const Inputs& EFController::getLastInputs() const {
+	return m_view->getLastInput();
+}
+
+void EFController::updateViewRays() {
+	m_view->updateRayInstance();
 }
 
 void EFController::startSimulation() {

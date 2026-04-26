@@ -5,6 +5,7 @@
 
 class EFModel;
 class EFView;
+struct Inputs;
 
 #ifndef EF_CONTROLLER_H
 	#define EF_CONTROLLER_H
@@ -20,6 +21,8 @@ class EFView;
 			void run(float delta);
 			void loadSimulation(std::string& url);
 			void startSimulation();
+			void updateViewRays();
+			const Inputs& getLastInputs() const;
 	
 		private:
 			SimulationLoop m_simulationLoop;

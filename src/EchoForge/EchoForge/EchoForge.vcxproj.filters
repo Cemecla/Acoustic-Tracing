@@ -251,6 +251,12 @@
     <None Include="OptionSlider.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
+    <None Include="ray.frag">
+      <Filter>Source Files\qml\Shaders</Filter>
+    </None>
+    <None Include="ray.vert">
+      <Filter>Source Files\qml\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">

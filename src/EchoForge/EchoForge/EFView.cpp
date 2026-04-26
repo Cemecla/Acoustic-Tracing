@@ -3,8 +3,10 @@
 #include <QQmlContext>
 #include <qicon.h>
 #include <QQuickStyle>
+#include <qvector.h>
 
 #include "EFView.h"
+#include "EFModel.h"
 #include "EFController.h"
 #include "UICommunicator.h"
 
@@ -61,7 +63,14 @@ void EFView::simulationLoaded() const {
 }
 
 void EFView::update(float delta) {
+	ef::Vector3F position = m_parent->m_model->getAvatar()->getPosition();
+	QVector3D qpos = { position.x, position.y, position.z };
+	m_uiCommunicator->setAvatarPos(qpos);
+}
 
+void EFView::updateRayInstance() {
+	const auto& rays = m_parent->m_model->getDTORays();
+	m_uiCommunicator->updateRayInstances(rays);
 }
 
 void EFView::updateListener(const float azimuth, const float elevation) const {
@@ -82,4 +91,8 @@ void EFView::stop(std::string& url) const {
 
 void EFView::buildMap(const ef::Map& map) {
 	m_uiCommunicator->buildMap(map);
+}
+
+const Inputs& EFView::getLastInput() const {
+	return m_uiCommunicator->getInputs();
 }

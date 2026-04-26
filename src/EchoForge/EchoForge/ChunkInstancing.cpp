@@ -44,9 +44,7 @@ void ChunkInstancing::setChunk(const ef::Map& map) {
 				const ef::Material& material = rawMaterials[voxels[i++]];
 
 				if (!material.isInstantiable)
-				{
 					continue;
-				}
 
 				QVector3D translation(w * voxelUnitSize + halfVoxelSize, hf, df);
 				QColor color(material.color.r, material.color.g, material.color.b, material.color.a);

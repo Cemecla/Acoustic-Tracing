@@ -13,6 +13,7 @@
 using json = nlohmann::json;
 
 class EFController;
+struct Inputs;
 
 #ifndef EF_MODEL_H
 	#define EF_MODEL_H
@@ -56,9 +57,13 @@ class EFController;
 
 			const ef::Map& getMap() const;
 
+			const std::vector<DTO_RecievedRay>& getDTORays() const;
+
 			[[nodiscard]] const std::vector<ef::Emitter>& getEmitters() const;
 
 			std::vector<ef::Emitter> getActiveSounds();
+
+			void moveAvatar(Inputs& inputs, float delta);
 			
 		
 		private:

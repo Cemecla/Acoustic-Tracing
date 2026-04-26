@@ -6,6 +6,7 @@
 #include <QDebug>
 
 #include "EFModel.h"
+#include "EFView.h"
 #include "EFController.h"
 #include "Map.h"
 #include "EFWorldLoader.h"
@@ -39,9 +40,28 @@ void EFModel::update(float delta) {
 
 	// Defensive
 	if (!m_world.has_value()) return;
+	Inputs inputs = m_parent->getLastInputs();
+	moveAvatar(inputs, delta);
+
 	m_rayManager.update();
+	m_parent->updateViewRays();
 	processBatch();
 
+}
+
+void EFModel::moveAvatar(Inputs& inputs, float delta) {
+	Vector3F direction(0, 0, 0);
+	float speed = m_world->avatar.getSpeed() * delta;
+	if (inputs.forward)  direction.z -= speed;
+	if (inputs.backward) direction.z += speed;
+	if (inputs.left)     direction.x -= speed;
+	if (inputs.right)    direction.x += speed;
+	if (direction.x != 0 || direction.z != 0)
+		m_world->avatar.move(direction);
+}
+
+const std::vector<DTO_RecievedRay>& EFModel::getDTORays() const {
+	return m_rayManager.getReceivedRays();
 }
 
 void EFModel::processBatch() {

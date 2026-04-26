@@ -138,6 +138,8 @@
     <None Include="LoadingPage.qml" />
     <None Include="OptionCycleButton.qml" />
     <None Include="OptionSlider.qml" />
+    <None Include="ray.frag" />
+    <None Include="ray.vert" />
     <None Include="ReconBot.qml" />
     <None Include="SimulationSelectionPage.qml" />
     <None Include="SoundTestingPage.qml" />

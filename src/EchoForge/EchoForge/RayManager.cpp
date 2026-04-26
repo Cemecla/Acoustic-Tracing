@@ -7,9 +7,8 @@
 #include "Material.h"
 #include "EFModel.h"
 #include "Vector.h"
+
 using namespace tracing;
-
-
 
 RayManager::RayManager(EFModel* parent, int rayCount, int raysPerFrame)
 	: m_rayCount(rayCount),
@@ -30,8 +29,6 @@ const void RayManager::update() {
 		return r.getEnergy().maxCoeff() <= 0.01f;
 	});
 }
-
-
 
 const void RayManager::createRays(Eigen::Vector3f position, int count) {
 	constexpr float incrementation = std::numbers::pi_v<float> * 2.0f * std::numbers::phi_v<float>;

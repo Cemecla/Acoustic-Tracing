@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QtConcurrent>
 #include <QMetaObject>
+#include <Eigen/Dense>
 
 #include "UICommunicator.h"
 #include "EFView.h"
@@ -94,22 +95,25 @@ void UICommunicator::updateTestSlider(const float azimuth, const float elevation
 	m_parent->updateListener(azimuth, elevation);
 }
 
-void UICommunicator::userInput(char input) {
-	input = std::tolower(input);
-
-	switch (input)
-	{
-		case 'a':
-			break;
-		case 'd':
-			break;
-		default:
-			break;
+void UICommunicator::userInput(int key, bool pressed) {
+	switch (key) {
+		case Qt::Key_W: m_inputs.forward = pressed; break;
+		case Qt::Key_S: m_inputs.backward = pressed; break;
+		case Qt::Key_A: m_inputs.left = pressed; break;
+		case Qt::Key_D: m_inputs.right = pressed; break;
+		case Qt::Key_Q: m_inputs.rotLeft = pressed; break;
+		case Qt::Key_E: m_inputs.rotRight = pressed; break;
+		default: break;
 	}
 }
 
-void UICommunicator::updateRayInstances(const DTO_RecievedRay& receivedRays) {
-	
+const Inputs& UICommunicator::getInputs() const {
+	return m_inputs;
+}
+
+void UICommunicator::updateRayInstances(const std::vector<DTO_RecievedRay>& rays) {
+
+	m_rayInstances->setRays(rays);
 }
 
 void UICommunicator::buildMap(const ef::Map& map) {	

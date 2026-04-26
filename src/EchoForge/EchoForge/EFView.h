@@ -4,10 +4,11 @@
 
 #include "JuceHeader.h"
 #include "AudioManager.h"
-#include "SoundRemaining.h" 
+#include "SoundRemaining.h"
 
 #include "Map.h"
 #include "Avatar.h"
+#include "Utils.h"
 
 class EFController;
 class QQmlApplicationEngine;
@@ -34,13 +35,15 @@ class UICommunicator;
 			void updateListener(const float azimuth, const float elevation) const;
 			void buildMap(const ef::Map& map);
 			void simulationLoaded() const;
+			const Inputs& getLastInput() const;
+
+			void updateRayInstance();
 		
 		private:
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;
 			yutasound::AudioManager* m_audioManager = nullptr;
 			UICommunicator* m_uiCommunicator;
-			void setupCommunicator();
 	};
 
 #endif
