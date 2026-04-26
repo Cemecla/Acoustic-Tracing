@@ -36,11 +36,6 @@ int main(int argc, char *argv[])
     audioManager.onEmitterAdded = [&engine](int id) { engine.addProcessingSlot(); };
     audioManager.onEmitterRemoved = [&engine](int id) { engine.removeProcessingSlot(id); };
 
-    // trigger lazy load of source 0
-    yutasound::SoundRemaining defaultRemaining;
-
-    audioManager.updateSoundSource(0, 0.0f, 0.0f, defaultRemaining);
-
     // Creation of the Echo Forge Controller
     EFController* efc = new EFController();
 

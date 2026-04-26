@@ -40,6 +40,7 @@ class UICommunicator;
 			void updateRayInstance();
 		
 		private:
+			int m_testEmitterId = -1;
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;
 			yutasound::AudioManager* m_audioManager = nullptr;

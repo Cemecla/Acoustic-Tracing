@@ -74,19 +74,35 @@ void EFView::updateRayInstance() {
 }
 
 void EFView::updateListener(const float azimuth, const float elevation) const {
-	if (m_audioManager)
+	if (m_audioManager && m_testEmitterId != -1)
 	{
-		yutasound::SoundRemaining fakeRemaining; 
-		m_audioManager->updateSoundSource(0, azimuth, elevation, fakeRemaining);
+		yutasound::SoundRemaining fakeRemaining;
+		m_audioManager->updateSoundSource(m_testEmitterId, azimuth, elevation, fakeRemaining);
 	}
 }
 
 void EFView::play(std::string& url) const {
-	m_audioManager->play();
+	if (m_audioManager)
+	{
+		// register the file the user selected
+		int soundId = m_audioManager->registerSound(juce::String(url));
+
+		// create emitter and store id
+		yutasound::SoundRemaining defaultRemaining;
+		const_cast<EFView*>(this)->m_testEmitterId =
+			m_audioManager->playSound(soundId, 0.0f, 0.0f, defaultRemaining);
+
+		m_audioManager->play();
+	}
 }
 
 void EFView::stop(std::string& url) const {
-	m_audioManager->stop();
+	if (m_audioManager && m_testEmitterId != -1)
+	{
+		m_audioManager->stopSound(m_testEmitterId);
+		m_audioManager->stop();
+		const_cast<EFView*>(this)->m_testEmitterId = -1;
+	}
 }
 
 void EFView::buildMap(const ef::Map& map) {
