@@ -20,46 +20,117 @@ namespace yutasound {
     void AudioManager::play() { m_isPlaying = true; }
     void AudioManager::stop() { m_isPlaying = false; }
     bool AudioManager::isPlaying() const { return m_isPlaying; }
-    const std::vector<SoundSource>& AudioManager::getSources()const {
-        return m_sources; // TODO: thread safety - main thread writes, SAE thread reads
-    }
 
-    void AudioManager::loadSource_(int id)
+    int AudioManager::registerSound(const juce::String& filePath)
     {
-        SoundSource source;
-        source.id = id;
-        source.loadFromPath("../../../../Acoustic-Tracing/assets/mooo.wav");
-        m_sources.push_back(std::move(source));
-
+        return m_librarian.addItem(filePath);
     }
 
-    void AudioManager::updateSoundSource(int id, float azimuth, float elevation, SoundRemaining soundRemaining)
+    void AudioManager::loadSoundRegistry(const juce::String& jsonPath)
+    {
+        m_librarian.loadSoundRegistry(jsonPath);
+    }
+
+    void AudioManager::saveSoundRegistry(const juce::String & jsonPath)
+    {
+        m_librarian.saveSoundRegistry(jsonPath);
+    }
+
+    void AudioManager::unloadSoundRegistry()
+    {
+        m_librarian.unloadSoundRegistry();
+    }
+
+    int AudioManager::playSound(int soundFileId, float azimuth, float elevation, SoundRemaining soundRemaining)
+    {
+        SoundSource emitter;
+        emitter.emitterId = m_nextEmitterId++;
+        emitter.soundFileId = soundFileId;
+        emitter.azimuth = azimuth;
+        emitter.elevation = elevation;
+        emitter.soundRemaining = soundRemaining;
+        emitter.itdSamples = computeITD_(azimuth, elevation);
+        emitter.ildGain = computeILD_(azimuth, elevation, soundRemaining);
+        emitter.state = EmitterState::Playing;
+           
+        m_sources.push_back(std::move(emitter));
+
+        if (onEmitterAdded) onEmitterAdded(m_nextEmitterId - 1);
+        
+        return m_nextEmitterId - 1;
+    }
+
+    void AudioManager::pauseSound(int emitterId)
+    {
+        for (auto& s : m_sources)
+            if (s.emitterId == emitterId)
+                s.state = EmitterState::Paused;
+    }
+
+    void AudioManager::resumeSound(int emitterId)
+    {
+        for (auto& s : m_sources)
+            if (s.emitterId == emitterId)
+                s.state = EmitterState::Playing;
+    }
+
+    void AudioManager::stopSound(int emitterId)
+    {
+        auto it = std::find_if(m_sources.begin(), m_sources.end(),
+            [emitterId](const SoundSource& s) { return s.emitterId == emitterId; });
+
+        if (it != m_sources.end())
+        {
+            int index = (int)std::distance(m_sources.begin(), it);
+            m_sources.erase(it);
+            if (onEmitterRemoved) onEmitterRemoved(index);
+        }
+    }
+
+    void AudioManager::pauseAll()
+    {
+        for (auto& s : m_sources)
+            s.state = EmitterState::Paused;
+    }
+
+    void AudioManager::resumeAll()
+    {
+        for (auto& s : m_sources)
+            s.state = EmitterState::Playing;
+    }
+
+    void AudioManager::reset()
+    {
+        m_sources.clear();
+        m_nextEmitterId = 0;
+        DBG("AudioManager: reset all emitters");
+    }
+
+    void AudioManager::updateSoundSource(int emiterId, float azimuth, float elevation, SoundRemaining soundRemaining)
     {
         // check if source exists
-        
-
-        auto it = std::find_if(m_sources.begin(), m_sources.end(),
-            [id](const SoundSource& s) { return s.id == id; });
-            
-        // if not → loadSource_(id)
-        
-        if (it == m_sources.end())
+        for (auto& s : m_sources)
         {
-            // NEW source → lazy load
-            loadSource_(id);
-
-            if(onSourceAdded) onSourceAdded(id);
-            
-            it = std::find_if(m_sources.begin(), m_sources.end(),
-                [id](const SoundSource& s) { return s.id == id; });
+            if (s.emitterId = emiterId)
+            {
+                s.azimuth = azimuth;
+                s.elevation = elevation;
+                s.soundRemaining = soundRemaining;
+                s.itdSamples = computeITD_(azimuth, elevation);
+                s.ildGain = computeILD_(azimuth, elevation, soundRemaining);
+                break;
+            }
         }
-
-        it->azimuth = azimuth;
-        it->elevation = elevation;
-        it->soundRemaining = soundRemaining;
-        it->itdSamples = computeITD_(azimuth, elevation);
-        it->ildGain = computeILD_(azimuth,elevation, soundRemaining);
         // update shadowChain[id]
+    }
+
+    const std::vector<SoundSource>& AudioManager::getSources()const {
+        return m_sources;
+    }
+
+    const juce::AudioBuffer<float>& AudioManager::getBuffer(int soundFileId) const
+    {
+        return m_librarian.getBuffer(soundFileId);
     }
 
     float AudioManager::computeITD_(float azimuth, float elevation)
