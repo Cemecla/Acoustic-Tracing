@@ -11,27 +11,26 @@
 #pragma once
 #include "JuceHeader.h"
 #include "SoundRemaining.h"
+#include "EmitterState.h"
+#include "ILDGain.h"
 
 #ifndef SOUNDSOURCE_H
 #define SOUNDSOURCE_H
 
 namespace yutasound {
-    
-    // struct that will hold ild gain after calcule to be used an apply in the filters
-    struct ILDGain
-    {
-        float low  = 1.0f;
-        float mid  = 1.0f;
-        float high = 1.0f;
-    };
-
+       
     class SoundSource {
     public:
-        //function to load a audio file from a path 
+        //TODO: move to librarian 
         void loadFromPath(const juce::String& filePath);
         // getter that send a refference to audiobuffer
         const juce::AudioBuffer<float>& getAudioBuffer() const;
 
+        
+        
+        int emitterId = -1; 
+        int soundFileId = -1; // which file in Librarian (TODO: used when Librarian built)
+        
         float azimuth = 0.0f; // degrees, -180 to +180
         float elevation = 0.0f; // degrees,  -90 to +90
         float itdSamples = 0.0f;
@@ -40,13 +39,12 @@ namespace yutasound {
 
         //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
         int readPosition = 0;
-
-        int id = -1;
+        EmitterState state = EmitterState::Playing;
         
 
     private:
         
-        //specific buffer to save audio data in ram 
+        //TODO: move to librarian 
 
         juce::AudioBuffer<float> m_audioBuffer;
     };
