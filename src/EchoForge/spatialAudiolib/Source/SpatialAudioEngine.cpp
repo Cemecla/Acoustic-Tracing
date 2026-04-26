@@ -47,6 +47,14 @@ namespace yutasound {
         // TODO: push matching activeChain, shadowChain
     }
 
+    void SpatialAudioEngine::removeProcessingSlot(int index)
+    {
+        m_delayLines.erase(m_delayLines.begin() + index);
+        m_readPositions.erase(m_readPositions.begin() + index);
+        m_smoothedITD.erase(m_smoothedITD.begin() + index);
+        // TODO: erase activeChain, shadowChain at index
+    }
+
     void SpatialAudioEngine::run()
     {
         while (!threadShouldExit())
@@ -59,39 +67,44 @@ namespace yutasound {
 
             if (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
-                DBG("SAE writing block...");
                 m_mixBuffer.clear();
 
-                for (int i = 0; i < m_audioManager.getSources().size(); i++)
+                for (int i = 0; i < (int)m_audioManager.getSources().size(); i++)
                 {
                     auto& source = m_audioManager.getSources()[i];
+
+                    // skip paused or stopped emitters
+                    if (source.state != EmitterState::Playing)
+                        continue;
+
+                    // get buffer from Librarian via AudioManager
+                    const auto& buffer = m_audioManager.getBuffer(source.soundFileId);
+
                     auto& delayLine = m_delayLines[i];
                     int& readPos = m_readPositions[i];
-                    auto samplesAvailable = source.getAudioBuffer().getNumSamples() - readPos;
+
+                    auto samplesAvailable = buffer.getNumSamples() - readPos;
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
-                   
-                    float itd = m_audioManager.getSources()[i].itdSamples;
-                    ILDGain ild = m_audioManager.getSources()[i].ildGain;
+
+                    float itd = source.itdSamples;
+                    ILDGain ild = source.ildGain;
+
                     for (int n = 0; n < samplesThisBlock; n++)
                     {
-                        float monoSample = source.getAudioBuffer().getSample(0, readPos + n);
-                        //float itd = m_audioManager.computeITD_(45.0f, 0.0f);
-                        
+                        float monoSample = buffer.getSample(0, readPos + n);
                         auto stereo = delayLine.process(monoSample, itd);
-                        
-                        //temporal application of ild effect to the far ear since filter are not ready as planned 
+
                         if (itd > 0.0f)
                             stereo.left *= ild.mid;
                         else if (itd < 0.0f)
                             stereo.right *= ild.mid;
-                        
-                        //dereference operator
+
                         *m_mixBuffer.getWritePointer(0, n) += stereo.left;
                         *m_mixBuffer.getWritePointer(1, n) += stereo.right;
                     }
 
                     readPos += samplesThisBlock;
-                    if (readPos >= source.getAudioBuffer().getNumSamples())
+                    if (readPos >= buffer.getNumSamples())
                         readPos = 0;
                 }
 
@@ -103,7 +116,7 @@ namespace yutasound {
             }
             else
             {
-                wait(1); // only sleep when buffer is actually full
+                wait(1);
             }
         }
     }

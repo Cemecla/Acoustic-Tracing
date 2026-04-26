@@ -22,10 +22,10 @@ namespace yutasound {
         FileProcessor(const juce::File& file);
         SoundFileEntry process();
 
-        juce::File m_sourceFile;
+        
     
     private:
-
+        juce::File m_sourceFile;
         juce::String createMd5_();
         bool existsAsFile_();
         void unifyToMono_(juce::AudioBuffer<float>& buffer);

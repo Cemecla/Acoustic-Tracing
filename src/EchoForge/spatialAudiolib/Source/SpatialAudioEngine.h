@@ -30,6 +30,7 @@ namespace yutasound {
         void run() override;
         void prepare(double sampleRate, int bufferSize);
         void addProcessingSlot();
+        void removeProcessingSlot(int index);
         void start();
         void stop();
 

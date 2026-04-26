@@ -32,10 +32,9 @@ int main(int argc, char *argv[])
     audioManager.prepare(48000.0, 512);
     engine.prepare(48000.0, 512);
 
-    audioManager.onSourceAdded = [&engine](int id)
-    {
-        engine.addProcessingSlot();
-    };
+    // wire callback
+    audioManager.onEmitterAdded = [&engine](int id) { engine.addProcessingSlot(); };
+    audioManager.onEmitterRemoved = [&engine](int id) { engine.removeProcessingSlot(id); };
 
     // trigger lazy load of source 0
     yutasound::SoundRemaining defaultRemaining;
