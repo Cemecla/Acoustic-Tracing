@@ -33,5 +33,6 @@ void EFController::updateViewRays() {
 }
 
 void EFController::startSimulation() {
+	m_model->startScenario();
 	m_simulationLoop.start();
 }
