@@ -21,10 +21,10 @@ namespace yutasound {
     class FilterChain {
     public:
         void prepare(double sampleRate, int bufferSize);
-        void setParameters(float azimuth, float elevation, PinnaPreset presest);
+        void setParameters(float azimuth, float elevation, PinnaPreset preset);
         StereoSample processSample(float left, float right);
         // in audio world Dirty mean "this data has been updated and needs to be applied"
-        bool isDirty();
+        bool isDirty() const;
         void clearDirty();
 
     private:
@@ -33,6 +33,7 @@ namespace yutasound {
         std::atomic<bool> m_isDirty;
         float m_azimuth;
         float m_elevation;
+        double m_sampleRate = 0.0;
 
     };
 }
