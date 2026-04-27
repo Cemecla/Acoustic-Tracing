@@ -67,7 +67,7 @@ RayInstancing::InstanceTableEntry RayInstancing::makeEntry(const QVector3D& star
 		position,
 		scale,
 		rotation,
-		QColor(255, 0, 0, 255),
+		QColor(255, 0, 0, 100),
 		QVector4D()
 	);
 }

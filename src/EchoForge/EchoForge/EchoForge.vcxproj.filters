@@ -187,6 +187,9 @@
     <ClInclude Include="Vector.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="TreeMap.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="assets.qrc">

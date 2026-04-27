@@ -179,6 +179,7 @@
     <QtMoc Include="UICommunicator.h" />
     <ClInclude Include="RayStrategy.h" />
     <QtMoc Include="SimulationLoop.h" />
+    <ClInclude Include="TreeMap.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

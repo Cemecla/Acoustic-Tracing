@@ -14,8 +14,13 @@ View3D {
 
     environment: ExtendedSceneEnvironment {
         backgroundMode: SceneEnvironment.SkyBox
-        lensFlareEnabled: true
-        lensFlareApplyDirtTexture: true
+        lensFlareEnabled: false
+        lensFlareApplyDirtTexture: false
+
+        glowEnabled: true
+        glowBloom: 0.5
+        glowIntensity: 1.5
+
         lightProbe: Texture {
             textureData: ProceduralSkyTextureData {
                 sunEnergy: 60.0
@@ -97,28 +102,32 @@ View3D {
         }
     }
 
+    // Rays
     Model {
-        source: "#Cylinder"
+        source: "#Cube"
         instancing: communicator.rayInstances
 
         castsShadows: false
         receivesShadows: false
-
         materials: CustomMaterial {
             shadingMode: CustomMaterial.Shaded
-            
+            property real intensity: 1.0
             vertexShader: "qrc:/shaders/ray.vert"
             fragmentShader: "qrc:/shaders/ray.frag"
+
+            NumberAnimation on intensity {
+                from: 1.0; to: 5.0; duration: 2000; loops: Animation.Infinite
+            }
         }
     }
 
+    // Voxels
     Model {
         source: "#Cube"
         // pickable: true
         instancing: communicator.voxelInstances
         materials: CustomMaterial {
             shadingMode: CustomMaterial.Shaded
-            
             vertexShader: "qrc:/shaders/voxel.vert"
             fragmentShader: "qrc:/shaders/voxel.frag"
         }
