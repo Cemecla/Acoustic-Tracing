@@ -32,6 +32,7 @@ const void RayManager::update() {
 
 const void RayManager::createRays(Eigen::Vector3f position, int count) {
 	constexpr float incrementation = std::numbers::pi_v<float> * 2.0f * std::numbers::phi_v<float>;
+	int unitSize = m_parent->getMap().getUnitSize();
 	// From https://devforum.roblox.com/t/generating-equidistant-points-on-a-sphere/874144
 	for (int i = 0; i < count; ++i) {
 		int n = m_nextRayIndex % m_rayCount;
@@ -47,7 +48,7 @@ const void RayManager::createRays(Eigen::Vector3f position, int count) {
 
 		Eigen::Vector3f offset(x, y, z);
 		Eigen::Vector3f direction = offset.normalized();
-		m_activeRays->emplace_back(position + offset, direction);
+		m_activeRays->emplace_back(position + offset, direction,unitSize);
 		++m_nextRayIndex;
 	}
 }
@@ -76,7 +77,7 @@ const void tracing::RayManager::next_colision() {
 		r.loseEnergy(mat.energyLoss.toEigen());
 
 		if (!mat.isPassable) {
-			if (!r.wasInSolid()) {  // surface entry → décision unique
+			if (!r.wasInSolid()) {  // surface entry -> décision unique
 				auto visibleEmitters = allEmitters
 					| std::views::filter([](const ef::Emitter& e) { return e.isActive; })
 					| std::views::filter([&](const ef::Emitter& e) {
@@ -121,7 +122,7 @@ const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::
 	Eigen::Vector3f delta = to - from;
 	float maxDist = delta.norm();
 	if (maxDist < 1e-4f) return true;
-	Ray shadowRay(from, delta.normalized());
+	Ray shadowRay(from, delta.normalized(),map.getUnitSize());
 	Eigen::Vector3i targetVoxel = to.array().floor().cast<int>();
 
 	int maxSteps = static_cast<int>(maxDist * 2.0f) + 5;

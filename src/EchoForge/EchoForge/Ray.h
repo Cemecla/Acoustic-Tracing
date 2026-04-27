@@ -60,7 +60,7 @@
 		int getStepCount() const { return m_stepCount; }
 
 		// Constructor
-		Ray(Eigen::Vector3f position, Eigen::Vector3f velocity);
+		Ray(Eigen::Vector3f position, Eigen::Vector3f velocity, int unitSize);
 
 
 	};

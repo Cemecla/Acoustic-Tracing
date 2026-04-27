@@ -2,7 +2,7 @@
 #include "Utils.h"
 #include <limits>
 
-tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
+tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity, int unitSize)
 	: m_spawnPosition{position}
 	, m_currentPosition{ position }
 	, m_startPosition{ position }
@@ -11,7 +11,7 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity)
 	, m_lastSeen{ position }
 	, m_lastAxis()
 {
-	m_voxelPos = m_currentPosition.array().floor().cast<int>();
+	m_voxelPos = m_currentPosition.array().floor().cast<int>() / unitSize;
 	redirect(velocity);
 };
 
