@@ -5,6 +5,7 @@
   <MAINGROUP id="KWbzeU" name="spatialAudiolib">
     <GROUP id="{394D1179-25A1-8B46-DFCC-DC9374885457}" name="Source">
       <GROUP id="{8AC25015-B90E-8319-8F74-C804FF46E5DE}" name="Utils">
+        <FILE id="XfqD0r" name="PinnaPreset.h" compile="0" resource="0" file="Source/PinnaPreset.h"/>
         <FILE id="kKT861" name="SoundFileEntry.h" compile="0" resource="0"
               file="Source/SoundFileEntry.h"/>
         <FILE id="pcb2pA" name="SoundRemaining.h" compile="0" resource="0"
@@ -12,6 +13,10 @@
         <FILE id="zzel8T" name="ILDGain.h" compile="0" resource="0" file="Source/ILDGain.h"/>
         <FILE id="wpXJXr" name="EmitterState.h" compile="0" resource="0" file="Source/EmitterState.h"/>
       </GROUP>
+      <FILE id="x6k8ML" name="PinnaCalibration.cpp" compile="1" resource="0"
+            file="Source/PinnaCalibration.cpp"/>
+      <FILE id="lo2Tip" name="PinnaCalibration.h" compile="0" resource="0"
+            file="Source/PinnaCalibration.h"/>
       <FILE id="Sk1S6T" name="Librarian.cpp" compile="1" resource="0" file="Source/Librarian.cpp"/>
       <FILE id="It6LF2" name="Librarian.h" compile="0" resource="0" file="Source/Librarian.h"/>
       <FILE id="vLJubF" name="FileProcessor.cpp" compile="1" resource="0"
@@ -39,6 +44,11 @@
             file="Source/StereoDelayLine.cpp"/>
       <FILE id="OgYIcY" name="StereoDelayLine.h" compile="0" resource="0"
             file="Source/StereoDelayLine.h"/>
+      <FILE id="uD7ZnJ" name="FilterChain.cpp" compile="1" resource="0" file="Source/FilterChain.cpp"/>
+      <FILE id="vwzp6W" name="FilterChain.h" compile="0" resource="0" file="Source/FilterChain.h"/>
+      <FILE id="v79rm7" name="SVFILDFilter.cpp" compile="1" resource="0"
+            file="Source/SVFILDFilter.cpp"/>
+      <FILE id="uiql7l" name="SVFILDFilter.h" compile="0" resource="0" file="Source/SVFILDFilter.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
