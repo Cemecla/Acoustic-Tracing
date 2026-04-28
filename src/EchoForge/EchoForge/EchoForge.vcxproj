@@ -142,6 +142,7 @@
     <None Include="ray.vert" />
     <None Include="ReconBot.qml" />
     <None Include="SimulationSelectionPage.qml" />
+    <None Include="SoundDialBox.qml" />
     <None Include="SoundTestingPage.qml" />
     <None Include="SimulationScreen.qml" />
     <None Include="CreditPage.qml" />

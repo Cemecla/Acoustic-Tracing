@@ -119,7 +119,7 @@ bool EFWorldLoader::isMaterialsValid(const json& jsonData) {
 Avatar EFWorldLoader::buildAvatar(const json& mapData) {
 	std::vector<float> userSpawnPos = mapData["userSpawnPos"];
 	const float voxelUnitSize = mapData.value("voxelUnitSize", 1.0f);
-	return Avatar(Vector3F(userSpawnPos[0] / voxelUnitSize, userSpawnPos[1] / voxelUnitSize, userSpawnPos[2] / voxelUnitSize), Vector3F());
+	return Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2]), Vector3F());
 }
 
 std::vector<int> EFWorldLoader::searchValidVoxels(std::vector<int> voxels, std::vector<Material> materials) {

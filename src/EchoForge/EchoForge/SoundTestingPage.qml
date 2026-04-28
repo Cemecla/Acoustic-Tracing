@@ -12,15 +12,10 @@ MainLayout {
     property bool isElevationRotating: false
 
     ColumnLayout {
-        width: 500
+        Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.leftMargin: 20
         Layout.bottomMargin: 20
-
-        Rectangle {
-            Layout.fillHeight: true
-            color: "transparent"
-        }
 
         FileDialog {
             id: fileDialog
@@ -36,17 +31,38 @@ MainLayout {
             }
         }
 
-        Text {
-            text: {mainLayout.filepath == "" ? "No file selected" : mainLayout.filepath}
+        Rectangle {
+            Layout.fillWidth: true
+            color: "transparent"
         }
 
-        MenuButton {
-            buttonText: "Select"
-            onClicked: {
-                fileDialog.open()
+        RowLayout {
+            Layout.preferredHeight: 50
+            Layout.preferredWidth: 500
+
+            Text {
+                text: {mainLayout.filepath == "" ? "No file selected" : mainLayout.filepath}
+            }
+
+            MenuButton {
+                buttonText: "Select"
+                onClicked: {
+                    fileDialog.open()
+                }
+            }
+
+            MenuButton {
+                buttonText: "Play"
+                onClicked: communicator.playtest(mainLayout.filepath)
+            }
+
+            MenuButton {
+                buttonText: "Stop"
+                onClicked: communicator.stoptest(mainLayout.filepath);
             }
         }
 
+        ///
         Text {
             text: `Elevation: ${elevationSlider.value}`;
         }
@@ -57,6 +73,7 @@ MainLayout {
             initialValue: 0
             to: 90
             stepSize: 0.5
+            snapMode: Slider.SnapAlways
 
             onValueChanged: {
                 communicator.updateTestSlider(azimuthSlider.value, value);
@@ -77,11 +94,6 @@ MainLayout {
             onValueChanged: {
                 communicator.updateTestSlider(value, elevationSlider.value);
             }
-        }
-
-        MenuButton {
-            buttonText: "Play"
-            onClicked: communicator.playtest(mainLayout.filepath);
         }
 
         MenuButton {
@@ -128,11 +140,6 @@ MainLayout {
             duration: 4000
             loops: Animation.Infinite
             running: false
-        }
-
-        MenuButton {
-            buttonText: "Stop"
-            onClicked: communicator.stoptest(mainLayout.filepath);
         }
 
         MenuButton {

@@ -260,6 +260,9 @@
     <None Include="ray.vert">
       <Filter>Source Files\qml\Shaders</Filter>
     </None>
+    <None Include="SoundDialBox.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">
