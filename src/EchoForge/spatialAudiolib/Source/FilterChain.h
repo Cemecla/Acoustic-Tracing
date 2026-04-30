@@ -30,9 +30,9 @@ namespace yutasound {
     private:
         SVFILDFilter m_svfILD;
         std::array<juce::dsp::IIR::Filter<float>, 7> m_pinnaFilters;
-        std::atomic<bool> m_isDirty;
-        float m_azimuth;
-        float m_elevation;
+        std::atomic<bool> m_isDirty { false };
+        float m_azimuth = 0.0f;
+        float m_elevation = 0.0f;
         double m_sampleRate = 0.0;
 
     };

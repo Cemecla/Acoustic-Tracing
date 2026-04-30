@@ -1590,6 +1590,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\EmitterCommand.h">
+      <Filter>spatialAudiolib\Source\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\PinnaPreset.h">
       <Filter>spatialAudiolib\Source\Utils</Filter>
     </ClInclude>

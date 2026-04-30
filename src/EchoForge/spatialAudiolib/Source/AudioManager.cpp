@@ -106,6 +106,16 @@ namespace yutasound {
         DBG("AudioManager: reset all emitters");
     }
 
+    bool AudioManager::hasCommands() const
+    {
+        return false;
+    }
+
+    EmitterCommand AudioManager::popCommand()
+    {
+        return EmitterCommand();
+    }
+
     void AudioManager::updateSoundSource(int emiterId, float azimuth, float elevation, SoundRemaining soundRemaining)
     {
         // check if source exists

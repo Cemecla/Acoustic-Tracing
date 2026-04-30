@@ -13,6 +13,7 @@
 #include "SoundSource.h"
 #include "Librarian.h"
 #include "EmitterState.h"
+#include "EmitterCommand.h"
 #include <functional>
 
 
@@ -44,6 +45,9 @@ namespace yutasound {
         void resumeAll();
         void reset();
 
+        // emitter race condition to protect 
+        bool           hasCommands() const;
+        EmitterCommand popCommand();
 
         void updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining);
         
@@ -70,6 +74,9 @@ namespace yutasound {
 
         float computeITD_(float azimuth, float elevation);
         ILDGain computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining);
+
+        juce::AbstractFifo                     m_commandFifo{ 64 };
+        std::array<EmitterCommand, 64>         m_commandBuffer;
 
 
     };
