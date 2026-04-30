@@ -18,7 +18,6 @@ class EFModel;
 
 namespace tracing {
 
-
 	class RayManager
 	{
 	public:
@@ -44,7 +43,6 @@ namespace tracing {
 		const bool hasLineOfSight(const Eigen::Vector3f& from ,const Eigen::Vector3f& to);
 
 		std::mt19937 m_rng{ std::random_device{}() };
-
 		CollisionManager m_collisionManager;
 
 	};

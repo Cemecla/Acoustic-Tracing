@@ -79,7 +79,6 @@ struct Inputs;
 			// joint le thread avant que m_world soit libéré.
 			ef::Scenario m_scenario;
 
-			// TODO: remplacer par le vrai processing audio
 			void processBatch();
 			void buildScenario();
 			int m_debugFrameCount = 0;

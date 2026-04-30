@@ -19,7 +19,7 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_rayManager{this,100,50}
+	m_rayManager{this, 20, 2}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
@@ -74,7 +74,7 @@ void EFModel::update(float delta) {
 
 	m_rayManager.update();
 	m_parent->updateViewRays();
-	processBatch();
+	m_rayManager.clearReceivedRays();
 
 }
 

@@ -23,6 +23,7 @@
 			Eigen::Vector3f m_tMax;
 
 			int  m_lastAxis;
+		int  m_unitSize;
 		bool m_wasInSolid = false;
 		std::vector<Eigen::Vector3f> m_bouncePositions;
 

@@ -10,6 +10,7 @@ tracing::Ray::Ray(Eigen::Vector3f position, Eigen::Vector3f velocity, int unitSi
 	, m_energy{1.0f,1.0f,1.0f}
 	, m_lastSeen{ position }
 	, m_lastAxis()
+	, m_unitSize{ unitSize }
 {
 	m_voxelPos = m_currentPosition.array().floor().cast<int>() / unitSize;
 	redirect(velocity);
@@ -67,22 +68,29 @@ void tracing::Ray::redirect(const Eigen::Vector3f& newVelocity) {
 	m_startPosition = m_currentPosition;
 	m_velocity = newVelocity;
 
+	const float us = static_cast<float>(m_unitSize);
 	m_step = m_velocity.array().sign().cast<int>();
-	m_tDelta = m_velocity.array().abs().inverse();
-	
 
 	for (int i = 0; i < 3; ++i) {
+		if (m_velocity(i) == 0.0f) {
+			m_tDelta(i) = std::numeric_limits<float>::infinity();
+			m_tMax(i)   = std::numeric_limits<float>::infinity();
+			continue;
+		}
+		// Time to cross one full voxel (unitSize world units)
+		m_tDelta(i) = us / std::abs(m_velocity(i));
+
+		// Use m_voxelPos directly to get exact voxel boundaries in world space
 		if (m_velocity(i) > 0) {
-			m_tMax(i) = (std::floor(m_currentPosition(i) + 1.0f) - m_currentPosition(i)) * m_tDelta(i);
-		}
-		else if (m_velocity(i) < 0) {
-			m_tMax(i) = (m_currentPosition(i) - std::floor(m_currentPosition(i))) * m_tDelta(i);
-		}
-		else {
-			m_tMax(i) = std::numeric_limits<float>::infinity();
+			float nextBoundary = (m_voxelPos(i) + 1) * us;
+			m_tMax(i) = (nextBoundary - m_currentPosition(i)) / m_velocity(i);
+		} else {
+			float currBoundary = m_voxelPos(i) * us;
+			float distToPrev   = m_currentPosition(i) - currBoundary;
+			// If on the boundary, tMax=0 so the ray exits this voxel on the very next advance
+			m_tMax(i) = (distToPrev < 1e-6f ? 0.0f : distToPrev / std::abs(m_velocity(i)));
 		}
 	}
-
 }
 
 Eigen::Vector3f tracing::Ray::getHitNormal() const {

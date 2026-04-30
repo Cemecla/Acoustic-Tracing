@@ -48,7 +48,7 @@ const void RayManager::createRays(Eigen::Vector3f position, int count) {
 
 		Eigen::Vector3f offset(x, y, z);
 		Eigen::Vector3f direction = offset.normalized();
-		m_activeRays->emplace_back(position + offset, direction,unitSize);
+		m_activeRays->emplace_back(position, direction, unitSize);
 		++m_nextRayIndex;
 	}
 }
@@ -57,6 +57,7 @@ const void tracing::RayManager::next_colision() {
 	const ef::Map& map             = m_parent->getMap();
 	const auto&    allEmitters     = m_parent->getEmitters();
 
+	int rayIndex = 0;
 	for (Ray& r : *m_activeRays) {
 		r.advance();
 		Eigen::Vector3i pos = r.getVoxelPos();
@@ -67,9 +68,11 @@ const void tracing::RayManager::next_colision() {
 				r.getEnergy(),
 				r.getStepCount(),
 				AMBIENT_EMITTER_ID,
-				r.getBouncePositions()
+				r.getBouncePositions(),
+				r.getVelocity()
 			);
 			r.loseEnergy(Eigen::Vector3f(1.0f, 1.0f, 1.0f));
+			++rayIndex;
 			continue;
 		}
 
@@ -77,7 +80,7 @@ const void tracing::RayManager::next_colision() {
 		r.loseEnergy(mat.energyLoss.toEigen());
 
 		if (!mat.isPassable) {
-			if (!r.wasInSolid()) {  // surface entry -> décision unique
+			if (!r.wasInSolid()) {
 				auto visibleEmitters = allEmitters
 					| std::views::filter([](const ef::Emitter& e) { return e.isActive; })
 					| std::views::filter([&](const ef::Emitter& e) {
@@ -90,19 +93,23 @@ const void tracing::RayManager::next_colision() {
 						r.getEnergy(),
 						r.getStepCount(),
 						static_cast<std::uint8_t>(emitter.m_id),
-						r.getBouncePositions()
+						r.getBouncePositions(),
+						r.getVelocity()
 					);
 				}
 
 				auto strategy = m_collisionManager.decision(r, mat.scatteringCoefficient, m_rng);
 				Eigen::Vector3f newDir = strategy->getNextDirection(r.getVelocity(), r.getHitNormal(), m_rng);
 				r.redirect(newDir);
+				bool isTransmission = dynamic_cast<TransmissionRayStrategy*>(strategy.get()) != nullptr;
+				r.setInSolid(isTransmission);
+			} else {
+				r.setInSolid(true);
 			}
-			// else : intérieur du mur → transmission forcée, le rayon continue sans redirection
-			r.setInSolid(true);
 		} else {
 			r.setInSolid(false);
 		}
+		++rayIndex;
 	}
 }
 
@@ -114,6 +121,7 @@ const std::vector<DTO_RecievedRay>& RayManager::getReceivedRays() const {
 void RayManager::clearReceivedRays() {
 	m_receivedRays.clear();
 }
+
 
 const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::Vector3f& to) {
 // Détecter si un rayon traverse un bloc quand il arrive à une source
