@@ -46,6 +46,7 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void destroyBlock(int x, int y, int z);
 
 		Q_INVOKABLE void testing(const QString& value);
+		Q_INVOKABLE void resetEmitters();
 		Q_INVOKABLE void resumeAll();
 		Q_INVOKABLE void pauseAll();
 		Q_INVOKABLE void updateTestSlider(int emitterId, float azimuth, float elevation);

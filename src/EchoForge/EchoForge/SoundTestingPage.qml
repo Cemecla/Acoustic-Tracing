@@ -27,6 +27,16 @@ MainLayout {
         }
         mainLayout.activeEmitters = updated
     }
+    function removeEmitter(emitterId) {
+        let updated = []
+        for (let i = 0; i < mainLayout.activeEmitters.length; i++) {
+            if (mainLayout.activeEmitters[i].emitterId !== emitterId)
+                updated.push(mainLayout.activeEmitters[i])
+        }
+        mainLayout.activeEmitters = updated
+        if (mainLayout.selectedEmitterId === emitterId)
+            mainLayout.selectedEmitterId = -1
+    }
 
     // file dialogs
     FileDialog {
@@ -179,6 +189,8 @@ MainLayout {
                 buttonText: "Unload Registry"
                 Layout.fillWidth: true
                 onClicked: {
+                    communicator.pauseAll()
+                    communicator.resetEmitters()
                     communicator.unloadRegistry()
                     mainLayout.registrySounds = []
                     mainLayout.activeEmitters = []
@@ -317,8 +329,8 @@ MainLayout {
                     Layout.fillWidth: true
                     enabled: mainLayout.selectedEmitterId !== -1
                     onClicked: { 
-                        communicator.pauseEmitter(mainLayout.selectedEmitterId)
-                        updateEmitterState(mainLayout.selectedEmitterId, "Stopped")
+                        communicator.stopEmitter(mainLayout.selectedEmitterId)
+                        removeEmitter(mainLayout.selectedEmitterId)
                     }    
                 }
             }
@@ -327,7 +339,16 @@ MainLayout {
             ColumnLayout {
                 Layout.fillWidth: true
                 spacing: 4
-
+                MenuButton {
+                    buttonText: "Reset Emitters"
+                    Layout.fillWidth: true
+                    onClicked: {
+                        communicator.pauseAll()
+                        communicator.resetEmitters()
+                        mainLayout.activeEmitters = []
+                        mainLayout.selectedEmitterId = -1
+                    }
+                }
                 MenuButton {
                     buttonText: "Resume All"
                     Layout.fillWidth: true
@@ -419,6 +440,9 @@ MainLayout {
                 buttonText: "← Home"
                 Layout.fillWidth: true
                 onClicked: {
+                    communicator.pauseAll()
+                    communicator.resetEmitters()
+                    communicator.unloadRegistry()
                     communicator.stoptest("")
                     stackView.pop()
                 }

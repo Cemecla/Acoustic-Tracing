@@ -80,6 +80,11 @@ void UICommunicator::testing(const QString& value) {
 	qDebug() << value;
 }
 
+void UICommunicator::resetEmitters()
+{
+	m_parent->resetEmitters();
+}
+
 void UICommunicator::resumeAll()
 {
     m_parent->resumeAll();

@@ -82,8 +82,15 @@ namespace yutasound {
                     }
                     else if (cmd.type == EmitterCommand::Type::Remove)
                     {
-                        removeProcessingSlot(cmd.index);
-                        m_sources.erase(m_sources.begin() + cmd.index);
+                        for (int i = 0; i < (int)m_sources.size(); i++)
+                        {
+                            if (m_sources[i].emitterId == cmd.emitterId)
+                            {
+                                removeProcessingSlot(i);
+                                m_sources.erase(m_sources.begin() + i);
+                                break;
+                            }
+                        }
                     }
                     else if (cmd.type == EmitterCommand::Type::SetState)
                     {
@@ -99,6 +106,14 @@ namespace yutasound {
                                 s.itdSamples = cmd.itdSamples;
                                 s.ildGain = cmd.ildGain;
                             }
+                    }
+                    else if (cmd.type == EmitterCommand::Type::Reset)
+                    {
+                        m_sources.clear();
+                        m_delayLines.clear();
+                        m_readPositions.clear();
+                        m_smoothedITD.clear();
+                        DBG("SAE: reset all emitters");
                     }
                 }
                 m_mixBuffer.clear();

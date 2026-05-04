@@ -17,7 +17,7 @@
 namespace yutasound {
     struct EmitterCommand
     {
-        enum class Type {Add, Remove, SetState, UpdateSpatial};
+        enum class Type {Add, Remove, SetState, UpdateSpatial, Reset};
         Type type;
         SoundSource emitter; // used for Add
         int emitterId; // used for Remove
