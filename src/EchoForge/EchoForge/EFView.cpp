@@ -4,6 +4,8 @@
 #include <qicon.h>
 #include <QQuickStyle>
 #include <qvector.h>
+#include <QVariantList> 
+#include <QVariantMap>
 
 #include "EFView.h"
 #include "EFModel.h"
@@ -73,12 +75,31 @@ void EFView::updateRayInstance() {
 	m_uiCommunicator->updateRayInstances(rays);
 }
 
-void EFView::updateListener(const float azimuth, const float elevation) const {
-	if (m_audioManager && m_testEmitterId != -1)
+void EFView::updateListener(int emitterId, float azimuth, float elevation) const {
+	if (m_audioManager && emitterId != -1)
 	{
 		yutasound::SoundRemaining fakeRemaining;
-		m_audioManager->updateSoundSource(m_testEmitterId, azimuth, elevation, fakeRemaining);
+		m_audioManager->updateSoundSource(emitterId, azimuth, elevation, fakeRemaining);
 	}
+}
+
+void EFView::addSound(const std::string& path) const
+{
+	if (m_audioManager)
+		m_audioManager->registerSound(juce::String(path));
+}
+
+int EFView::playFromFileId(int soundFileId) const
+{
+	if (m_audioManager)
+	{
+		yutasound::SoundRemaining defaultRemaining;
+		int emitterId = m_audioManager->playSound(soundFileId, 0.0f, 0.0f, defaultRemaining);
+		const_cast<EFView*>(this)->m_testEmitterId = emitterId;
+		m_audioManager->play();
+		return emitterId;
+	}
+	return -1;
 }
 
 void EFView::play(std::string& url) const {
@@ -103,6 +124,73 @@ void EFView::stop(std::string& url) const {
 		m_audioManager->stop();
 		const_cast<EFView*>(this)->m_testEmitterId = -1;
 	}
+}
+
+void EFView::pausetest() const {
+	if (m_audioManager && m_testEmitterId != -1)
+		m_audioManager->pauseSound(m_testEmitterId);
+}
+
+QVariantList EFView::getSounds() const
+{
+	QVariantList list;
+	if (m_audioManager)
+	{
+		// need to include <QVariantList> and <QVariantMap>
+		for (const auto& entry : m_audioManager->getEntries())
+		{
+			QVariantMap map;
+			map["id"] = entry.id;
+			map["path"] = QString::fromStdString(entry.filePath.toStdString());
+			list.append(map);
+		}
+	}
+	return list;
+}
+
+void EFView::resumetest() const {
+    if (m_audioManager && m_testEmitterId != -1)
+        m_audioManager->resumeSound(m_testEmitterId);
+}
+
+void EFView::resumeAll() const {
+	if (m_audioManager)
+		m_audioManager->resumeAll();
+}
+
+void EFView::pauseAll() const {
+	if (m_audioManager)
+		m_audioManager->pauseAll();
+}
+
+void EFView::resumeEmitter(int emitterId) const {
+	if (m_audioManager) m_audioManager->resumeSound(emitterId);
+}
+void EFView::pauseEmitter(int emitterId) const {
+	if (m_audioManager) m_audioManager->pauseSound(emitterId);
+}
+void EFView::stopEmitter(int emitterId) const {
+	if (m_audioManager) m_audioManager->stopSound(emitterId);
+}
+
+void EFView::loadRegistry(const std::string& path) const {
+	if (m_audioManager)
+		m_audioManager->loadSoundRegistry(juce::String(path));
+}
+
+void EFView::saveRegistry(const std::string& path) const {
+	if (m_audioManager)
+		m_audioManager->saveSoundRegistry(juce::String(path));
+}
+
+void EFView::removeSound(int id) const {
+	if (m_audioManager)
+		m_audioManager->unloadSoundRegistry();
+}
+
+void EFView::unloadRegistry() const {
+	if (m_audioManager)
+		m_audioManager->unloadSoundRegistry();
 }
 
 void EFView::buildMap(const ef::Map& map) {

@@ -80,6 +80,21 @@ void UICommunicator::testing(const QString& value) {
 	qDebug() << value;
 }
 
+void UICommunicator::resumeAll()
+{
+    m_parent->resumeAll();
+}
+
+void UICommunicator::pauseAll()
+{
+    m_parent->pauseAll();
+}
+
+int UICommunicator::playFromFileId(int soundFileId)
+{
+	return m_parent->playFromFileId(soundFileId);
+}
+
 void UICommunicator::playtest(const QString& url) {
 	std::string urlconverted = url.toStdString();
 	m_parent->play(urlconverted);
@@ -90,9 +105,52 @@ void UICommunicator::stoptest(const QString& url) {
 	m_parent->stop(urlconverted);
 }
 
-void UICommunicator::updateTestSlider(const float azimuth, const float elevation) {
+void UICommunicator::resumeEmitter(int emitterId) { m_parent->resumeEmitter(emitterId); }
+void UICommunicator::pauseEmitter(int emitterId) { m_parent->pauseEmitter(emitterId); }
+void UICommunicator::stopEmitter(int emitterId) { m_parent->stopEmitter(emitterId); }
 
-	m_parent->updateListener(azimuth, elevation);
+void UICommunicator::updateTestSlider(int emitterId, const float azimuth, const float elevation) {
+	m_parent->updateListener(emitterId, azimuth, elevation);
+}
+
+void UICommunicator::pausetest()
+{
+	m_parent->pausetest();
+}
+
+void UICommunicator::resumetest()
+{
+	m_parent->resumetest();
+}
+
+void UICommunicator::addSound(const QString& path)
+{
+	m_parent->addSound(path.toStdString());
+}
+
+QVariantList UICommunicator::getSounds()
+{
+	return m_parent->getSounds();
+}
+
+void UICommunicator::loadRegistry(const QString& path)
+{
+	m_parent->loadRegistry(path.toStdString());
+}
+
+void UICommunicator::saveRegistry(const QString& path)
+{
+	m_parent->saveRegistry(path.toStdString());
+}
+
+void UICommunicator::removeSound(int id)
+{
+	m_parent->removeSound(id);
+}
+
+void UICommunicator::unloadRegistry()
+{
+	m_parent->unloadRegistry();
 }
 
 void UICommunicator::userInput(int key, bool pressed) {
