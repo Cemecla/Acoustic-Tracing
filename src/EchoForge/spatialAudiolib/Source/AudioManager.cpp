@@ -51,52 +51,78 @@ namespace yutasound {
         emitter.soundRemaining = soundRemaining;
         emitter.itdSamples = computeITD_(azimuth, elevation);
         emitter.ildGain = computeILD_(azimuth, elevation, soundRemaining);
-        emitter.state = EmitterState::Playing;
+        emitter.state = EmitterState::Paused;
            
-        m_sources.push_back(std::move(emitter));
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+        {
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::Add;
+            m_commandBuffer[scope.startIndex1].emitter = emitter;
+            m_commandBuffer[scope.startIndex1].emitterId = emitter.emitterId;
+        }
 
-        if (onEmitterAdded) onEmitterAdded(m_nextEmitterId - 1);
-        
-        return m_nextEmitterId - 1;
+        return  emitter.emitterId;
     }
 
     void AudioManager::pauseSound(int emitterId)
     {
-        for (auto& s : m_sources)
-            if (s.emitterId == emitterId)
-                s.state = EmitterState::Paused;
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+        {
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+            m_commandBuffer[scope.startIndex1].emitterId = emitterId;
+            m_commandBuffer[scope.startIndex1].newState = EmitterState::Paused;
+        }
     }
 
     void AudioManager::resumeSound(int emitterId)
     {
-        for (auto& s : m_sources)
-            if (s.emitterId == emitterId)
-                s.state = EmitterState::Playing;
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+        {
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+            m_commandBuffer[scope.startIndex1].emitterId = emitterId;
+            m_commandBuffer[scope.startIndex1].newState = EmitterState::Playing;
+        }
     }
 
     void AudioManager::stopSound(int emitterId)
     {
-        auto it = std::find_if(m_sources.begin(), m_sources.end(),
-            [emitterId](const SoundSource& s) { return s.emitterId == emitterId; });
-
-        if (it != m_sources.end())
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
         {
-            int index = (int)std::distance(m_sources.begin(), it);
-            m_sources.erase(it);
-            if (onEmitterRemoved) onEmitterRemoved(index);
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::Remove;
+            m_commandBuffer[scope.startIndex1].emitterId = emitterId;
         }
     }
 
     void AudioManager::pauseAll()
     {
-        for (auto& s : m_sources)
-            s.state = EmitterState::Paused;
+        DBG("AudioManager: pauseAll sending " + juce::String(m_nextEmitterId) + " commands");
+        for (int i = 0; i < m_nextEmitterId; i++)
+        {
+            const auto scope = m_commandFifo.write(1);
+            if (scope.blockSize1 > 0)
+            {
+                m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+                m_commandBuffer[scope.startIndex1].emitterId = i;
+                m_commandBuffer[scope.startIndex1].newState = EmitterState::Paused;
+            }
+        }
     }
 
     void AudioManager::resumeAll()
     {
-        for (auto& s : m_sources)
-            s.state = EmitterState::Playing;
+        for (int i = 0; i < m_nextEmitterId; i++)
+        {
+            const auto scope = m_commandFifo.write(1);
+            if (scope.blockSize1 > 0)
+            {
+                m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+                m_commandBuffer[scope.startIndex1].emitterId = i;
+                m_commandBuffer[scope.startIndex1].newState = EmitterState::Playing;
+            }
+        }
     }
 
     void AudioManager::reset()
@@ -106,32 +132,32 @@ namespace yutasound {
         DBG("AudioManager: reset all emitters");
     }
 
-    bool AudioManager::hasCommands() const
+    int AudioManager::hasCommands() const
     {
-        return false;
+        return m_commandFifo.getNumReady() > 0;
     }
 
     EmitterCommand AudioManager::popCommand()
     {
-        return EmitterCommand();
+        const auto scope = m_commandFifo.read(1);
+        return m_commandBuffer[scope.startIndex1];
     }
 
-    void AudioManager::updateSoundSource(int emiterId, float azimuth, float elevation, SoundRemaining soundRemaining)
+    void AudioManager::updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining)
     {
-        // check if source exists
-        for (auto& s : m_sources)
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
         {
-            if (s.emitterId = emiterId)
-            {
-                s.azimuth = azimuth;
-                s.elevation = elevation;
-                s.soundRemaining = soundRemaining;
-                s.itdSamples = computeITD_(azimuth, elevation);
-                s.ildGain = computeILD_(azimuth, elevation, soundRemaining);
-                break;
-            }
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::UpdateSpatial;
+            m_commandBuffer[scope.startIndex1].emitterId = emitterId;
+            m_commandBuffer[scope.startIndex1].itdSamples = computeITD_(azimuth, elevation);
+            m_commandBuffer[scope.startIndex1].ildGain = computeILD_(azimuth, elevation, soundRemaining);
         }
-        // update shadowChain[id]
+    }
+
+    const std::vector<SoundFileEntry>& AudioManager::getEntries() const
+    {
+        return m_librarian.getEntries();
     }
 
     const std::vector<SoundSource>& AudioManager::getSources()const {

@@ -31,6 +31,7 @@ namespace yutasound {
         bool isPlaying() const;
 
         // Librarian — sound registration
+        const std::vector<SoundFileEntry>& getEntries() const;
         int  registerSound(const juce::String& filePath);
         void loadSoundRegistry(const juce::String& jsonPath);
         void saveSoundRegistry(const juce::String& jsonPath);
@@ -46,7 +47,7 @@ namespace yutasound {
         void reset();
 
         // emitter race condition to protect 
-        bool           hasCommands() const;
+        int           hasCommands() const;
         EmitterCommand popCommand();
 
         void updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining);
