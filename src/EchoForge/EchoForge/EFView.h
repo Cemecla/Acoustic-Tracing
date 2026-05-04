@@ -34,6 +34,7 @@ class UICommunicator;
 			void stop(std::string& url) const;
 			void pausetest() const;
 			void resumetest() const;
+			void resetEmitters() const;
 			void resumeAll() const;
 			void pauseAll() const;
 			void resumeEmitter(int emitterId) const;

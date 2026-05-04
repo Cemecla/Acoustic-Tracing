@@ -153,6 +153,11 @@ void EFView::resumetest() const {
         m_audioManager->resumeSound(m_testEmitterId);
 }
 
+void EFView::resetEmitters() const {
+	if (m_audioManager)
+		m_audioManager->reset();
+}
+
 void EFView::resumeAll() const {
 	if (m_audioManager)
 		m_audioManager->resumeAll();
@@ -190,7 +195,11 @@ void EFView::removeSound(int id) const {
 
 void EFView::unloadRegistry() const {
 	if (m_audioManager)
+	{
+		m_audioManager->stop();
+		juce::Thread::sleep(20);
 		m_audioManager->unloadSoundRegistry();
+	}
 }
 
 void EFView::buildMap(const ef::Map& map) {

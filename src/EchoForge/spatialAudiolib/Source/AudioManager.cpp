@@ -127,8 +127,12 @@ namespace yutasound {
 
     void AudioManager::reset()
     {
-        m_sources.clear();
         m_nextEmitterId = 0;
+
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::Reset;
+
         DBG("AudioManager: reset all emitters");
     }
 
