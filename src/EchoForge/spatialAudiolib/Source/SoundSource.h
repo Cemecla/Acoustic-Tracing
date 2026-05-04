@@ -41,7 +41,7 @@ namespace yutasound {
         int readPosition = 0;
         EmitterState state = EmitterState::Playing;
         
-
+        bool isAmbient = false;
     private:
         
         //TODO: move to librarian 
