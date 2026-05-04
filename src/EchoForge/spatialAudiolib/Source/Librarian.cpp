@@ -142,4 +142,8 @@ namespace yutasound {
                 return entry.id;
         return -1;
     }
+    const std::vector<SoundFileEntry>& Librarian::getEntries() const
+    {
+        return m_entries;
+    }
 }

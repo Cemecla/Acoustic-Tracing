@@ -40,7 +40,7 @@ namespace yutasound {
         
         AudioManager& m_audioManager;
 
-        //std::vector<SoundSource>     m_sources;
+        std::vector<SoundSource>     m_sources;
         juce::AudioBuffer<float>     m_mixBuffer;
         std::vector<StereoDelayLine>  m_delayLines;
         std::vector<int> m_readPositions;

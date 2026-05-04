@@ -30,6 +30,8 @@ namespace yutasound {
 		void loadSoundRegistry(const juce::String& jsonPath);
 		void unloadSoundRegistry();
 
+		const std::vector<SoundFileEntry>& getEntries() const;
+
 		const juce::AudioBuffer<float>& getBuffer(int id) const;
 		juce::String getFilePath(int id) const;
 		int getCount() const;

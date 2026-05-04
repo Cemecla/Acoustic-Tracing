@@ -57,8 +57,11 @@ namespace yutasound {
 
     void SpatialAudioEngine::run()
     {
+
+
         while (!threadShouldExit())
         {
+
             if (!m_audioManager.isPlaying())
             {
                 wait(1);
@@ -67,11 +70,42 @@ namespace yutasound {
 
             if (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
+                // drain command queue every block
+                int numReady = m_audioManager.hasCommands();
+                for (int c = 0; c < numReady; c++)
+                {
+                    auto cmd = m_audioManager.popCommand();
+                    if (cmd.type == EmitterCommand::Type::Add)
+                    {
+                        m_sources.push_back(cmd.emitter);
+                        addProcessingSlot();
+                    }
+                    else if (cmd.type == EmitterCommand::Type::Remove)
+                    {
+                        removeProcessingSlot(cmd.index);
+                        m_sources.erase(m_sources.begin() + cmd.index);
+                    }
+                    else if (cmd.type == EmitterCommand::Type::SetState)
+                    {
+                        for (auto& s : m_sources)
+                            if (s.emitterId == cmd.emitterId)
+                                s.state = cmd.newState;
+                    }
+                    else if (cmd.type == EmitterCommand::Type::UpdateSpatial)
+                    {
+                        for (auto& s : m_sources)
+                            if (s.emitterId == cmd.emitterId)
+                            {
+                                s.itdSamples = cmd.itdSamples;
+                                s.ildGain = cmd.ildGain;
+                            }
+                    }
+                }
                 m_mixBuffer.clear();
 
-                for (int i = 0; i < (int)m_audioManager.getSources().size(); i++)
+                for (int i = 0; i < (int)m_sources.size(); i++)
                 {
-                    auto& source = m_audioManager.getSources()[i];
+                    auto& source = m_sources[i];
 
                     // skip paused or stopped emitters
                     if (source.state != EmitterState::Playing)
