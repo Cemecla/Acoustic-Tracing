@@ -25,6 +25,11 @@ namespace yutasound {
     {
         return m_librarian.addItem(filePath);
     }
+    
+    void AudioManager::removeSound(int id)
+    {
+        m_librarian.removeItem(id);
+    }
 
     void AudioManager::loadSoundRegistry(const juce::String& jsonPath)
     {

@@ -443,7 +443,6 @@ MainLayout {
                     communicator.pauseAll()
                     communicator.resetEmitters()
                     communicator.unloadRegistry()
-                    communicator.stoptest("")
                     stackView.pop()
                 }
             }

@@ -33,6 +33,7 @@ namespace yutasound {
         // Librarian — sound registration
         const std::vector<SoundFileEntry>& getEntries() const;
         int  registerSound(const juce::String& filePath);
+        void removeSound(int id);
         void loadSoundRegistry(const juce::String& jsonPath);
         void saveSoundRegistry(const juce::String& jsonPath);
         void unloadSoundRegistry();
