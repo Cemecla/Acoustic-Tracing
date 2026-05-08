@@ -22,6 +22,8 @@ struct Inputs;
 			void loadSimulation(std::string& url);
 			void startSimulation();
 			void updateViewRays();
+			void activateEmitter(int index);
+			void updateEmitterListener(int audioEmitterId, float azimuth, float elevation);
 			const Inputs& getLastInputs() const;
 	
 		private:

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <map>
 #include <chrono>
+#include <cmath>
 #include <QDebug>
 
 #include "EFModel.h"
@@ -41,22 +42,43 @@ void EFModel::buildScenario() {
 	const auto startTime = std::chrono::steady_clock::now();
 
 	for (int i = 0; i < static_cast<int>(m_world->emitters.size()); ++i) {
-		if (m_world->emitters[i].eventType != EventType::TIME) continue;
+		const auto& em = m_world->emitters[i];
 
-		float triggerTime = m_world->emitters[i].triggerTime;
-
-		m_scenario.add_event(
-			[this, i]() {
-				m_world->emitters[i].isActive = true;
-				qDebug() << "[Scenario] Emetteur" << i << "activé";
-			},
-			[this, i, triggerTime, startTime]() -> bool {
-				if (!m_world.has_value()) return false;
-				if (m_world->emitters[i].isActive) return false;
-				auto elapsed = std::chrono::steady_clock::now() - startTime;
-				return std::chrono::duration<float>(elapsed).count() >= triggerTime;
-			}
-		);
+		if (em.eventType == EventType::TIME) {
+			float triggerTime = em.triggerTime;
+			m_scenario.add_event(
+				[this, i]() {
+					m_world->emitters[i].isActive = true;
+					m_parent->activateEmitter(i);
+					qDebug() << "[Scenario] Emetteur" << i << "activé (timer)";
+				},
+				[this, i, triggerTime, startTime]() -> bool {
+					if (!m_world.has_value()) return false;
+					if (m_world->emitters[i].isActive) return false;
+					auto elapsed = std::chrono::steady_clock::now() - startTime;
+					return std::chrono::duration<float>(elapsed).count() >= triggerTime;
+				}
+			);
+		}
+		else if (em.eventType == EventType::COLLISION) {
+			ef::Vector3F emitterPos = em.position;
+			ef::Vector3F delta      = em.triggerDelta;
+			m_scenario.add_event(
+				[this, i]() {
+					m_world->emitters[i].isActive = true;
+					m_parent->activateEmitter(i);
+					qDebug() << "[Scenario] Emetteur" << i << "activé (collision)";
+				},
+				[this, i, emitterPos, delta]() -> bool {
+					if (!m_world.has_value()) return false;
+					if (m_world->emitters[i].isActive) return false;
+					const auto& avatarPos = m_world->avatar.getPosition();
+					return std::abs(avatarPos.x - emitterPos.x) <= delta.x
+						&& std::abs(avatarPos.y - emitterPos.y) <= delta.y
+						&& std::abs(avatarPos.z - emitterPos.z) <= delta.z;
+				}
+			);
+		}
 	}
 }
 
@@ -76,6 +98,23 @@ void EFModel::update(float delta) {
 	m_parent->updateViewRays();
 	m_rayManager.clearReceivedRays();
 
+	// Mise à jour spatiale des emitters actifs
+	const auto& avatarPos   = m_world->avatar.getPosition();
+	const auto& headAngles  = m_world->avatar.getHeadAngles();
+
+	for (const auto& emitter : m_world->emitters) {
+		if (!emitter.isActive || emitter.audioEmitterId == -1) continue;
+
+		ef::Vector3F dir = emitter.position - avatarPos;
+
+		float rawAzimuth = std::atan2(dir.x, -dir.z) * (180.0f / M_PI);
+		float azimuth    = rawAzimuth - headAngles.y;
+
+		float horizontal = std::sqrt(dir.x * dir.x + dir.z * dir.z);
+		float elevation  = std::atan2(dir.y, horizontal) * (180.0f / M_PI);
+
+		m_parent->updateEmitterListener(emitter.audioEmitterId, azimuth, elevation);
+	}
 }
 
 void EFModel::moveAvatar(Inputs& inputs, float delta) {
@@ -178,6 +217,10 @@ const Map& EFModel::getMap() const {
 }
 
 const std::vector<ef::Emitter>& EFModel::getEmitters() const {
+	return m_world->emitters;
+}
+
+std::vector<ef::Emitter>& EFModel::getEmittersRef() {
 	return m_world->emitters;
 }
 

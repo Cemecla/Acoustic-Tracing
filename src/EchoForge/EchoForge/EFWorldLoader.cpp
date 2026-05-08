@@ -233,7 +233,7 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 			}
 		}
 		// appeller Librarian pour avoir les id des sons et non pas id
-		emitters.push_back(Emitter{ id, id, filename, position, volume, loop, false, eventType, triggerTime, triggerDelta });
+		emitters.push_back(Emitter{ id, id, -1, filename, position, volume, loop, false, eventType, triggerTime, triggerDelta });
 		id++;
 	}
 

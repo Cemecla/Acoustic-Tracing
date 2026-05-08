@@ -10,6 +10,8 @@
 #include "Avatar.h"
 #include "Utils.h"
 
+namespace ef { struct Emitter; }
+
 class EFController;
 class QQmlApplicationEngine;
 class QGuiApplication;
@@ -28,6 +30,8 @@ class UICommunicator;
 			void saveSimulation(std::string& url);
 			void loadSimulation(std::string& url);
 
+			int registerEmitterSound(const std::string& path) const;
+			int playEmitter(const ef::Emitter& emitter) const;
 			void addSound(const std::string& path) const;
 			int playFromFileId(int soundFileId) const;
 			void play(std::string& url) const;

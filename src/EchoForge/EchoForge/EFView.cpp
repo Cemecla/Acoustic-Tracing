@@ -83,6 +83,23 @@ void EFView::updateListener(int emitterId, float azimuth, float elevation) const
 	}
 }
 
+int EFView::registerEmitterSound(const std::string& path) const
+{
+	if (m_audioManager)
+		return m_audioManager->registerSound(juce::String(path));
+	return -1;
+}
+
+int EFView::playEmitter(const ef::Emitter& emitter) const
+{
+	if (!m_audioManager || emitter.sound_id == -1) return -1;
+	yutasound::SoundRemaining remaining;
+	int audioEmitterId = m_audioManager->playSound(emitter.sound_id, 0.0f, 0.0f, remaining);
+	if (!m_audioManager->isPlaying())
+		m_audioManager->play();
+	return audioEmitterId;
+}
+
 void EFView::addSound(const std::string& path) const
 {
 	if (m_audioManager)

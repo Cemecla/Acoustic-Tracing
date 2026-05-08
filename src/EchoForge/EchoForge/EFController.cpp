@@ -22,6 +22,19 @@ void EFController::loadSimulation(std::string& url) {
 	ef::Avatar avatar = m_model->getAvatar(true);
 	m_view->buildMap(map);
 	m_view->setupAvatar(avatar);
+
+	for (auto& emitter : m_model->getEmittersRef())
+		emitter.sound_id = m_view->registerEmitterSound(emitter.filename);
+}
+
+void EFController::activateEmitter(int index) {
+	auto& emitters = m_model->getEmittersRef();
+	if (index < 0 || index >= static_cast<int>(emitters.size())) return;
+	emitters[index].audioEmitterId = m_view->playEmitter(emitters[index]);
+}
+
+void EFController::updateEmitterListener(int audioEmitterId, float azimuth, float elevation) {
+	m_view->updateListener(audioEmitterId, azimuth, elevation);
 }
 
 const Inputs& EFController::getLastInputs() const {
