@@ -25,7 +25,7 @@ namespace yutasound {
 		void loadFromJson(const juce::String& path);
 		const PinnaPreset& getPreset(int id) const;
 		const PinnaPreset& getDefaultPreset() const;
-		int getCount();
+		int getCount() const;
 
 	private:
 		std::vector<PinnaPreset> m_presets;

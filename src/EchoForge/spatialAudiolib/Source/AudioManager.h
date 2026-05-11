@@ -14,6 +14,7 @@
 #include "Librarian.h"
 #include "EmitterState.h"
 #include "EmitterCommand.h"
+#include "PinnaCalibration.h"
 #include <functional>
 
 
@@ -48,7 +49,7 @@ namespace yutasound {
         void reset();
 
         // emitter race condition to protect 
-        int           hasCommands() const;
+        bool           hasCommands() const;
         EmitterCommand popCommand();
 
         void updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining);
@@ -57,8 +58,15 @@ namespace yutasound {
         // TODO: void updateListener(position, azimuth, elevation);
         //std::function<void(int)> onSourceAdded;
          
+        // pinna preset - public 
+        void loadPinnaPreset(const juce::String& path);
+        void setPinnaPreset(int presetId);
+        int getPinnaPreset() const;
+        const PinnaPreset& getCurrentPinnaPreset() const;
+        int getPinnaPresetCount() const;
+        
         //SAE access
-        const std::vector<SoundSource>& getSources() const;
+        //const std::vector<SoundSource>& getSources() const;
         const juce::AudioBuffer<float>& getBuffer(int soundFileId) const;
 
         //callback for the SAE
@@ -69,13 +77,16 @@ namespace yutasound {
         //void loadSource_(int id);
         
         Librarian m_librarian;
-        std::vector<SoundSource>  m_sources; // emitters
+        //std::vector<SoundSource>  m_sources; // emitters
         double m_sampleRate = 0.0;
         int m_nextEmitterId = 0;
         std::atomic<bool> m_isPlaying {false};
 
         float computeITD_(float azimuth, float elevation);
         ILDGain computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining);
+
+        PinnaCalibration m_pinnaCalibration;
+        int m_currentPinnaPresetId = 13;
 
         juce::AbstractFifo                     m_commandFifo{ 64 };
         std::array<EmitterCommand, 64>         m_commandBuffer;

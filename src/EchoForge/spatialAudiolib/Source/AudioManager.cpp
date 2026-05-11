@@ -141,7 +141,7 @@ namespace yutasound {
         DBG("AudioManager: reset all emitters");
     }
 
-    int AudioManager::hasCommands() const
+    bool AudioManager::hasCommands() const
     {
         return m_commandFifo.getNumReady() > 0;
     }
@@ -164,14 +164,41 @@ namespace yutasound {
         }
     }
 
+    void AudioManager::loadPinnaPreset(const juce::String& path)
+    {
+        m_pinnaCalibration.loadFromJson(path);
+        DBG("AudioManager: pinna presets loaded");
+    }
+
+    void AudioManager::setPinnaPreset(int presetId)
+    {
+        m_currentPinnaPresetId = presetId;
+        DBG("AudioManager: pinna preset set to " + juce::String(presetId));
+    }
+
+    int AudioManager::getPinnaPreset() const
+    {
+        return m_currentPinnaPresetId;
+    }
+
+    const PinnaPreset& AudioManager::getCurrentPinnaPreset() const
+    {
+        return m_pinnaCalibration.getPreset(m_currentPinnaPresetId);
+    }
+
+    int AudioManager::getPinnaPresetCount() const
+    {
+        return m_pinnaCalibration.getCount();
+    }
+
     const std::vector<SoundFileEntry>& AudioManager::getEntries() const
     {
         return m_librarian.getEntries();
     }
 
-    const std::vector<SoundSource>& AudioManager::getSources()const {
-        return m_sources;
-    }
+    //const std::vector<SoundSource>& AudioManager::getSources()const {
+    //    return m_sources;
+    //}
 
     const juce::AudioBuffer<float>& AudioManager::getBuffer(int soundFileId) const
     {
