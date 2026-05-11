@@ -22,8 +22,8 @@ namespace ef {
 
 		Material(std::string name, bool isPassable, bool isInstantiable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal, ColorRGBA color = ColorRGBA{}, float roughness = 0, float metalness = 0, float specular = 0);
 
-		const bool operator==(Material& material) const {
-			return name == name;
+		const bool operator==(Material& other) const {
+			return name == other.name;
 		}
 	};
 }
