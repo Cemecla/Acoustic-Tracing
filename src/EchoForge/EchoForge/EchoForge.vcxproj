@@ -80,11 +80,6 @@
     <Xdcmake>
       <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
     </Xdcmake>
-    <PostBuildEvent>
-      <Command>if exist "$(ProjectDir)res" (
-    xcopy /E /I /Y "$(ProjectDir)res" "$(OutDir)res"
-)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -196,4 +191,7 @@
   </ImportGroup>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <Target Name="CopyResources" AfterTargets="Build">
+    <Exec Command="if exist &quot;$(ProjectDir)res&quot; (xcopy /E /I /Y &quot;$(ProjectDir)res&quot; &quot;$(OutDir)res&quot;)" />
+  </Target>
 </Project>

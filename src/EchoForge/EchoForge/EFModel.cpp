@@ -26,9 +26,7 @@ EFModel::EFModel(EFController* parent) :
 
 void EFModel::loadWorld(std::string& filename) {
 	json mapfile = loadJson(filename);
-	// HARDCODED change later
-	std::string str = "../../../settings/materials.json";
-	// HARDCODED change later
+	std::string str = "res/settings/materials.json";
 	json materialfile = loadJson(str);
 	m_world = EFWorldLoader::build(mapfile, materialfile);
 

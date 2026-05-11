@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/images">
-        <file alias="logo">../../../assets/window_logo.png</file>
-        <file alias="github">../../../assets/github_logo.png</file>
+        <file alias="logo">res/assets/window_logo.png</file>
+        <file alias="github">res/assets/github_logo.png</file>
     </qresource>
     <qresource prefix="/sounds">
-        <file alias="buttonSound">../../../assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
+        <file alias="buttonSound">res/assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
     </qresource>
     <qresource prefix="/shaders">
         <file>voxel.frag</file>

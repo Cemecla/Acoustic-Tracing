@@ -6,6 +6,7 @@
 #include <Eigen/Dense>
 
 #include "UICommunicator.h"
+#include "Utils.h"
 #include "EFView.h"
 #include "Material.h"
 #include "DTO_RecievedRay.h"
@@ -56,15 +57,22 @@ void UICommunicator::saveSimulation(const QString& url) {
 void UICommunicator::loadSimulation(const QString& url) {
 
 	auto _ = QtConcurrent::run([this, url]() {
+		try {
+			std::string urlconverted = url.toStdString();
+			m_parent->loadSimulation(urlconverted);
 
-		std::string urlconverted = url.toStdString();
-		m_parent->loadSimulation(urlconverted);
-
-		QMetaObject::invokeMethod(
-			this,
-			[this]() { emit simulationLoaded(); },
-			Qt::QueuedConnection
-		);
+			QMetaObject::invokeMethod(
+				this,
+				[this]() { emit simulationLoaded(); },
+				Qt::QueuedConnection
+			);
+		} catch (const std::exception& e) {
+			qDebug() << "[loadSimulation] std::exception:" << e.what();
+		} catch (Error err) {
+			qDebug() << "[loadSimulation] Error:" << err;
+		} catch (...) {
+			qDebug() << "[loadSimulation] exception inconnue";
+		}
 	});
 }
 

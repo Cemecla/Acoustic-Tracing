@@ -26,7 +26,7 @@ MainLayout {
 
             FolderListModel {
                 id: folderModel
-                folder: Qt.resolvedUrl("file:../../../../Acoustic-Tracing/saves/")
+                folder: Qt.resolvedUrl("file:./res/saves/")
                 nameFilters: ["*.json"]
                 showDirs: false
             }
