@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\eigen-5.0.0;..\spatialAudiolib\Source;..\spatialAudiolib\JuceLibraryCode;C:\JUCE\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JUCE\modules;..\spatialAudiolib\JuceLibraryCode;..\spatialAudiolib\Source;C:\eigen-5.0.0</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
@@ -80,10 +80,16 @@
     <Xdcmake>
       <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
     </Xdcmake>
+    <PostBuildEvent>
+      <Command>if exist "$(ProjectDir)res" (
+    xcopy /E /I /Y "$(ProjectDir)res" "$(OutDir)res"
+)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\JUCE\modules;..\spatialAudiolib\JuceLibraryCode;..\spatialAudiolib\Source;C:\eigen-5.0.0</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
