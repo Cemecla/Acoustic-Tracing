@@ -159,12 +159,14 @@ namespace yutasound {
         {
             m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::UpdateSpatial;
             m_commandBuffer[scope.startIndex1].emitterId = emitterId;
+            m_commandBuffer[scope.startIndex1].azimuth = azimuth;
+            m_commandBuffer[scope.startIndex1].elevation = elevation;
             m_commandBuffer[scope.startIndex1].itdSamples = computeITD_(azimuth, elevation);
             m_commandBuffer[scope.startIndex1].ildGain = computeILD_(azimuth, elevation, soundRemaining);
         }
     }
 
-    void AudioManager::loadPinnaPreset(const juce::String& path)
+    void AudioManager::loadPinnaPresets(const juce::String& path)
     {
         m_pinnaCalibration.loadFromJson(path);
         DBG("AudioManager: pinna presets loaded");

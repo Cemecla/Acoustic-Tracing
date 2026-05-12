@@ -59,7 +59,7 @@ namespace yutasound {
         //std::function<void(int)> onSourceAdded;
          
         // pinna preset - public 
-        void loadPinnaPreset(const juce::String& path);
+        void loadPinnaPresets(const juce::String& path);
         void setPinnaPreset(int presetId);
         int getPinnaPreset() const;
         const PinnaPreset& getCurrentPinnaPreset() const;
