@@ -10,6 +10,7 @@
 #include "RayManager.h"
 #include "EFWorld.h"
 #include "Scenario.h"
+#include "AcousticInterpreter.h"
 
 using json = nlohmann::json;
 
@@ -74,6 +75,7 @@ struct Inputs;
 
 			EFController* m_parent;
 			tracing::RayManager m_rayManager;
+			AcousticInterpreter m_acousticInterpreter;
 			std::optional<ef::EFWorld> m_world;
 			// m_scenario déclaré APRÈS m_world : détruit en premier (ordre inverse),
 			// joint le thread avant que m_world soit libéré.

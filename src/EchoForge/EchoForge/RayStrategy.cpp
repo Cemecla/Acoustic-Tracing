@@ -2,7 +2,7 @@
 
 namespace tracing{
 
-	RayStrategy::RayStrategy(std::string StrategyName) : p_name(StrategyName) {};
+	RayStrategy::RayStrategy(std::string StrategyName, bool isTransmission) : p_name(StrategyName), m_isTransmission(isTransmission) {};
 
 	std::string RayStrategy::getName() const {
 		return p_name;
@@ -39,7 +39,7 @@ namespace tracing{
     }
 
 
-    TransmissionRayStrategy::TransmissionRayStrategy(float ior) : RayStrategy("Transmission"), m_indexOfRefraction(ior) {}
+    TransmissionRayStrategy::TransmissionRayStrategy(float ior) : RayStrategy("Transmission", true), m_indexOfRefraction(ior) {}
 
 
     Eigen::Vector3f TransmissionRayStrategy::getNextDirection(const Eigen::Vector3f& inDir, const Eigen::Vector3f& normal, std::mt19937& rng) const {

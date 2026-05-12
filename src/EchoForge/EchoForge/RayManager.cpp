@@ -23,11 +23,14 @@ const void RayManager::update() {
 	Eigen::Vector3f position = m_parent->getAvatar().value().getPosition().toEigen();
 
 	next_colision();
-	createRays(position, m_raysPerFrame);
 
 	std::erase_if(*m_activeRays, [](const Ray& r) {
 		return r.getEnergy().maxCoeff() <= 0.01f;
 	});
+
+	int slots = m_rayCount - static_cast<int>(m_activeRays->size());
+	if (slots > 0)
+		createRays(position, std::min(m_raysPerFrame, slots));
 }
 
 const void RayManager::createRays(Eigen::Vector3f position, int count) {
@@ -57,6 +60,10 @@ const void tracing::RayManager::next_colision() {
 	const ef::Map& map             = m_parent->getMap();
 	const auto&    allEmitters     = m_parent->getEmitters();
 
+	constexpr float LOS_ENERGY_THRESHOLD = 0.02f;
+	constexpr int   LOS_FRAME_BUDGET     = 30;
+	int losRemaining = LOS_FRAME_BUDGET;
+
 	int rayIndex = 0;
 	for (Ray& r : *m_activeRays) {
 		r.advance();
@@ -81,28 +88,30 @@ const void tracing::RayManager::next_colision() {
 
 		if (!mat.isPassable) {
 			if (!r.wasInSolid()) {
-				auto visibleEmitters = allEmitters
-					| std::views::filter([](const ef::Emitter& e) { return e.isActive; })
-					| std::views::filter([&](const ef::Emitter& e) {
-						return hasLineOfSight(r.getPosition(), e.position.toEigen());
-					  });
+				bool canCheckLos = losRemaining > 0
+					&& r.getEnergy().maxCoeff() >= LOS_ENERGY_THRESHOLD;
 
-				for (const auto& emitter : visibleEmitters) {
-					m_receivedRays.emplace_back(
-						r.getPosition(),
-						r.getEnergy(),
-						r.getStepCount(),
-						static_cast<std::uint8_t>(emitter.m_id),
-						r.getBouncePositions(),
-						r.getVelocity()
-					);
+				if (canCheckLos) {
+					for (const auto& emitter : allEmitters) {
+						if (!emitter.isActive) continue;
+						if (losRemaining <= 0) break;
+						--losRemaining;
+						if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
+						m_receivedRays.emplace_back(
+							r.getPosition(),
+							r.getEnergy(),
+							r.getStepCount(),
+							static_cast<std::uint8_t>(emitter.m_id),
+							r.getBouncePositions(),
+							r.getVelocity()
+						);
+					}
 				}
 
 				auto strategy = m_collisionManager.decision(r, mat.scatteringCoefficient, m_rng);
 				Eigen::Vector3f newDir = strategy->getNextDirection(r.getVelocity(), r.getHitNormal(), m_rng);
 				r.redirect(newDir);
-				bool isTransmission = dynamic_cast<TransmissionRayStrategy*>(strategy.get()) != nullptr;
-				r.setInSolid(isTransmission);
+				r.setInSolid(strategy->isTransmission());
 			} else {
 				r.setInSolid(true);
 			}

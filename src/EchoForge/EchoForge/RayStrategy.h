@@ -10,12 +10,14 @@ namespace tracing {
 	{
 	public:
 		virtual ~RayStrategy() = default;
-		RayStrategy(std::string StrategyName);
+		RayStrategy(std::string StrategyName, bool isTransmission = false);
 		virtual Eigen::Vector3f getNextDirection(const Eigen::Vector3f& inDir, const Eigen::Vector3f& normal, std::mt19937& rng) const = 0;
 
 		std::string getName() const;
+		bool isTransmission() const { return m_isTransmission; }
 	protected:
 		std::string p_name;
+		bool m_isTransmission;
 
 	};
 
