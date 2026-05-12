@@ -105,17 +105,7 @@ void UICommunicator::pauseAll()
 
 int UICommunicator::playFromFileId(int soundFileId)
 {
-	return m_parent->playFromFileId(soundFileId);
-}
-
-void UICommunicator::playtest(const QString& url) {
-	std::string urlconverted = url.toStdString();
-	m_parent->play(urlconverted);
-}
-
-void UICommunicator::stoptest(const QString& url) {
-	std::string urlconverted = url.toStdString();
-	m_parent->stop(urlconverted);
+	return m_parent->playSound(soundFileId);
 }
 
 void UICommunicator::resumeEmitter(int emitterId) { m_parent->resumeEmitter(emitterId); }
@@ -123,17 +113,7 @@ void UICommunicator::pauseEmitter(int emitterId) { m_parent->pauseEmitter(emitte
 void UICommunicator::stopEmitter(int emitterId) { m_parent->stopEmitter(emitterId); }
 
 void UICommunicator::updateTestSlider(int emitterId, const float azimuth, const float elevation) {
-	m_parent->updateListener(emitterId, azimuth, elevation);
-}
-
-void UICommunicator::pausetest()
-{
-	m_parent->pausetest();
-}
-
-void UICommunicator::resumetest()
-{
-	m_parent->resumetest();
+	m_parent->updateSoundSource(emitterId, azimuth, elevation);
 }
 
 void UICommunicator::addSound(const QString& path)

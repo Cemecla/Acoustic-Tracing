@@ -25,6 +25,11 @@ namespace yutasound {
     {
         return m_librarian.addItem(filePath);
     }
+    
+    void AudioManager::removeSound(int id)
+    {
+        m_librarian.removeItem(id);
+    }
 
     void AudioManager::loadSoundRegistry(const juce::String& jsonPath)
     {
@@ -136,7 +141,7 @@ namespace yutasound {
         DBG("AudioManager: reset all emitters");
     }
 
-    int AudioManager::hasCommands() const
+    bool AudioManager::hasCommands() const
     {
         return m_commandFifo.getNumReady() > 0;
     }
@@ -154,9 +159,38 @@ namespace yutasound {
         {
             m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::UpdateSpatial;
             m_commandBuffer[scope.startIndex1].emitterId = emitterId;
+            m_commandBuffer[scope.startIndex1].azimuth = azimuth;
+            m_commandBuffer[scope.startIndex1].elevation = elevation;
             m_commandBuffer[scope.startIndex1].itdSamples = computeITD_(azimuth, elevation);
             m_commandBuffer[scope.startIndex1].ildGain = computeILD_(azimuth, elevation, soundRemaining);
         }
+    }
+
+    void AudioManager::loadPinnaPresets(const juce::String& path)
+    {
+        m_pinnaCalibration.loadFromJson(path);
+        DBG("AudioManager: pinna presets loaded");
+    }
+
+    void AudioManager::setPinnaPreset(int presetId)
+    {
+        m_currentPinnaPresetId = presetId;
+        DBG("AudioManager: pinna preset set to " + juce::String(presetId));
+    }
+
+    int AudioManager::getPinnaPreset() const
+    {
+        return m_currentPinnaPresetId;
+    }
+
+    const PinnaPreset& AudioManager::getCurrentPinnaPreset() const
+    {
+        return m_pinnaCalibration.getPreset(m_currentPinnaPresetId);
+    }
+
+    int AudioManager::getPinnaPresetCount() const
+    {
+        return m_pinnaCalibration.getCount();
     }
 
     const std::vector<SoundFileEntry>& AudioManager::getEntries() const
@@ -164,9 +198,9 @@ namespace yutasound {
         return m_librarian.getEntries();
     }
 
-    const std::vector<SoundSource>& AudioManager::getSources()const {
-        return m_sources;
-    }
+    //const std::vector<SoundSource>& AudioManager::getSources()const {
+    //    return m_sources;
+    //}
 
     const juce::AudioBuffer<float>& AudioManager::getBuffer(int soundFileId) const
     {

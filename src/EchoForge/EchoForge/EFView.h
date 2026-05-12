@@ -29,26 +29,34 @@ class UICommunicator;
 			void loadSimulation(std::string& url);
 
 			void addSound(const std::string& path) const;
-			int playFromFileId(int soundFileId) const;
-			void play(std::string& url) const;
-			void stop(std::string& url) const;
-			void pausetest() const;
-			void resumetest() const;
+
+			int playSound(int soundFileId) const;
+			
+
+			int  registerSound(const std::string& path) const;
+			int  playSound(int soundFileId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const;
+			void updateSoundSource(int emitterId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const; // this is for the senarios and scene 
+			void stopAudio() const;
+
 			void resetEmitters() const;
 			void resumeAll() const;
 			void pauseAll() const;
 			void resumeEmitter(int emitterId) const;
 			void pauseEmitter(int emitterId) const;
 			void stopEmitter(int emitterId) const;
+
+
 			QVariantList getSounds() const;
 			void loadRegistry(const std::string& path) const;
 			void saveRegistry(const std::string& path) const;
 			void removeSound(int id) const;
 			void unloadRegistry() const;
+
+
 			void setupQGuiApplication(QGuiApplication& app) const;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
 			void setupAvatar(const ef::Avatar& avatar);
-			void updateListener(int emitterId, float azimuth, float elevation) const;
+			void updateSoundSource(int emitterId, float azimuth, float elevation) const; // this is for the test page 
 			void buildMap(const ef::Map& map);
 			void simulationLoaded() const;
 			const Inputs& getLastInput() const;
@@ -56,7 +64,6 @@ class UICommunicator;
 			void updateRayInstance();
 		
 		private:
-			int m_testEmitterId = -1;
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;
 			yutasound::AudioManager* m_audioManager = nullptr;

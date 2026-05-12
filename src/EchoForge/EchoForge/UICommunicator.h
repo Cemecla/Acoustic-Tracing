@@ -45,16 +45,20 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void addBlock(int x, int y, int z);
 		Q_INVOKABLE void destroyBlock(int x, int y, int z);
 
+
+		// idk what this is 
+
 		Q_INVOKABLE void testing(const QString& value);
+
+		// audio testing page stuff 
+
 		Q_INVOKABLE void resetEmitters();
 		Q_INVOKABLE void resumeAll();
 		Q_INVOKABLE void pauseAll();
+
 		Q_INVOKABLE void updateTestSlider(int emitterId, float azimuth, float elevation);
 		Q_INVOKABLE int playFromFileId(int soundFileId);
-		Q_INVOKABLE void playtest(const QString& url);
-		Q_INVOKABLE void stoptest(const QString& url);
-		Q_INVOKABLE void pausetest();
-		Q_INVOKABLE void resumetest();
+		
 		Q_INVOKABLE void resumeEmitter(int emitterId);
 		Q_INVOKABLE void pauseEmitter(int emitterId);
 		Q_INVOKABLE void stopEmitter(int emitterId);
@@ -62,10 +66,13 @@ class UICommunicator: public QObject {
 
 		Q_INVOKABLE void addSound(const QString& path);
 		Q_INVOKABLE QVariantList getSounds();
+
 		Q_INVOKABLE void loadRegistry(const QString& path);
 		Q_INVOKABLE void saveRegistry(const QString& path);
 		Q_INVOKABLE void removeSound(int id);
 		Q_INVOKABLE void unloadRegistry();
+
+		//fin
 
 		void buildMap(const ef::Map& map);
 		void updateRayInstances(const std::vector<DTO_RecievedRay>& rays);

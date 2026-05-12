@@ -45,7 +45,7 @@ namespace yutasound {
     {
         return getPreset(13);
     }
-    int PinnaCalibration::getCount()
+    int PinnaCalibration::getCount() const
     {
         return (int)m_presets.size();
     }

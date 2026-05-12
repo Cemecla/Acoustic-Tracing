@@ -25,6 +25,8 @@ namespace yutasound {
         EmitterState newState;  // used for SetState
         float        itdSamples;
         ILDGain      ildGain;
+        float azimuth = 0.0f;
+        float elevation = 0.0f;
     };
 }
 #endif 

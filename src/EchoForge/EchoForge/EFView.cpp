@@ -75,7 +75,7 @@ void EFView::updateRayInstance() {
 	m_uiCommunicator->updateRayInstances(rays);
 }
 
-void EFView::updateListener(int emitterId, float azimuth, float elevation) const {
+void EFView::updateSoundSource(int emitterId, float azimuth, float elevation) const {
 	if (m_audioManager && emitterId != -1)
 	{
 		yutasound::SoundRemaining fakeRemaining;
@@ -89,46 +89,42 @@ void EFView::addSound(const std::string& path) const
 		m_audioManager->registerSound(juce::String(path));
 }
 
-int EFView::playFromFileId(int soundFileId) const
+int EFView::playSound(int soundFileId) const
 {
 	if (m_audioManager)
 	{
 		yutasound::SoundRemaining defaultRemaining;
 		int emitterId = m_audioManager->playSound(soundFileId, 0.0f, 0.0f, defaultRemaining);
-		const_cast<EFView*>(this)->m_testEmitterId = emitterId;
 		m_audioManager->play();
 		return emitterId;
 	}
 	return -1;
 }
 
-void EFView::play(std::string& url) const {
+int EFView::registerSound(const std::string& path) const {
+	if (m_audioManager)
+		return m_audioManager->registerSound(juce::String(path));
+	return -1;
+}
+
+int EFView::playSound(int soundFileId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const {
 	if (m_audioManager)
 	{
-		// register the file the user selected
-		int soundId = m_audioManager->registerSound(juce::String(url));
-
-		// create emitter and store id
-		yutasound::SoundRemaining defaultRemaining;
-		const_cast<EFView*>(this)->m_testEmitterId =
-			m_audioManager->playSound(soundId, 0.0f, 0.0f, defaultRemaining);
-
+		int emitterId = m_audioManager->playSound(soundFileId, azimuth, elevation, remaining);
 		m_audioManager->play();
+		return emitterId;
 	}
+	return -1;
 }
 
-void EFView::stop(std::string& url) const {
-	if (m_audioManager && m_testEmitterId != -1)
-	{
-		m_audioManager->stopSound(m_testEmitterId);
+void EFView::updateSoundSource(int emitterId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const {
+	if (m_audioManager)
+		m_audioManager->updateSoundSource(emitterId, azimuth, elevation, remaining);
+}
+
+void EFView::stopAudio() const {
+	if (m_audioManager)
 		m_audioManager->stop();
-		const_cast<EFView*>(this)->m_testEmitterId = -1;
-	}
-}
-
-void EFView::pausetest() const {
-	if (m_audioManager && m_testEmitterId != -1)
-		m_audioManager->pauseSound(m_testEmitterId);
 }
 
 QVariantList EFView::getSounds() const
@@ -148,10 +144,6 @@ QVariantList EFView::getSounds() const
 	return list;
 }
 
-void EFView::resumetest() const {
-    if (m_audioManager && m_testEmitterId != -1)
-        m_audioManager->resumeSound(m_testEmitterId);
-}
 
 void EFView::resetEmitters() const {
 	if (m_audioManager)
@@ -190,7 +182,7 @@ void EFView::saveRegistry(const std::string& path) const {
 
 void EFView::removeSound(int id) const {
 	if (m_audioManager)
-		m_audioManager->unloadSoundRegistry();
+		m_audioManager->removeSound(id);
 }
 
 void EFView::unloadRegistry() const {

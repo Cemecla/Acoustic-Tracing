@@ -56,7 +56,9 @@ namespace yutasound {
             json soundEntry;
             soundEntry["id"] = entry.id;
             soundEntry["md5"] = entry.md5Name.toStdString();
-            soundEntry["filePath"] = entry.filePath.toStdString();
+            juce::File appDir = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getParentDirectory();
+            juce::File soundFile(entry.filePath);
+            soundEntry["filePath"] = soundFile.getRelativePathFrom(appDir).toStdString();
             output["sounds"].push_back(soundEntry);
         }
 
@@ -78,7 +80,10 @@ namespace yutasound {
 
         for (const auto& soundEntry : input["sounds"])
         {
-            juce::String filePath = juce::String(soundEntry["filePath"].get<std::string>());
+            juce::File appDir = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getParentDirectory();
+            juce::String filePath = appDir.getChildFile(
+                juce::String(soundEntry["filePath"].get<std::string>())
+            ).getFullPathName();
             juce::String md5 = juce::String(soundEntry["md5"].get<std::string>());
             int id = soundEntry["id"].get<int>();
 
