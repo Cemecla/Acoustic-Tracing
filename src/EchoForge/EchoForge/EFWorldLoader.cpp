@@ -203,7 +203,7 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 	int id = 0;
 
 	for (const auto& item : items) {
-		std::string filename = item.value("filename", "");
+		std::string filename = "./res/assets/sounds/"+item.value("filename", "");
 		float volume         = item.value("volume", 1.0f);
 		bool loop            = item.value("loop", false);
 

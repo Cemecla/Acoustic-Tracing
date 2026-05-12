@@ -19,7 +19,7 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_rayManager{this, 20, 2}
+	m_rayManager{this, 200, 50}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
@@ -71,6 +71,7 @@ void EFModel::update(float delta) {
 	moveAvatar(inputs, delta);
 
 	m_rayManager.update();
+	processBatch();
 
 	m_updateRayTimer += delta;
 	if (m_updateRayTimer >= 1.0)
@@ -99,48 +100,59 @@ const std::vector<DTO_RecievedRay>& EFModel::getDTORays() const {
 
 void EFModel::processBatch() {
 	const auto& batch = m_rayManager.getReceivedRays();
-	// Test généré par IA
-	// Throttle : log toutes les 60 frames pour ne pas spammer
-	constexpr int LOG_INTERVAL = 10;
-	if (++m_debugFrameCount % LOG_INTERVAL != 0) {
-		m_rayManager.clearReceivedRays();
-		return;
+
+	if (!batch.empty() && m_world.has_value())
+	{
+		Eigen::Vector3f listenerPos = m_world->avatar.getPosition().toEigen();
+		m_acousticInterpreter.feed(batch, listenerPos);
 	}
 
-	if (batch.empty()) {
-		qDebug() << "[RayDebug] Frame" << m_debugFrameCount << "| Aucun rayon reçu";
-		m_rayManager.clearReceivedRays();
-		return;
-	}
+	//constexpr int LOG_INTERVAL = 10;
+	//if (++m_debugFrameCount % LOG_INTERVAL != 0) {
+	//	m_rayManager.clearReceivedRays();
+	//	return;
+	//}
 
-	// Grouper par emitter pour un résumé lisible
-	std::map<uint8_t, std::vector<const DTO_RecievedRay*>> byEmitter;
-	for (const auto& ray : batch)
-		byEmitter[ray.getEmitterID()].push_back(&ray);
+	//if (batch.empty()) {
+	//	qDebug() << "[RayDebug] Frame" << m_debugFrameCount << "| Aucun rayon reçu";
+	//	m_rayManager.clearReceivedRays();
+	//	return;
+	//}
 
-	const bool hasAmbient = byEmitter.contains(tracing::RayManager::AMBIENT_EMITTER_ID);
-	qDebug() << "[RayDebug] Frame" << m_debugFrameCount
-	         << "| Total reçus :" << batch.size()
-	         << "| Emitters actifs :" << (byEmitter.size() - (hasAmbient ? 1 : 0))
-	         << "| Rayons sortis (ambiant) :" << (hasAmbient ? byEmitter.at(tracing::RayManager::AMBIENT_EMITTER_ID).size() : 0);
+	//std::map<uint8_t, std::vector<const DTO_RecievedRay*>> byEmitter;
+	//for (const auto& ray : batch)
+	//	byEmitter[ray.getEmitterID()].push_back(&ray);
 
-	for (const auto& [emitterID, rays] : byEmitter) {
-		if (emitterID == tracing::RayManager::AMBIENT_EMITTER_ID) continue;
-		Eigen::Vector3f avgEnergy = Eigen::Vector3f::Zero();
-		float avgSteps = 0.f;
+	//const bool hasAmbient = byEmitter.contains(tracing::RayManager::AMBIENT_EMITTER_ID);
+	//qDebug() << "[RayDebug] Frame" << m_debugFrameCount
+	//         << "| Total reçus :" << batch.size()
+	//         << "| Emitters actifs :" << (byEmitter.size() - (hasAmbient ? 1 : 0))
+	//         << "| Rayons sortis (ambiant) :" << (hasAmbient ? byEmitter.at(tracing::RayManager::AMBIENT_EMITTER_ID).size() : 0);
 
-		for (const auto* r : rays) {
-			avgEnergy += r->getEnergy();
-			avgSteps  += static_cast<float>(r->getStepCount());
-		}
-		avgEnergy /= static_cast<float>(rays.size());
-		avgSteps  /= static_cast<float>(rays.size());
+	//for (const auto& [emitterID, rays] : byEmitter) {
+	//	if (emitterID == tracing::RayManager::AMBIENT_EMITTER_ID) continue;
+	//	Eigen::Vector3f avgEnergy = Eigen::Vector3f::Zero();
+	//	float avgSteps = 0.f;
 
-		qDebug() << "  Emitter" << emitterID
-		         << "| rayons :" << rays.size()
-		         << "| énergie moy (H/M/L) :"
-		         << avgEnergy.x() << "/" << avgEnergy.y() << "/" << avgEnergy.z()
-		         << "| steps moy :" << avgSteps;
+	//	for (const auto* r : rays) {
+	//		avgEnergy += r->getEnergy();
+	//		avgSteps  += static_cast<float>(r->getStepCount());
+	//	}
+	//	avgEnergy /= static_cast<float>(rays.size());
+	//	avgSteps  /= static_cast<float>(rays.size());
+
+	//	qDebug() << "  Emitter" << emitterID
+	//	         << "| rayons :" << rays.size()
+	//	         << "| énergie moy (H/M/L) :"
+	//	         << avgEnergy.x() << "/" << avgEnergy.y() << "/" << avgEnergy.z()
+	//	         << "| steps moy :" << avgSteps;
+	//}
+
+	const auto& results = m_acousticInterpreter.getResults();
+	for (const auto& [id, r] : results) {
+		qDebug() << "[Acoustic] Emitter" << id
+		         << "| az:" << r.azimuth << "el:" << r.elevation
+		         << "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
 	}
 
 	m_rayManager.clearReceivedRays();
