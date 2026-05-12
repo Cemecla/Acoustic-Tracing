@@ -21,9 +21,13 @@ namespace yutasound {
         void prepare(double sampleRate, int bufferSize);
         void setAzimuth(float azimuthDegrees);
         StereoSample processSample(float left, float right);
+        void resetState();
     private:
         juce::dsp::StateVariableTPTFilter<float> m_filterL;
         juce::dsp::StateVariableTPTFilter<float> m_filterR;
+
+        juce::SmoothedValue<float> m_cutoffL;
+        juce::SmoothedValue<float> m_cutoffR;
 
         double m_sampleRate = 0.0;
     };

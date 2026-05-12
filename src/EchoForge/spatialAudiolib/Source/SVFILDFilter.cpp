@@ -17,7 +17,6 @@ namespace yutasound {
 
         juce::dsp::ProcessSpec spec;
         spec.sampleRate = sampleRate;
-        spec.numChannels = (juce::uint32)bufferSize;
         spec.numChannels = 1;
 
         m_filterL.prepare(spec);
@@ -27,6 +26,11 @@ namespace yutasound {
         m_filterL.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
         m_filterR.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
 
+        m_cutoffL.reset(sampleRate, 0.05);
+        m_cutoffR.reset(sampleRate, 0.05);
+        m_cutoffL.setCurrentAndTargetValue(10000.0f);
+        m_cutoffR.setCurrentAndTargetValue(10000.0f);
+
         //default cutoff in front, minimal shadow
         m_filterL.setCutoffFrequency(10000.0f);
         m_filterR.setCutoffFrequency(10000.0f);
@@ -35,33 +39,45 @@ namespace yutasound {
     {
         float azRad = azimuthDegrees * (juce::MathConstants<float>::pi / 180.0f);
         // Brown-Duda cutoff formula
-        float fc = 1500.0f + 8500.0f * (1.0f + std::cos(azRad)) / 2.0f;
+        float fcFar = 1500.0f + 8500.0f * (1.0f - std::abs(std::sin(azRad))) / 2.0f;
+        float fcNear = 10000.0f;
 
         if (azimuthDegrees > 0.0f)
         {
             //source is on the RIGHT  so left is far  so attenuation on the high freq on left 
-            m_filterL.setCutoffFrequency(fc); // far ear → shadow
-            m_filterR.setCutoffFrequency(10000.0f); // near ear → minimal attenuation
+            m_cutoffL.setTargetValue(fcFar); // far ear → shadow
+            m_cutoffR.setTargetValue(fcNear); // near ear → minimal attenuation
         }
-        else if (azimuthDegrees > 0.0f)
+        else if (azimuthDegrees < 0.0f)
         {
             //source is on the LEFT so right is far  
-            m_filterL.setCutoffFrequency(10000.0f); // near ear → minimal attenuation
-            m_filterR.setCutoffFrequency(fc); // far ear → shadow
+            m_cutoffL.setTargetValue(fcNear); // near ear → minimal attenuation
+            m_cutoffR.setTargetValue(fcFar); // far ear → shadow
         }
         else 
         {
             // front equal on both ear 
-            m_filterL.setCutoffFrequency(10000.0f);
-            m_filterR.setCutoffFrequency(10000.0f);
+            m_cutoffL.setTargetValue(fcNear);
+            m_cutoffR.setTargetValue(fcNear);
         }
 
     }
     StereoSample SVFILDFilter::processSample(float left, float right)
     {
+        m_filterL.setCutoffFrequency(m_cutoffL.getNextValue());
+        m_filterR.setCutoffFrequency(m_cutoffR.getNextValue());
+
         StereoSample result;
         result.left = m_filterL.processSample(0, left);
         result.right = m_filterR.processSample(0, right);
-        return StereoSample();
+
+        return result;
+    }
+    void SVFILDFilter::resetState()
+    {
+        m_filterL.reset();
+        m_filterR.reset();
+        m_cutoffL.setCurrentAndTargetValue(10000.0f);
+        m_cutoffR.setCurrentAndTargetValue(10000.0f);
     }
 }
