@@ -82,6 +82,7 @@ struct Inputs;
 			void processBatch();
 			void buildScenario();
 			int m_debugFrameCount = 0;
+			float m_updateRayTimer = 0.0;
 	};
 
 #endif

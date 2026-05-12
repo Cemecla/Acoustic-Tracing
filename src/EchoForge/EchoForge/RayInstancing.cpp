@@ -10,23 +10,26 @@ void RayInstancing::clearBuffer() {
 	m_count = 0;
 }
 
-void RayInstancing::prepareBuffer(int batchSize) {
-	m_buffer.reserve(batchSize * sizeof(InstanceTableEntry));
+void RayInstancing::prepareBuffer(QByteArray& buffer, int batchSize) {
+	buffer.reserve(batchSize * sizeof(InstanceTableEntry));
 }
 
 void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
-	clearBuffer();
 
 	int rayCount = 0;
 	for (const auto& ray : rays)
 		rayCount += static_cast<int>(ray.getBouncePoints().size());
 
 	if (rayCount == 0) {
+		clearBuffer();
+		m_count = rayCount;
 		markDirty();
 		return;
 	}
 
-	prepareBuffer(rayCount);
+	QByteArray tempBuffer;
+
+	prepareBuffer(tempBuffer, rayCount);
 
 	for (const auto& ray : rays)
 	{
@@ -40,36 +43,40 @@ void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
 
 			InstanceTableEntry entry = makeEntry( { s.x(), s.y(), s.z() }, { e.x(), e.y(), e.z() } );
 
-			m_buffer.append(reinterpret_cast<const char*>(&entry), sizeof(entry));
+			tempBuffer.append(reinterpret_cast<const char*>(&entry), sizeof(entry));
 		}
 	}
 
+	clearBuffer();
 	m_count = rayCount;
+	m_buffer = tempBuffer;
+	
 	markDirty();
 }
 
 RayInstancing::InstanceTableEntry RayInstancing::makeEntry(const QVector3D& start, const QVector3D& end)
 {
 	QVector3D dir = end - start;
-	float length = dir.length();
+	const float length = dir.length();
 
-	QVector3D position = (start + end) * 0.5f;
+	const QVector3D position = (start + end) * 0.5f;
 
-	const float thickness = 0.05f;
-	QVector3D scale(thickness, length, thickness);
+	const QVector3D scale(0.05f, length / 100.0f, 0.05f);
 
 	QQuaternion rotation;
 	if (length > 0) {
-		rotation = QQuaternion::rotationTo(QVector3D(0, 1, 0), dir / length);
+		const QVector3D dirN = dir / length;
+		if (dirN.y() < -0.9999f) {
+			rotation = QQuaternion::fromAxisAndAngle(1, 0, 0, 180);
+		}
+		else {
+			rotation = QQuaternion::rotationTo(QVector3D(0, 1, 0), dirN);
+		}
 	}
 
 	return calculateTableEntryFromQuaternion(
-		position,
-		scale,
-		rotation,
-		QColor(255, 0, 0, 100),
-		QVector4D()
-	);
+		position, scale, rotation,
+		QColor(255, 0, 0, 100), QVector4D());
 }
 
 QByteArray RayInstancing::getInstanceBuffer(int* instanceCount) {

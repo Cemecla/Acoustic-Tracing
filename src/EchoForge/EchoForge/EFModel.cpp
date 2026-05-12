@@ -73,7 +73,13 @@ void EFModel::update(float delta) {
 	moveAvatar(inputs, delta);
 
 	m_rayManager.update();
-	m_parent->updateViewRays();
+
+	m_updateRayTimer += delta;
+	if (m_updateRayTimer >= 1.0)
+	{
+		m_parent->updateViewRays();
+		m_updateRayTimer = 0.0;
+	}
 	m_rayManager.clearReceivedRays();
 
 }

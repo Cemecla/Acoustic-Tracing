@@ -14,7 +14,7 @@ public:
 
 	void setRays(const std::vector<DTO_RecievedRay>& rays);
 	void clearBuffer();
-	void prepareBuffer(int batchSize);
+	void prepareBuffer(QByteArray& buffer, int batchSize);
 	RayInstancing::InstanceTableEntry makeEntry(const QVector3D& start, const QVector3D& end);
 
 protected:
