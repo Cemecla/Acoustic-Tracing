@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     audioManager.prepare(48000.0, 512);
     engine.prepare(48000.0, 512);
-
+    audioManager.loadPinnaPresets("C:/travail/Acoustic-Tracing/assets/sounds/pinna_presets_25_balanced.json");
     // wire callback
     audioManager.onEmitterAdded = [&engine](int id) { engine.addProcessingSlot(); };
     audioManager.onEmitterRemoved = [&engine](int id) { engine.removeProcessingSlot(id); };

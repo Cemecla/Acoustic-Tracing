@@ -44,7 +44,15 @@ namespace yutasound {
         smoothed.reset(m_sampleRate, 0.05);
         m_smoothedITD.push_back(std::move(smoothed));
 
-        // TODO: push matching activeChain, shadowChain
+        // active filter chain 
+        FilterChain active;
+        active.prepare(m_sampleRate, m_bufferSize);
+        m_activeChains.push_back(std::move(active));
+
+        // chadow filter chain 
+        FilterChain shadow;
+        shadow.prepare(m_sampleRate, m_bufferSize);
+        m_shadowChains.push_back(std::move(shadow));
     }
 
     void SpatialAudioEngine::removeProcessingSlot(int index)
@@ -52,16 +60,14 @@ namespace yutasound {
         m_delayLines.erase(m_delayLines.begin() + index);
         m_readPositions.erase(m_readPositions.begin() + index);
         m_smoothedITD.erase(m_smoothedITD.begin() + index);
-        // TODO: erase activeChain, shadowChain at index
+        m_activeChains.erase(m_activeChains.begin() + index);
+        m_shadowChains.erase(m_shadowChains.begin() + index);
     }
 
     void SpatialAudioEngine::run()
     {
-
-
         while (!threadShouldExit())
         {
-
             if (!m_audioManager.isPlaying())
             {
                 wait(1);
@@ -71,51 +77,30 @@ namespace yutasound {
             if (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
                 // drain command queue every block
-                int numReady = m_audioManager.hasCommands();
-                for (int c = 0; c < numReady; c++)
+                drainCommandQueue_();
+
+                for (int i = 0; i < (int)m_sources.size(); i++)
                 {
-                    auto cmd = m_audioManager.popCommand();
-                    if (cmd.type == EmitterCommand::Type::Add)
+                    // shadow to active swap
+                    if (m_shadowChains[i].isDirty())
                     {
-                        m_sources.push_back(cmd.emitter);
-                        addProcessingSlot();
-                    }
-                    else if (cmd.type == EmitterCommand::Type::Remove)
-                    {
-                        for (int i = 0; i < (int)m_sources.size(); i++)
-                        {
-                            if (m_sources[i].emitterId == cmd.emitterId)
-                            {
-                                removeProcessingSlot(i);
-                                m_sources.erase(m_sources.begin() + i);
-                                break;
-                            }
-                        }
-                    }
-                    else if (cmd.type == EmitterCommand::Type::SetState)
-                    {
-                        for (auto& s : m_sources)
-                            if (s.emitterId == cmd.emitterId)
-                                s.state = cmd.newState;
-                    }
-                    else if (cmd.type == EmitterCommand::Type::UpdateSpatial)
-                    {
-                        for (auto& s : m_sources)
-                            if (s.emitterId == cmd.emitterId)
-                            {
-                                s.itdSamples = cmd.itdSamples;
-                                s.ildGain = cmd.ildGain;
-                            }
-                    }
-                    else if (cmd.type == EmitterCommand::Type::Reset)
-                    {
-                        m_sources.clear();
-                        m_delayLines.clear();
-                        m_readPositions.clear();
-                        m_smoothedITD.clear();
-                        DBG("SAE: reset all emitters");
+                        m_shadowChains[i].resetState();
+                        m_shadowChains[i].warmUp();
+                        std::swap(m_activeChains[i], m_shadowChains[i]);
+                        m_activeChains[i].clearDirty();
                     }
                 }
+
+                //const auto& currentPreset = m_audioManager.getCurrentPinnaPreset();
+                //for (int i = 0; i < (int)m_sources.size(); i++)
+                //{
+                //    if (!m_sources[i].isAmbient)
+                //        m_shadowChains[i].setParameters(
+                //            m_sources[i].azimuth,
+                //            m_sources[i].elevation,
+                //            currentPreset);
+                //}
+                
                 m_mixBuffer.clear();
 
                 for (int i = 0; i < (int)m_sources.size(); i++)
@@ -135,26 +120,26 @@ namespace yutasound {
                     auto samplesAvailable = buffer.getNumSamples() - readPos;
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
 
-                    float itd = source.itdSamples;
-                    ILDGain ild = source.ildGain;
+                    m_smoothedITD[i].setTargetValue(source.itdSamples);
 
                     for (int n = 0; n < samplesThisBlock; n++)
                     {
                         float monoSample = buffer.getSample(0, readPos + n);
-                        auto stereo = delayLine.process(monoSample, itd);
+                        float smoothed = m_smoothedITD[i].getNextValue();
+                        auto stereo = delayLine.process(monoSample, smoothed);
+                        auto filtered = m_activeChains[i].processSample(stereo.left, stereo.right);
 
-                        if (itd > 0.0f)
-                            stereo.left *= ild.mid;
-                        else if (itd < 0.0f)
-                            stereo.right *= ild.mid;
-
-                        *m_mixBuffer.getWritePointer(0, n) += stereo.left;
-                        *m_mixBuffer.getWritePointer(1, n) += stereo.right;
+                        *m_mixBuffer.getWritePointer(0, n) += filtered.left;
+                        *m_mixBuffer.getWritePointer(1, n) += filtered.right;
                     }
 
                     readPos += samplesThisBlock;
                     if (readPos >= buffer.getNumSamples())
+                    {
                         readPos = 0;
+                        if (!source.isAmbient)
+                            source.state = EmitterState::Paused;
+                    }
                 }
 
                 m_circularBuffer.write(
@@ -188,5 +173,61 @@ namespace yutasound {
     {
         stopThread(2000); // wait max 2 seconds for thread to finish
         m_deviceManager.removeAudioCallback(&m_audioCallback);
+    }
+    void SpatialAudioEngine::drainCommandQueue_()
+    {
+        int numReady = m_audioManager.hasCommands();
+        for (int c = 0; c < numReady; c++)
+        {
+            auto cmd = m_audioManager.popCommand();
+            if (cmd.type == EmitterCommand::Type::Add)
+            {
+                m_sources.push_back(cmd.emitter);
+                addProcessingSlot();
+            }
+            else if (cmd.type == EmitterCommand::Type::Remove)
+            {
+                for (int i = 0; i < (int)m_sources.size(); i++)
+                {
+                    if (m_sources[i].emitterId == cmd.emitterId)
+                    {
+                        removeProcessingSlot(i);
+                        m_sources.erase(m_sources.begin() + i);
+                        break;
+                    }
+                }
+            }
+            else if (cmd.type == EmitterCommand::Type::SetState)
+            {
+                for (auto& s : m_sources)
+                    if (s.emitterId == cmd.emitterId)
+                        s.state = cmd.newState;
+            }
+            else if (cmd.type == EmitterCommand::Type::UpdateSpatial)
+            {
+                DBG("SAE: UpdateSpatial az=" + juce::String(cmd.azimuth));
+                for (int i = 0; i < (int)m_sources.size(); i++)
+                    if (m_sources[i].emitterId == cmd.emitterId)
+                    {
+                        m_sources[i].itdSamples = cmd.itdSamples;
+                        m_sources[i].ildGain = cmd.ildGain;
+                        m_sources[i].azimuth = cmd.azimuth;
+                        m_sources[i].elevation = cmd.elevation;
+                        // SVF — direct update on active chain, no swap
+                        m_activeChains[i].setAzimuth(cmd.azimuth);
+                        break;
+                    }
+            }
+            else if (cmd.type == EmitterCommand::Type::Reset)
+            {
+                m_sources.clear();
+                m_delayLines.clear();
+                m_readPositions.clear();
+                m_smoothedITD.clear();
+                m_activeChains.clear();
+                m_shadowChains.clear();
+                DBG("SAE: reset all emitters");
+            }
+        }
     }
 }

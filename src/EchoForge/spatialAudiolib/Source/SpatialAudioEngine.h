@@ -15,6 +15,7 @@
 #include "AudioManager.h"
 #include "CircularStereoBuffer.h"
 #include "StereoDelayLine.h"
+#include "FilterChain.h"
     
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H
@@ -35,6 +36,8 @@ namespace yutasound {
         void stop();
 
     private:
+        void drainCommandQueue_();
+
         int m_bufferSize = 0;
         double m_sampleRate = 0.0;
         
@@ -47,8 +50,8 @@ namespace yutasound {
         // to atenuate the pop when azimuth jump from 180 deg to -180 deg
         std::vector<juce::SmoothedValue<float>> m_smoothedITD;
 
-        // TODO: std::vector<FilterChain>      m_activeChains;
-        // TODO: std::vector<FilterChain>      m_shadowChains;
+        std::vector<FilterChain>      m_activeChains;
+        std::vector<FilterChain>      m_shadowChains;
 
         CircularStereoBuffer m_circularBuffer;
         AudioCallback m_audioCallback { m_circularBuffer };
