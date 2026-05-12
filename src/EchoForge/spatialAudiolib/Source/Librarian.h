@@ -13,6 +13,8 @@
 #include "SoundFileEntry.h"
 #include "FileProcessor.h"
 #include "FileScanner.h"
+#include "AmbientEntry.h"
+#include "ReservedSoundIds.h"
 #include "json.hpp"
 
 #ifndef LIBRARIAN_H
@@ -36,12 +38,17 @@ namespace yutasound {
 		juce::String getFilePath(int id) const;
 		int getCount() const;
 
+		void addAmbientItem(int id, const juce::String& role, const juce::String& filePath, float gain = 1.0f);
+		void removeAmbientItem(int id);
+		const std::vector<AmbientEntry>& getAmbientEntries() const;
+
 	private:
 		std::vector<SoundFileEntry> m_entries;
 		int m_nextId = 0;
 
 		bool isDuplicate_(const juce::String& md5) const;
 		int getExistingId_(const juce::String& md5) const;
+		std::vector<AmbientEntry> m_ambientEntries;
 
 	};
 
