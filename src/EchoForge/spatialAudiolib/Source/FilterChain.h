@@ -26,11 +26,15 @@ namespace yutasound {
         // in audio world Dirty mean "this data has been updated and needs to be applied"
         bool isDirty() const;
         void clearDirty();
+        void resetState();
+        void warmUp();
+        void setAzimuth(float azimuth);
+        void setPinnaEQ(PinnaPreset preset);
 
     private:
         SVFILDFilter m_svfILD;
         std::array<juce::dsp::IIR::Filter<float>, 7> m_pinnaFilters;
-        std::atomic<bool> m_isDirty { false };
+        bool m_isDirty { false };
         float m_azimuth = 0.0f;
         float m_elevation = 0.0f;
         double m_sampleRate = 0.0;
