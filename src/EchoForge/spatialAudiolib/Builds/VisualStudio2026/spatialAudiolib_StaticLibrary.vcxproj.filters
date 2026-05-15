@@ -1590,7 +1590,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AmbiantEntry.h">
+    <ClInclude Include="..\..\Source\AmbientEntry.h">
       <Filter>spatialAudiolib\Source\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ReservedSoundIds.h">

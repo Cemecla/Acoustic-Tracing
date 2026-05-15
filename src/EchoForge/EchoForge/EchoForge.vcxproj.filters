@@ -137,6 +137,9 @@
     <ClCompile Include="Scenario.cpp">
       <Filter>Source Files\WorldElement</Filter>
     </ClCompile>
+    <ClCompile Include="AcousticInterpreter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -189,6 +192,12 @@
     </ClInclude>
     <ClInclude Include="TreeMap.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="AcousticInterpreter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AcousticResult.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

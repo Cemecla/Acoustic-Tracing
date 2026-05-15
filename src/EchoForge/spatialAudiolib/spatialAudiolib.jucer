@@ -5,7 +5,7 @@
   <MAINGROUP id="KWbzeU" name="spatialAudiolib">
     <GROUP id="{394D1179-25A1-8B46-DFCC-DC9374885457}" name="Source">
       <GROUP id="{8AC25015-B90E-8319-8F74-C804FF46E5DE}" name="Utils">
-        <FILE id="vpflFI" name="AmbiantEntry.h" compile="0" resource="0" file="Source/AmbiantEntry.h"/>
+        <FILE id="pLEMDw" name="AmbientEntry.h" compile="0" resource="0" file="Source/AmbientEntry.h"/>
         <FILE id="mIvTdT" name="ReservedSoundIds.h" compile="0" resource="0"
               file="Source/ReservedSoundIds.h"/>
         <FILE id="ufujSR" name="EmitterCommand.h" compile="0" resource="0"

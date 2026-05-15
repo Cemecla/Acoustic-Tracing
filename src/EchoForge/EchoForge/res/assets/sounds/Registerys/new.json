@@ -1,0 +1,15 @@
+{
+    "ambient": [],
+    "sounds": [
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Door-Opening.mp3",
+            "id": 0,
+            "md5": "ab82b8f1cce88cab72e95da8c6295593"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Knocking-door.mp3",
+            "id": 1,
+            "md5": "39ac97adf43bd0b11c7bde47c0a45501"
+        }
+    ]
+}

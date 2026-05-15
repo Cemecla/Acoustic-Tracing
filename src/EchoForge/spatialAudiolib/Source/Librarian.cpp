@@ -100,8 +100,8 @@ namespace yutasound {
             juce::String md5 = juce::String(soundEntry["md5"].get<std::string>());
             int id = soundEntry["id"].get<int>();
 
-            juce::File file(filePath);
-            FileProcessor fp(file);
+            juce::File soundFile(filePath);
+            FileProcessor fp(soundFile);
             SoundFileEntry entry = fp.process();
 
             if (entry.md5Name != md5)

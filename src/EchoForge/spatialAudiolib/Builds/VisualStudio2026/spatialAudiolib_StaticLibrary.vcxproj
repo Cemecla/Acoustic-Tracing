@@ -1359,7 +1359,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_events.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AmbiantEntry.h"/>
+    <ClInclude Include="..\..\Source\AmbientEntry.h"/>
     <ClInclude Include="..\..\Source\ReservedSoundIds.h"/>
     <ClInclude Include="..\..\Source\EmitterCommand.h"/>
     <ClInclude Include="..\..\Source\PinnaPreset.h"/>
