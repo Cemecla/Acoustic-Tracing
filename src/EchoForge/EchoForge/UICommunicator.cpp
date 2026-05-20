@@ -47,7 +47,7 @@ void UICommunicator::startSimulation() {
 }
 
 void UICommunicator::stopSimulation() {
-
+	m_parent->stopSimulation();
 }
 
 void UICommunicator::saveSimulation(const QString& url) {

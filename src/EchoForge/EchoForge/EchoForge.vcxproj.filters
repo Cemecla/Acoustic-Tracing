@@ -272,6 +272,18 @@
     <None Include="SoundDialBox.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
+    <None Include="HudSimulation.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="HudPanel.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="HudButton.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="HudToggle.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">

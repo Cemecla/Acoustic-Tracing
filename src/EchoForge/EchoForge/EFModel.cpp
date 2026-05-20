@@ -84,14 +84,40 @@ void EFModel::update(float delta) {
 }
 
 void EFModel::moveAvatar(Inputs& inputs, float delta) {
-	Vector3F direction(0, 0, 0);
+	if (!m_world.has_value()) return;
+
+	// Rotation
+	float rotation_speed = m_world->avatar.getRotationSpeed();
+	float yawDelta = 0.0f;
+
+	if (inputs.rotLeft)  yawDelta += rotation_speed * delta;
+	if (inputs.rotRight) yawDelta -= rotation_speed * delta;
+
+	if (yawDelta != 0.0f) {
+		m_world->avatar.rotateHead(Vector3F(0.0f, yawDelta, 0.0f));
+	}
+
+	// Movement (Local)
+	Vector3F local(0, 0, 0);
 	float speed = m_world->avatar.getSpeed() * delta;
-	if (inputs.forward)  direction.z -= speed;
-	if (inputs.backward) direction.z += speed;
-	if (inputs.left)     direction.x -= speed;
-	if (inputs.right)    direction.x += speed;
-	if (direction.x != 0 || direction.z != 0)
-		m_world->avatar.move(direction);
+
+	if (inputs.forward)  local.z -= speed;
+	if (inputs.backward) local.z += speed;
+	if (inputs.left)     local.x -= speed;
+	if (inputs.right)    local.x += speed;
+
+	if (local.x == 0.0f && local.z == 0.0f) return;
+
+	// Movement (World)
+	const float yaw = m_world->avatar.getHeadAngles().y;
+	const float cos = std::cos(yaw);
+	const float sin = std::sin(yaw);
+
+	Vector3F world;
+	world.x = local.x * cos + local.z * sin;
+	world.z = -local.x * sin + local.z * cos;
+
+	m_world->avatar.move(world);
 }
 
 const std::vector<DTO_RecievedRay>& EFModel::getDTORays() const {

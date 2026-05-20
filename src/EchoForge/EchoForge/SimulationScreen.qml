@@ -80,7 +80,7 @@ View3D {
     Node {
         id: avatarNode
         position: communicator.avatarPos
-        eulerRotation: communicator.headPos
+        eulerRotation: communicator.headAngles
         
         PerspectiveCamera {
             id: avatarCamera
@@ -95,6 +95,18 @@ View3D {
             id: avatarModel
             scale: Qt.vector3d(1, 1, 1)
 
+            materials: DefaultMaterial {
+                lighting: DefaultMaterial.NoLighting
+                diffuseColor: "gray"
+            }
+        }
+
+        Model {
+            source: "#Cone"
+            id: avatarArrow
+            scale: Qt.vector3d(1, 1, 1)
+            
+            eulerRotation: Qt.vector3d(-90, 0, 0)
             materials: DefaultMaterial {
                 lighting: DefaultMaterial.NoLighting
                 diffuseColor: "gray"
@@ -124,7 +136,6 @@ View3D {
     // Voxels
     Model {
         source: "#Cube"
-        // pickable: true
         instancing: communicator.voxelInstances
         materials: CustomMaterial {
             shadingMode: CustomMaterial.Shaded

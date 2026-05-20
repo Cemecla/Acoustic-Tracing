@@ -18,5 +18,9 @@
         <file>ArrowButton.qml</file>
         <file>OptionSlider.qml</file>
         <file>SoundDialBox.qml</file>
+        <file>HudButton.qml</file>
+        <file>HudPanel.qml</file>
+        <file>HudSimulation.qml</file>
+        <file>HudToggle.qml</file>
     </qresource>
 </RCC>

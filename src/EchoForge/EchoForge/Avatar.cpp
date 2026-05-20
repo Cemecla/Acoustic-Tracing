@@ -47,6 +47,14 @@ float Avatar::setSpeed(float speed) {
 	return m_speed;
 }
 
+const float Avatar::getRotationSpeed() const {
+	return m_head.getRotationSpeed();
+}
+
+void Avatar::setRotationSpeed(float rspeed) {
+	m_head.setRotationSpeed(rspeed);
+}
+
 // HEAD SECTION
 Avatar::Head::Head(Vector3F angles): m_angles(angles) {
 
@@ -54,6 +62,14 @@ Avatar::Head::Head(Vector3F angles): m_angles(angles) {
 
 void Avatar::Head::rotate(const Vector3F& mods) {
 	m_angles += mods;
+}
+
+const float Avatar::Head::getRotationSpeed() const {
+	return m_rotateSpeed;
+}
+
+void Avatar::Head::setRotationSpeed(float rspeed) {
+	m_rotateSpeed = rspeed;
 }
 
 const Vector3F& Avatar::Head::getAngles() const {

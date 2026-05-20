@@ -21,6 +21,8 @@ struct Inputs;
 			void run(float delta);
 			void loadSimulation(std::string& url);
 			void startSimulation();
+			void stopSimulation();
+			void pauseSimulation();
 			void updateViewRays();
 			const Inputs& getLastInputs() const;
 	

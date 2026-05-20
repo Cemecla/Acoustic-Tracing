@@ -25,6 +25,7 @@ class UICommunicator;
 			void startSimulation();
 			void saveSimulation();
 			void stopSimulation();
+			void pauseSimulation();
 			void saveSimulation(std::string& url);
 			void loadSimulation(std::string& url);
 

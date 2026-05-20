@@ -26,13 +26,28 @@ Page {
 
 
     Rectangle {
+        property int points: 0
+
+        id : loadingBox
         visible: loadingPage.isLoading
         anchors.fill: parent
         color: "white"
         Text {
             anchors.centerIn: parent
-            text: "LOADING..."
+            text: "LOADING" + String(".").repeat(loadingBox.points)
             font.pixelSize: 32
+        }
+
+        SequentialAnimation {
+            running: true
+            loops: Animation.Infinite
+
+            NumberAnimation { 
+                target: loadingBox
+                property: "points"
+                to: 3;
+                duration: 1000;
+            }
         }
     }
 

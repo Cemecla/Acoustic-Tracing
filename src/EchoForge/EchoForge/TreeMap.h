@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math.h>
+#include <algorithm>
 
 
 namespace ef {
@@ -9,15 +9,19 @@ namespace ef {
 	class TreeMap
 	{
 	public:
-		TreeMap() {
+		TreeMap() : m_root(nullptr), m_size(0) {
 
 		}
 
-		void insert(K key, V value) {
-			insertNode(K key, V value, m_root);
+		~TreeMap() {
+			clear();
 		}
 
-		V search(K key) const {
+		void insert(const K& key, const V& value) {
+			m_root = insertNode(key, value, m_root);
+		}
+
+		V* search(const K& key) const {
 			return searchNode(key, m_root);
 		}
 
@@ -25,13 +29,25 @@ namespace ef {
 			return m_size;
 		}
 
-		V remove(K key) {
-			// removeNode(key, m_root);
+		bool empty() const {
+			return m_size == 0;
+		}
+
+		bool contains(const K& key) const {
+			return searchNode(key, m_root) != nullptr;
+		}
+
+		bool remove(const K& key) {
+			bool removed = false;
+			m_root = removeNode(key, m_root, removed);
+			return removed;
+
 		}
 
 		void clear() {
 			clearNode(m_root);
 			m_root = nullptr;
+			m_size = 0;
 		}
 
 	private:
@@ -42,17 +58,8 @@ namespace ef {
 			Node* right = nullptr;
 			int height = 0;
 
-			Node(K key, V value) : key(key), value(value) {
-
-			}
-		}
-
-		int getBalanceFactor(Node* node) const {
-			if (node == nullptr)
-				return 0;
-
-			return getNodeHeight(node->left) - getNodeHeight(node->right);
-		}
+			Node(const K& key, const V& value) : key(key), value(value) {};
+		};
 
 		int getNodeHeight(Node* node) const {
 			if (node == nullptr)
@@ -62,10 +69,20 @@ namespace ef {
 		}
 
 		void updateNodeHeight(Node* node) {
-			node->height = 1 + max(getNodeHeight(node->left), getNodeHeight(node->right));
+			if (node == nullptr)
+				return;
+
+			node->height = 1 + std::max(getNodeHeight(node->left), getNodeHeight(node->right));
 		}
 
-		void rotateLeft(Node* node) {
+		int getBalanceFactor(Node* node) const {
+			if (node == nullptr)
+				return 0;
+
+			return getNodeHeight(node->left) - getNodeHeight(node->right);
+		}
+
+		Node* rotateLeft(Node* node) {
 			Node* nodex = node->right;
 			Node* orphan = nodex->left;
 
@@ -74,9 +91,11 @@ namespace ef {
 
 			updateNodeHeight(node);
 			updateNodeHeight(nodex);
+
+			return nodex;
 		}
 
-		void rotateRight(Node* node) {
+		Node* rotateRight(Node* node) {
 			Node* nodex = node->left;
 			Node* orphan = nodex->right;
 
@@ -85,15 +104,39 @@ namespace ef {
 
 			updateNodeHeight(node);
 			updateNodeHeight(nodex);
+
+			return nodex;
+		}
+
+		Node* rebalance(Node* node) {
+			updateNodeHeight(node);
+			int bf = getBalanceFactor(node);
+
+			// Left-heavy
+			if (bf >= 2) {
+				if (getBalanceFactor(node->left) < 0) {
+					node->left = rotateLeft(node->left);
+				}
+				return rotateRight(node);
+			}
+
+			// Right-heavy
+			if (bf <= -2) {
+				if (getBalanceFactor(node->right) > 0) {
+					node->right = rotateRight(node->right);
+				}
+				return rotateLeft(node);
+			}
+			return node;
 		}
 
 
-		V searchNode(K key, Node* node) const {
+		V* searchNode(const K& key, Node* node) const {
 			if (node == nullptr)
 				return nullptr;
 
 			if (key == node->key)
-				return node->value;
+				return &node->value;
 
 			if (key < node->key)
 				return searchNode(key, node->left);
@@ -101,67 +144,65 @@ namespace ef {
 				return searchNode(key, node->right);
 		}
 
-		void insertNode(K key, V value, Node* node) {
-			if (key < node->key) {
-				insertNode(key, value, node->left);
+		Node* insertNode(const K& key, const V& value, Node* node) {
+			if (node == nullptr) {
 				m_size++;
+				return new Node(key, value);
 			}
 
-			else if (key > node->key)
-				insertNode(key, value, node->right);
-
-			else if (key == node->key) {
-				node->value = value;
-				updateNodeHeight(node);
-			}
-
-			else if (node == nullptr)
-				&node = Node(key, value);
-
-			int bf = getBalanceFactor(node);
-
-			if (bf <= -2)
-			{
-				if (getBalanceFactor(node->left) <= 0) {
-					rotateRight(node);
-				}
-				else
-				{
-					rotateLeft(node);
-					rotateRight(node);
-				}
-			}
-			else if(bf >= 2)
-			{
-				if (getBalanceFactor(node->right) >= 0) {
-					rotateLeft(node);
-				}
-				else
-				{
-					rotateRight(node);
-					rotateLeft(node);
-				}
-			}
-		}
-
-		V removeNode(K key, Node* node) {
 			if (key < node->key) {
-				removeNode(key, value, node->left);
+				node->left = insertNode(key, value, node->left);
+			}
+			else if (key > node->key) {
+				node->right = insertNode(key, value, node->right);
+			}
+			else {
+				node->value = value;
+				return node;
 			}
 
-			else if (key > node->key)
-				removeNode(key, value, node->right);
-
-			else if (key == node->key) {
-				// NOT COMPLETED BREAK THE TREE
-				V value = node->value;
-				delete node;
-				return value;
-			}
-
-			else if (node == nullptr)
-				return nullptr;
+			return rebalance(node);
 		}
+
+		Node* findSuccessor(Node* node) const {
+			while (node->left != nullptr) 
+				node = node->left;
+			return node;
+		}
+
+		Node* removeNode(const K& key, Node* node, bool& removed) {
+			if (node == nullptr) return nullptr;
+
+			if (key < node->key) {
+				node->left = removeNode(key, node->left, removed);
+			}
+			else if (key > node->key) {
+				node->right = removeNode(key, node->right, removed);
+			}
+			else {
+				removed = true;
+				m_size--;
+
+				if (node->left == nullptr || node->right == nullptr) {
+					Node* child = (node->left != nullptr) ? node->left : node->right;
+					delete node;
+					return child;
+				}
+				else {
+					Node* successor = findSuccessor(node->right);
+					node->key = successor->key;
+					node->value = successor->value;
+
+					bool placeholder = false;
+					node->right = removeNode(successor->key, node->right, placeholder);
+
+					m_size++;
+				}
+			}
+
+			return rebalance(node);
+		}
+
 
 		void clearNode(Node* node) {
 			if (node == nullptr)

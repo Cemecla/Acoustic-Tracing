@@ -49,6 +49,12 @@ void EFView::saveSimulation() {
 }
 
 void EFView::stopSimulation() {
+	m_parent->stopSimulation();
+	unloadRegistry();
+	resetEmitters();
+}
+
+void EFView::pauseSimulation() {
 
 }
 
@@ -65,9 +71,23 @@ void EFView::simulationLoaded() const {
 }
 
 void EFView::update(float delta) {
-	ef::Vector3F position = m_parent->m_model->getAvatar()->getPosition();
+	const ef::Avatar& avatar = *m_parent->m_model->getAvatar();
+
+	ef::Vector3F position = avatar.getPosition();
 	QVector3D qpos = { position.x, position.y, position.z };
 	m_uiCommunicator->setAvatarPos(qpos);
+
+	ef::Vector3F angles = avatar.getHeadAngles();
+
+	constexpr float RAD_TO_DEG = 57.2957795f;
+
+	QVector3D qangles = {
+		angles.x * RAD_TO_DEG,
+		angles.y * RAD_TO_DEG,
+		angles.z * RAD_TO_DEG
+	};
+
+	m_uiCommunicator->setHeadAngles(qangles);
 }
 
 void EFView::updateRayInstance() {
@@ -75,6 +95,8 @@ void EFView::updateRayInstance() {
 	m_uiCommunicator->updateRayInstances(rays);
 }
 
+
+// AUDIOMANAGER
 void EFView::updateSoundSource(int emitterId, float azimuth, float elevation) const {
 	if (m_audioManager && emitterId != -1)
 	{
@@ -144,7 +166,6 @@ QVariantList EFView::getSounds() const
 	return list;
 }
 
-
 void EFView::resetEmitters() const {
 	if (m_audioManager)
 		m_audioManager->reset();
@@ -163,9 +184,11 @@ void EFView::pauseAll() const {
 void EFView::resumeEmitter(int emitterId) const {
 	if (m_audioManager) m_audioManager->resumeSound(emitterId);
 }
+
 void EFView::pauseEmitter(int emitterId) const {
 	if (m_audioManager) m_audioManager->pauseSound(emitterId);
 }
+
 void EFView::stopEmitter(int emitterId) const {
 	if (m_audioManager) m_audioManager->stopSound(emitterId);
 }

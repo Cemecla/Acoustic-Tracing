@@ -36,3 +36,11 @@ void EFController::startSimulation() {
 	m_model->startScenario();
 	m_simulationLoop.start();
 }
+
+void EFController::stopSimulation() {
+
+}
+
+void EFController::pauseSimulation() {
+
+}

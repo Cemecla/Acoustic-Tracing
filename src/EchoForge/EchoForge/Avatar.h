@@ -60,6 +60,10 @@
 				float getSpeed() const;
 
 				float setSpeed(float speed);
+
+				const float getRotationSpeed() const;
+
+				void setRotationSpeed(float rspeed);
 	
 			private:
 				class Head {
@@ -81,10 +85,15 @@
 					*	@return Constant reference to Vector3(x, y, z) representing angles.
 					*/
 					const Vector3F& getAngles() const;
+
+					const float getRotationSpeed() const;
+
+					void setRotationSpeed(float rspeed);
 	
 				private:
 					// Variables
 					Vector3F m_angles;
+					float m_rotateSpeed = 2.5f;
 				};
 	
 				// Variables
