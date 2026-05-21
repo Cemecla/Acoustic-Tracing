@@ -40,6 +40,7 @@ namespace yutasound {
         DBG("Librarian: added sound id=" + juce::String(newId) + " file=" + filePath);
         return newId;
     }
+
     void Librarian::removeItem(int id)
     {
         m_entries.erase(
@@ -49,6 +50,7 @@ namespace yutasound {
         );
         DBG("Librarian: removed sound id=" + juce::String(id));
     }
+
     void Librarian::saveSoundRegistry(const juce::String & jsonPath)
     {
         json output;
@@ -82,6 +84,7 @@ namespace yutasound {
         file.replaceWithText(output.dump(4)); //nice indentattion!
         DBG("Librarian: save registery to" + jsonPath);
     }
+
     void Librarian::loadSoundRegistry(const juce::String& jsonPath)
     {
         juce::File file(jsonPath);
@@ -140,6 +143,7 @@ namespace yutasound {
             DBG("Librarian: loaded " + juce::String(m_ambientEntries.size()) + " ambient sounds");
         }
     }
+
     void Librarian::unloadSoundRegistry()
     {
         m_entries.clear();
@@ -194,10 +198,12 @@ namespace yutasound {
         );
         DBG("Librarian: removed Ambient id=" + juce::String(id));
     }
+
     const std::vector<AmbientEntry>& Librarian::getAmbientEntries() const
     {
         return m_ambientEntries;
     }
+
     bool Librarian::isDuplicate_(const juce::String& md5) const
     {
         for (const auto& entry : m_entries)

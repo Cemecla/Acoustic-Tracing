@@ -14,12 +14,12 @@
 #define RESERVEDSOUNDIDS_H
 namespace yutasound {
     namespace ReservedIds {
-        constexpr int AMBIANT_MIN = 0;
-        constexpr int AMBIANT_MAX = 9;
-        constexpr int DYNAIC_START = 10;
+        constexpr int AMBIENT_MIN = 0;
+        constexpr int AMBIENT_MAX = 9;
+        constexpr int DYNAMIC_START = 10;
 
-        inline bool isAmbient(int id) { return id >= AMBIANT_MIN && id <= AMBIANT_MAX;  }
-        inline bool isDynamic(int id) { return id >= DYNAIC_START; }
+        inline bool isAmbient(int id) { return id >= AMBIENT_MIN && id <= AMBIENT_MAX;  }
+        inline bool isDynamic(int id) { return id >= DYNAMIC_START; }
     };
 }
 

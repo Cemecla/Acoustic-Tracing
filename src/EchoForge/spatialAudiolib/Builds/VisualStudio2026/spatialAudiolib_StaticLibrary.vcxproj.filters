@@ -283,6 +283,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CrossoverFilter.cpp">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PinnaCalibration.cpp">
       <Filter>spatialAudiolib\Source</Filter>
     </ClCompile>
@@ -1613,6 +1616,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\EmitterState.h">
       <Filter>spatialAudiolib\Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CrossoverFilter.h">
+      <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PinnaCalibration.h">
       <Filter>spatialAudiolib\Source</Filter>

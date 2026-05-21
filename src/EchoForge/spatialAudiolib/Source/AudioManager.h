@@ -15,6 +15,8 @@
 #include "EmitterState.h"
 #include "EmitterCommand.h"
 #include "PinnaCalibration.h"
+#include "AmbientEntry.h"
+#include "ReservedSoundIds.h"
 #include <functional>
 
 
@@ -72,6 +74,10 @@ namespace yutasound {
         //callback for the SAE
         std::function<void(int)> onEmitterAdded;
         std::function<void(int)> onEmitterRemoved;
+
+        // ambinet
+        const std::vector<AmbientEntry>& getAmbientEtries() const;
+        float getAmbientGain(int ambientId) const;
 
     private:
         //void loadSource_(int id);
