@@ -18,6 +18,10 @@
         <FILE id="zzel8T" name="ILDGain.h" compile="0" resource="0" file="Source/ILDGain.h"/>
         <FILE id="wpXJXr" name="EmitterState.h" compile="0" resource="0" file="Source/EmitterState.h"/>
       </GROUP>
+      <FILE id="WUbbM0" name="CrossoverFilter.cpp" compile="1" resource="0"
+            file="Source/CrossoverFilter.cpp"/>
+      <FILE id="JbthUa" name="CrossoverFilter.h" compile="0" resource="0"
+            file="Source/CrossoverFilter.h"/>
       <FILE id="x6k8ML" name="PinnaCalibration.cpp" compile="1" resource="0"
             file="Source/PinnaCalibration.cpp"/>
       <FILE id="lo2Tip" name="PinnaCalibration.h" compile="0" resource="0"

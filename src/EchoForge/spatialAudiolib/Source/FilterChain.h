@@ -13,6 +13,7 @@
 #include "SVFILDFilter.h"
 #include "PinnaPreset.h"
 #include "StereoDelayLine.h"
+#include "CrossoverFilter.h"
 
 #ifndef FILTERCHAIN_H
 #define FILTERCHAIN_H
@@ -30,6 +31,7 @@ namespace yutasound {
         void warmUp();
         void setAzimuth(float azimuth);
         void setPinnaEQ(PinnaPreset preset);
+        void setGains(ILDGain gains);
 
     private:
         SVFILDFilter m_svfILD;
@@ -39,6 +41,7 @@ namespace yutasound {
         float m_elevation = 0.0f;
         double m_sampleRate = 0.0;
 
+        CrossoverFilter m_crossover;
     };
 }
 #endif // !FILTERCHAIN_H

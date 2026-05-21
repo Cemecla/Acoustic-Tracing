@@ -129,8 +129,12 @@ namespace yutasound {
                         auto stereo = delayLine.process(monoSample, smoothed);
                         auto filtered = m_activeChains[i].processSample(stereo.left, stereo.right);
 
-                        *m_mixBuffer.getWritePointer(0, n) += filtered.left;
-                        *m_mixBuffer.getWritePointer(1, n) += filtered.right;
+                        float gain = source.isAmbient
+                            ? m_audioManager.getAmbientGain(source.soundFileId)
+                            : 1.0f;
+
+                        *m_mixBuffer.getWritePointer(0, n) += filtered.left * gain;
+                        *m_mixBuffer.getWritePointer(1, n) += filtered.right * gain;
                     }
 
                     readPos += samplesThisBlock;
@@ -205,7 +209,6 @@ namespace yutasound {
             }
             else if (cmd.type == EmitterCommand::Type::UpdateSpatial)
             {
-                DBG("SAE: UpdateSpatial az=" + juce::String(cmd.azimuth));
                 for (int i = 0; i < (int)m_sources.size(); i++)
                     if (m_sources[i].emitterId == cmd.emitterId)
                     {
@@ -215,6 +218,8 @@ namespace yutasound {
                         m_sources[i].elevation = cmd.elevation;
                         // SVF — direct update on active chain, no swap
                         m_activeChains[i].setAzimuth(cmd.azimuth);
+                        // crossover gains - direct update on on active chain
+                        m_activeChains[i].setGains(cmd.ildGain);
                         break;
                     }
             }

@@ -34,6 +34,25 @@ namespace yutasound {
     void AudioManager::loadSoundRegistry(const juce::String& jsonPath)
     {
         m_librarian.loadSoundRegistry(jsonPath);
+
+        for (const auto& ambient : m_librarian.getAmbientEntries())
+        {
+            SoundSource emitter;
+            emitter.emitterId = ambient.id;
+            emitter.soundFileId = ambient.id;
+            emitter.state = EmitterState::Playing;
+            emitter.isAmbient = true;
+            emitter.itdSamples = 0.0f;
+            emitter.ildGain = ILDGain();
+
+            const auto scope = m_commandFifo.write(1);
+            if (scope.blockSize1 > 0)
+            {
+                m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::Add;
+                m_commandBuffer[scope.startIndex1].emitter = emitter;
+                m_commandBuffer[scope.startIndex1].emitterId = emitter.emitterId;
+            }
+        }
     }
 
     void AudioManager::saveSoundRegistry(const juce::String & jsonPath)
@@ -43,6 +62,8 @@ namespace yutasound {
 
     void AudioManager::unloadSoundRegistry()
     {
+        for (int id = ReservedIds::AMBIENT_MIN; id <= ReservedIds::AMBIENT_MAX; id++)
+            stopSound(id);
         m_librarian.unloadSoundRegistry();
     }
 
@@ -204,7 +225,26 @@ namespace yutasound {
 
     const juce::AudioBuffer<float>& AudioManager::getBuffer(int soundFileId) const
     {
+        if (ReservedIds::isAmbient(soundFileId))
+        {
+            for (const auto& ambient : m_librarian.getAmbientEntries())
+                if (ambient.id == soundFileId)
+                    return ambient.buffer;
+        }
         return m_librarian.getBuffer(soundFileId);
+    }
+
+    const std::vector<AmbientEntry>& AudioManager::getAmbientEtries() const
+    {
+        return m_librarian.getAmbientEntries();
+    }
+
+    float AudioManager::getAmbientGain(int ambientId) const
+    {
+        for (const auto& ambient : m_librarian.getAmbientEntries())
+            if (ambient.id == ambientId)
+                return ambient.gain;
+        return 1.0f;
     }
 
     float AudioManager::computeITD_(float azimuth, float elevation)

@@ -38,6 +38,7 @@ namespace yutasound {
 		juce::String getFilePath(int id) const;
 		int getCount() const;
 
+		// Ambient sound manipulation
 		void addAmbientItem(int id, const juce::String& role, const juce::String& filePath, float gain = 1.0f);
 		void removeAmbientItem(int id);
 		const std::vector<AmbientEntry>& getAmbientEntries() const;

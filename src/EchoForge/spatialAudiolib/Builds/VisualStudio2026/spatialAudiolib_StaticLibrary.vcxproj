@@ -146,6 +146,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CrossoverFilter.cpp"/>
     <ClCompile Include="..\..\Source\PinnaCalibration.cpp"/>
     <ClCompile Include="..\..\Source\Librarian.cpp"/>
     <ClCompile Include="..\..\Source\FileProcessor.cpp"/>
@@ -1367,6 +1368,7 @@
     <ClInclude Include="..\..\Source\SoundRemaining.h"/>
     <ClInclude Include="..\..\Source\ILDGain.h"/>
     <ClInclude Include="..\..\Source\EmitterState.h"/>
+    <ClInclude Include="..\..\Source\CrossoverFilter.h"/>
     <ClInclude Include="..\..\Source\PinnaCalibration.h"/>
     <ClInclude Include="..\..\Source\Librarian.h"/>
     <ClInclude Include="..\..\Source\FileProcessor.h"/>
