@@ -11,6 +11,7 @@
 #include "EFWorld.h"
 #include "Scenario.h"
 #include "AcousticInterpreter.h"
+#include "Vector.h"
 
 using json = nlohmann::json;
 

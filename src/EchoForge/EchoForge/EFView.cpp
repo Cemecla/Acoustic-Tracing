@@ -107,7 +107,11 @@ int EFView::registerSound(const std::string& path) const {
 	return -1;
 }
 
-int EFView::playSound(int soundFileId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const {
+int EFView::playSound(int soundFileId, float azimuth, float elevation, ef::Vector3F gain) const {
+	yutasound::SoundRemaining remaining;
+	remaining.highRemaining = gain.x;
+	remaining.midRemaining = gain.y;
+	remaining.lowRemaining = gain.z;
 	if (m_audioManager)
 	{
 		int emitterId = m_audioManager->playSound(soundFileId, azimuth, elevation, remaining);
@@ -117,7 +121,12 @@ int EFView::playSound(int soundFileId, float azimuth, float elevation, yutasound
 	return -1;
 }
 
-void EFView::updateSoundSource(int emitterId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const {
+void EFView::updateSoundSource(int emitterId, float azimuth, float elevation, ef::Vector3F gain) const {
+	yutasound::SoundRemaining remaining;
+	remaining.highRemaining = gain.x;
+	remaining.midRemaining = gain.y;
+	remaining.lowRemaining = gain.z;
+
 	if (m_audioManager)
 		m_audioManager->updateSoundSource(emitterId, azimuth, elevation, remaining);
 }

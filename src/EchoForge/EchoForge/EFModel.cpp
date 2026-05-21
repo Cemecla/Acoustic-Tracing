@@ -30,6 +30,13 @@ void EFModel::loadWorld(std::string& filename) {
 	json materialfile = loadJson(str);
 	m_world = EFWorldLoader::build(mapfile, materialfile);
 
+	std::vector<int> emitterIds;
+	for (auto& emitter : m_world->emitters) {
+		emitter.sound_id = m_parent->m_view->registerSound(emitter.filename);
+		emitterIds.push_back(emitter.m_id);
+	}
+	m_acousticInterpreter.setKnownEmitters(emitterIds);
+
 	buildScenario();
 }
 
@@ -43,8 +50,11 @@ void EFModel::buildScenario() {
 
 		float triggerTime = m_world->emitters[i].triggerTime;
 
+		int emitterId = m_parent->m_view->playSound(m_world->emitters[i].sound_id);
+
 		m_scenario.add_event(
-			[this, i]() {
+			[this, i, emitterId]() {
+				m_parent->m_view->resumeEmitter(emitterId);
 				m_world->emitters[i].isActive = true;
 				qDebug() << "[Scenario] Emetteur" << i << "activé";
 			},
@@ -101,7 +111,7 @@ const std::vector<DTO_RecievedRay>& EFModel::getDTORays() const {
 void EFModel::processBatch() {
 	const auto& batch = m_rayManager.getReceivedRays();
 
-	if (!batch.empty() && m_world.has_value())
+	if (m_world.has_value())
 	{
 		Eigen::Vector3f listenerPos = m_world->avatar.getPosition().toEigen();
 		m_acousticInterpreter.feed(batch, listenerPos);
@@ -150,12 +160,13 @@ void EFModel::processBatch() {
 
 	const auto& results = m_acousticInterpreter.getResults();
 	for (const auto& [id, r] : results) {
+		m_parent->m_view->updateSoundSource(id, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
 		qDebug() << "[Acoustic] Emitter" << id
 		         << "| az:" << r.azimuth << "el:" << r.elevation
 		         << "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
 	}
 
-	m_rayManager.clearReceivedRays();
+	//m_rayManager.clearReceivedRays();
 }
 
 json EFModel::loadJson(std::string& filename) {

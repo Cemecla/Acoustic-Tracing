@@ -13,7 +13,10 @@
 namespace yutasound {
     int Librarian::addItem(const juce::String& filePath)
     {
-        juce::File file(filePath);
+        juce::File appDir = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getParentDirectory();
+        juce::File file = juce::File::isAbsolutePath(filePath)
+            ? juce::File(filePath)
+            : appDir.getChildFile(filePath);
         FileProcessor fp(file);
         SoundFileEntry entry = fp.process();
 
