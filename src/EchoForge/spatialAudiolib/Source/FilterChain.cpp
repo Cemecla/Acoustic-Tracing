@@ -26,6 +26,8 @@ namespace yutasound {
         for (auto& filter : m_pinnaFilters)
             filter.prepare(spec);
 
+        m_crossover.prepare(sampleRate, bufferSize);
+
         m_isDirty = false;
     }
 
@@ -48,6 +50,9 @@ namespace yutasound {
             stereo.right = filter.processSample(stereo.right);
         }
 
+        // crossover filter
+        stereo = m_crossover.processSample(stereo.left, stereo.right);
+
         return stereo;
     }
 
@@ -65,6 +70,7 @@ namespace yutasound {
         for (auto& filter : m_pinnaFilters)
             filter.reset();
         m_svfILD.resetState();
+        m_crossover.reset();
     }
     void FilterChain::warmUp()
     {
@@ -96,5 +102,9 @@ namespace yutasound {
                     m_sampleRate, freqs[b], 1.0f, linearGain);
         }
         m_isDirty = true; // signal SAE to swap at next block boundary
+    }
+    void FilterChain::setGains(ILDGain gains)
+    {
+        m_crossover.setGains(gains);
     }
 }
