@@ -310,6 +310,16 @@
                 "type": "timer",
                 "time": 10000
             } 
+        },
+        {
+            "filename": "Fireplace.mp3",
+            "volume": 1.0,
+            "loop": true,
+            "position": [500.0, 300.0, 700.0],
+            "event": {
+                "type": "timer",
+                "time": 20000
+            } 
         }
     ]
 }

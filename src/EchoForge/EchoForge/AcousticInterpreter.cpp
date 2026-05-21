@@ -56,7 +56,7 @@ void AcousticInterpreter::flush(const Eigen::Vector3f& listenerPos)
         else
         {
             float batchWeight = std::min(1.f, static_cast<float>(batch.size()) / m_quantityThreshold);
-            float t = m_smoothingFactor + batchWeight * (1.f - m_smoothingFactor);
+            float t = m_smoothingFactor + batchWeight * (0.3f - m_smoothingFactor);
             lerpResult(it->second, raw, t);
         }
 
@@ -102,7 +102,7 @@ AcousticResult AcousticInterpreter::compute(int emitterId,
 
     weightedPos  /= totalWeight;
     weightedGain /= totalWeight;
-    result.gain   = weightedGain;
+    result.gain   = weightedGain.array().sqrt();
 
     Eigen::Vector3f delta = weightedPos - listenerPos;
     float dist2D = std::sqrt(delta.x() * delta.x() + delta.z() * delta.z());
