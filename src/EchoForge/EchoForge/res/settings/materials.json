@@ -4,6 +4,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [120, 120, 120, 255],
+        "tiles": {
+            "sides": 22,
+            "top": 22,
+            "bottom": 22
+        },
         "metalness": 0.0,
         "specular": 0.1,
         "roughness": 1.0,
@@ -16,6 +21,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [255, 255, 255, 100],
+        "tiles": {
+            "sides": 87,
+            "top": 87,
+            "bottom": 87
+        },
         "metalness": 0.0,
         "specular": 0.9,
         "roughness": 0.1,
@@ -28,6 +38,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [125, 100, 49, 255],
+        "tiles": {
+            "sides": 1,
+            "top": 81,
+            "bottom": 81
+        },
         "metalness": 0.0,
         "specular": 0.2,
         "roughness": 0.9,
@@ -40,6 +55,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [255, 0, 0, 255],
+        "tiles": {
+            "sides": 70,
+            "top": 70,
+            "bottom": 70
+        },
         "metalness": 0.0,
         "specular": 0.1,
         "roughness": 1.0,
@@ -52,6 +72,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [0, 0, 0, 255],
+        "tiles": {
+            "sides": 3,
+            "top": 3,
+            "bottom": 3
+        },
         "metalness": 0.0,
         "specular": 0.6,
         "roughness": 0.3,
@@ -64,6 +89,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [212, 175, 55, 255],
+        "tiles": {
+            "sides": 56,
+            "top": 56,
+            "bottom": 56
+        },
         "metalness": 1.0,
         "specular": 0.0,
         "roughness": 0.2,
@@ -76,6 +106,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [0, 20, 168, 90],
+        "tiles": {
+            "sides": 54,
+            "top": 54,
+            "bottom": 54
+        },
         "metalness": 0.0,
         "specular": 0.8,
         "roughness": 0.05,
@@ -88,6 +123,11 @@
         "isPassable": true,
         "isInstantiable": true,
         "color": [111, 135, 21, 255],
+        "tiles": {
+            "sides": 76,
+            "top": 76,
+            "bottom": 76
+        },
         "metalness": 0.0,
         "specular": 0.2,
         "roughness": 0.8,
@@ -100,6 +140,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [107, 84, 40, 255],
+        "tiles": {
+            "sides": 43,
+            "top": 15,
+            "bottom": 52
+        },
         "metalness": 0.0,
         "specular": 0.05,
         "roughness": 1.0,
@@ -112,6 +157,11 @@
         "isPassable": false,
         "isInstantiable": true,
         "color": [154, 108, 0, 255],
+        "tiles": {
+            "sides": 0,
+            "top": 0,
+            "bottom": 0
+        },
         "metalness": 0.0,
         "specular": 0.15,
         "roughness": 0.95,

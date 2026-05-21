@@ -137,7 +137,26 @@ View3D {
     Model {
         source: "#Cube"
         instancing: communicator.voxelInstances
+
         materials: CustomMaterial {
+
+            property real atlasCols: 9.0
+            property real atlasRows: 10.0
+            property real atlasTexWidth: 1152.0
+            property real atlasTexHeight: 1280.0
+
+            property TextureInput baseColorMap: TextureInput {
+                texture: Texture {
+                    source: "qrc:/textures/atlasVoxel"
+                    minFilter: Texture.Nearest
+                    magFilter: Texture.Nearest
+                    mipFilter: Texture.None
+                    tilingModeHorizontal: Texture.ClampToEdge
+                    tilingModeVertical: Texture.ClampToEdge
+                    generateMipmaps: false
+                }
+            }
+
             shadingMode: CustomMaterial.Shaded
             vertexShader: "qrc:/shaders/voxel.vert"
             fragmentShader: "qrc:/shaders/voxel.frag"

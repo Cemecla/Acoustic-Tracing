@@ -12,8 +12,6 @@ ChunkInstancing::ChunkInstancing(QQuick3DObject *parent): QQuick3DInstancing(par
 
 void ChunkInstancing::setChunk(const ef::Map& map) {
 
-	int temp_count = 0;
-
 	int voxelUnitSize = map.getUnitSize();
 
 	int halfVoxelSize = voxelUnitSize / 2;
@@ -23,8 +21,6 @@ void ChunkInstancing::setChunk(const ef::Map& map) {
 
 	const std::vector<ef::Material>& rawMaterials = map.getRawMaterials();
 	const std::vector<int>& voxels = map.getVoxels();
-
-	qDebug() << "start";
 
 	m_buffer.clear();
 	m_buffer.reserve(voxels.size() * sizeof(InstanceTableEntry));
@@ -49,7 +45,9 @@ void ChunkInstancing::setChunk(const ef::Map& map) {
 				QVector3D translation(w * voxelUnitSize + halfVoxelSize, hf, df);
 				QColor color(material.color.r, material.color.g, material.color.b, material.color.a);
 
-				QVector4D custom = { material.metalness, material.roughness, material.specular, 0.0 };
+				const float packedTiles = float(material.topTileId) * 65536.0f + float(material.sideTileId) * 256.0f + float(material.bottomTileId);
+
+				QVector4D custom = { material.metalness, material.roughness, material.specular, packedTiles };
 
 				auto entry = calculateTableEntry(translation, scale, rotation, color, custom);
 				m_buffer.append(reinterpret_cast<const char*>(&entry), sizeof(entry));
@@ -60,7 +58,6 @@ void ChunkInstancing::setChunk(const ef::Map& map) {
 	}
 
 	m_count = count;
-	qDebug() << "end";
 	markDirty();
 }
 

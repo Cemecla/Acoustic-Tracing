@@ -8,9 +8,9 @@
 using namespace ef;
 using namespace std;
 
-const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1));
+const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1), 0,0,0);
 
-const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0.01, 0.01, 0.01), 0.0, Vector3F(0, 0, 0));
+const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0.01, 0.01, 0.01), 0.0, Vector3F(0, 0, 0),0,0,0);
 
 EFWorld EFWorldLoader::build(const json& mapJson) {
 	if (isMapValid(mapJson)) {
@@ -119,7 +119,6 @@ bool EFWorldLoader::isMaterialsValid(const json& jsonData) {
 Avatar EFWorldLoader::buildAvatar(const json& mapData) {
 	std::vector<float> userSpawnPos = mapData["userSpawnPos"];
 	const float voxelUnitSize = mapData.value("voxelUnitSize", 1.0f);
-	//return Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2]), Vector3F());
 	return Avatar(Vector3F(userSpawnPos[0], userSpawnPos[1], userSpawnPos[2] ), Vector3F());
 }
 
@@ -168,13 +167,24 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 
 	for(json materialData : materialJson)
 	{
-		std::string name = materialData["name"];
+		std::string name = materialData.value("name", "NoName");
 		std::vector<uint8_t> colorBrut = materialData["color"];
-		bool isPassable = materialData["isPassable"];
-		bool isInstantiable = materialData["isInstantiable"];
+		bool isPassable = materialData.value("isPassable", false);
+		bool isInstantiable = materialData.value("isInstantiable", true);
 		float scatteringCoefficient = materialData["scatteringCoefficient"];
 		std::vector<float> normalBrut = materialData["normal"];
 		std::vector<float> energyLossBrut = materialData["energyLoss"];
+
+		uint8_t topTile = 0;
+		uint8_t sideTile = 0;
+		uint8_t bottomTile = 0;
+
+		if (materialData.contains("tiles")) {
+			const auto& tiles = materialData["tiles"];
+			topTile = tiles.value("top", (uint8_t)0);
+			sideTile = tiles.value("sides", (uint8_t)0);
+			bottomTile = tiles.value("bottom", (uint8_t)0);
+		}
 
 		float metalness = materialData["metalness"];
 		float specular = materialData["specular"];
@@ -184,7 +194,7 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 		Vector3F normal = Vector3F(normalBrut[0], normalBrut[1], normalBrut[2]);
 		ColorRGBA colorRGB = ColorRGBA(colorBrut[0], colorBrut[1], colorBrut[2], colorBrut[3]);
 
-		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, colorRGB, roughness, metalness, specular);
+		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, topTile, sideTile, bottomTile, colorRGB, roughness, metalness, specular);
 
 		materials.push_back(nm);
 	}

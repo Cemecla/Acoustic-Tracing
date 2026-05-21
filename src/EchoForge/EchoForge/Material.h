@@ -13,6 +13,9 @@ namespace ef {
 		float scatteringCoefficient{};
 		Vector3F normal{};
 		Vector3F energyLoss{};
+		uint8_t topTileId{};
+		uint8_t sideTileId{};
+		uint8_t bottomTileId{};
 		ColorRGBA color;
 		float roughness{};
 		float metalness{};
@@ -20,10 +23,22 @@ namespace ef {
 
 		Material();
 
-		Material(std::string name, bool isPassable, bool isInstantiable, Vector3F energyLoss, float scatteringCoefficient, Vector3F normal, ColorRGBA color = ColorRGBA{}, float roughness = 0, float metalness = 0, float specular = 0);
+		Material(
+			std::string name, 
+			bool isPassable, 
+			bool isInstantiable, 
+			Vector3F energyLoss, 
+			float scatteringCoefficient, 
+			Vector3F normal,
+			uint8_t topTileId,
+			uint8_t sideTileId,
+			uint8_t bottomTileId,
+			ColorRGBA color = ColorRGBA{},
+			float roughness = 0, 
+			float metalness = 0, 
+			float specular = 0
+		);
 
-		const bool operator==(Material& other) const {
-			return name == other.name;
-		}
+		const bool operator==(Material& other) const;
 	};
 }
