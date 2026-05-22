@@ -30,6 +30,13 @@ void EFModel::loadWorld(std::string& filename) {
 	json materialfile = loadJson(str);
 	m_world = EFWorldLoader::build(mapfile, materialfile);
 
+	std::vector<int> emitterIds;
+	for (auto& emitter : m_world->emitters) {
+		emitter.sound_id = m_parent->m_view->registerSound(emitter.filename);
+		emitterIds.push_back(emitter.m_id);
+	}
+	m_acousticInterpreter.setKnownEmitters(emitterIds);
+
 	buildScenario();
 }
 
@@ -43,8 +50,11 @@ void EFModel::buildScenario() {
 
 		float triggerTime = m_world->emitters[i].triggerTime;
 
+		int emitterId = m_parent->m_view->playSound(m_world->emitters[i].sound_id);
+
 		m_scenario.add_event(
-			[this, i]() {
+			[this, i, emitterId]() {
+				m_parent->m_view->resumeEmitter(emitterId);
 				m_world->emitters[i].isActive = true;
 				qDebug() << "[Scenario] Emetteur" << i << "activé";
 			},
@@ -127,61 +137,21 @@ const std::vector<DTO_RecievedRay>& EFModel::getDTORays() const {
 void EFModel::processBatch() {
 	const auto& batch = m_rayManager.getReceivedRays();
 
-	if (!batch.empty() && m_world.has_value())
+	if (m_world.has_value())
 	{
 		Eigen::Vector3f listenerPos = m_world->avatar.getPosition().toEigen();
 		m_acousticInterpreter.feed(batch, listenerPos);
 	}
 
-	//constexpr int LOG_INTERVAL = 10;
-	//if (++m_debugFrameCount % LOG_INTERVAL != 0) {
-	//	m_rayManager.clearReceivedRays();
-	//	return;
-	//}
-
-	//if (batch.empty()) {
-	//	qDebug() << "[RayDebug] Frame" << m_debugFrameCount << "| Aucun rayon reçu";
-	//	m_rayManager.clearReceivedRays();
-	//	return;
-	//}
-
-	//std::map<uint8_t, std::vector<const DTO_RecievedRay*>> byEmitter;
-	//for (const auto& ray : batch)
-	//	byEmitter[ray.getEmitterID()].push_back(&ray);
-
-	//const bool hasAmbient = byEmitter.contains(tracing::RayManager::AMBIENT_EMITTER_ID);
-	//qDebug() << "[RayDebug] Frame" << m_debugFrameCount
-	//         << "| Total reçus :" << batch.size()
-	//         << "| Emitters actifs :" << (byEmitter.size() - (hasAmbient ? 1 : 0))
-	//         << "| Rayons sortis (ambiant) :" << (hasAmbient ? byEmitter.at(tracing::RayManager::AMBIENT_EMITTER_ID).size() : 0);
-
-	//for (const auto& [emitterID, rays] : byEmitter) {
-	//	if (emitterID == tracing::RayManager::AMBIENT_EMITTER_ID) continue;
-	//	Eigen::Vector3f avgEnergy = Eigen::Vector3f::Zero();
-	//	float avgSteps = 0.f;
-
-	//	for (const auto* r : rays) {
-	//		avgEnergy += r->getEnergy();
-	//		avgSteps  += static_cast<float>(r->getStepCount());
-	//	}
-	//	avgEnergy /= static_cast<float>(rays.size());
-	//	avgSteps  /= static_cast<float>(rays.size());
-
-	//	qDebug() << "  Emitter" << emitterID
-	//	         << "| rayons :" << rays.size()
-	//	         << "| énergie moy (H/M/L) :"
-	//	         << avgEnergy.x() << "/" << avgEnergy.y() << "/" << avgEnergy.z()
-	//	         << "| steps moy :" << avgSteps;
-	//}
-
 	const auto& results = m_acousticInterpreter.getResults();
 	for (const auto& [id, r] : results) {
+		m_parent->m_view->updateSoundSource(id, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
 		qDebug() << "[Acoustic] Emitter" << id
 		         << "| az:" << r.azimuth << "el:" << r.elevation
 		         << "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
 	}
 
-	m_rayManager.clearReceivedRays();
+
 }
 
 json EFModel::loadJson(std::string& filename) {

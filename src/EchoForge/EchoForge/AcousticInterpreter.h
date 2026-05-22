@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <set>
 #include <vector>
 #include <Eigen/Dense>
 
@@ -16,6 +17,8 @@ public:
     void feed(const std::vector<DTO_RecievedRay>& dtosThisFrame,
               const Eigen::Vector3f& listenerPos);
 
+    void setKnownEmitters(const std::vector<int>& ids);
+
     const std::map<int, AcousticResult>& getResults() const;
 
 private:
@@ -23,6 +26,7 @@ private:
     int   m_deltaFrame;
     float m_smoothingFactor;
 
+    std::set<int>                               m_knownEmitterIds;
     std::map<int, std::vector<DTO_RecievedRay>> m_accumulator;
     std::map<int, AcousticResult>               m_smoothed;
     int m_frameCount = 0;

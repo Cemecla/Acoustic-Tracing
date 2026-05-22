@@ -1,6 +1,7 @@
 #include "AcousticInterpreter.h"
 #include <cmath>
 #include <numbers>
+#include <set>
 
 AcousticInterpreter::AcousticInterpreter(int quantityThreshold, int deltaFrame, float smoothingFactor)
     : m_quantityThreshold(quantityThreshold)
@@ -37,10 +38,14 @@ const std::map<int, AcousticResult>& AcousticInterpreter::getResults() const
 
 void AcousticInterpreter::flush(const Eigen::Vector3f& listenerPos)
 {
+    std::set<int> activeIds;
+
     for (auto& [id, batch] : m_accumulator)
     {
         if (batch.empty()) continue;
+        if (!m_knownEmitterIds.empty() && !m_knownEmitterIds.count(id)) continue;
 
+        activeIds.insert(id);
         AcousticResult raw = compute(id, batch, listenerPos);
 
         auto it = m_smoothed.find(id);
@@ -50,23 +55,33 @@ void AcousticInterpreter::flush(const Eigen::Vector3f& listenerPos)
         }
         else
         {
-            // Lerp speed scales with batch size: a rich batch converges faster
             float batchWeight = std::min(1.f, static_cast<float>(batch.size()) / m_quantityThreshold);
-            float t = m_smoothingFactor + batchWeight * (1.f - m_smoothingFactor);
+            float t = m_smoothingFactor + batchWeight * (0.3f - m_smoothingFactor);
             lerpResult(it->second, raw, t);
         }
 
         batch.clear();
     }
 
+    // Emitters déjà connus mais sans rays ce cycle -> fade out
+    for (auto& [id, result] : m_smoothed)
+    {
+        if (!activeIds.count(id))
+            result.gain *= (1.f - m_smoothingFactor);
+    }
+
     m_frameCount = 0;
+}
+
+void AcousticInterpreter::setKnownEmitters(const std::vector<int>& ids)
+{
+    m_knownEmitterIds = std::set<int>(ids.begin(), ids.end());
 }
 
 AcousticResult AcousticInterpreter::compute(int emitterId,
                                              const std::vector<DTO_RecievedRay>& batch,
                                              const Eigen::Vector3f& listenerPos) const
 {
-    // Weighted average of last_seen positions, weight = energy magnitude
     Eigen::Vector3f weightedPos = Eigen::Vector3f::Zero();
     Eigen::Vector3f weightedGain = Eigen::Vector3f::Zero();
     float totalWeight = 0.f;
@@ -87,9 +102,8 @@ AcousticResult AcousticInterpreter::compute(int emitterId,
 
     weightedPos  /= totalWeight;
     weightedGain /= totalWeight;
-    result.gain   = weightedGain;
+    result.gain   = weightedGain.array().sqrt();
 
-    // Azimuth / elevation from listener to weighted hit position
     Eigen::Vector3f delta = weightedPos - listenerPos;
     float dist2D = std::sqrt(delta.x() * delta.x() + delta.z() * delta.z());
 
@@ -107,7 +121,6 @@ void AcousticInterpreter::lerpResult(AcousticResult& current,
 {
     auto lerpAngle = [](float a, float b, float t) {
         float diff = b - a;
-        // Wrap difference to [-180, 180] for azimuth continuity
         while (diff >  180.f) diff -= 360.f;
         while (diff < -180.f) diff += 360.f;
         return a + diff * t;

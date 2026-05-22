@@ -10,7 +10,7 @@ namespace ef {
 
 	struct Emitter {
 		const int m_id;
-		const int sound_id;
+		int sound_id;
 		std::string filename;
 		ef::Vector3F position;
 		float volume             = 1.0f;

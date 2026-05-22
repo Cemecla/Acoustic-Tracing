@@ -8,6 +8,8 @@
 
 #include "Map.h"
 #include "Avatar.h"
+#include "Utils.h"
+#include "Vector.h"
 
 class EFController;
 class QQmlApplicationEngine;
@@ -37,8 +39,8 @@ class UICommunicator;
 			
 
 			int  registerSound(const std::string& path) const;
-			int  playSound(int soundFileId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const;
-			void updateSoundSource(int emitterId, float azimuth, float elevation, yutasound::SoundRemaining remaining) const; // this is for the senarios and scene 
+			int  playSound(int soundFileId, float azimuth, float elevation, ef::Vector3F gain) const;
+			void updateSoundSource(int emitterId, float azimuth, float elevation, ef::Vector3F gain) const; // this is for the senarios and scene 
 			void stopAudio() const;
 
 			void resetEmitters() const;

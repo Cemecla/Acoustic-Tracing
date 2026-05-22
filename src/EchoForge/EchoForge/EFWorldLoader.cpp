@@ -10,7 +10,7 @@ using namespace std;
 
 const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1), 0,0,0);
 
-const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0.01, 0.01, 0.01), 0.0, Vector3F(0, 0, 0),0,0,0);
+const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0.001, 0.001, 0.001), 0.0, Vector3F(0, 0, 0), 0, 0, 0);
 
 EFWorld EFWorldLoader::build(const json& mapJson) {
 	if (isMapValid(mapJson)) {
@@ -243,6 +243,8 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 			}
 		}
 		// appeller Librarian pour avoir les id des sons et non pas id
+
+
 		emitters.push_back(Emitter{ id, id, filename, position, volume, loop, false, eventType, triggerTime, triggerDelta });
 		id++;
 	}
