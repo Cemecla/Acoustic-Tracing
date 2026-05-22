@@ -3,11 +3,11 @@ import QtQuick3D 6.11
 import QtQuick3D.Helpers
 
 View3D {
+    id: view3DMain
     required property bool debugEnable
     property bool isFirstPerson: false
     property int baseSize: 100
-
-    id: view3DMain
+    property color avatarColor: "grey"
     camera: debugEnable ? freeCamera : isFirstPerson ? avatarCamera : topCamera
 
     // ENVIRONMENT
@@ -89,19 +89,19 @@ View3D {
 
             materials: DefaultMaterial {
                 lighting: DefaultMaterial.NoLighting
-                diffuseColor: "gray"
+                diffuseColor: view3DMain.avatarColor
             }
         }
 
         Model {
             source: "#Cone"
             id: avatarArrow
-            scale: Qt.vector3d(1, 1, 1)
-            
+            scale: Qt.vector3d(0.5, 0.5, 0.5)
+            position: Qt.vector3d(0, 0, -60)
             eulerRotation: Qt.vector3d(-90, 0, 0)
             materials: DefaultMaterial {
                 lighting: DefaultMaterial.NoLighting
-                diffuseColor: "gray"
+                diffuseColor: view3DMain.avatarColor
             }
         }
     }
@@ -170,6 +170,8 @@ View3D {
         id: cameraFocus
         anchors.fill: parent
         focus: true
+
+        onFocusChanged: forceActiveFocus()
     
         MouseArea {
             anchors.fill: parent

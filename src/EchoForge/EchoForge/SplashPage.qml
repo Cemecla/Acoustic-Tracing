@@ -7,13 +7,11 @@ Page {
     property int preferedImageSize: 400
     
     // BACKGROUND
-    background : Rectangle {
-        color: "#d4d4d4"
-    }
+    background : Rectangle { color: "#d4d4d4" }
 
     // CONTENTS
     ColumnLayout {
-        anchors.fill : parent
+        anchors.fill: parent
         spacing: 20
 
         Spacer {}
@@ -23,17 +21,15 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Spacer {
-                Layout.fillHeight: false
-            }
+            Spacer { Layout.fillHeight: false }
 
             Image {
                 id: logo1
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter 
-                source: "qrc:/images/logoSound"
                 Layout.preferredHeight: root.preferedImageSize
                 Layout.preferredWidth: root.preferedImageSize
+                source: "qrc:/images/logoSound"
                 fillMode: Image.PreserveAspectFit
                 opacity: 0.0
             }
@@ -42,9 +38,9 @@ Page {
                 id: logo2
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter 
-                source: "qrc:/images/logoRaytracing"
                 Layout.preferredHeight: root.preferedImageSize
                 Layout.preferredWidth: root.preferedImageSize
+                source: "qrc:/images/logoRaytracing"
                 fillMode: Image.PreserveAspectFit
                 opacity: 0.0
             }
@@ -53,16 +49,14 @@ Page {
                 id: logo3
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter 
-                source: "qrc:/images/logo"
                 Layout.preferredHeight: root.preferedImageSize
                 Layout.preferredWidth: root.preferedImageSize
+                source: "qrc:/images/logo"
                 fillMode: Image.PreserveAspectFit
                 opacity: 0.0
             }
 
-            Spacer {
-                Layout.fillHeight: false
-            }
+            Spacer { Layout.fillHeight: false }
         }
 
         Text {

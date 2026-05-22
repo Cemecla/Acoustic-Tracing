@@ -1,13 +1,13 @@
 [
     {
-        "name": "stone",
+        "name": "brick",
         "isPassable": false,
         "isInstantiable": true,
         "color": [120, 120, 120, 255],
         "tiles": {
-            "sides": 22,
-            "top": 22,
-            "bottom": 22
+            "sides": 35,
+            "top": 35,
+            "bottom": 35
         },
         "metalness": 0.0,
         "specular": 0.1,
@@ -168,5 +168,22 @@
         "scatteringCoefficient": 0.6,
         "normal": [0, 0, 0],
         "energyLoss": [0.05, 0.15, 0.30]
+    },
+    {
+        "name": "wood_plank",
+        "isPassable": false,
+        "isInstantiable": true,
+        "color": [125, 100, 49, 255],
+        "tiles": {
+            "sides": 9,
+            "top": 9,
+            "bottom": 9
+        },
+        "metalness": 0.0,
+        "specular": 0.2,
+        "roughness": 0.9,
+        "scatteringCoefficient": 0.7,
+        "normal": [0, 0, 0],
+        "energyLoss": [0.13, 0.085, 0.065]
     }
 ]
