@@ -70,8 +70,10 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void removeSound(int id);
 		Q_INVOKABLE void unloadRegistry();
 
-		Q_INVOKABLE QVariantMap loadPinnaSetting();
+		Q_INVOKABLE QVariantList loadPinnaSetting();
 		Q_INVOKABLE void savePinnaSetting(QVariantMap& settings);
+
+		Q_INVOKABLE void setSelectedPinnaId(int id);
 
 		//fin
 

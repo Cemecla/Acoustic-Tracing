@@ -290,6 +290,15 @@
     <None Include="HorizontalSeparator.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
+    <None Include="FrequencySlider.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="PresetSelector.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="LayoutBox.qml">
+      <Filter>Source Files\qml\Layouts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">

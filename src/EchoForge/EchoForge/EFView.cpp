@@ -239,7 +239,23 @@ const Inputs& EFView::getLastInput() const {
 }
 
 json EFView::loadPinnaSetting() {
-	return json{};
+	std::string path = "res/settings/pinna_presets.json";
+
+	try {
+		return m_parent->m_model->loadJson(path);
+	}
+	catch (...) {
+		return json::array();
+	}
+}
+
+void EFView::setSelectedPinnaId(int id) {
+	m_selectedPinnaId = id;
+	m_audioManager->setPinnaPreset(id);
+}
+
+int EFView::getSelectedPinnaId() const {
+	return m_selectedPinnaId;
 }
 
 void EFView::savePinnaSetting() {

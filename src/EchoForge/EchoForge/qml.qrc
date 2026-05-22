@@ -23,5 +23,8 @@
         <file>HudSimulation.qml</file>
         <file>HudToggle.qml</file>
         <file>HorizontalSeparator.qml</file>
+        <file>PresetSelector.qml</file>
+        <file>FrequencySlider.qml</file>
+        <file>LayoutBox.qml</file>
     </qresource>
 </RCC>

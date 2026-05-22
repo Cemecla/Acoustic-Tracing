@@ -138,14 +138,17 @@
     <ClCompile Include="RayManager.cpp" />
     <ClCompile Include="ChunkInstancing.cpp" />
     <None Include="ArrowButton.qml" />
+    <None Include="FrequencySlider.qml" />
     <None Include="HorizontalSeparator.qml" />
     <None Include="HudButton.qml" />
     <None Include="HudPanel.qml" />
     <None Include="HudSimulation.qml" />
     <None Include="HudToggle.qml" />
+    <None Include="LayoutBox.qml" />
     <None Include="LoadingPage.qml" />
     <None Include="OptionCycleButton.qml" />
     <None Include="OptionSlider.qml" />
+    <None Include="PresetSelector.qml" />
     <None Include="ray.frag" />
     <None Include="ray.vert" />
     <None Include="ReconBot.qml" />

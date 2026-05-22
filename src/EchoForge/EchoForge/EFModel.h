@@ -37,7 +37,6 @@ struct Inputs;
 			*/
 			json loadJson(std::string& filename);
 
-			const std::vector<std::string> getFilesFrom(std::string directoryPath = "./", std::string extensionType = nullptr);
 			/**
 			*	desc:
 			*	param data: json

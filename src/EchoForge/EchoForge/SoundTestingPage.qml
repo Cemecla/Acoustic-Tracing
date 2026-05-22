@@ -434,6 +434,53 @@ MainLayout {
                 }
             }
 
+            LayoutBox {
+                title: "Pinna"
+                ColumnLayout {
+                    id: pinnaLayout
+                    Layout.fillWidth: true
+
+                    // Push a preset's gains into the frequency sliders. The
+                    // preset comes from C++ already in canonical band order
+                    // (see UICommunicator::loadPinnaCatalogue).
+                    function applyPreset(entry) {
+                        console.log("[pinnaLayout.applyPreset] entry:", JSON.stringify(entry))
+                        if (!entry) {
+                            console.warn("[pinnaLayout.applyPreset] entry is null")
+                            return
+                        }
+                        console.log("[pinnaLayout.applyPreset] ordered_gains:",
+                                    JSON.stringify(entry.ordered_gains),
+                                    "type:", typeof entry.ordered_gains)
+                        if (entry.ordered_gains && entry.ordered_gains.length > 0) {
+                            freqSliders.setValues(entry.ordered_gains)
+                        } else {
+                            console.warn("[pinnaLayout.applyPreset] no ordered_gains in entry")
+                        }
+                    }
+
+                    PresetSelector {
+                        id: pinnaSelector
+                        onPresetChanged: (preset) => {
+                            console.log("[pinnaSelector.onPresetChanged] fired, preset:", JSON.stringify(preset))
+                            pinnaLayout.applyPreset(preset)
+                        }
+
+                        // Apply the initial default once the catalogue has
+                        // been loaded and the first entry selected.
+                        Component.onCompleted: {
+                            console.log("[pinnaSelector.Component.onCompleted] currentPreset:",
+                                        JSON.stringify(currentPreset))
+                            if (currentPreset) pinnaLayout.applyPreset(currentPreset)
+                        }
+                    }
+
+                    FrequencySlider {
+                        id: freqSliders
+                    }
+                }
+            }
+
             Item { Layout.fillHeight: true }
 
             MenuButton {
