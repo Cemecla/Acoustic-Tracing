@@ -47,6 +47,7 @@ void UICommunicator::startSimulation() {
 
 void UICommunicator::stopSimulation() {
 	m_parent->stopSimulation();
+	m_parent->unloadRegistry();
 	m_rayInstances->clearBuffer();
 	m_voxelInstances->clearBuffer();
 }
@@ -118,6 +119,11 @@ void UICommunicator::updateTestSlider(int emitterId, const float azimuth, const 
 void UICommunicator::addSound(const QString& path)
 {
 	m_parent->addSound(path.toStdString());
+}
+
+void UICommunicator::addAmbient(const QString& path)
+{
+	m_parent->addAmbient(path.toStdString());
 }
 
 QVariantList UICommunicator::getSounds()

@@ -216,6 +216,7 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 		std::string filename = "./res/assets/sounds/"+item.value("filename", "");
 		float volume         = item.value("volume", 1.0f);
 		bool loop            = item.value("loop", false);
+		int soundId = item.value("id", id);
 
 		Vector3F position;
 		if (item.contains("position")) {
@@ -245,7 +246,7 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 		// appeller Librarian pour avoir les id des sons et non pas id
 
 
-		emitters.push_back(Emitter{ id, id, filename, position, volume, loop, false, eventType, triggerTime, triggerDelta });
+		emitters.push_back(Emitter{ id, soundId, filename, position, volume, loop, false, eventType, triggerTime, triggerDelta });
 		id++;
 	}
 

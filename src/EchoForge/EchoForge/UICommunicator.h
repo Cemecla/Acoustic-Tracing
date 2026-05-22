@@ -65,6 +65,9 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void addSound(const QString& path);
 		Q_INVOKABLE QVariantList getSounds();
 
+		Q_INVOKABLE void addAmbient(const QString& path);
+
+
 		Q_INVOKABLE void loadRegistry(const QString& path);
 		Q_INVOKABLE void saveRegistry(const QString& path);
 		Q_INVOKABLE void removeSound(int id);

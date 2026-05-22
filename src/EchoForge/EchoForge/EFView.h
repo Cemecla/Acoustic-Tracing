@@ -34,6 +34,7 @@ class UICommunicator;
 			void savePinnaSetting();
 
 			void addSound(const std::string& path) const;
+			void addAmbient(const std::string& path) const;
 
 			int playSound(int soundFileId) const;
 			

@@ -17,11 +17,25 @@ void EFController::run(float delta) {
 }
 
 void EFController::loadSimulation(std::string& url) {
-	m_model->loadWorld(url);
-	ef::Map map = m_model->getMap();
-	ef::Avatar avatar = m_model->getAvatar(true);
-	m_view->buildMap(map);
-	m_view->setupAvatar(avatar);
+    // read JSON first to get soundRegistry path
+    json mapJson = m_model->loadJson(url);
+
+    if (mapJson.contains("soundRegistry"))
+    {
+        std::string registryPath = mapJson["soundRegistry"].get<std::string>();
+
+        // resolve registry path relative to working directory
+        juce::File absoluteRegistry = juce::File::getCurrentWorkingDirectory()
+            .getChildFile(juce::String(registryPath));
+
+        m_view->loadRegistry(absoluteRegistry.getFullPathName().toStdString());
+    }
+
+    m_model->loadWorld(url);
+    ef::Map map = m_model->getMap();
+    ef::Avatar avatar = m_model->getAvatar(true);
+    m_view->buildMap(map);
+    m_view->setupAvatar(avatar);
 }
 
 const Inputs& EFController::getLastInputs() const {

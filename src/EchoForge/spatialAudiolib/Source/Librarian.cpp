@@ -80,14 +80,23 @@ namespace yutasound {
             output["ambient"].push_back(ambientEntry);
         }
 
-        juce::File file(jsonPath);
+        juce::File file = juce::File::isAbsolutePath(jsonPath)
+            ? juce::File(jsonPath)
+            : juce::File::getSpecialLocation(juce::File::currentApplicationFile)
+            .getParentDirectory()
+            .getChildFile(jsonPath);
+
         file.replaceWithText(output.dump(4)); //nice indentattion!
         DBG("Librarian: save registery to" + jsonPath);
     }
 
     void Librarian::loadSoundRegistry(const juce::String& jsonPath)
     {
-        juce::File file(jsonPath);
+        juce::File file = juce::File::isAbsolutePath(jsonPath)
+            ? juce::File(jsonPath)
+            : juce::File::getSpecialLocation(juce::File::currentApplicationFile)
+            .getParentDirectory()
+            .getChildFile(jsonPath);
 
         if (!file.existsAsFile())
         {
@@ -180,7 +189,12 @@ namespace yutasound {
         entry.filePath = filePath;
         entry.gain = gain;
 
-        juce::File file(filePath);
+        juce::File file = juce::File::isAbsolutePath(filePath)
+            ? juce::File(filePath)
+            : juce::File::getSpecialLocation(juce::File::currentApplicationFile)
+            .getParentDirectory()
+            .getChildFile(filePath);
+
         FileProcessor fp(file);
         auto processed = fp.process();
         entry.buffer = std::move(processed.buffer);
@@ -200,6 +214,11 @@ namespace yutasound {
     }
 
     const std::vector<AmbientEntry>& Librarian::getAmbientEntries() const
+    {
+        return m_ambientEntries;
+    }
+
+    std::vector<AmbientEntry>& Librarian::getAmbientEntries()
     {
         return m_ambientEntries;
     }

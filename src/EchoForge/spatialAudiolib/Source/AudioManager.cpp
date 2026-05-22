@@ -25,6 +25,30 @@ namespace yutasound {
     {
         return m_librarian.addItem(filePath);
     }
+
+    int AudioManager::registerAmbient(const juce::String& filePath)
+    {
+        // find next available ambient id (0-9)
+        int nextId = -1;
+        const auto& entries = m_librarian.getAmbientEntries();
+        for (int i = ReservedIds::AMBIENT_MIN; i <= ReservedIds::AMBIENT_MAX; i++)
+        {
+            bool taken = false;
+            for (const auto& e : entries)
+                if (e.id == i) { taken = true; break; }
+            if (!taken) { nextId = i; break; }
+        }
+
+        if (nextId == -1)
+        {
+            DBG("AudioManager: no ambient slots available (max 10)");
+            return -1;
+        }
+
+        m_librarian.addAmbientItem(nextId, "ambient", filePath, 1.0f);
+        DBG("AudioManager: registered ambient id=" + juce::String(nextId));
+        return nextId;
+    }
     
     void AudioManager::removeSound(int id)
     {
@@ -78,6 +102,7 @@ namespace yutasound {
         emitter.itdSamples = computeITD_(azimuth, elevation);
         emitter.ildGain = computeILD_(azimuth, elevation, soundRemaining);
         emitter.state = EmitterState::Paused;
+        emitter.isAmbient = ReservedIds::isAmbient(soundFileId);
            
         const auto scope = m_commandFifo.write(1);
         if (scope.blockSize1 > 0)
@@ -136,7 +161,20 @@ namespace yutasound {
     void AudioManager::pauseAll()
     {
         DBG("AudioManager: pauseAll sending " + juce::String(m_nextEmitterId) + " commands");
-        for (int i = 0; i < m_nextEmitterId; i++)
+        // pause ambient emitters (ids 0 - 9)
+        for (int i = ReservedIds::AMBIENT_MIN; i <= ReservedIds::AMBIENT_MAX; i++)
+        {
+            const auto scope = m_commandFifo.write(1);
+            if (scope.blockSize1 > 0)
+            {
+                m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+                m_commandBuffer[scope.startIndex1].emitterId = i;
+                m_commandBuffer[scope.startIndex1].newState = EmitterState::Paused;
+            }
+        }
+
+        // pause dynamic emitters (ids 10+)
+        for (int i = ReservedIds::DYNAMIC_START; i < m_nextEmitterId; i++)
         {
             const auto scope = m_commandFifo.write(1);
             if (scope.blockSize1 > 0)
@@ -150,7 +188,19 @@ namespace yutasound {
 
     void AudioManager::resumeAll()
     {
-        for (int i = 0; i < m_nextEmitterId; i++)
+        // resume ambient emitters (ids 0 - 9)
+        for (int i = ReservedIds::AMBIENT_MIN; i <= ReservedIds::AMBIENT_MAX; i++)
+        {
+            const auto scope = m_commandFifo.write(1);
+            if (scope.blockSize1 > 0)
+            {
+                m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+                m_commandBuffer[scope.startIndex1].emitterId = i;
+                m_commandBuffer[scope.startIndex1].newState = EmitterState::Playing;
+            }
+        }
+        // resume dynamic emitters (ids 10+)
+        for (int i = ReservedIds::DYNAMIC_START; i < m_nextEmitterId; i++)
         {
             const auto scope = m_commandFifo.write(1);
             if (scope.blockSize1 > 0)
@@ -245,7 +295,7 @@ namespace yutasound {
         return m_librarian.getBuffer(soundFileId);
     }
 
-    const std::vector<AmbientEntry>& AudioManager::getAmbientEtries() const
+    std::vector<AmbientEntry>& AudioManager::getAmbientEntries() 
     {
         return m_librarian.getAmbientEntries();
     }
@@ -256,6 +306,17 @@ namespace yutasound {
             if (ambient.id == ambientId)
                 return ambient.gain;
         return 1.0f;
+    }
+
+    void AudioManager::setAmbientGain(int ambientId, float gain)
+    {
+        for (auto& ambient : m_librarian.getAmbientEntries())
+            if (ambient.id == ambientId)
+            {
+                ambient.gain = gain;
+                return;
+            }
+        DBG("AudioManager: ambient id=" + juce::String(ambientId) + " not found");
     }
 
     float AudioManager::computeITD_(float azimuth, float elevation)

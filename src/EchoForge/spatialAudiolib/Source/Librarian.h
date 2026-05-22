@@ -42,10 +42,11 @@ namespace yutasound {
 		void addAmbientItem(int id, const juce::String& role, const juce::String& filePath, float gain = 1.0f);
 		void removeAmbientItem(int id);
 		const std::vector<AmbientEntry>& getAmbientEntries() const;
+		std::vector<AmbientEntry>& getAmbientEntries();
 
 	private:
 		std::vector<SoundFileEntry> m_entries;
-		int m_nextId = 0;
+		int m_nextId = ReservedIds::DYNAMIC_START;
 
 		bool isDuplicate_(const juce::String& md5) const;
 		int getExistingId_(const juce::String& md5) const;

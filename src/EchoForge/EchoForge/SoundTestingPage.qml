@@ -49,6 +49,16 @@ MainLayout {
             mainLayout.registrySounds = communicator.getSounds()
         }
     }
+    FileDialog {
+        id: openAmbientDialog
+        fileMode: FileDialog.OpenFile
+        nameFilters: ["Sound files (*.mp3 *.wav)"]
+        onAccepted: {
+            let path = decodeURIComponent(selectedFile.toString().replace(/^(file:\/{3})/, ""))
+            communicator.addAmbient(path)
+            mainLayout.registrySounds = communicator.getSounds()
+        }
+    }
 
     FileDialog {
         id: loadRegistryDialog
@@ -146,14 +156,15 @@ MainLayout {
 
                             Text {
                                 text: "id:" + modelData.id
-                                color: mainLayout.selectedSoundFileId === modelData.id ? "#000" : "#FFA500"
+                                color: mainLayout.selectedSoundFileId === modelData.id ? "#000" 
+                                     : modelData.isAmbient ? "#1ba1e2" : "#FFA500"
                                 font.pixelSize: 11
                                 font.family: "Courier New"
                                 Layout.preferredWidth: 36
                             }
 
                             Text {
-                                text: modelData.path.split("/").pop().split("\\").pop()
+                                text: (modelData.isAmbient ? "[A] " : "") + modelData.path.split("/").pop().split("\\").pop()
                                 color: mainLayout.selectedSoundFileId === modelData.id ? "#000" : "#ccc"
                                 font.pixelSize: 11
                                 elide: Text.ElideLeft
@@ -174,6 +185,11 @@ MainLayout {
                 buttonText: "＋ Add Sound"
                 Layout.fillWidth: true
                 onClicked: openSoundDialog.open()
+            }
+            MenuButton {
+                buttonText: "＋ Add Ambient"
+                Layout.fillWidth: true
+                onClicked: openAmbientDialog.open()
             }
             MenuButton {
                 buttonText: "Load Registry"

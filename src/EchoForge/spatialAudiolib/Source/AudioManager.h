@@ -36,6 +36,7 @@ namespace yutasound {
         // Librarian — sound registration
         const std::vector<SoundFileEntry>& getEntries() const;
         int  registerSound(const juce::String& filePath);
+        int  registerAmbient(const juce::String& filePath);
         void removeSound(int id);
         void loadSoundRegistry(const juce::String& jsonPath);
         void saveSoundRegistry(const juce::String& jsonPath);
@@ -77,8 +78,9 @@ namespace yutasound {
         std::function<void(int)> onEmitterRemoved;
 
         // ambinet
-        const std::vector<AmbientEntry>& getAmbientEtries() const;
+        std::vector<AmbientEntry>& getAmbientEntries();
         float getAmbientGain(int ambientId) const;
+        void setAmbientGain(int ambientId, float gain);
 
     private:
         //void loadSource_(int id);

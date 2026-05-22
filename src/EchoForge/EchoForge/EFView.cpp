@@ -52,6 +52,7 @@ void EFView::saveSimulation() {
 
 void EFView::stopSimulation() {
 	m_parent->stopSimulation();
+	m_audioManager->stop();
 	unloadRegistry();
 	resetEmitters();
 }
@@ -113,6 +114,13 @@ void EFView::addSound(const std::string& path) const
 		m_audioManager->registerSound(juce::String(path));
 }
 
+void EFView::addAmbient(const std::string& path) const
+{
+	if (m_audioManager)
+		m_audioManager->registerAmbient(juce::String(path));
+}
+
+
 int EFView::playSound(int soundFileId) const
 {
 	if (m_audioManager)
@@ -170,6 +178,15 @@ QVariantList EFView::getSounds() const
 			QVariantMap map;
 			map["id"] = entry.id;
 			map["path"] = QString::fromStdString(entry.filePath.toStdString());
+			map["isAmbient"] = false;
+			list.append(map);
+		}
+		for (const auto& entry : m_audioManager->getAmbientEntries())
+		{
+			QVariantMap map;
+			map["id"] = entry.id;
+			map["path"] = QString::fromStdString(entry.filePath.toStdString());
+			map["isAmbient"] = true;
 			list.append(map);
 		}
 	}
