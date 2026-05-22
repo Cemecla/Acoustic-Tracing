@@ -106,21 +106,50 @@ View3D {
         }
     }
 
+    // EMITTERS
+    Node {
+        Repeater3D {
+            model: communicator.emitters
+
+            delegate: Model {
+                position: Qt.vector3d(modelData.x, modelData.y, modelData.z)
+                scale: Qt.vector3d(0.4, 0.4, 0.4)
+                
+                source: "#Sphere"
+                materials: [
+                    DefaultMaterial {
+                        diffuseColor: "blue"
+                    }
+                ]
+            }
+        }
+    }
+
     // RAYS
     Model {
+        id: rayModel
         source: "#Cube"
         instancing: communicator.rayInstances
+        opacity: 1.0
 
         castsShadows: false
         receivesShadows: false
         materials: CustomMaterial {
+            id: customMaterialRoot
             shadingMode: CustomMaterial.Shaded
             property real intensity: 1.0
             vertexShader: "qrc:/shaders/ray.vert"
             fragmentShader: "qrc:/shaders/ray.frag"
 
-            NumberAnimation on intensity {
-                from: 1.0; to: 5.0; duration: 2000; loops: Animation.Infinite
+            SequentialAnimation {
+                NumberAnimation {
+                    target: rayModel
+                    property: "opacity"
+                    from: 1.0; 
+                    to: 0.5; 
+                    duration: 500; 
+                    loops: Animation.Infinite
+                }
             }
         }
     }
@@ -171,11 +200,11 @@ View3D {
         anchors.fill: parent
         focus: true
 
-        onFocusChanged: forceActiveFocus()
+        onFocusChanged: !view3DMain.debugEnable ? forceActiveFocus() : null
     
         MouseArea {
             anchors.fill: parent
-            onClicked: cameraFocus.forceActiveFocus()
+            onClicked: !view3DMain.debugEnable ? cameraFocus.forceActiveFocus() : null
         }
     
         Keys.onPressed: (event) => {

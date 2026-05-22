@@ -261,3 +261,14 @@ int EFView::getSelectedPinnaId() const {
 void EFView::savePinnaSetting() {
 
 }
+
+void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
+	QVariantList list = {};
+	for (auto& e : emitters)
+	{
+		QVector3D pos = { e.position.x, e.position.y, e.position.z };
+		list.append(pos);
+	}
+
+	m_uiCommunicator->setEmitters(list);
+}

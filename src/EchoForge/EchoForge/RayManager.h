@@ -26,6 +26,9 @@ namespace tracing {
 		RayManager(EFModel* parent, int rayCount, int raysPerFrame = 10);
 		const void update();
 
+		int getRaysPerFrame() const;
+		void setRaysPerFrame(const int raysPerFrame) const;
+
 		[[nodiscard]] const std::vector<DTO_RecievedRay>& getReceivedRays() const;
 		void clearReceivedRays();
 

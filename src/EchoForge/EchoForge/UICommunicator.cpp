@@ -256,5 +256,14 @@ void UICommunicator::setSelectedPinnaId(int id) {
 	m_parent->setSelectedPinnaId(id);
 }
 
+QVariantList UICommunicator::emitters() {
+	return m_emittersPositions;
+}
+
+void UICommunicator::setEmitters(QVariantList emitters) {
+	m_emittersPositions = emitters;
+	emittersChanged();
+}
+
 
 

@@ -22,6 +22,7 @@ void EFController::loadSimulation(std::string& url) {
 	ef::Avatar avatar = m_model->getAvatar(true);
 	m_view->buildMap(map);
 	m_view->setupAvatar(avatar);
+	m_view->setEmittersVisual(m_model->getEmitters());
 }
 
 const Inputs& EFController::getLastInputs() const {
