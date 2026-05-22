@@ -106,6 +106,8 @@ int UICommunicator::playFromFileId(int soundFileId)
 }
 
 void UICommunicator::resumeEmitter(int emitterId) { m_parent->resumeEmitter(emitterId); }
+
+void UICommunicator::loopEmitter(int emitterId) { m_parent->loopEmitter(emitterId); }
 void UICommunicator::pauseEmitter(int emitterId) { m_parent->pauseEmitter(emitterId); }
 void UICommunicator::stopEmitter(int emitterId) { m_parent->stopEmitter(emitterId); }
 

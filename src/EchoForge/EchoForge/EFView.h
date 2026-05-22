@@ -47,6 +47,7 @@ class UICommunicator;
 			void resumeAll() const;
 			void pauseAll() const;
 			void resumeEmitter(int emitterId) const;
+			void loopEmitter(int emitterId) const;
 			void pauseEmitter(int emitterId) const;
 			void stopEmitter(int emitterId) const;
 

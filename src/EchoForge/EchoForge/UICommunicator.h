@@ -57,6 +57,7 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE int playFromFileId(int soundFileId);
 		
 		Q_INVOKABLE void resumeEmitter(int emitterId);
+		Q_INVOKABLE void loopEmitter(int emitterId);
 		Q_INVOKABLE void pauseEmitter(int emitterId);
 		Q_INVOKABLE void stopEmitter(int emitterId);
 		

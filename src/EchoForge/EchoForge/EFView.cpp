@@ -194,6 +194,9 @@ void EFView::pauseAll() const {
 void EFView::resumeEmitter(int emitterId) const {
 	if (m_audioManager) m_audioManager->resumeSound(emitterId);
 }
+void EFView::loopEmitter(int emitterId) const {
+	if (m_audioManager) m_audioManager->loopSound(emitterId);
+}
 
 void EFView::pauseEmitter(int emitterId) const {
 	if (m_audioManager) m_audioManager->pauseSound(emitterId);

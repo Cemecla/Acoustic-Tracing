@@ -112,6 +112,17 @@ namespace yutasound {
         }
     }
 
+    void AudioManager::loopSound(int emitterId)
+    {
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+        {
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetState;
+            m_commandBuffer[scope.startIndex1].emitterId = emitterId;
+            m_commandBuffer[scope.startIndex1].newState = EmitterState::Looping;
+        }
+    }
+
     void AudioManager::stopSound(int emitterId)
     {
         const auto scope = m_commandFifo.write(1);

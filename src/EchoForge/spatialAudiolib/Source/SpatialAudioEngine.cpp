@@ -141,6 +141,11 @@ namespace yutasound {
                     if (readPos >= buffer.getNumSamples())
                     {
                         readPos = 0;
+                        if (source.state == EmitterState::Looping)
+                        {
+                            // keep playing — readPos already reset
+                        }
+                        
                         if (!source.isAmbient)
                             source.state = EmitterState::Paused;
                     }

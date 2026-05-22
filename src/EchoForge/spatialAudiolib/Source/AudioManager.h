@@ -45,6 +45,7 @@ namespace yutasound {
         int  playSound(int soundFileId, float azimuth, float elevation, SoundRemaining soundRemaining);
         void pauseSound(int emitterId);
         void resumeSound(int emitterId);
+        void loopSound(int emitterId);
         void stopSound(int emitterId);
         void pauseAll();
         void resumeAll();

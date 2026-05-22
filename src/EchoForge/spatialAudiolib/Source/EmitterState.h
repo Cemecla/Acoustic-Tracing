@@ -16,6 +16,7 @@ namespace yutasound {
     enum class EmitterState
     {
         Playing,
+        Looping,
         Paused,
         Stopped
     };

@@ -1,0 +1,30 @@
+{
+    "ambient": [],
+    "sounds": [
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Fireplace.mp3",
+            "id": 0,
+            "md5": "3868067b654509c064c510a1ecd0a314"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Knocking.mp3",
+            "id": 1,
+            "md5": "1098451bca6ce7f21d5da1c28471e94c"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\mooo1945.mp3",
+            "id": 2,
+            "md5": "19717f67e77286ed6344fe722cf32ad8"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Knocking-door.mp3",
+            "id": 3,
+            "md5": "39ac97adf43bd0b11c7bde47c0a45501"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Knocking-window.mp3",
+            "id": 4,
+            "md5": "1eaa2b0af1cc6c784fe9298b96e25d78"
+        }
+    ]
+}

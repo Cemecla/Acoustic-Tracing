@@ -1,0 +1,20 @@
+{
+    "ambient": [],
+    "sounds": [
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Door-Opening.mp3",
+            "id": 0,
+            "md5": "ab82b8f1cce88cab72e95da8c6295593"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Knocking.mp3",
+            "id": 1,
+            "md5": "1098451bca6ce7f21d5da1c28471e94c"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Fireplace.mp3",
+            "id": 2,
+            "md5": "3868067b654509c064c510a1ecd0a314"
+        }
+    ]
+}
