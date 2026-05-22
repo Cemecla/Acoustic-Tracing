@@ -33,6 +33,9 @@ class UICommunicator;
 			json loadPinnaSetting();
 			void savePinnaSetting();
 
+			void setSelectedPinnaId(int id);
+			int getSelectedPinnaId() const;
+
 			void addSound(const std::string& path) const;
 			void addAmbient(const std::string& path) const;
 
@@ -75,6 +78,7 @@ class UICommunicator;
 			QQmlApplicationEngine* m_qtEngine;
 			yutasound::AudioManager* m_audioManager = nullptr;
 			UICommunicator* m_uiCommunicator;
+			int m_selectedPinnaId = 24;
 	};
 
 #endif

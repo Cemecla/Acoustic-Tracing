@@ -191,14 +191,76 @@ void UICommunicator::callSimulationLoaded() {
 	emit simulationLoaded();
 }
 
-QVariantMap UICommunicator::loadPinnaSetting() {
-	json settings = m_parent->loadPinnaSetting();
-
-	return QVariantMap{};
-}
-
 void UICommunicator::savePinnaSetting(QVariantMap& settings) {
 	std::string name = settings.value("name", "NoName").toString().toStdString();
 	m_parent->savePinnaSetting();
 }
+
+
+QVariantList UICommunicator::loadPinnaSetting() {
+
+	static const std::vector<int> BANDS = { 4000, 6000, 8000, 10000, 12000, 14000, 16000 };
+
+	QVariantList out;
+
+	json settings = m_parent->loadPinnaSetting();
+
+	if (!settings.is_array()) return out;
+
+
+	for (const auto& entry : settings) {
+
+		if (!entry.is_object()) continue;
+
+		QVariantMap map;
+
+
+		if (entry.contains("id")) 
+			map["id"] = entry["id"].get<int>();
+
+		if (entry.contains("name"))
+			map["name"] = QString::fromStdString(entry["name"].get<std::string>());
+
+		if (entry.contains("category"))
+			map["category"] = QString::fromStdString(entry["category"].get<std::string>());
+
+		if (entry.contains("cipic_subject"))
+			map["cipic_subject"] = entry["cipic_subject"].get<int>();
+
+		if (entry.contains("ear_size_cm"))   
+			map["ear_size_cm"] = entry["ear_size_cm"].get<double>();
+
+		if (entry.contains("description"))   
+			map["description"] = QString::fromStdString(entry["description"].get<std::string>());
+
+
+
+		QVariantList orderedGains;
+
+		if (entry.contains("bands") && entry["bands"].is_object()) {
+
+			for (int hz : BANDS) {
+				std::string key = std::to_string(hz);
+				if (entry["bands"].contains(key))
+					orderedGains.append(entry["bands"][key].get<double>());
+				else
+					orderedGains.append(0.0);
+			}
+		}
+
+		map["ordered_gains"] = orderedGains;
+
+		out.append(map);
+
+	}
+
+	return out;
+
+}
+
+void UICommunicator::setSelectedPinnaId(int id) {
+	m_parent->setSelectedPinnaId(id);
+}
+
+
 

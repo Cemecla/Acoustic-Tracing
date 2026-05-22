@@ -2,6 +2,8 @@
     <qresource prefix="/images">
         <file alias="logo">res/assets/window_logo.png</file>
         <file alias="github">res/assets/github_logo.png</file>
+		<file alias="logoRaytracing">res/assets/logo/jaques/idkanymore.png</file>
+		<file alias="logoSound">res/assets/logo/yuta/image.png</file>
     </qresource>
     <qresource prefix="/sounds">
         <file alias="buttonSound">res/assets/sounds/MUSCMisc_Major-Short Hover_HY_Trnqlty_01.wav</file>
