@@ -114,6 +114,7 @@ View3D {
             delegate: Model {
                 position: Qt.vector3d(modelData.x, modelData.y, modelData.z)
                 scale: Qt.vector3d(0.4, 0.4, 0.4)
+                onInstancingChanged: console.log("Message");
                 
                 source: "#Sphere"
                 materials: [
