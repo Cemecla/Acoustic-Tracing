@@ -299,6 +299,9 @@
     <None Include="LayoutBox.qml">
       <Filter>Source Files\qml\Layouts</Filter>
     </None>
+    <None Include="Spacer.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">

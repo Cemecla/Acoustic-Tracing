@@ -163,6 +163,7 @@
     <None Include="MenuPage.qml" />
     <None Include="OptionPage.qml" />
     <None Include="SimulationPage.qml" />
+    <None Include="Spacer.qml" />
     <None Include="SplashPage.qml" />
     <None Include="voxel.frag" />
     <None Include="voxel.vert" />

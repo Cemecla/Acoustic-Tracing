@@ -32,6 +32,7 @@ Page {
         visible: loadingPage.isLoading
         anchors.fill: parent
         color: "white"
+
         Text {
             anchors.centerIn: parent
             text: "LOADING" + String(".").repeat(loadingBox.points)

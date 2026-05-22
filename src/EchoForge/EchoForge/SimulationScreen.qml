@@ -5,13 +5,12 @@ import QtQuick3D.Helpers
 View3D {
     required property bool debugEnable
     property bool isFirstPerson: false
-
-    
     property int baseSize: 100
 
     id: view3DMain
     camera: debugEnable ? freeCamera : isFirstPerson ? avatarCamera : topCamera
 
+    // ENVIRONMENT
     environment: ExtendedSceneEnvironment {
         backgroundMode: SceneEnvironment.SkyBox
         lensFlareEnabled: false
@@ -23,7 +22,7 @@ View3D {
 
         lightProbe: Texture {
             textureData: ProceduralSkyTextureData {
-                sunEnergy: 0.0
+                sunEnergy: 60.0
                 sunLongitude: 280.0
                 textureQuality: ProceduralSkyTextureData.SkyTextureQualityLow
             }
@@ -35,21 +34,17 @@ View3D {
         }
     }
 
+    DirectionalLight {
+        eulerRotation.x: -45
+        eulerRotation.y: 280
+    }
+
     AxisHelper {
         visible: view3DMain.debugEnable
         enableXYGrid: true
     }
 
-    WasdController {
-        controlledObject: freeCamera
-    }
-
-    Keys.onPressed: (event) => {
-        if (event.key === Qt.Key_C) {
-            isFirstPerson = !isFirstPerson
-        }
-    }
-
+    // CAMERAS
     PerspectiveCamera {
         id: freeCamera
         position: Qt.vector3d(0,0,0)
@@ -64,6 +59,7 @@ View3D {
             communicator.avatarPos.y + 600,
             communicator.avatarPos.z
         )
+
         id: topCamera
         position: vec
         clipNear: 5
@@ -72,11 +68,7 @@ View3D {
         lookAtNode: avatarModel
     }
 
-    DirectionalLight {
-        eulerRotation.x: -45
-        eulerRotation.y: 280
-    }
-
+    // AVATAR
     Node {
         id: avatarNode
         position: communicator.avatarPos
@@ -114,7 +106,7 @@ View3D {
         }
     }
 
-    // Rays
+    // RAYS
     Model {
         source: "#Cube"
         instancing: communicator.rayInstances
@@ -133,7 +125,7 @@ View3D {
         }
     }
 
-    // Voxels
+    // VOXELS
     Model {
         source: "#Cube"
         instancing: communicator.voxelInstances
@@ -160,6 +152,17 @@ View3D {
             shadingMode: CustomMaterial.Shaded
             vertexShader: "qrc:/shaders/voxel.vert"
             fragmentShader: "qrc:/shaders/voxel.frag"
+        }
+    }
+
+    // CONTROLS
+    WasdController {
+        controlledObject: freeCamera
+    }
+
+    Keys.onPressed: (event) => {
+        if (event.key === Qt.Key_C) {
+            isFirstPerson = !isFirstPerson
         }
     }
 

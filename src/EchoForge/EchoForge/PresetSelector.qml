@@ -42,6 +42,7 @@ Rectangle {
                     gains.push(Number(src.ordered_gains[g]))
                 }
             }
+
             arr.push({
                 id: src.id,
                 name: src.name,
@@ -235,11 +236,7 @@ Rectangle {
             Behavior on opacity { NumberAnimation { duration: 120 } }
         }
 
-        Rectangle {
-            Layout.fillWidth: true
-            height: 1
-            color: "#BBBBBB"
-        }
+        HorizontalSeparator {}
 
         Button {
             id: saveBtn

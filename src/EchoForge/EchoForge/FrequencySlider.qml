@@ -70,7 +70,7 @@ Item {
                     value: sliderDelegate.sliderValue
 
                     onMoved: {
-                        if (value === root.values[index]) return
+                        if (value == root.values[index]) return
                         let copy = root.values.slice()
                         copy[index] = value
                         root.values = copy

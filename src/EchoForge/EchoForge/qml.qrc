@@ -26,5 +26,6 @@
         <file>PresetSelector.qml</file>
         <file>FrequencySlider.qml</file>
         <file>LayoutBox.qml</file>
+        <file>Spacer.qml</file>
     </qresource>
 </RCC>
