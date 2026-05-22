@@ -23,7 +23,7 @@ View3D {
 
         lightProbe: Texture {
             textureData: ProceduralSkyTextureData {
-                sunEnergy: 60.0
+                sunEnergy: 0.0
                 sunLongitude: 280.0
                 textureQuality: ProceduralSkyTextureData.SkyTextureQualityLow
             }

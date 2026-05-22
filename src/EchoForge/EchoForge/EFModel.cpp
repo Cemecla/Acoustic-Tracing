@@ -203,7 +203,18 @@ json EFModel::loadJson(std::string& filename) {
 	return json::parse(strdata);
 }
 
-bool EFModel::saveJson(const json&, std::string& filename) {
+bool EFModel::saveJson(const json& data, std::string& filename) {
+	std::ofstream file(filename);
+
+	if (!file.is_open())
+	{
+		throw Error::FILE_NOT_FOUND;
+	}
+
+	file << data.dump(4);
+
+	file.close();
+
 	return true;
 }
 

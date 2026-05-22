@@ -1,22 +1,24 @@
 #pragma once
+#include "Global.h"
+
 #include <QObject>
-#include <string>
 #include <QVector3D>
 #include <QVariant>
 
 #include "Vector.h"
 #include "Map.h"
+#include "Avatar.h"
+
 #include "ChunkInstancing.h"
 #include "RayInstancing.h"
-#include "Avatar.h"
-#include "Utils.h"
 
 class EFView;
 class DTO_RecievedRay;
 
 /// <summary>
-/// Testing
+/// Documentation
 /// https://doc.qt.io/qt-6/qtqml-cppintegration-exposecppattributes.html
+/// https://ekkesapps.wordpress.com/qt-6-qmake/qmetatype/
 /// </summary>
 class UICommunicator: public QObject {
 	Q_OBJECT
@@ -45,11 +47,6 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void addBlock(int x, int y, int z);
 		Q_INVOKABLE void destroyBlock(int x, int y, int z);
 
-
-		// idk what this is 
-
-		Q_INVOKABLE void testing(const QString& value);
-
 		// audio testing page stuff 
 
 		Q_INVOKABLE void resetEmitters();
@@ -71,6 +68,9 @@ class UICommunicator: public QObject {
 		Q_INVOKABLE void saveRegistry(const QString& path);
 		Q_INVOKABLE void removeSound(int id);
 		Q_INVOKABLE void unloadRegistry();
+
+		Q_INVOKABLE QVariantMap loadPinnaSetting();
+		Q_INVOKABLE void savePinnaSetting(QVariantMap& settings);
 
 		//fin
 

@@ -8,6 +8,8 @@ RayInstancing::RayInstancing(QQuick3DObject* parent)
 void RayInstancing::clearBuffer() {
 	m_buffer.clear();
 	m_count = 0;
+	rayCountChanged();
+	markDirty();
 }
 
 void RayInstancing::prepareBuffer(QByteArray& buffer, int batchSize) {
@@ -22,8 +24,6 @@ void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
 
 	if (rayCount == 0) {
 		clearBuffer();
-		m_count = rayCount;
-		markDirty();
 		return;
 	}
 
@@ -50,7 +50,7 @@ void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
 	clearBuffer();
 	m_count = rayCount;
 	m_buffer = tempBuffer;
-	
+	rayCountChanged();
 	markDirty();
 }
 
@@ -82,4 +82,9 @@ RayInstancing::InstanceTableEntry RayInstancing::makeEntry(const QVector3D& star
 QByteArray RayInstancing::getInstanceBuffer(int* instanceCount) {
 	*instanceCount = m_count;
 	return m_buffer;
+}
+
+
+int RayInstancing::rayCount() const {
+	return m_count;
 }

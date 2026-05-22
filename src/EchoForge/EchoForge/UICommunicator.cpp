@@ -6,7 +6,6 @@
 #include <Eigen/Dense>
 
 #include "UICommunicator.h"
-#include "Utils.h"
 #include "EFView.h"
 #include "Material.h"
 #include "DTO_RecievedRay.h"
@@ -48,6 +47,8 @@ void UICommunicator::startSimulation() {
 
 void UICommunicator::stopSimulation() {
 	m_parent->stopSimulation();
+	m_rayInstances->clearBuffer();
+	m_voxelInstances->clearBuffer();
 }
 
 void UICommunicator::saveSimulation(const QString& url) {
@@ -82,10 +83,6 @@ void UICommunicator::addBlock(const int x, const int y, const int z) {
 
 void UICommunicator::destroyBlock(const int x, const int y, const int z) {
 
-}
-
-void UICommunicator::testing(const QString& value) {
-	qDebug() << value;
 }
 
 void UICommunicator::resetEmitters()
@@ -185,3 +182,15 @@ void UICommunicator::setupAvatar(const ef::Avatar& avatar) {
 void UICommunicator::callSimulationLoaded() {
 	emit simulationLoaded();
 }
+
+QVariantMap UICommunicator::loadPinnaSetting() {
+	json settings = m_parent->loadPinnaSetting();
+
+	return QVariantMap{};
+}
+
+void UICommunicator::savePinnaSetting(QVariantMap& settings) {
+	std::string name = settings.value("name", "NoName").toString().toStdString();
+	m_parent->savePinnaSetting();
+}
+

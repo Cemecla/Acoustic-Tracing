@@ -199,6 +199,9 @@
     <ClInclude Include="AcousticResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Header Files\MVC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="assets.qrc">
@@ -275,13 +278,16 @@
     <None Include="HudSimulation.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
-    <None Include="HudPanel.qml">
-      <Filter>Source Files\qml\Components</Filter>
-    </None>
     <None Include="HudButton.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
     <None Include="HudToggle.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="HudPanel.qml">
+      <Filter>Source Files\qml\Layouts</Filter>
+    </None>
+    <None Include="HorizontalSeparator.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
   </ItemGroup>

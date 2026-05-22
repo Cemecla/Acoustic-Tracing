@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "Global.h"
 
 #include "JuceHeader.h"
 #include "AudioManager.h"
@@ -8,7 +8,6 @@
 
 #include "Map.h"
 #include "Avatar.h"
-#include "Utils.h"
 
 class EFController;
 class QQmlApplicationEngine;
@@ -28,6 +27,9 @@ class UICommunicator;
 			void pauseSimulation();
 			void saveSimulation(std::string& url);
 			void loadSimulation(std::string& url);
+
+			json loadPinnaSetting();
+			void savePinnaSetting();
 
 			void addSound(const std::string& path) const;
 

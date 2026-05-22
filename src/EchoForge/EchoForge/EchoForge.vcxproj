@@ -36,14 +36,14 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.11.0_msvc2022_64</QtInstall>
-    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core</QtModules>
+    <QtInstall>6.11.1_msvc2022_64</QtInstall>
+    <QtModules>core;qml;quick;quickcontrols2;multimedia;quick3d</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>6.11.0_msvc2022_64</QtInstall>
-    <QtModules>qml;quick;quickcontrols2;multimedia;quick3d;core</QtModules>
+    <QtInstall>6.11.1_msvc2022_64</QtInstall>
+    <QtModules>core;qml;quick;quickcontrols2;multimedia;quick3d</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -138,6 +138,7 @@
     <ClCompile Include="RayManager.cpp" />
     <ClCompile Include="ChunkInstancing.cpp" />
     <None Include="ArrowButton.qml" />
+    <None Include="HorizontalSeparator.qml" />
     <None Include="HudButton.qml" />
     <None Include="HudPanel.qml" />
     <None Include="HudSimulation.qml" />
@@ -180,6 +181,7 @@
     <ClInclude Include="EFWorldLoader.h" />
     <QtMoc Include="ChunkInstancing.h" />
     <QtMoc Include="MapDataModel.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Ray.h" />

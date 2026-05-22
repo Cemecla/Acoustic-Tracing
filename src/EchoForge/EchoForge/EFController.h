@@ -1,6 +1,7 @@
 #pragma once
+#include "Global.h"
+
 #include <memory>
-#include <string>
 #include "SimulationLoop.h"
 
 class EFModel;
@@ -20,6 +21,8 @@ struct Inputs;
 
 			void run(float delta);
 			void loadSimulation(std::string& url);
+			json loadPinnaSetting();
+			void savePinnaSetting();
 			void startSimulation();
 			void stopSimulation();
 			void pauseSimulation();

@@ -7,6 +7,8 @@
 #include <QVariantList> 
 #include <QVariantMap>
 
+#include "json.hpp"
+
 #include "EFView.h"
 #include "EFModel.h"
 #include "EFController.h"
@@ -154,7 +156,6 @@ QVariantList EFView::getSounds() const
 	QVariantList list;
 	if (m_audioManager)
 	{
-		// need to include <QVariantList> and <QVariantMap>
 		for (const auto& entry : m_audioManager->getEntries())
 		{
 			QVariantMap map;
@@ -223,4 +224,12 @@ void EFView::buildMap(const ef::Map& map) {
 
 const Inputs& EFView::getLastInput() const {
 	return m_uiCommunicator->getInputs();
+}
+
+json EFView::loadPinnaSetting() {
+	return json{};
+}
+
+void EFView::savePinnaSetting() {
+
 }

@@ -6,6 +6,7 @@ Rectangle {
     property string label: ""
     property string checkedText: ""
     property string uncheckedText: ""
+    property string fontFamily: "Consolas"
     property bool checked: false
     signal toggled()
 
@@ -36,7 +37,7 @@ Rectangle {
         Text {
             text: root.label
             color: "#cccccc"
-            font.family: "Consolas"
+            font.family: root.fontFamily
             font.pixelSize: 12
             anchors.verticalCenter: parent.verticalCenter
         }
@@ -46,7 +47,7 @@ Rectangle {
         Text {
             text: root.checked ? root.checkedText : root.uncheckedText
             color: "#f0b040"
-            font.family: "Consolas"
+            font.family: root.fontFamily
             font.pixelSize: 10
             font.letterSpacing: 1
             anchors.verticalCenter: parent.verticalCenter

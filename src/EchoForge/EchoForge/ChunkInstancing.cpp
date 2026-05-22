@@ -65,3 +65,8 @@ QByteArray ChunkInstancing::getInstanceBuffer(int* instanceCount) {
 	*instanceCount = m_count;
 	return m_buffer;
 }
+
+void ChunkInstancing::clearBuffer() {
+	m_buffer.clear();
+	m_count = 0;
+}

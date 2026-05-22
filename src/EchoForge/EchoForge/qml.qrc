@@ -22,5 +22,6 @@
         <file>HudPanel.qml</file>
         <file>HudSimulation.qml</file>
         <file>HudToggle.qml</file>
+        <file>HorizontalSeparator.qml</file>
     </qresource>
 </RCC>

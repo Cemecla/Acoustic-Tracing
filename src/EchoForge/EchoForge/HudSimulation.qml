@@ -79,7 +79,7 @@ Item {
                 }
 
                 Text {
-                    text: "0 (WIP)"
+                    text: communicator.rayInstances.rayCount
                     color: "#f0b040"
                     font.family: root.fontFamily; 
                     font.pixelSize: 10

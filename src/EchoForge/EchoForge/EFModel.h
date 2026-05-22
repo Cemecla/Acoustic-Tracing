@@ -1,7 +1,7 @@
 #pragma once
 
-#include "json.hpp"
-#include <string>
+#include "Global.h"
+
 #include <optional>
 #include <vector>
 
@@ -11,8 +11,6 @@
 #include "EFWorld.h"
 #include "Scenario.h"
 #include "AcousticInterpreter.h"
-
-using json = nlohmann::json;
 
 class EFController;
 struct Inputs;

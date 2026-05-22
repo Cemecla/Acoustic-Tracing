@@ -14,6 +14,8 @@ public:
 
 	void setChunk(const ef::Map& map);
 
+	void clearBuffer();
+
 protected:
 	QByteArray getInstanceBuffer(int* instanceCount) override;
 

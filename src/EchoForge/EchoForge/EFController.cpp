@@ -38,9 +38,18 @@ void EFController::startSimulation() {
 }
 
 void EFController::stopSimulation() {
-
+	m_simulationLoop.stop();
 }
 
 void EFController::pauseSimulation() {
+
+}
+
+json EFController::loadPinnaSetting() {
+	std::string PINNA_URL = "";
+	return m_model->loadJson(PINNA_URL);
+}
+
+void EFController::savePinnaSetting() {
 
 }
