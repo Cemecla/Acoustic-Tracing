@@ -13,7 +13,7 @@ MainLayout {
         },
         {
             title: "Assets",
-            content: ["WIP", "WIP", "WIP"]
+            content: ["Kenney.nl - Voxels Texture", "WIP", "WIP"]
         }
     ]
 
