@@ -24,8 +24,9 @@ void EFController::loadSimulation(std::string& url) {
     {
         std::string registryPath = mapJson["soundRegistry"].get<std::string>();
 
-        // resolve registry path relative to working directory
-        juce::File absoluteRegistry = juce::File::getCurrentWorkingDirectory()
+        // resolve registry path relative to executable directory (consistent with Librarian)
+        juce::File absoluteRegistry = juce::File::getSpecialLocation(juce::File::currentApplicationFile)
+            .getParentDirectory()
             .getChildFile(juce::String(registryPath));
 
         m_view->loadRegistry(absoluteRegistry.getFullPathName().toStdString());
