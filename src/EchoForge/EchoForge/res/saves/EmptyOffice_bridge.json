@@ -1,7 +1,7 @@
 {
     "title": "TheOffice",
     "desc": "Map de test",
-    "soundRegistry": "../../EchoForge/res/assets/sounds/baseRegistery.json",
+    "soundRegistry": "../../EchoForge/res/assets/sounds/Registerys/theOne.json",
     "data": {
         "voxelUnitSize" : 100,
         "unitValue": 100,
@@ -31,33 +31,60 @@
     },
     "scenarioItems": [
         {
-            "filename": "Fireplace.mp3",
-            "id": 10,
-            "volume": 0.8,
-            "loop": true,
-            "position": [500.0, 300.0, 700.0],
-            "event": {
-                "type": "timer",
-                "time": 0
-            }
-        },
-        {
             "filename": "Knocking.mp3",
-            "id": 11,
-            "volume": 1.0,
+            "id": 10,
+            "volume": 1,
             "loop": false,
-            "position": [200.0, 200.0, 200.0],
+            "position": [
+                200,
+                200,
+                200
+            ],
             "event": {
                 "type": "timer",
                 "time": 5000
             }
         },
         {
-            "filename": "mooo1945.mp3",
+            "filename": "Knocking-window.mp3",
+            "id": 11,
+            "volume": 1,
+            "loop": false,
+            "position": [
+                200,
+                200,
+                200
+            ],
+            "event": {
+                "type": "timer",
+                "time": 100
+            }
+        },
+        {
+            "filename": "Knocking-door.mp3",
             "id": 12,
-            "volume": 1.0,
+            "volume": 1,
+            "loop": false,
+            "position": [
+                200,
+                200,
+                200
+            ],
+            "event": {
+                "type": "timer",
+                "time": 7000
+            }
+        },
+        {
+            "filename": "Door-Opening.mp3",
+            "id": 13,
+            "volume": 1,
             "loop": true,
-            "position": [800.0, 400.0, 300.0],
+            "position": [
+                800,
+                400,
+                300
+            ],
             "event": {
                 "type": "timer",
                 "time": 10000
