@@ -31,11 +31,6 @@ void EFController::loadSimulation(std::string& url) {
         m_view->loadRegistry(absoluteRegistry.getFullPathName().toStdString());
     }
 
-    m_model->loadWorld(url);
-    ef::Map map = m_model->getMap();
-    ef::Avatar avatar = m_model->getAvatar(true);
-    m_view->buildMap(map);
-    m_view->setupAvatar(avatar);
 	m_model->loadWorld(url);
 	ef::Map map = m_model->getMap();
 	ef::Avatar avatar = m_model->getAvatar(true);

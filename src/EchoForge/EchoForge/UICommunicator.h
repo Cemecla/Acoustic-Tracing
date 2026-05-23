@@ -41,36 +41,6 @@ public:
 	void setAvatarPos(QVector3D& v);
 	void setHeadAngles(QVector3D& v);
 	void setEmitters(QVariantList emitters);
-	Q_INVOKABLE void addSound(const QString& path);
-		Q_INVOKABLE QVariantList getSounds();
-
-		Q_INVOKABLE void addAmbient(const QString& path);
-
-
-		Q_INVOKABLE void loadRegistry(const QString& path);
-		Q_INVOKABLE void saveRegistry(const QString& path);
-		Q_INVOKABLE void removeSound(int id);
-		Q_INVOKABLE void unloadRegistry();
-
-		Q_INVOKABLE QVariantList loadPinnaSetting();
-		Q_INVOKABLE void savePinnaSetting(QVariantMap& settings);
-
-		Q_INVOKABLE void setSelectedPinnaId(int id);
-
-		//fin
-
-		void buildMap(const ef::Map& map);
-		void updateRayInstances(const std::vector<DTO_RecievedRay>& rays);
-		void setupAvatar(const ef::Avatar& avatar);
-		void callSimulationLoaded();
-		const Inputs& getInputs() const;
-
-	signals:
-		void avatarPosChanged();
-		void headAnglesChanged();
-		void chunkInstancingsChanged();
-		void simulationLoaded();
-		void rayInstancingsChanged();
 
 	Q_INVOKABLE void startSimulation();
 	Q_INVOKABLE void stopSimulation();
@@ -96,10 +66,8 @@ public:
 
 
 	Q_INVOKABLE void addSound(const QString& path);
+	Q_INVOKABLE void addAmbient(const QString& path);
 	Q_INVOKABLE QVariantList getSounds();
-
-	// Q_INVOKABLE void addAmbient(const QString& path);
-
 
 	Q_INVOKABLE void loadRegistry(const QString& path);
 	Q_INVOKABLE void saveRegistry(const QString& path);
