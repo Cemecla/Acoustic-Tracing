@@ -6,8 +6,6 @@
 #include <chrono>
 #include <functional>
 
-
-
 namespace ef {
 
 	class Scenario
@@ -21,11 +19,13 @@ namespace ef {
 
 		void update(const float delta);
 
-		void add_event(Action action,Condition condition);
+		void add_event(Action action, Condition condition);
 
 		void stop();
 
 		void start();
+
+		void clearEvent();
 
 	private:
 

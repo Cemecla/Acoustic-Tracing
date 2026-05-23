@@ -53,6 +53,8 @@ struct Inputs;
 
 			void startScenario();
 
+			void stopScenario();
+
 			const std::optional<ef::Avatar>& getAvatar() const;
 
 			const ef::Avatar& getAvatar(int temporary) const;
@@ -67,6 +69,7 @@ struct Inputs;
 
 			void moveAvatar(Inputs& inputs, float delta);
 			
+			void endWorld();
 		
 		private:
 			const std::string MATERIAL_FILENAME = "";

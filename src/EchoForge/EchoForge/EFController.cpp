@@ -17,8 +17,7 @@ void EFController::run(float delta) {
 }
 
 void EFController::loadSimulation(std::string& url) {
-    // read JSON first to get soundRegistry path
-    json mapJson = m_model->loadJson(url);
+	json mapJson = m_model->loadJson(url);
 
     if (mapJson.contains("soundRegistry"))
     {
@@ -37,6 +36,12 @@ void EFController::loadSimulation(std::string& url) {
     ef::Avatar avatar = m_model->getAvatar(true);
     m_view->buildMap(map);
     m_view->setupAvatar(avatar);
+	m_model->loadWorld(url);
+	ef::Map map = m_model->getMap();
+	ef::Avatar avatar = m_model->getAvatar(true);
+	m_view->buildMap(map);
+	m_view->setupAvatar(avatar);
+	m_view->setEmittersVisual(m_model->getEmitters());
 }
 
 const Inputs& EFController::getLastInputs() const {
@@ -54,6 +59,7 @@ void EFController::startSimulation() {
 
 void EFController::stopSimulation() {
 	m_simulationLoop.stop();
+	m_model->endWorld();
 }
 
 void EFController::pauseSimulation() {

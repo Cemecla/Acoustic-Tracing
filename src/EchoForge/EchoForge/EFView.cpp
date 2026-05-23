@@ -51,10 +51,10 @@ void EFView::saveSimulation() {
 }
 
 void EFView::stopSimulation() {
-	m_parent->stopSimulation();
-	m_audioManager->stop();
-	unloadRegistry();
+	pauseAll();
 	resetEmitters();
+	unloadRegistry();
+	m_parent->stopSimulation();
 }
 
 void EFView::pauseSimulation() {
@@ -277,4 +277,16 @@ int EFView::getSelectedPinnaId() const {
 
 void EFView::savePinnaSetting() {
 
+}
+
+void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
+	QVariantList list = {};
+	for (auto& e : emitters)
+	{
+		QVector3D pos = { e.position.x * 100, e.position.y * 100, e.position.z * 100};
+		qDebug() << pos;
+		list.append(pos);
+	}
+
+	m_uiCommunicator->setEmitters(list);
 }

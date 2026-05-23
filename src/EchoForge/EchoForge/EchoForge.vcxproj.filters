@@ -224,9 +224,6 @@
     <None Include="CreditPage.qml">
       <Filter>Source Files\qml\Pages</Filter>
     </None>
-    <None Include="DevModePage.qml">
-      <Filter>Source Files\qml\Pages</Filter>
-    </None>
     <None Include="MenuPage.qml">
       <Filter>Source Files\qml\Pages</Filter>
     </None>

@@ -28,6 +28,8 @@ void EFModel::loadWorld(std::string& filename) {
 	json mapfile = loadJson(filename);
 	std::string str = "res/settings/materials.json";
 	json materialfile = loadJson(str);
+
+	m_world.reset();
 	m_world = EFWorldLoader::build(mapfile, materialfile);
 
 	std::vector<int> emitterIds;
@@ -71,6 +73,10 @@ void EFModel::buildScenario() {
 
 void EFModel::startScenario() {
 	m_scenario.start();
+}
+
+void EFModel::stopScenario() {
+	m_scenario.stop();
 }
 
 void EFModel::update(float delta) {
@@ -213,4 +219,13 @@ std::vector<ef::Emitter> EFModel::getActiveSounds() {
 		[](const ef::Emitter& s) { return s.isActive; });
 
 	return result;
+}
+
+
+void EFModel::endWorld() {
+	m_rayManager.clearAllRays();
+	m_acousticInterpreter.clear();
+	m_scenario.stop();
+	m_scenario.clearEvent();
+	m_world->emitters.clear();
 }

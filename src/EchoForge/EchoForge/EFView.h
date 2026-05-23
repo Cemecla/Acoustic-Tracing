@@ -10,6 +10,7 @@
 #include "Avatar.h"
 #include "Utils.h"
 #include "Vector.h"
+#include "EFWorld.h"
 
 class EFController;
 class QQmlApplicationEngine;
@@ -72,6 +73,8 @@ class UICommunicator;
 			const Inputs& getLastInput() const;
 
 			void updateRayInstance();
+
+			void setEmittersVisual(const std::vector<ef::Emitter>& emitters);
 		
 		private:
 			EFController* m_parent;
