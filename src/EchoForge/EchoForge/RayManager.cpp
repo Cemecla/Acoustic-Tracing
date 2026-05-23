@@ -131,6 +131,12 @@ void RayManager::clearReceivedRays() {
 	m_receivedRays.clear();
 }
 
+void RayManager::clearAllRays() {
+	m_receivedRays.clear();
+	m_activeRays->clear();
+	m_nextRayIndex = 0;
+}
+
 
 const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::Vector3f& to) {
 // Détecter si un rayon traverse un bloc quand il arrive à une source

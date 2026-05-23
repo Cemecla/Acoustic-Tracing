@@ -157,7 +157,6 @@
     <None Include="SoundTestingPage.qml" />
     <None Include="SimulationScreen.qml" />
     <None Include="CreditPage.qml" />
-    <None Include="DevModePage.qml" />
     <None Include="MainLayout.qml" />
     <None Include="MenuButton.qml" />
     <None Include="MenuPage.qml" />

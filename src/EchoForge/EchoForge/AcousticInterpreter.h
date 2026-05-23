@@ -19,6 +19,8 @@ public:
 
     void setKnownEmitters(const std::vector<int>& ids);
 
+    void clear();
+
     const std::map<int, AcousticResult>& getResults() const;
 
 private:

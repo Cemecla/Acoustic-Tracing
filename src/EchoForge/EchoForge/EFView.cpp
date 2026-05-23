@@ -51,9 +51,10 @@ void EFView::saveSimulation() {
 }
 
 void EFView::stopSimulation() {
-	m_parent->stopSimulation();
-	unloadRegistry();
+	pauseAll();
 	resetEmitters();
+	unloadRegistry();
+	m_parent->stopSimulation();
 }
 
 void EFView::pauseSimulation() {

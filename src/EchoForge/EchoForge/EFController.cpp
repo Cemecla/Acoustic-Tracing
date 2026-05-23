@@ -40,6 +40,7 @@ void EFController::startSimulation() {
 
 void EFController::stopSimulation() {
 	m_simulationLoop.stop();
+	m_model->endWorld();
 }
 
 void EFController::pauseSimulation() {

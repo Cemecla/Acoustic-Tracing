@@ -130,3 +130,11 @@ void AcousticInterpreter::lerpResult(AcousticResult& current,
     current.elevation = current.elevation + (target.elevation - current.elevation) * t;
     current.gain      = current.gain      + (target.gain      - current.gain)      * t;
 }
+
+void AcousticInterpreter::clear() {
+    // TODO: Clear the Interpreter
+    m_accumulator.clear();
+    m_smoothed.clear();
+    m_knownEmitterIds.clear();
+    m_frameCount = 0;
+}

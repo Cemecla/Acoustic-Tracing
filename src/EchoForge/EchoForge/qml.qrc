@@ -7,7 +7,6 @@
         <file>OptionPage.qml</file>
         <file>MainLayout.qml</file>
         <file>MenuButton.qml</file>
-        <file>DevModePage.qml</file>
         <file>CreditPage.qml</file>
         <file>SimulationScreen.qml</file>
         <file>SoundTestingPage.qml</file>

@@ -31,6 +31,7 @@ namespace tracing {
 
 		[[nodiscard]] const std::vector<DTO_RecievedRay>& getReceivedRays() const;
 		void clearReceivedRays();
+		void clearAllRays();
 
 		[[nodiscard]] std::vector<std::vector<ef::Vector3F>> getRayPaths() const;
 
