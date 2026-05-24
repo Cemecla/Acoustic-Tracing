@@ -1,0 +1,147 @@
+#include "AcousticTimeline.h"
+#include <algorithm>
+#include <cmath>
+#include <numbers>
+
+using namespace acoustic;
+
+// ── TimelineSlot ─────────────────────────────────────────────────────────────
+
+void TimelineSlot::reset()
+{
+    weightedPos  = Eigen::Vector3f::Zero();
+    weightedGain = Eigen::Vector3f::Zero();
+    totalWeight  = 0.f;
+    rayCount     = 0;
+    hasDirect    = false;
+    isSynthetic  = false;
+}
+
+// ── AcousticTimeline ─────────────────────────────────────────────────────────
+
+void AcousticTimeline::addDTO(const DTO_RecievedRay& dto)
+{
+    int idx = dto.getStepCount() / SLOT_SIZE;
+    if (idx >= MAX_SLOTS) idx = MAX_SLOTS - 1;
+
+    auto& slot = m_slots[idx];
+    float w = dto.getEnergy().norm();
+    if (w < 1e-8f) return;
+
+    slot.weightedPos  += dto.getLastSeen() * w;
+    slot.weightedGain += dto.getEnergy()   * w;
+    slot.totalWeight  += w;
+    slot.rayCount++;
+    slot.hasDirect  |= dto.isDirect();
+    slot.isSynthetic  = false; // données réelles → pas synthétique
+}
+
+void AcousticTimeline::decayAll()
+{
+    for (auto& slot : m_slots)
+    {
+        if (slot.isEmpty()) continue;
+        slot.weightedGain *= SLOT_DECAY;
+        slot.totalWeight  *= SLOT_DECAY;
+        if (slot.isEmpty()) slot.reset(); // purgé si trop faible
+    }
+}
+
+void AcousticTimeline::fillGaps()
+{
+    // Efface d'abord les anciens synthétiques pour repartir propre.
+    for (auto& slot : m_slots)
+        if (slot.isSynthetic) slot.reset();
+
+    // Passe forward : pour chaque slot vide, on decay depuis le slot précédent.
+    // Crée un profil de décroissance exponentielle dans les blancs.
+    const TimelineSlot* prev = nullptr;
+    for (auto& slot : m_slots)
+    {
+        if (!slot.isEmpty())
+        {
+            prev = &slot;
+        }
+        else if (prev != nullptr)
+        {
+            slot.weightedPos  = prev->weightedPos;
+            slot.weightedGain = prev->weightedGain * GAP_DECAY;
+            slot.totalWeight  = prev->totalWeight  * GAP_DECAY;
+            slot.hasDirect    = false;
+            slot.isSynthetic  = true;
+            prev = &slot; // chaîne : le prochain slot décadera depuis celui-ci
+        }
+    }
+}
+
+AcousticResult AcousticTimeline::collapse(int emitterId,
+                                           const Eigen::Vector3f& listenerPos,
+                                           float listenerYaw) const
+{
+    AcousticResult result;
+    result.emitterId = emitterId;
+
+    Eigen::Vector3f dirWeightedPos = Eigen::Vector3f::Zero();
+    float           dirTotalW      = 0.f;
+    Eigen::Vector3f gainAccum      = Eigen::Vector3f::Zero();
+    float           gainTotalW     = 0.f;
+
+    for (int i = 0; i < MAX_SLOTS; ++i)
+    {
+        const auto& slot = m_slots[i];
+        if (slot.isEmpty()) continue;
+
+        Eigen::Vector3f pos  = slot.weightedPos  / slot.totalWeight;
+        Eigen::Vector3f gain = slot.weightedGain / slot.totalWeight;
+
+        // --- Direction : pondération temporelle forte vers direct/précoce ---
+        float temporalW = slot.hasDirect    ? DIRECT_WEIGHT
+                        : (i < EARLY_CUTOFF) ? EARLY_WEIGHT
+                                             : LATE_WEIGHT;
+        float dirW = temporalW * gain.norm();
+        dirWeightedPos += pos   * dirW;
+        dirTotalW      += dirW;
+
+        // --- Gain : décroissance géométrique par index de slot ---
+        // Les premières réflexions contribuent plus au volume perçu.
+        float slotW = std::pow(0.78f, i);
+        gainAccum  += gain  * slotW;
+        gainTotalW += slotW;
+    }
+
+    if (dirTotalW < 1e-6f) return result; // aucune donnée utilisable
+
+    // Azimuth / élévation depuis la position moyenne pondérée
+    Eigen::Vector3f avgPos = dirWeightedPos / dirTotalW;
+    Eigen::Vector3f delta  = avgPos - listenerPos;
+    float dist2D = std::sqrt(delta.x() * delta.x() + delta.z() * delta.z());
+
+    // Azimuth monde → azimuth local (relatif au regard de l'avatar).
+    // Sans cette soustraction, tourner la tête ne changerait pas la perception.
+    float worldAz = std::atan2(delta.x(), -delta.z());
+    float localAz = worldAz + listenerYaw;
+
+    // Normalise dans [-π, +π]
+    while (localAz >  std::numbers::pi_v<float>) localAz -= 2.f * std::numbers::pi_v<float>;
+    while (localAz < -std::numbers::pi_v<float>) localAz += 2.f * std::numbers::pi_v<float>;
+
+    result.azimuth   = localAz * (180.f / std::numbers::pi_v<float>);
+    result.elevation = std::atan2( delta.y(),  dist2D)
+                       * (180.f / std::numbers::pi_v<float>);
+
+    // Gain normalisé [0,1]
+    if (gainTotalW > 1e-6f)
+        result.gain = (gainAccum / gainTotalW).cwiseMin(1.f).cwiseMax(0.f);
+
+    return result;
+}
+
+void AcousticTimeline::clear()
+{
+    for (auto& slot : m_slots) slot.reset();
+}
+
+bool AcousticTimeline::hasAnyData() const
+{
+    return std::ranges::any_of(m_slots, [](const TimelineSlot& s){ return !s.isEmpty(); });
+}
