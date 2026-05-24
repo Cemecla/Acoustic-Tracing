@@ -6,6 +6,7 @@
 #include <qvector.h>
 #include <QVariantList> 
 #include <QVariantMap>
+#include <random>
 
 #include "json.hpp"
 
@@ -274,12 +275,19 @@ void EFView::savePinnaSetting() {
 }
 
 void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<double> dis(0.0, 255.0);
+
 	QVariantList list = {};
 	for (auto& e : emitters)
 	{
+		QVariantMap map = {};
 		QVector3D pos = { e.position.x * 100, e.position.y * 100, e.position.z * 100};
-		qDebug() << pos;
-		list.append(pos);
+		map.insert("position", pos);
+		map.insert("filename", QString::fromStdString(e.filename));
+		map.insert("color", QColor(dis(rd), dis(rd), dis(rd)));
+		list.append(map);
 	}
 
 	m_uiCommunicator->setEmitters(list);

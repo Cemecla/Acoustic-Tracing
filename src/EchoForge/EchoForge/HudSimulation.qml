@@ -13,13 +13,15 @@ Item {
     property color panelTextColor: "white"
     property string fontFamily: "Consolas"
     property int subTitleSize: 14
+    property var emitters: []
 
     HudPanel {
         id: infoPanel
+
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.margins: 16
-        width: 200
+        width: 260
 
         ColumnLayout {
             anchors.fill: parent
@@ -100,13 +102,80 @@ Item {
             HorizontalSeparator { color: root.panelTitleColor }
 
             Text {
-                text: "EMITTERS (WIP)"
+                text: "EMITTERS"
                 color: root.panelTitleColor
                 font.family: root.fontFamily
                 font.pixelSize: root.subTitleSize
                 font.letterSpacing: 2
             }
 
+            ScrollView {
+                id: emittersScroll
+                Layout.fillWidth: true
+                Layout.preferredHeight: 200
+                clip: true
+                ScrollBar.vertical.policy: ScrollBar.AsNeeded
+                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            
+                ListView {
+                    id: emittersList
+                    model: root.emitters
+                    spacing: 4
+                    boundsBehavior: Flickable.StopAtBounds
+            
+                    delegate: Rectangle {
+                        width: ListView.view.width
+                        height: 52
+                        color: index % 2 == 0 ? "#1a1a1a" : "#222222"
+                        border.color: "#333333"
+                        border.width: 1
+                        radius: 3
+            
+                        RowLayout {
+                            anchors.fill: parent
+                            anchors.margins: 8
+                            spacing: 10
+            
+                            Rectangle {
+                                Layout.preferredWidth: 14
+                                Layout.preferredHeight: 14
+                                Layout.alignment: Qt.AlignVCenter
+                                color: modelData["color"]
+                                border.color: "#000000"
+                                border.width: 1
+                                radius: 50
+                            }
+            
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: 2
+            
+                                Text {
+                                     text: {
+                                        const full = modelData["filename"] || ""
+                                        const i = Math.max(full.lastIndexOf("/"), full.lastIndexOf("\\"))
+                                        return i >= 0 ? full.substring(i + 1) : full
+                                     }
+                                    color: "#ffffff"
+                                    font.family: root.fontFamily
+                                    font.pixelSize: 12
+                                    elide: Text.ElideRight
+                                    Layout.fillWidth: true
+                                }
+            
+                                Text {
+                                    text: `x: ${modelData["position"].x.toFixed(1)}   ` +
+                                          `y: ${modelData["position"].y.toFixed(1)}   ` +
+                                          `z: ${modelData["position"].z.toFixed(1)}`
+                                    color: "#aaaaaa"
+                                    font.family: root.fontFamily
+                                    font.pixelSize: 10
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -11,17 +11,30 @@ Page {
     Item {
         id: viewportRoot
         anchors.fill: parent
+        property var emitters: communicator.emitters
 
         SimulationScreen {
             id: viewScreen
             anchors.fill: parent
             debugEnable: simulationPage.debugEnable
+            isRaysVisible: true
+            isEmittersVisible: true
+            emitters: viewportRoot.emitters
         }
 
         HudSimulation {
             id: hud
             anchors.fill: parent
             z: 1
+            emitters: viewportRoot.emitters
+
+            onRaysVisibleChanged: {
+                viewScreen.isRaysVisible = raysVisible
+            }
+
+            onEmittersVisibleChanged: {
+                viewScreen.isEmittersVisible = emittersVisible
+            }
 
             onStopRequested: {
                 communicator.stopSimulation()

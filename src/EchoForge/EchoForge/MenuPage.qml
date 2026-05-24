@@ -32,12 +32,12 @@ MainLayout {
         }
 
         MenuButton {
-            buttonText: "Testing" 
+            buttonText: "Sound Lab" 
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/SoundTestingPage.qml"))
         }
         
         MenuButton { 
-            buttonText: "Option"
+            buttonText: "Options"
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qt/qml/echoforge/OptionPage.qml"))
         }
 

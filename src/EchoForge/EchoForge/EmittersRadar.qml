@@ -171,9 +171,9 @@ Item {
                 border.color: marker.isSelected ? "#ffffff" : "#000000"
                 border.width: marker.isSelected ? 2 : 1
 
-                Behavior on width  { NumberAnimation { duration: 90 } }
+                Behavior on width { NumberAnimation { duration: 90 } }
                 Behavior on height { NumberAnimation { duration: 90 } }
-                Behavior on color  { ColorAnimation { duration: 90 } }
+                Behavior on color { ColorAnimation { duration: 90 } }
             }
 
             // LABEL

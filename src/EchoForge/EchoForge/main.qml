@@ -1,6 +1,6 @@
 import QtQuick
-import QtCore
 import QtQuick.Window
+import QtCore
 import QtQuick.Controls
 
 
