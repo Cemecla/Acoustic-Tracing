@@ -20,7 +20,19 @@ Button {
     SoundEffect {
         id: hoverSound
         source: "qrc:/sounds/buttonSound"
+        volume: appSettings.sfxVolume
         loops: 1
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: btnRoot.clicked()
+
+        RippleEffect {
+            anchors.fill: parent
+            clickThrough: true 
+            rippleColor: mainWindow.secondaryColor
+        }
     }
 
     // ANIMATED BACKGROUND
@@ -38,7 +50,7 @@ Button {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             width: btnRoot.hovered ? 5 : 0
-            color: "#FFA500"
+            color: mainWindow.secondaryColor
             opacity: btnRoot.hovered ? 1 : 0
 
             Behavior on opacity {
@@ -61,7 +73,7 @@ Button {
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         anchors.fill: parent
-        anchors.leftMargin: btnRoot.hovered ? 15 : 0
+        anchors.leftMargin: btnRoot.hovered ? 15 : 5
 
         Behavior on anchors.leftMargin {
             NumberAnimation { duration: 120 }

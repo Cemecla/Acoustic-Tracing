@@ -26,5 +26,8 @@
         <file>FrequencySlider.qml</file>
         <file>LayoutBox.qml</file>
         <file>Spacer.qml</file>
+        <file>RippleEffect.qml</file>
+        <file>VerticalSeparator.qml</file>
+        <file>EmittersRadar.qml</file>
     </qresource>
 </RCC>

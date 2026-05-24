@@ -17,8 +17,9 @@ Slider {
         implicitWidth: 10
         implicitHeight: 10
         radius: 10
-        color: sliderRoot.pressed ? "#f0f0f0" : "#f6f6f6"
-        border.color: "#bdbebf"
+        color: "transparent"
+        border.color: "black"
+        border.width: 2
     }
 
 	Component.onCompleted: sliderRoot.value = sliderRoot.initialValue

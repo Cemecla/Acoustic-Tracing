@@ -8,9 +8,11 @@ Item {
     signal quitRequested()
 
     property bool raysVisible: true
-    property color panelTitleColor: "#FFA500" 
-    property color panelTextColor: "#000000"
+    property bool emittersVisible: true
+    property color panelTitleColor: mainWindow.secondaryColor 
+    property color panelTextColor: "white"
     property string fontFamily: "Consolas"
+    property int subTitleSize: 14
 
     HudPanel {
         id: infoPanel
@@ -25,10 +27,10 @@ Item {
             spacing: 8
 
             Text {
-                text: "INFORMATIONS"
+                text: "AVATAR"
                 color: root.panelTitleColor
                 font.family: root.fontFamily
-                font.pixelSize: 11
+                font.pixelSize: root.subTitleSize
                 font.letterSpacing: 2
             }
 
@@ -59,13 +61,21 @@ Item {
                 }
             }
 
-            Rectangle { Layout.fillWidth: true; height: 1; color: "#2a2a2a" }
+            HorizontalSeparator { color: root.panelTitleColor }
+
+            Text {
+                text: "RAYS"
+                color: root.panelTitleColor
+                font.family: root.fontFamily
+                font.pixelSize: root.subTitleSize
+                font.letterSpacing: 2
+            }
 
             RowLayout {
                 spacing: 8
 
                 Text {
-                    text: "rays"
+                    text: "count"
                     color: root.panelTitleColor; 
                     font.family: root.fontFamily; 
                     font.pixelSize: 12
@@ -80,12 +90,23 @@ Item {
 
                 Text {
                     text: communicator.rayInstances.rayCount
-                    color: "#f0b040"
+                    color: root.panelTextColor
                     font.family: root.fontFamily; 
                     font.pixelSize: 10
                     font.letterSpacing: 1
                 }
             }
+
+            HorizontalSeparator { color: root.panelTitleColor }
+
+            Text {
+                text: "EMITTERS (WIP)"
+                color: root.panelTitleColor
+                font.family: root.fontFamily
+                font.pixelSize: root.subTitleSize
+                font.letterSpacing: 2
+            }
+
         }
     }
 
@@ -94,7 +115,7 @@ Item {
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.margins: 16
-        width: 200
+        width: 220
 
         ColumnLayout {
             anchors.fill: parent
@@ -105,29 +126,120 @@ Item {
                 text: "CONTROLS"
                 color: root.panelTitleColor
                 font.family: root.fontFamily
-                font.pixelSize: 11
+                font.pixelSize: root.subTitleSize
                 font.letterSpacing: 2
             }
 
             HudToggle {
                 Layout.fillWidth: true
-                label: "Show rays"
-                checkedText: "Visible"
-                uncheckedText: "Invisible"
+                label: "Display rays"
+                checkedText: "True"
+                uncheckedText: "False"
                 checked: root.raysVisible
                 onToggled: root.raysVisible = !root.raysVisible
             }
 
-            HudButton {
+            HudToggle {
                 Layout.fillWidth: true
-                label: "Stop simulation (WIP)"
-                onActivated: root.stopRequested()
+                label: "Display sources"
+                checkedText: "True"
+                uncheckedText: "False"
+                checked: root.emittersVisible
+                onToggled: root.emittersVisible = !root.emittersVisible
             }
 
             HudButton {
                 Layout.fillWidth: true
                 label: "Quit to menu (WIP)"
                 onActivated: root.quitRequested()
+            }
+
+            HorizontalSeparator { color: root.panelTitleColor }
+
+            Text {
+                text: "COMMANDS"
+                color: root.panelTitleColor
+                font.family: root.fontFamily
+                font.pixelSize: root.subTitleSize
+                font.letterSpacing: 2
+            }
+
+            RowLayout {
+                spacing: 8
+
+                Text {
+                    text: "Camera Switch"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    text: "C"
+                    color:  root.panelTextColor
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 10
+                    font.letterSpacing: 1
+                }
+            }
+
+            RowLayout {
+                spacing: 8
+
+                Text {
+                    text: "Rotation"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    text: "Q/E"
+                    color: root.panelTextColor
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 10
+                    font.letterSpacing: 1
+                }
+            }
+
+            RowLayout {
+                spacing: 8
+
+                Text {
+                    text: "Mouvement"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    text: "W/A/S/D"
+                    color: root.panelTextColor
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 10
+                    font.letterSpacing: 1
+                }
             }
         }
     }

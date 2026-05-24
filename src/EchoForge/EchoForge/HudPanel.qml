@@ -1,26 +1,33 @@
 ﻿import QtQuick
+import QtQuick.Layouts
 
 Rectangle {
     id: panel
-    default property alias body: container.data
+    default property alias body: contentLayout.data
 
     color: "#cc121417"
     border.color: "#2a2a2a"
     border.width: 1
     radius: 2
 
+    height: contentLayout.implicitHeight + 25
+
     Rectangle {
+        id: topBar
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
         height: 2
-        color: "#FFA500"
+        color: mainWindow.secondaryColor
+        z: 2
     }
 
-    Item {
-        id: container
-        anchors.fill: parent
-    }
+    ColumnLayout {
+        id: contentLayout
+        
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-    implicitHeight: container.childrenRect.height + 28
+        spacing: 0 
+    }
 }

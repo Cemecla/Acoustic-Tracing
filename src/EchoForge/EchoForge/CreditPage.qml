@@ -9,11 +9,11 @@ MainLayout {
     property var creditSections: [
         {
             title: "Developers",
-            content: ["Joel Mailly-Niquay", "Yuta Landreville", "Jacques Michel Caron"]
+            content: ["Jacques Michel Caron", "Joel Mailly-Niquay", "Yuta Landreville"]
         },
         {
             title: "Assets",
-            content: ["Kenney.nl - Voxels Texture", "WIP", "WIP"]
+            content: ["Kenney.nl - Voxels Texture"]
         }
     ]
 
@@ -59,7 +59,7 @@ MainLayout {
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.preferredWidth: 60
                                 Layout.preferredHeight: 3
-                                color: "#FFA500"
+                                color: mainWindow.secondaryColor
                             }
                         }
 

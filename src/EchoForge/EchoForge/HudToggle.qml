@@ -2,7 +2,7 @@
 
 Rectangle {
     id: root
-    property color themeColor: "#FFA500"
+    property color themeColor: mainWindow.secondaryColor
     property string label: ""
     property string checkedText: ""
     property string uncheckedText: ""

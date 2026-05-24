@@ -22,7 +22,7 @@ MainLayout {
             Rectangle {
                 width: 4
                 Layout.preferredHeight: 24
-                color: "#FFA500"
+                color: mainWindow.secondaryColor
             }
 
             Text {
@@ -79,7 +79,7 @@ MainLayout {
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
                             width: mapItem.hovered ? 5 : 0
-                            color: "#FFA500"
+                            color: mainWindow.secondaryColor
                             opacity: mapItem.hovered ? 1 : 0
 
                             Behavior on opacity {
@@ -100,7 +100,7 @@ MainLayout {
                             text: String(mapItem.index + 1).padStart(2, "0")
                             font.pixelSize: 14
                             font.bold: true
-                            color: mapItem.hovered ? "#FFA500" : "#AAAAAA"
+                            color: mapItem.hovered ? mainWindow.secondaryColor : "#AAAAAA"
                             Layout.preferredWidth: 30
 
                             Behavior on color {
@@ -122,7 +122,7 @@ MainLayout {
                             text: "›"
                             font.pixelSize: 24
                             font.bold: true
-                            color: "#FFA500"
+                            color: mainWindow.secondaryColor
                             opacity: mapItem.hovered ? 1 : 0
                             verticalAlignment: Text.AlignVCenter
 

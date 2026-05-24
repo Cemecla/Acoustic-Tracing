@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 
 MainLayout {
     maintitle: "Options"
@@ -111,7 +112,7 @@ MainLayout {
                 // CONTENT
                 StackLayout {
                     id: stackLayout
-                    Layout.fillWidth:  true
+                    Layout.fillWidth: true
                     Layout.fillHeight: true
                     currentIndex: tabBar.currentIndex
 
@@ -124,20 +125,27 @@ MainLayout {
                             spacing: 0
 
                             OptionRow {
-                                id: masterVolumeRow
-                                rowLabel: "Master Volume"
-                                OptionSlider { id: masterSlider; initialValue: 80 }
+                                id: sfxVolumeRow
+                                rowLabel: "SFX Volume"
+                                OptionSlider { 
+                                    id: sfxSlider
+                                    initialValue: appSettings.sfxVolume * 100 
+                                    onValueChanged: {
+                                        appSettings.sfxVolume = value / 100
+                                    }
+                                }
                             }
 
                             OptionRow {
-                                id: sfxVolumeRow
-                                rowLabel: "SFX Volume"
-                                OptionSlider { id: sfxSlider; initialValue: 70 }
+                                id: pinnaRow
+                                rowLabel: "Pinna Setting"
+
+                                PresetSelector {}
                             }
                         }
                     }
 
-                    // AUDIO SUBPAGE
+                    // GRAPHIC SUBPAGE
                     Item {
                         id: graphicPage
                         ColumnLayout {
@@ -148,12 +156,17 @@ MainLayout {
                             OptionRow {
                                 id: resolutionRow
                                 rowLabel: "Resolution"
-                                OptionCycleButton { id: resolutionCycle; options: ["Low", "Medium", "High"] }
+                                OptionCycleButton { 
+                                    id: resolutionCycle
+                                    currentIndex: appSettings.graphicQuality == "Low" ? 0 : appSettings.graphicQuality == "Medium" ? 1 : 2
+                                    options: ["Low", "Medium", "High"] 
+                                    callback: (option) => { appSettings.graphicQuality = option }
+                                }
                             }
 
                             OptionRow {
                                 id: frustrumRow
-                                rowLabel: "Frustrum Culling"
+                                rowLabel: "Frustrum Culling (WIP)"
                                 OptionCycleButton { id: frustrumCycle; options: ["On", "Off"] }
                             }
 
@@ -161,18 +174,18 @@ MainLayout {
                                 id: fullscreenRow
                                 rowLabel: "Fullscreen"
                                 OptionCycleButton { 
-                                    id: fullscreenCycle; 
-                                    options: ["Windowed", "Borderless", "Fullscreen"] 
+                                    id: fullscreenCycle
+                                    currentIndex: appSettings.screenSize == "Windowed" ? 0 : 1
+                                    options: ["Windowed", "Fullscreen"]        
                                     callback: (option) => {
                                         switch(option) {
                                             case "Fullscreen":
                                                 mainWindow.visibility = Window.FullScreen
-                                                break
-                                            case "Borderless":
-                                                mainWindow.visibility = Window.Maximized
+                                                appSettings.screenSize = "Fullscreen"
                                                 break
                                             case "Windowed":
                                                 mainWindow.visibility = Window.Windowed
+                                                appSettings.screenSize = "Windowed"
                                                 break
                                         }
                                     }
@@ -191,13 +204,13 @@ MainLayout {
 
                             OptionRow {
                                 id: autoSaveRow
-                                rowLabel: "Auto-Save"
+                                rowLabel: "Auto-Save (WIP)"
                                 OptionCycleButton { id: autoSaveCycle; options: ["Off", "On"] }
                             }
 
                             OptionRow {
                                 id: languageRow
-                                rowLabel: "Language"
+                                rowLabel: "Language (WIP)"
                                 OptionCycleButton {
                                     id: languageCycle
                                     options: ["English", "Français", "Español", "日本語"]
@@ -215,77 +228,80 @@ MainLayout {
                     color: "#888888"
                 }
 
-                ColumnLayout {
-                    id: actionButtons
+                MenuButton {
+                    id: returnButton
+                    buttonText: "← Return"
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.fillWidth: true
-                    spacing: 2
-                    Layout.alignment: Qt.AlignCenter
-
-                    MenuButton {
-                        id: acceptButton
-                        buttonText: "Accept"
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        font.pointSize: 18
-                        onClicked: stackView.pop()
-                    }
-
-                    MenuButton {
-                        id: returnButton
-                        buttonText: "Return"
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        font.pointSize: 18
-                        onClicked: stackView.pop()
-                    }
+                    font.pointSize: 18
+                    onClicked: stackView.pop()
                 }
             }
         }
     }
 
     component OptionRow: Rectangle {
-        id: optionRowRoot
-        property string rowLabel: ""
-        default property alias rowControl: controlSlot.children
-    
-        Layout.fillWidth: true
-        height: 44
-        color: "transparent"
-    
-        Rectangle {
-            id: rowSeparator
-            anchors {
-                bottom: optionRowRoot.bottom
-                left: optionRowRoot.left
-                right: optionRowRoot.right
-            }
-            height: 1
-            color: "#aaaaaa"
-        }
-    
-        Text {
-            id: rowLabelText
-            anchors {
-                left: optionRowRoot.left
-                leftMargin: 12
-                verticalCenter: optionRowRoot.verticalCenter
-            }
-            text: optionRowRoot.rowLabel
-            font.pointSize: 13
-            color: "#111111"
-        }
-    
-        Item {
-            id: controlSlot
-            anchors {
-                right: optionRowRoot.right
-                rightMargin: 12
-                verticalCenter: optionRowRoot.verticalCenter
-            }
-            implicitWidth: children.length > 0 ? children[0].implicitWidth  : 0
-            implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
-            width: implicitWidth
-            height: implicitHeight
-        }
-    }   
+       id: optionRowRoot
+
+       property string rowLabel: ""
+       default property alias rowControl: controlSlot.data
+
+       Layout.fillWidth: true
+
+       readonly property real safeControlHeight:
+           Number.isFinite(controlSlot.implicitHeight)
+               ? controlSlot.implicitHeight
+               : 0
+
+       Layout.preferredHeight: Math.max(44, safeControlHeight + 16)
+
+       color: "transparent"
+
+       Rectangle {
+           id: rowSeparator
+
+           anchors {
+               left: parent.left
+               right: parent.right
+               bottom: parent.bottom
+           }
+
+           height: 1
+           color: "#aaaaaa"
+       }
+
+       Text {
+           id: rowLabelText
+
+           anchors {
+               left: parent.left
+               leftMargin: 12
+               verticalCenter: parent.verticalCenter
+           }
+
+           text: optionRowRoot.rowLabel
+           font.pointSize: 13
+           color: "#111111"
+       }
+
+       Item {
+           id: controlSlot
+
+           anchors {
+               right: parent.right
+               rightMargin: 12
+               verticalCenter: parent.verticalCenter
+           }
+
+           implicitWidth: {
+               const w = childrenRect.width
+               return Number.isFinite(w) ? w : 0
+           }
+
+           implicitHeight: {
+               const h = childrenRect.height
+               return Number.isFinite(h) ? h : 0
+           }
+       }
+    }
 }
