@@ -68,9 +68,10 @@ namespace yutasound {
             return; // its already mono as an audio file
 
         //mix les channels into channel 0
+        buffer.applyGain(0, 0, buffer.getNumSamples(), 1.0f / buffer.getNumChannels());
         for (int ch = 1; ch < buffer.getNumChannels(); ch++)
-            buffer.addFrom(0, 0, buffer,ch,0, buffer.getNumSamples(), 1.0f / buffer.getNumChannels());
-        
+            buffer.addFrom(0, 0, buffer, ch, 0, buffer.getNumSamples(), 1.0f / buffer.getNumChannels());
+
         //resize to mono (1 channel
         buffer.setSize(1, buffer.getNumSamples(), true);
     }

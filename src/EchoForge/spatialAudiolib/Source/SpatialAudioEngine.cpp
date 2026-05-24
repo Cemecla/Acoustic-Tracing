@@ -185,8 +185,7 @@ namespace yutasound {
     }
     void SpatialAudioEngine::drainCommandQueue_()
     {
-        int numReady = m_audioManager.hasCommands();
-        for (int c = 0; c < numReady; c++)
+        while(m_audioManager.hasCommands())
         {
             auto cmd = m_audioManager.popCommand();
             if (cmd.type == EmitterCommand::Type::Add)

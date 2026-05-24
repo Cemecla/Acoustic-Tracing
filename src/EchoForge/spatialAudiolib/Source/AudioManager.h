@@ -88,7 +88,7 @@ namespace yutasound {
         Librarian m_librarian;
         //std::vector<SoundSource>  m_sources; // emitters
         double m_sampleRate = 0.0;
-        int m_nextEmitterId = 0;
+        int m_nextEmitterId = ReservedIds::DYNAMIC_START;
         std::atomic<bool> m_isPlaying {false};
 
         float computeITD_(float azimuth, float elevation);

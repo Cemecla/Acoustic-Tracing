@@ -34,7 +34,6 @@ void EFModel::loadWorld(std::string& filename) {
 
 	std::vector<int> emitterIds;
 	for (auto& emitter : m_world->emitters) {
-		emitter.sound_id = m_parent->m_view->registerSound(emitter.filename);
 		emitterIds.push_back(emitter.m_id);
 	}
 	m_acousticInterpreter.setKnownEmitters(emitterIds);
@@ -56,7 +55,10 @@ void EFModel::buildScenario() {
 
 		m_scenario.add_event(
 			[this, i, emitterId]() {
-				m_parent->m_view->resumeEmitter(emitterId);
+				if (m_world->emitters[i].loop)
+					m_parent->m_view->loopEmitter(emitterId);
+				else
+					m_parent->m_view->resumeEmitter(emitterId);
 				m_world->emitters[i].isActive = true;
 				qDebug() << "[Scenario] Emetteur" << i << "activé";
 			},

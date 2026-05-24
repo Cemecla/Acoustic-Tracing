@@ -214,7 +214,7 @@ namespace yutasound {
 
     void AudioManager::reset()
     {
-        m_nextEmitterId = 0;
+        m_nextEmitterId = ReservedIds::DYNAMIC_START;
 
         const auto scope = m_commandFifo.write(1);
         if (scope.blockSize1 > 0)

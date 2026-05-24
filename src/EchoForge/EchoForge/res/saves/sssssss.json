@@ -15357,7 +15357,7 @@
             "filename": "Knocking-door.mp3",
             "id": 12,
             "volume": 1,
-            "loop": false,
+            "loop": true,
             "position": [
                 200,
                 200,

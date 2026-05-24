@@ -33,6 +33,7 @@ void Scenario::start() {
 						event.action();
 					}
 				}
+				std::this_thread::sleep_for(tick_rate_);
 			}
 		}
 	);
