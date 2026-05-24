@@ -29,7 +29,7 @@ namespace yutasound {
         m_lowpassL.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
         m_lowpassR.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
         m_highpassL.setType(juce::dsp::StateVariableTPTFilterType::highpass);
-        m_highpassL.setType(juce::dsp::StateVariableTPTFilterType::highpass);
+        m_highpassR.setType(juce::dsp::StateVariableTPTFilterType::highpass);
 
         //default cutoff in front, minimal shadow
         m_lowpassL.setCutoffFrequency(300.0f);
