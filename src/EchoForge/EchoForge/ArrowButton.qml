@@ -11,6 +11,7 @@ Button {
     property int side: ArrowButton.Side.Left
 
     id: nextBtn
+    font.family: "Segoe UI Symbol"
     text: side == ArrowButton.Side.Left ? "◀" : "▶"
     font.pointSize: 11
     implicitWidth: 28

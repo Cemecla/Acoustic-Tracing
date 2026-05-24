@@ -289,7 +289,7 @@ MainLayout {
 
                                     // REGISTRY BUTTONS
                                     MenuButton {
-                                        buttonText: "＋ Add Sound"
+                                        buttonText: "+ Add Sound"
                                         Layout.fillWidth: true
                                         onClicked: openSoundDialog.open()
                                     }
@@ -414,6 +414,7 @@ MainLayout {
 
                                     // ADD SOUNDS
                                     MenuButton {
+                                        font.family: "Segoe UI Symbol"
                                         buttonText: "▶ Add Selected Sound"
                                         Layout.fillWidth: true
                                         enabled: mainLayout.selectedSoundFileId !== -1
@@ -555,6 +556,7 @@ MainLayout {
                                     }
 
                                     MenuButton {
+                                        font.family: "Segoe UI Symbol"
                                         buttonText: mainLayout.isAzimuthRotating ? "⏹ Stop Azimuth Rotation" : "↺ Rotate Azimuth"
                                         Layout.fillWidth: true
                                         onClicked: {
@@ -569,7 +571,7 @@ MainLayout {
                                     RowLayout {
                                         Layout.fillWidth: true
                                         Text { text: "Elevation"; font.pixelSize: 13; color: "#111111"; Layout.preferredWidth: 80 }
-                                        Text { text: elevationSlider.value.toFixed(1) + "°"; font.pixelSize: 13; color: "#111111"; font.family: "Courier New"; Layout.preferredWidth: 60 }
+                                        Text { text: elevationSlider.value.toFixed(1) + "°"; font.pixelSize: 13; color: "#111111"; font.family: "Segoe UI Symbol"; Layout.preferredWidth: 60 }
                                     }
 
                                     OptionSlider {
@@ -586,6 +588,7 @@ MainLayout {
                                     }
 
                                     MenuButton {
+                                        font.family: "Segoe UI Symbol"
                                         buttonText: mainLayout.isElevationRotating ? "⏹ Stop Elevation Rotation" : "↑↓ Rotate Elevation"
                                         Layout.fillWidth: true
                                         onClicked: {

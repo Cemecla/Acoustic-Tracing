@@ -204,13 +204,13 @@ MainLayout {
 
                             OptionRow {
                                 id: autoSaveRow
-                                rowLabel: "Auto-Save"
+                                rowLabel: "Auto-Save (WIP)"
                                 OptionCycleButton { id: autoSaveCycle; options: ["Off", "On"] }
                             }
 
                             OptionRow {
                                 id: languageRow
-                                rowLabel: "Language"
+                                rowLabel: "Language (WIP)"
                                 OptionCycleButton {
                                     id: languageCycle
                                     options: ["English", "Français", "Español", "日本語"]
@@ -228,77 +228,80 @@ MainLayout {
                     color: "#888888"
                 }
 
-                ColumnLayout {
-                    id: actionButtons
+                MenuButton {
+                    id: returnButton
+                    buttonText: "← Return"
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.fillWidth: true
-                    spacing: 2
-                    Layout.alignment: Qt.AlignCenter
-
-                    MenuButton {
-                        id: acceptButton
-                        buttonText: "Accept"
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.fillWidth: true
-                        font.pointSize: 18
-                        onClicked: stackView.pop()
-                    }
-
-                    MenuButton {
-                        id: returnButton
-                        buttonText: "Return"
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.fillWidth: true
-                        font.pointSize: 18
-                        onClicked: stackView.pop()
-                    }
+                    font.pointSize: 18
+                    onClicked: stackView.pop()
                 }
             }
         }
     }
 
     component OptionRow: Rectangle {
-        id: optionRowRoot
-        property string rowLabel: ""
-        default property alias rowControl: controlSlot.children
-    
-        Layout.fillWidth: true
-        Layout.preferredHeight: 44 + controlSlot.implicitHeight
-        color: "transparent"
-    
-        Rectangle {
-            id: rowSeparator
-            anchors {
-                bottom: optionRowRoot.bottom
-                left: optionRowRoot.left
-                right: optionRowRoot.right
-            }
-            height: 1
-            color: "#aaaaaa"
-        }
-    
-        Text {
-            id: rowLabelText
-            anchors {
-                left: optionRowRoot.left
-                leftMargin: 12
-                verticalCenter: optionRowRoot.verticalCenter
-            }
-            text: optionRowRoot.rowLabel
-            font.pointSize: 13
-            color: "#111111"
-        }
-    
-        Item {
-            id: controlSlot
-            anchors {
-                right: optionRowRoot.right
-                rightMargin: 12
-                verticalCenter: optionRowRoot.verticalCenter
-            }
-            implicitWidth: children.length > 0 ? children[0].implicitWidth  : 0
-            implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
-            width: implicitWidth
-            height: implicitHeight
-        }
-    }   
+       id: optionRowRoot
+
+       property string rowLabel: ""
+       default property alias rowControl: controlSlot.data
+
+       Layout.fillWidth: true
+
+       readonly property real safeControlHeight:
+           Number.isFinite(controlSlot.implicitHeight)
+               ? controlSlot.implicitHeight
+               : 0
+
+       Layout.preferredHeight: Math.max(44, safeControlHeight + 16)
+
+       color: "transparent"
+
+       Rectangle {
+           id: rowSeparator
+
+           anchors {
+               left: parent.left
+               right: parent.right
+               bottom: parent.bottom
+           }
+
+           height: 1
+           color: "#aaaaaa"
+       }
+
+       Text {
+           id: rowLabelText
+
+           anchors {
+               left: parent.left
+               leftMargin: 12
+               verticalCenter: parent.verticalCenter
+           }
+
+           text: optionRowRoot.rowLabel
+           font.pointSize: 13
+           color: "#111111"
+       }
+
+       Item {
+           id: controlSlot
+
+           anchors {
+               right: parent.right
+               rightMargin: 12
+               verticalCenter: parent.verticalCenter
+           }
+
+           implicitWidth: {
+               const w = childrenRect.width
+               return Number.isFinite(w) ? w : 0
+           }
+
+           implicitHeight: {
+               const h = childrenRect.height
+               return Number.isFinite(h) ? h : 0
+           }
+       }
+    }
 }

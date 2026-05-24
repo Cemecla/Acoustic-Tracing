@@ -73,7 +73,7 @@ Button {
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         anchors.fill: parent
-        anchors.leftMargin: btnRoot.hovered ? 15 : 0
+        anchors.leftMargin: btnRoot.hovered ? 15 : 5
 
         Behavior on anchors.leftMargin {
             NumberAnimation { duration: 120 }
