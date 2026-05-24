@@ -18,7 +18,7 @@ Item {
     property color emitterColor: "#7FFF00"
     property string fontFamily: "Consolas"
 
-    readonly property real cx: width  / 2
+    readonly property real cx: width / 2
     readonly property real cy: height / 2
     readonly property real ringRadius: Math.min(width, height) / 2 - 24
     readonly property real emitterRingRadius: ringRadius * 0.78
@@ -78,7 +78,7 @@ Item {
     }
 
     Text {
-        text: "O"
+        text: "S"
         color: radar.accentColor
         font.family: radar.fontFamily
         font.pixelSize: 10
@@ -88,7 +88,7 @@ Item {
     }
 
     Text {
-        text: "E"
+        text: "O"
         color: radar.accentColor
         font.family: radar.fontFamily
         font.pixelSize: 10
@@ -98,7 +98,7 @@ Item {
     }
 
     Text {
-        text: "S"
+        text: "E"
         color: radar.accentColor
         font.family: radar.fontFamily
         font.pixelSize: 10
@@ -193,18 +193,6 @@ Item {
                 onClicked: radar.emitterClicked(modelData.emitterId)
             }
         }
-    }
-
-    // EMPTY MESSAGE
-    Text {
-        anchors.centerIn: parent
-        anchors.verticalCenterOffset: radar.ringRadius * 0.45
-        visible: radar.emitters.length == 0
-        text: "No active emitters"
-        color: "#666666"
-        font.family: radar.fontFamily
-        font.pixelSize: 11
-        font.italic: true
     }
 }
 

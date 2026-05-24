@@ -110,7 +110,7 @@ void EFModel::moveAvatar(Inputs& inputs, float delta) {
 	float rotation_speed = m_world->avatar.getRotationSpeed();
 	float yawDelta = 0.0f;
 
-	if (inputs.rotLeft)  yawDelta += rotation_speed * delta;
+	if (inputs.rotLeft) yawDelta += rotation_speed * delta;
 	if (inputs.rotRight) yawDelta -= rotation_speed * delta;
 
 	if (yawDelta != 0.0f) {
@@ -121,10 +121,10 @@ void EFModel::moveAvatar(Inputs& inputs, float delta) {
 	Vector3F local(0, 0, 0);
 	float speed = m_world->avatar.getSpeed() * delta;
 
-	if (inputs.forward)  local.z -= speed;
+	if (inputs.forward) local.z -= speed;
 	if (inputs.backward) local.z += speed;
-	if (inputs.left)     local.x -= speed;
-	if (inputs.right)    local.x += speed;
+	if (inputs.left) local.x -= speed;
+	if (inputs.right) local.x += speed;
 
 	if (local.x == 0.0f && local.z == 0.0f) return;
 
@@ -133,9 +133,30 @@ void EFModel::moveAvatar(Inputs& inputs, float delta) {
 	const float cos = std::cos(yaw);
 	const float sin = std::sin(yaw);
 
+	// World bound
 	Vector3F world;
 	world.x = local.x * cos + local.z * sin;
 	world.z = -local.x * sin + local.z * cos;
+
+	const Map& map = m_world->map;
+	const float unitSize = static_cast<float>(map.getUnitSize());
+	const float maxX = map.getWidth() * unitSize;
+	const float maxZ = map.getDepth() * unitSize;
+
+	const float margin = 50.0; // Should be change later on
+
+	Vector3F currentPos = m_world->avatar.getPosition();
+	Vector3F targetPos = currentPos;
+	targetPos.x += world.x;
+	targetPos.z += world.z;
+
+	if (targetPos.x < margin) targetPos.x = margin;
+	if (targetPos.x > maxX - margin) targetPos.x = maxX - margin;
+	if (targetPos.z < margin) targetPos.z = margin;
+	if (targetPos.z > maxZ - margin) targetPos.z = maxZ - margin;
+
+	world.x = targetPos.x - currentPos.x;
+	world.z = targetPos.z - currentPos.z;
 
 	m_world->avatar.move(world);
 }
