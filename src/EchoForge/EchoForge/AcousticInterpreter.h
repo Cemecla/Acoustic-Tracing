@@ -5,37 +5,46 @@
 #include <Eigen/Dense>
 
 #include "AcousticResult.h"
+#include "AcousticTimeline.h"
 #include "DTO_RecievedRay.h"
 
+// AcousticInterpreter — convertit les DTO_RecievedRay en AcousticResult spatiaux.
+//
+// Approche : réponse impulsionnelle sparse par emitter.
+// Chaque DTO est placé dans un slot de sa timeline selon son stepCount (proxy
+// du temps de trajet). Les blancs sont comblés par décroissance simulée.
+// La direction (azimuth/élévation) est biaisée vers les sons directs/précoces.
+//
+// Cycle par frame (appelé depuis EFModel::processBatch) :
+//   feed(dtosThisFrame, listenerPos)
+//     → decayAll()  : vieillit les timelines
+//     → addDTO()    : distribue les nouveaux DTOs
+//     → fillGaps()  : reconstruit les blancs par décroissance
+//     → collapse()  : produit l'AcousticResult final par emitter
 class AcousticInterpreter
 {
 public:
-    AcousticInterpreter(int quantityThreshold = 10,
-                        int deltaFrame        = 8,
-                        float smoothingFactor = 0.05f);
+    AcousticInterpreter() = default;
 
+    // Distribue les DTOs de ce frame, met à jour les timelines et recalcule
+    // les résultats. À appeler une fois par frame.
+    // listenerYaw : getHeadAngles().y de l'avatar (radians).
     void feed(const std::vector<DTO_RecievedRay>& dtosThisFrame,
-              const Eigen::Vector3f& listenerPos);
+              const Eigen::Vector3f& listenerPos,
+              float listenerYaw);
 
+    // Enregistre les IDs d'emitters connus. Les DTOs d'IDs inconnus sont ignorés.
     void setKnownEmitters(const std::vector<int>& ids);
 
     void clear();
 
+    // Résultats les plus récents, un par emitter actif.
     const std::map<int, AcousticResult>& getResults() const;
 
 private:
-    int   m_quantityThreshold;
-    int   m_deltaFrame;
-    float m_smoothingFactor;
+    static constexpr std::uint8_t AMBIENT_ID = 255; // filtré, non spatialisé
 
-    std::set<int>                               m_knownEmitterIds;
-    std::map<int, std::vector<DTO_RecievedRay>> m_accumulator;
-    std::map<int, AcousticResult>               m_smoothed;
-    int m_frameCount = 0;
-
-    void   flush(const Eigen::Vector3f& listenerPos);
-    AcousticResult compute(int emitterId,
-                           const std::vector<DTO_RecievedRay>& batch,
-                           const Eigen::Vector3f& listenerPos) const;
-    void   lerpResult(AcousticResult& current, const AcousticResult& target, float t) const;
+    std::set<int>                              m_knownEmitterIds;
+    std::map<int, acoustic::AcousticTimeline>  m_timelines;
+    std::map<int, AcousticResult>              m_results;
 };

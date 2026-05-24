@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AcousticInterpreter.cpp" />
+    <ClCompile Include="AcousticTimeline.cpp" />
     <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EFController.cpp" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="AcousticInterpreter.h" />
     <ClInclude Include="AcousticResult.h" />
+    <ClInclude Include="AcousticTimeline.h" />
     <ClInclude Include="Avatar.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="DTO_RecievedRay.h" />

@@ -56,19 +56,52 @@ const void RayManager::createRays(Eigen::Vector3f position, int count) {
 	}
 }
 
-const void tracing::RayManager::next_colision() {
-	const ef::Map& map             = m_parent->getMap();
-	const auto&    allEmitters     = m_parent->getEmitters();
-
+int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, bool isDirect) {
+	const auto& allEmitters = m_parent->getEmitters();
 	constexpr float LOS_ENERGY_THRESHOLD = 0.02f;
-	constexpr int   LOS_FRAME_BUDGET     = 30;
-	int losRemaining = LOS_FRAME_BUDGET;
 
-	int rayIndex = 0;
+	if (r.getEnergy().maxCoeff() < LOS_ENERGY_THRESHOLD) return 0;
+
+	int checked = 0;
+	for (const auto& emitter : allEmitters) {
+		if (!emitter.isActive)    continue;
+		if (budgetRemaining <= 0) break;
+		--budgetRemaining;
+		++checked;
+
+		if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
+
+		// On stocke la POSITION DE L'EMITTER (pas du mur) pour que l'azimuth
+		// pointe vers la source sonore, pas vers le point de réflexion.
+		m_receivedRays.emplace_back(
+			emitter.position.toEigen(),
+			r.getEnergy(),
+			r.getStepCount(),
+			static_cast<std::uint8_t>(emitter.m_id),
+			r.getBouncePositions(),
+			r.getVelocity(),
+			isDirect
+		);
+	}
+	return checked;
+}
+
+const void tracing::RayManager::next_colision() {
+	const ef::Map& map         = m_parent->getMap();
+	const auto&    allEmitters = m_parent->getEmitters();
+
+	// Budget LOS par frame : 4 checks par emitter actif, minimum 30.
+	// Évite d'épuiser le budget sur les premières rays quand il y a beaucoup d'emitters.
+	int activeEmitterCount = static_cast<int>(
+		std::ranges::count_if(allEmitters, [](const ef::Emitter& e){ return e.isActive; })
+	);
+	int losRemaining = std::max(30, activeEmitterCount * 4 * static_cast<int>(m_activeRays->size()) / 10);
+
 	for (Ray& r : *m_activeRays) {
 		r.advance();
 		Eigen::Vector3i pos = r.getVoxelPos();
 
+		// --- Hors bounds : DTO ambient ---
 		if (!map.isInBound(pos.x(), pos.y(), pos.z())) {
 			m_receivedRays.emplace_back(
 				r.getPosition(),
@@ -76,49 +109,52 @@ const void tracing::RayManager::next_colision() {
 				r.getStepCount(),
 				AMBIENT_EMITTER_ID,
 				r.getBouncePositions(),
-				r.getVelocity()
+				r.getVelocity(),
+				false
 			);
 			r.loseEnergy(Eigen::Vector3f(1.0f, 1.0f, 1.0f));
-			++rayIndex;
 			continue;
 		}
 
 		ef::Material mat = map.fetchMaterial(ef::Vector3I::fromEigenI(pos));
 		r.loseEnergy(mat.energyLoss.toEigen());
 
+		// --- Son direct : le ray passe par le voxel d'un emitter actif ---
+		for (const auto& emitter : allEmitters) {
+			if (!emitter.isActive) continue;
+			Eigen::Vector3i emitterVoxel = (emitter.position.toEigen().array() / map.getUnitSize()).floor().cast<int>();
+			if (pos != emitterVoxel) continue;
+
+			m_receivedRays.emplace_back(
+				emitter.position.toEigen(),   // position exacte de l'emitter
+				r.getEnergy(),
+				r.getStepCount(),
+				static_cast<std::uint8_t>(emitter.m_id),
+				r.getBouncePositions(),
+				r.getVelocity(),
+				true                          // isDirect = true
+			);
+		}
+
+		// --- Contact avec un solide ---
 		if (!mat.isPassable) {
 			if (!r.wasInSolid()) {
-				bool canCheckLos = losRemaining > 0
-					&& r.getEnergy().maxCoeff() >= LOS_ENERGY_THRESHOLD;
+				// Première entrée dans le solide : LOS check + décision de stratégie
+				checkLosToEmitters(r, losRemaining, false);
 
-				if (canCheckLos) {
-					for (const auto& emitter : allEmitters) {
-						if (!emitter.isActive) continue;
-						if (losRemaining <= 0) break;
-						--losRemaining;
-						if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
-						m_receivedRays.emplace_back(
-							r.getPosition(),
-							r.getEnergy(),
-							r.getStepCount(),
-							static_cast<std::uint8_t>(emitter.m_id),
-							r.getBouncePositions(),
-							r.getVelocity()
-						);
-					}
-				}
-
-				auto strategy = m_collisionManager.decision(r, mat.scatteringCoefficient, m_rng);
+				auto strategy   = m_collisionManager.decision(r, mat.scatteringCoefficient, mat.transmissionCoefficient, m_rng);
 				Eigen::Vector3f newDir = strategy->getNextDirection(r.getVelocity(), r.getHitNormal(), m_rng);
 				r.redirect(newDir);
 				r.setInSolid(strategy->isTransmission());
 			} else {
+				// Transmission en cours : LOS depuis l'intérieur du mur
+				// (le son peut "sortir" vers un emitter de l'autre côté)
+				checkLosToEmitters(r, losRemaining, false);
 				r.setInSolid(true);
 			}
 		} else {
 			r.setInSolid(false);
 		}
-		++rayIndex;
 	}
 }
 

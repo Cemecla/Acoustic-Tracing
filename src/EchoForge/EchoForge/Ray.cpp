@@ -27,7 +27,7 @@ const Eigen::Vector3f& tracing::Ray::getEnergy() const {
 	return m_energy;
 };
 
-Eigen::Vector3f tracing::Ray::getPosition() {
+Eigen::Vector3f tracing::Ray::getPosition() const {
 	return m_currentPosition;
 };
 

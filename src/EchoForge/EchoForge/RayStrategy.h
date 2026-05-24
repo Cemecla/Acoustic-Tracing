@@ -37,10 +37,9 @@ namespace tracing {
 
 	class TransmissionRayStrategy : public RayStrategy {
 	public:
-		TransmissionRayStrategy(float ior =1.5f);
+		TransmissionRayStrategy();
+		// Le son traverse le mur sans changer de direction (pas de réfraction de Snell).
+		// L'atténuation est gérée par energyLoss du matériau dans RayManager::next_colision().
 		Eigen::Vector3f getNextDirection(const Eigen::Vector3f& inDir, const Eigen::Vector3f& normal, std::mt19937& rng) const override;
-	
-	private:
-		float m_indexOfRefraction;
 	};
 }

@@ -283,7 +283,7 @@ void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
 	for (auto& e : emitters)
 	{
 		QVariantMap map = {};
-		QVector3D pos = { e.position.x * 100, e.position.y * 100, e.position.z * 100};
+		QVector3D pos = { e.position.x, e.position.y, e.position.z};
 		map.insert("position", pos);
 		map.insert("filename", QString::fromStdString(e.filename));
 		map.insert("color", QColor(dis(rd), dis(rd), dis(rd)));

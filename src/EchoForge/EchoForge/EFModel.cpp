@@ -171,7 +171,22 @@ void EFModel::processBatch() {
 	if (m_world.has_value())
 	{
 		Eigen::Vector3f listenerPos = m_world->avatar.getPosition().toEigen();
-		m_acousticInterpreter.feed(batch, listenerPos);
+		float           listenerYaw = m_world->avatar.getHeadAngles().y;
+
+		// DEBUG — À retirer une fois le problème d'azimuth résolu
+		constexpr float RAD2DEG = 57.2957795f;
+		for (const auto& e : m_world->emitters) {
+			Eigen::Vector3f delta = e.position.toEigen() - listenerPos;
+			float rawAz = std::atan2(delta.x(), -delta.z()) * RAD2DEG;
+			qDebug() << "[AZ-DEBUG] Emitter" << e.m_id
+			         << "| emitterPos:" << e.position.x << e.position.z
+			         << "| listenerPos:" << listenerPos.x() << listenerPos.z()
+			         << "| delta:" << delta.x() << delta.z()
+			         << "| rawAz(deg):" << rawAz
+			         << "| yaw(deg):" << listenerYaw * RAD2DEG;
+		}
+
+		m_acousticInterpreter.feed(batch, listenerPos, listenerYaw);
 	}
 
 	const auto& results = m_acousticInterpreter.getResults();

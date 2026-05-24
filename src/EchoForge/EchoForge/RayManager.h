@@ -44,7 +44,11 @@ namespace tracing {
 		std::unique_ptr<std::vector<Ray>> m_activeRays = std::make_unique<std::vector<Ray>>();
 		std::vector<DTO_RecievedRay> m_receivedRays;
 		EFModel* m_parent;
-		const bool hasLineOfSight(const Eigen::Vector3f& from ,const Eigen::Vector3f& to);
+		const bool hasLineOfSight(const Eigen::Vector3f& from, const Eigen::Vector3f& to);
+
+		// Vérifie LOS vers tous les emitters actifs depuis un point de contact et génère les DTOs.
+		// Retourne le nombre de LOS checks consommés dans le budget.
+		int checkLosToEmitters(const Ray& r, int& budgetRemaining, bool isDirect);
 
 		std::mt19937 m_rng{ std::random_device{}() };
 		CollisionManager m_collisionManager;

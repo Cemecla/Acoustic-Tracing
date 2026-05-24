@@ -39,18 +39,13 @@ namespace tracing{
     }
 
 
-    TransmissionRayStrategy::TransmissionRayStrategy(float ior) : RayStrategy("Transmission", true), m_indexOfRefraction(ior) {}
+    TransmissionRayStrategy::TransmissionRayStrategy() : RayStrategy("Transmission", true) {}
 
-
+    // Le son, contrairement à la lumière, ne réfracte pas de façon significative en traversant
+    // un mur (la longueur d'onde est grande devant l'épaisseur du mur).
+    // La direction est conservée; l'atténuation est gérée par energyLoss dans next_colision().
     Eigen::Vector3f TransmissionRayStrategy::getNextDirection(const Eigen::Vector3f& inDir, const Eigen::Vector3f& normal, std::mt19937& rng) const {
-        float eta = 1.0f / m_indexOfRefraction; 
-        float cosI = -inDir.dot(normal);
-        float k = 1.0f - eta * eta * (1.0f - cosI * cosI);
-
-        if (k < 0.0f)
-            return inDir - 2.0f * inDir.dot(normal) * normal;
-
-        return eta * inDir + (eta * cosI - std::sqrt(k)) * normal;
+        return inDir; // direction inchangée - le son passe tout droit
     }
     
 

@@ -56,7 +56,7 @@
 		/**
 		*	desc: This method returns a position (x,y,z)
 		*/
-		Eigen::Vector3f getPosition();
+		Eigen::Vector3f getPosition() const;
 		
 		int getStepCount() const { return m_stepCount; }
 

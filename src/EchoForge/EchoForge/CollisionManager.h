@@ -12,12 +12,9 @@ namespace tracing{
 	public:
 		CollisionManager() = default;
 		~CollisionManager() = default;
-		std::unique_ptr<RayStrategy> decision(Ray& ray, float materialCoefficient, std::mt19937& rng);
-
-	private:
-		// Proportion fixe du son qui traverse le mur (indépendante du matériau)
-		// Le reste est partagé entre diffus et spéculaire selon materialCoefficient
-		const float m_transmission_prob = 0.0f;
+		// scatteringCoefficient [0,1] : 0=lisse(spéculaire), 1=rugueux(diffus)
+		// transmissionCoefficient [0,1] : fraction d'énergie qui traverse le mur
+		std::unique_ptr<RayStrategy> decision(Ray& ray, float scatteringCoefficient, float transmissionCoefficient, std::mt19937& rng);
 
 
 

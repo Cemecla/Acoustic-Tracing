@@ -14,7 +14,8 @@
         "roughness": 1.0,
         "scatteringCoefficient": 0.8,
         "normal": [0, 0, 0],
-        "energyLoss": [0.01, 0.02, 0.025]
+        "energyLoss": [0.01, 0.02, 0.025],
+        "transmissionCoefficient": 0.03
     },
     {
         "name": "glass",
@@ -31,7 +32,8 @@
         "roughness": 0.1,
         "scatteringCoefficient": 0.1,
         "normal": [0, 0, 0],
-        "energyLoss": [0.35, 0.18, 0.04]
+        "energyLoss": [0.35, 0.18, 0.04],
+        "transmissionCoefficient": 0.40
     },
     {
         "name": "wood",
@@ -48,7 +50,8 @@
         "roughness": 0.9,
         "scatteringCoefficient": 0.7,
         "normal": [0, 0, 0],
-        "energyLoss": [0.13, 0.085, 0.065]
+        "energyLoss": [0.13, 0.085, 0.065],
+        "transmissionCoefficient": 0.12
     },
     {
         "name": "fabric",
@@ -65,7 +68,8 @@
         "roughness": 1.0,
         "scatteringCoefficient": 0.9,
         "normal": [0, 0, 0],
-        "energyLoss": [0.10, 0.35, 0.60]
+        "energyLoss": [0.10, 0.35, 0.60],
+        "transmissionCoefficient": 0.06
     },
     {
         "name": "obsidian",
@@ -82,7 +86,8 @@
         "roughness": 0.3,
         "scatteringCoefficient": 0.05,
         "normal": [0, 0, 0],
-        "energyLoss": [0.01, 0.02, 0.025]
+        "energyLoss": [0.01, 0.02, 0.025],
+        "transmissionCoefficient": 0.02
     },
     {
         "name": "gold",
@@ -99,7 +104,8 @@
         "roughness": 0.2,
         "scatteringCoefficient": 0.3,
         "normal": [0, 0, 0],
-        "energyLoss": [0.01, 0.02, 0.025]
+        "energyLoss": [0.01, 0.02, 0.025],
+        "transmissionCoefficient": 0.02
     },
     {
         "name": "water",
@@ -116,7 +122,8 @@
         "roughness": 0.05,
         "scatteringCoefficient": 1.0,
         "normal": [0, 0, 0],
-        "energyLoss": [0.01, 0.02, 0.025]
+        "energyLoss": [0.01, 0.02, 0.025],
+        "transmissionCoefficient": 0.15
     },
     {
         "name": "foliage",
@@ -133,7 +140,8 @@
         "roughness": 0.8,
         "scatteringCoefficient": 0.9,
         "normal": [0, 0, 0],
-        "energyLoss": [0.01, 0.02, 0.025]
+        "energyLoss": [0.01, 0.02, 0.025],
+        "transmissionCoefficient": 0.0
     },
     {
         "name": "dirt",
@@ -150,7 +158,8 @@
         "roughness": 1.0,
         "scatteringCoefficient": 0.7,
         "normal": [0, 0, 0],
-        "energyLoss": [0.01, 0.02, 0.025]
+        "energyLoss": [0.01, 0.02, 0.025],
+        "transmissionCoefficient": 0.05
     },
     {
         "name": "cardboard",
@@ -167,7 +176,8 @@
         "roughness": 0.95,
         "scatteringCoefficient": 0.6,
         "normal": [0, 0, 0],
-        "energyLoss": [0.05, 0.15, 0.30]
+        "energyLoss": [0.05, 0.15, 0.30],
+        "transmissionCoefficient": 0.30
     },
     {
         "name": "wood_plank",
@@ -184,7 +194,8 @@
         "roughness": 0.9,
         "scatteringCoefficient": 0.7,
         "normal": [0, 0, 0],
-        "energyLoss": [0.13, 0.085, 0.065]
+        "energyLoss": [0.13, 0.085, 0.065],
+        "transmissionCoefficient": 0.12
     },
     {
         "name": "birch_tree",
@@ -201,6 +212,7 @@
         "roughness": 0.9,
         "scatteringCoefficient": 0.7,
         "normal": [0, 0, 0],
-        "energyLoss": [0.13, 0.085, 0.065]
+        "energyLoss": [0.13, 0.085, 0.065],
+        "transmissionCoefficient": 0.08
     }
 ]

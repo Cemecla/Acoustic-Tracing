@@ -189,12 +189,14 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 		float metalness = materialData["metalness"];
 		float specular = materialData["specular"];
 		float roughness = materialData["roughness"];
+		// transmissionCoefficient est optionnel — défaut 0 (opaque au son) si absent du JSON
+		float transmissionCoefficient = materialData.value("transmissionCoefficient", 0.0f);
 
 		Vector3F energyLoss = Vector3F(energyLossBrut[0], energyLossBrut[1], energyLossBrut[2]);
 		Vector3F normal = Vector3F(normalBrut[0], normalBrut[1], normalBrut[2]);
 		ColorRGBA colorRGB = ColorRGBA(colorBrut[0], colorBrut[1], colorBrut[2], colorBrut[3]);
 
-		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, topTile, sideTile, bottomTile, colorRGB, roughness, metalness, specular);
+		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, topTile, sideTile, bottomTile, colorRGB, roughness, metalness, specular, transmissionCoefficient);
 
 		materials.push_back(nm);
 	}
@@ -206,8 +208,6 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 	std::vector<Emitter> emitters;
 
 	if (!mapJson.contains("scenarioItems")) return emitters;
-
-	const float voxelUnitSize = mapJson.value("/data/voxelUnitSize"_json_pointer, 1.0f);
 
 	const auto& items = mapJson["scenarioItems"];
 	int id = 0;
@@ -221,7 +221,9 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 		Vector3F position;
 		if (item.contains("position")) {
 			std::vector<float> pos = item["position"];
-			position = Vector3F(pos[0] / voxelUnitSize, pos[1] / voxelUnitSize, pos[2] / voxelUnitSize);
+			// Positions dans le JSON sont en coordonnées monde (mêmes unités que l'avatar).
+			// NE PAS diviser par voxelUnitSize — buildAvatar() utilise aussi les coords brutes.
+			position = Vector3F(pos[0], pos[1], pos[2]);
 		}
 
 		EventType eventType  = EventType::COLLISION;
