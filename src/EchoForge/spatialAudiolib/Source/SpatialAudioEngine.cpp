@@ -108,7 +108,8 @@ namespace yutasound {
                     auto& source = m_sources[i];
 
                     // skip paused or stopped emitters
-                    if (source.state != EmitterState::Playing)
+                    if (source.state != EmitterState::Playing &&
+                        source.state != EmitterState::Looping)
                         continue;
 
                     // get buffer from Librarian via AudioManager
@@ -141,13 +142,14 @@ namespace yutasound {
                     if (readPos >= buffer.getNumSamples())
                     {
                         readPos = 0;
-                        if (source.state == EmitterState::Looping)
+                        if (source.state == EmitterState::Looping || source.isAmbient)
                         {
                             // keep playing — readPos already reset
                         }
-                        
-                        if (!source.isAmbient)
+                        else
+                        {
                             source.state = EmitterState::Paused;
+                        }
                     }
                 }
 

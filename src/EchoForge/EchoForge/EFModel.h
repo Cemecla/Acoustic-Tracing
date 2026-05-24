@@ -86,6 +86,7 @@ struct Inputs;
 			void buildScenario();
 			int m_debugFrameCount = 0;
 			float m_updateRayTimer = 0.0;
+			std::unordered_map<int, int> m_emitterIdMap; // world id -> SAE emitter id
 	};
 
 #endif

@@ -52,6 +52,8 @@ void EFModel::buildScenario() {
 		float triggerTime = m_world->emitters[i].triggerTime;
 
 		int emitterId = m_parent->m_view->playSound(m_world->emitters[i].sound_id);
+		m_emitterIdMap[m_world->emitters[i].m_id] = emitterId;
+
 
 		m_scenario.add_event(
 			[this, i, emitterId]() {
@@ -153,10 +155,13 @@ void EFModel::processBatch() {
 
 	const auto& results = m_acousticInterpreter.getResults();
 	for (const auto& [id, r] : results) {
-		m_parent->m_view->updateSoundSource(id, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
-		qDebug() << "[Acoustic] Emitter" << id
-		         << "| az:" << r.azimuth << "el:" << r.elevation
-		         << "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
+		auto it = m_emitterIdMap.find(id);
+		if (it == m_emitterIdMap.end()) continue;
+		int saeId = it->second;
+		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
+		qDebug() << "[Acoustic] Emitter" << id << "-> SAE id" << saeId
+			<< "| az:" << r.azimuth << "el:" << r.elevation
+			<< "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
 	}
 
 
@@ -229,5 +234,6 @@ void EFModel::endWorld() {
 	m_acousticInterpreter.clear();
 	m_scenario.stop();
 	m_scenario.clearEvent();
+	m_emitterIdMap.clear();
 	m_world->emitters.clear();
 }
