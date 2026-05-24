@@ -17,7 +17,7 @@ namespace tracing{
 	private:
 		// Proportion fixe du son qui traverse le mur (indépendante du matériau)
 		// Le reste est partagé entre diffus et spéculaire selon materialCoefficient
-		const float m_transmission_prob = 0.0f;
+		const float m_transmission_prob = 0.1f;
 
 
 

@@ -19,7 +19,7 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_rayManager{this, 200, 50}
+	m_rayManager{this, 500, 80}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
@@ -31,6 +31,8 @@ void EFModel::loadWorld(std::string& filename) {
 
 	m_world.reset();
 	m_world = EFWorldLoader::build(mapfile, materialfile);
+
+	m_acousticInterpreter.setUnitSize(static_cast<float>(m_world->map.getUnitSize()));
 
 	std::vector<int> emitterIds;
 	for (auto& emitter : m_world->emitters) {
@@ -52,7 +54,9 @@ void EFModel::buildScenario() {
 
 		float triggerTime = m_world->emitters[i].triggerTime;
 
-		int emitterId = m_parent->m_view->playSound(m_world->emitters[i].sound_id);
+		// Créer la source audio avec gain 0 pour éviter le burst sonore au démarrage
+		ef::Vector3F zeroGain(0.f, 0.f, 0.f);
+		int emitterId = m_parent->m_view->playSound(m_world->emitters[i].sound_id, 0.f, 0.f, zeroGain);
 
 		m_scenario.add_event(
 			[this, i, emitterId]() {

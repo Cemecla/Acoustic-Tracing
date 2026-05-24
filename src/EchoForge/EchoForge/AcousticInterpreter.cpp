@@ -1,34 +1,88 @@
 #include "AcousticInterpreter.h"
 #include <cmath>
 #include <numbers>
-#include <set>
 
-AcousticInterpreter::AcousticInterpreter(int quantityThreshold, int deltaFrame, float smoothingFactor)
-    : m_quantityThreshold(quantityThreshold)
-    , m_deltaFrame(deltaFrame)
+AcousticInterpreter::AcousticInterpreter(int windowSize, float decayPerFrame, float smoothingFactor)
+    : m_windowSize(windowSize)
+    , m_decayPerFrame(decayPerFrame)
     , m_smoothingFactor(smoothingFactor)
 {}
+
+void AcousticInterpreter::setUnitSize(float unitSize)
+{
+    m_unitSize = unitSize;
+}
+
+void AcousticInterpreter::setKnownEmitters(const std::vector<int>& ids)
+{
+    m_knownEmitterIds = std::set<int>(ids.begin(), ids.end());
+
+    // Pré-initialiser tous les émetteurs à gain=0
+    // Sans ça, updateSoundSource n'est jamais appelé avant le 1er ray
+    // et l'audio engine joue au gain par défaut (fort)
+    for (int id : m_knownEmitterIds)
+    {
+        if (m_smoothed.find(id) == m_smoothed.end())
+        {
+            AcousticResult zero{};
+            zero.emitterId = id;
+            zero.gain      = Eigen::Vector3f::Zero();
+            m_smoothed[id] = zero;
+        }
+    }
+}
 
 void AcousticInterpreter::feed(const std::vector<DTO_RecievedRay>& dtosThisFrame,
                                 const Eigen::Vector3f& listenerPos)
 {
+    // 1. Ajouter les nouveaux rays à leur timeline (age=0, travelTimeMs calculé)
     for (const auto& dto : dtosThisFrame)
     {
         int id = static_cast<int>(dto.getEmitterID());
-        m_accumulator[id].push_back(dto);
+        if (!m_knownEmitterIds.empty() && !m_knownEmitterIds.count(id)) continue;
+
+        float travelTimeMs = dto.getStepCount() * m_unitSize / SPEED_OF_SOUND * 1000.f;
+        m_timelines[id].push_back({dto, 0, travelTimeMs});
     }
 
-    ++m_frameCount;
+    // 2. Vieillir tous les rays et expirer les trop anciens
+    for (auto& [id, timeline] : m_timelines)
+    {
+        for (auto& tr : timeline)
+            ++tr.age;
 
-    int totalAccumulated = 0;
-    for (const auto& [id, batch] : m_accumulator)
-        totalAccumulated += static_cast<int>(batch.size());
+        while (!timeline.empty() && timeline.front().age > m_windowSize)
+            timeline.pop_front();
+    }
 
-    bool deltaReached    = m_frameCount >= m_deltaFrame;
-    bool quantityReached = totalAccumulated >= m_quantityThreshold;
+    // 3. Pour chaque émetteur connu : calculer et lisser
+    for (int id : m_knownEmitterIds)
+    {
+        auto timelineIt = m_timelines.find(id);
+        bool hasRays = (timelineIt != m_timelines.end() && !timelineIt->second.empty());
 
-    if (deltaReached || quantityReached)
-        flush(listenerPos);
+        if (hasRays)
+        {
+            m_silenceFrames[id] = 0;
+            AcousticResult raw = compute(id, timelineIt->second, listenerPos);
+            lerpResult(m_smoothed[id], raw, m_smoothingFactor, 0.6f);
+        }
+        else
+        {
+            int& frames = m_silenceFrames[id];
+            ++frames;
+            if (frames >= SILENCE_THRESHOLD)
+            {
+                auto it = m_smoothed.find(id);
+                if (it != m_smoothed.end())
+                {
+                    it->second.gain *= SILENCE_DECAY;
+                    if (it->second.gain.maxCoeff() < 0.001f)
+                        it->second.gain = Eigen::Vector3f::Zero();
+                }
+            }
+        }
+    }
 }
 
 const std::map<int, AcousticResult>& AcousticInterpreter::getResults() const
@@ -36,88 +90,72 @@ const std::map<int, AcousticResult>& AcousticInterpreter::getResults() const
     return m_smoothed;
 }
 
-void AcousticInterpreter::flush(const Eigen::Vector3f& listenerPos)
+void AcousticInterpreter::clear()
 {
-    std::set<int> activeIds;
-
-    for (auto& [id, batch] : m_accumulator)
-    {
-        if (batch.empty()) continue;
-        if (!m_knownEmitterIds.empty() && !m_knownEmitterIds.count(id)) continue;
-
-        activeIds.insert(id);
-        AcousticResult raw = compute(id, batch, listenerPos);
-
-        auto it = m_smoothed.find(id);
-        if (it == m_smoothed.end())
-        {
-            m_smoothed[id] = raw;
-        }
-        else
-        {
-            float batchWeight = std::min(1.f, static_cast<float>(batch.size()) / m_quantityThreshold);
-            float t = m_smoothingFactor + batchWeight * (0.3f - m_smoothingFactor);
-            lerpResult(it->second, raw, t);
-        }
-
-        batch.clear();
-    }
-
-    // Emitters déjà connus mais sans rays ce cycle -> fade out
-    for (auto& [id, result] : m_smoothed)
-    {
-        if (!activeIds.count(id))
-            result.gain *= (1.f - m_smoothingFactor);
-    }
-
-    m_frameCount = 0;
-}
-
-void AcousticInterpreter::setKnownEmitters(const std::vector<int>& ids)
-{
-    m_knownEmitterIds = std::set<int>(ids.begin(), ids.end());
+    m_timelines.clear();
+    m_smoothed.clear();
+    m_knownEmitterIds.clear();
+    m_silenceFrames.clear();
 }
 
 AcousticResult AcousticInterpreter::compute(int emitterId,
-                                             const std::vector<DTO_RecievedRay>& batch,
+                                             const std::deque<TimedRay>& timeline,
                                              const Eigen::Vector3f& listenerPos) const
 {
-    Eigen::Vector3f weightedPos = Eigen::Vector3f::Zero();
-    Eigen::Vector3f weightedGain = Eigen::Vector3f::Zero();
-    float totalWeight = 0.f;
+    constexpr float RAD2DEG = 180.f / std::numbers::pi_v<float>;
 
-    for (const auto& dto : batch)
+    Eigen::Vector3f earlyWeightedGain = Eigen::Vector3f::Zero();
+    float earlyTotalWeight = 0.f;
+    Eigen::Vector3f lateWeightedGain = Eigen::Vector3f::Zero();
+    float lateTotalWeight = 0.f;
+    Eigen::Vector3f emitterPosition = Eigen::Vector3f::Zero();
+
+    for (const auto& tr : timeline)
     {
-        float w = dto.getEnergy().norm();
-        weightedPos  += dto.getLastSeen() * w;
-        weightedGain += dto.getEnergy()   * w;
-        totalWeight  += w;
+        float decay = std::pow(m_decayPerFrame, static_cast<float>(tr.age));
+        float w = tr.dto.getEnergy().norm() * decay;
+        if (w < 1e-6f) continue;
+
+        emitterPosition = tr.dto.getEmitterPosition();
+
+        if (tr.travelTimeMs <= EARLY_TIME_MS)
+        {
+            earlyWeightedGain += tr.dto.getEnergy() * w;
+            earlyTotalWeight  += w;
+        }
+        else
+        {
+            lateWeightedGain += tr.dto.getEnergy() * w;
+            lateTotalWeight  += w;
+        }
     }
 
     AcousticResult result;
     result.emitterId = emitterId;
 
-    if (totalWeight < 1e-6f)
-        return result;
+    float totalWeight = earlyTotalWeight + lateTotalWeight;
+    if (totalWeight < 1e-6f) return result;
 
-    weightedPos  /= totalWeight;
-    weightedGain /= totalWeight;
-    result.gain   = weightedGain.array().sqrt();
+    Eigen::Vector3f totalGain = Eigen::Vector3f::Zero();
+    if (earlyTotalWeight > 1e-6f)
+        totalGain += (earlyWeightedGain / earlyTotalWeight) * (earlyTotalWeight / totalWeight);
+    if (lateTotalWeight > 1e-6f)
+        totalGain += (lateWeightedGain / lateTotalWeight) * (lateTotalWeight / totalWeight);
 
-    Eigen::Vector3f delta = weightedPos - listenerPos;
-    float dist2D = std::sqrt(delta.x() * delta.x() + delta.z() * delta.z());
+    result.gain = totalGain.array().sqrt();
 
-    result.azimuth   = std::atan2(delta.x(), -delta.z())
-                       * (180.f / std::numbers::pi_v<float>);
-    result.elevation = std::atan2(delta.y(), dist2D)
-                       * (180.f / std::numbers::pi_v<float>);
+    // Direction géométrique (stable, pas de snaps)
+    Eigen::Vector3f finalDir = (emitterPosition - listenerPos).normalized();
+    float dist2D = std::sqrt(finalDir.x() * finalDir.x() + finalDir.z() * finalDir.z());
+    result.azimuth   = std::atan2(finalDir.x(), -finalDir.z()) * RAD2DEG;
+    result.elevation = std::atan2(finalDir.y(), dist2D)        * RAD2DEG;
 
     return result;
 }
 
 void AcousticInterpreter::lerpResult(AcousticResult& current,
                                       const AcousticResult& target,
-                                      float t) const
+                                      float tGain, float tPos) const
 {
     auto lerpAngle = [](float a, float b, float t) {
         float diff = b - a;
@@ -126,15 +164,9 @@ void AcousticInterpreter::lerpResult(AcousticResult& current,
         return a + diff * t;
     };
 
-    current.azimuth   = lerpAngle(current.azimuth,   target.azimuth,   t);
-    current.elevation = current.elevation + (target.elevation - current.elevation) * t;
-    current.gain      = current.gain      + (target.gain      - current.gain)      * t;
-}
-
-void AcousticInterpreter::clear() {
-    // TODO: Clear the Interpreter
-    m_accumulator.clear();
-    m_smoothed.clear();
-    m_knownEmitterIds.clear();
-    m_frameCount = 0;
+    current.azimuth   = lerpAngle(current.azimuth, target.azimuth, tPos);
+    current.elevation = current.elevation + (target.elevation - current.elevation) * tPos;
+    current.gain      = current.gain + (target.gain - current.gain) * tGain;
+    if (current.gain.maxCoeff() < 0.001f)
+        current.gain = Eigen::Vector3f::Zero();
 }

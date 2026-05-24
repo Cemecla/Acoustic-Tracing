@@ -76,7 +76,8 @@ const void tracing::RayManager::next_colision() {
 				r.getStepCount(),
 				AMBIENT_EMITTER_ID,
 				r.getBouncePositions(),
-				r.getVelocity()
+				r.getVelocity(),
+				r.getPosition()
 			);
 			r.loseEnergy(Eigen::Vector3f(1.0f, 1.0f, 1.0f));
 			++rayIndex;
@@ -103,7 +104,8 @@ const void tracing::RayManager::next_colision() {
 							r.getStepCount(),
 							static_cast<std::uint8_t>(emitter.m_id),
 							r.getBouncePositions(),
-							r.getVelocity()
+							r.getVelocity(),
+							emitter.position.toEigen()
 						);
 					}
 				}

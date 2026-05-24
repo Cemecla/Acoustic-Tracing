@@ -294,7 +294,7 @@
             "filename": "mooo.wav",
             "volume": 1.0,
             "loop": true,
-            "position": [200.0, 200.0, 200.0],
+            "position": [500.0, 200.0, 200.0],
             "event": {
                 "type": "timer",
                 "time": 5000
