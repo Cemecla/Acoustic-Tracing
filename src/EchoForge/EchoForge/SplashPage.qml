@@ -24,34 +24,12 @@ Page {
             Spacer { Layout.fillHeight: false }
 
             Image {
-                id: logo1
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignCenter 
-                Layout.preferredHeight: root.preferedImageSize
-                Layout.preferredWidth: root.preferedImageSize
-                source: "qrc:/images/logoSound"
-                fillMode: Image.PreserveAspectFit
-                opacity: 0.0
-            }
-
-            Image {
                 id: logo2
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter 
                 Layout.preferredHeight: root.preferedImageSize
                 Layout.preferredWidth: root.preferedImageSize
                 source: "qrc:/images/logoRaytracing"
-                fillMode: Image.PreserveAspectFit
-                opacity: 0.0
-            }
-
-            Image {
-                id: logo3
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignCenter 
-                Layout.preferredHeight: root.preferedImageSize
-                Layout.preferredWidth: root.preferedImageSize
-                source: "qrc:/images/logo"
                 fillMode: Image.PreserveAspectFit
                 opacity: 0.0
             }
@@ -66,7 +44,7 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: "ECHO FORGE"
-            font.pointSize: 48
+            font.pointSize: 72
             opacity: 0.0
         }
 
@@ -85,12 +63,12 @@ Page {
             duration: 800;
         }
 
-        NumberAnimation { 
-            target: logo1
-            property: "opacity"
-            to: 1.0;
-            duration: 800;
-        }
+        // NumberAnimation { 
+        //     target: logo1
+        //     property: "opacity"
+        //     to: 1.0;
+        //     duration: 800;
+        // }
 
         NumberAnimation { 
             target: logo2
@@ -99,12 +77,12 @@ Page {
             duration: 800;
         }
 
-        NumberAnimation { 
-            target: logo3
-            property: "opacity"
-            to: 1.0;
-            duration: 800;
-        }
+        // NumberAnimation { 
+        //     target: logo3
+        //     property: "opacity"
+        //     to: 1.0;
+        //     duration: 800;
+        // }
 
         onFinished: {
             pageTimer.start()

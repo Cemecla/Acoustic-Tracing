@@ -299,6 +299,15 @@
     <None Include="Spacer.qml">
       <Filter>Source Files\qml\Components</Filter>
     </None>
+    <None Include="VerticalSeparator.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="RippleEffect.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
+    <None Include="EmittersRadar.qml">
+      <Filter>Source Files\qml\Components</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationLoop.h">

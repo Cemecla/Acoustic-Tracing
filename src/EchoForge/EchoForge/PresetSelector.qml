@@ -31,7 +31,7 @@ Rectangle {
     property int _nextTempId: -1
     property bool _addingNew: false
 
-    function reloadCatalogue() {
+    function reloadSettings() {
         let cat = communicator.loadPinnaSetting()
         let arr = []
         for (let i = 0; i < cat.length; ++i) {
@@ -57,11 +57,13 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        reloadCatalogue()
+        reloadSettings()
         if (_entries.length > 0) {
-            presetCombo.currentIndex = 0
-            let first = _entries[0]
-            if (first) communicator.setSelectedPinnaId(first.id)
+            let index = appSettings.pinaId
+            presetCombo.currentIndex = index
+            let first = _entries[index]
+            if (first) 
+                communicator.setSelectedPinnaId(first.id)
             root.presetChanged(first)
         }
     }
@@ -75,13 +77,6 @@ Rectangle {
             margins: 12
         }
         spacing: 10
-
-        Text {
-            text: "Preset"
-            color: "#555555"
-            font { pixelSize: 11; letterSpacing: 1.5 }
-            Layout.fillWidth: true
-        }
 
         RowLayout {
             Layout.fillWidth: true
@@ -97,6 +92,7 @@ Rectangle {
                 onActivated: {
                     let entry = root._entries[currentIndex]
                     if (entry) {
+                        appSettings.pinaId = currentIndex
                         communicator.setSelectedPinnaId(entry.id)
                         root.presetChanged(entry)
                     }
@@ -112,7 +108,7 @@ Rectangle {
 
                 background: Rectangle {
                     color: presetCombo.pressed ? "#EEEEEE" : "#FFFFFF"
-                    border.color: presetCombo.activeFocus ? "#FFA500" : "#BBBBBB"
+                    border.color: presetCombo.activeFocus ? mainWindow.secondaryColor : "#BBBBBB"
                     border.width: 1
                     radius: 4
                 }
@@ -130,10 +126,13 @@ Rectangle {
                     }
 
                     contentItem: ListView {
-                        implicitHeight: contentHeight
+                        implicitHeight: 300
                         model: presetCombo.delegateModel
                         clip: true
-                        ScrollIndicator.vertical: ScrollIndicator {}
+                            ScrollBar.vertical: ScrollBar {
+                            policy: ScrollBar.AlwaysOn
+                            active: true
+                        }
                     }
                 }
 
@@ -152,128 +151,10 @@ Rectangle {
                     highlighted: presetCombo.highlightedIndex == index
 
                     background: Rectangle {
-                        color: highlighted ? "#FFA500" : "transparent"
-                    }
-                }
-            }
-
-            Button {
-                id: addBtn
-                implicitWidth: root._addingNew ? 72 : 32
-                implicitHeight: 32
-                text: root._addingNew ? "Confirm" : "+"
-
-                Behavior on implicitWidth { NumberAnimation { duration: 120 } }
-
-                contentItem: Text {
-                    text: addBtn.text
-                    color: addBtn.hovered ? "#FFFFFF" : "#000000"
-                    font.pixelSize: root._addingNew ? 12 : 16
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                background: Rectangle {
-                    color: addBtn.pressed  ? "#FFA500" : addBtn.hovered  ? "#000000" : "#FFFFFF"
-                    border.color: "#FFA500"
-                    border.width: 1
-                    radius:       4
-
-                    Behavior on color { ColorAnimation { duration: 120 } }
-                }
-
-                onClicked: {
-                    if (!root._addingNew) {
-                        root._addingNew = true
-                        newNameField.text = ""
-                        newNameField.forceActiveFocus()
-                    } else {
-                        let trimmed = newNameField.text.trim()
-                        if (trimmed.length > 0) {
-                            let entry = {
-                                id: root._nextTempId--,
-                                name: trimmed,
-                                ordered_gains: [0,0,0,0,0,0,0]
-                            }
-
-                            let copy = root._entries.slice()
-                            copy.push(entry)
-                            root._entries = copy
-                            presetCombo.currentIndex = root._entries.length - 1
-                            communicator.setSelectedPinnaId(entry.id)
-                            root.presetAdded(entry)
-                            root.presetChanged(entry)
-                            console.log("Added preset:", trimmed, "id:", entry.id)
-                        }
-                        root._addingNew = false
+                        color: highlighted ? mainWindow.secondaryColor : "transparent"
                     }
                 }
             }
         }
-
-        /// TODO SAVE
-        TextField {
-            id: newNameField
-            Layout.fillWidth: true
-            visible: false // root._addingNew
-            placeholderText: "New preset name..."
-            color: "#000000"
-            font.pixelSize: 13
-
-            placeholderTextColor: "#999999"
-
-            background: Rectangle {
-                color: "#FFFFFF"
-                border.color: newNameField.activeFocus ? "#FFA500" : "#BBBBBB"
-                border.width: 1
-                radius: 4
-            }
-
-            Keys.onReturnPressed: addBtn.clicked()
-            Keys.onEscapePressed: root._addingNew = false
-
-            opacity: root._addingNew ? 1 : 0
-            Behavior on opacity { NumberAnimation { duration: 120 } }
-        }
-
-        HorizontalSeparator {}
-
-        Button {
-            id: saveBtn
-            Layout.fillWidth: true
-            implicitHeight: 34
-            text: "Save"
-
-            contentItem: Text {
-                text: saveBtn.text
-                color: saveBtn.hovered ? "#FFFFFF" : "#000000"
-                font { pixelSize: 13; letterSpacing: 0.8 }
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
-
-            background: Rectangle {
-                color: saveBtn.pressed ? "#FFA500" : saveBtn.hovered ? "#000000" : "#FFFFFF"
-                border.color: "#FFA500"
-                border.width: 1
-                radius: 4
-
-                Behavior on color { ColorAnimation { duration: 120 } }
-            }
-
-            onClicked: {
-                let entry = root.currentPreset
-                if (!entry) {
-                    console.warn("Save requested with no selection.")
-                    return
-                }
-
-                // communicator.setSelectedPinnaId(entry.id)
-                // root.saveRequested(entry)
-                console.log("Save requested for preset id:", entry.id, "name:", entry.name)
-            }
-        }
-
-        Item { implicitHeight: 2 }
     }
 }

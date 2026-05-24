@@ -1,14 +1,26 @@
 import QtQuick
+import QtCore
 import QtQuick.Window
 import QtQuick.Controls
 
 
 Window {
     id: mainWindow
+    property color secondaryColor: "#FFA500"
     visible: true
     minimumWidth: 800
     minimumHeight: 600
     title: "Echo Forge"
+
+    Settings {
+        id: appSettings
+        property string screenSize: "Windowed"
+        property string graphicQuality: "Low"
+        property double sfxVolume: 1.0
+        property int pinaId: 14
+    }
+    
+    visibility: appSettings.screenSize == "Windowed" ? Window.Windowed : Window.FullScreen
 
     color: "#d4d4d4"
 

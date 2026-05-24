@@ -24,7 +24,9 @@ View3D {
             textureData: ProceduralSkyTextureData {
                 sunEnergy: 60.0
                 sunLongitude: 280.0
-                textureQuality: ProceduralSkyTextureData.SkyTextureQualityLow
+                textureQuality: appSettings.graphicQuality == "Low" ? ProceduralSkyTextureData.SkyTextureQualityLow 
+                : appSettings.graphicQuality == "Medium" ? ProceduralSkyTextureData.SkyTextureQualityMedium
+                : ProceduralSkyTextureData.SkyTextureQualityHigh
             }
         }
 
@@ -47,7 +49,7 @@ View3D {
     // CAMERAS
     PerspectiveCamera {
         id: freeCamera
-        position: Qt.vector3d(0,0,0)
+        position: Qt.vector3d(0, 90, 0)
         clipNear: 5
         clipFar: 1000000
         frustumCullingEnabled: false
@@ -56,7 +58,7 @@ View3D {
     PerspectiveCamera {
         property var vec: Qt.vector3d(
             communicator.avatarPos.x,
-            communicator.avatarPos.y + 600,
+            communicator.avatarPos.y + 550,
             communicator.avatarPos.z
         )
 
@@ -114,7 +116,6 @@ View3D {
             delegate: Model {
                 position: Qt.vector3d(modelData.x, modelData.y, modelData.z)
                 scale: Qt.vector3d(0.4, 0.4, 0.4)
-                onInstancingChanged: console.log("Message");
                 
                 source: "#Sphere"
                 materials: [

@@ -18,17 +18,18 @@ Item {
 
     function setValues(newValues) {
         if (!newValues) return
+
         let next = []
         for (let i = 0; i < bands.length; ++i) {
             let raw = i < newValues.length ? newValues[i] : 0
             next.push(Number(raw))
         }
+
         root.values = next
     }
 
     Layout.fillWidth: true
-    implicitWidth: bands.length * 60
-    implicitHeight: 240
+    implicitHeight: 250
 
     RowLayout {
         anchors.fill: parent
@@ -44,8 +45,7 @@ Item {
                 Layout.fillHeight: true
                 spacing: 10
 
-                readonly property real sliderValue:
-                    index < root.values.length ? Number(root.values[index]) : 0
+                readonly property real sliderValue: index < root.values.length ? Number(root.values[index]) : 0
 
                 Text {
                     Layout.alignment: Qt.AlignHCenter
@@ -53,19 +53,22 @@ Item {
                         let v = theSlider.value
                         return (v >= 0 ? "+" : "") + v.toFixed(1)
                     }
+
                     color: {
                         let v = theSlider.value
                         if (v > 0)  return "#3CB371"
                         if (v < 0)  return "#F06C6C"
                         return "#808080"
                     }
+
                     font.pixelSize: 10
                 }
 
                 Slider {
                     id: theSlider
                     Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.alignment: Qt.AlignCenter
+                    enabled: false
 
                     value: sliderDelegate.sliderValue
 

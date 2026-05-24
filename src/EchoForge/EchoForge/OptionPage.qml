@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 
 MainLayout {
     maintitle: "Options"
@@ -111,7 +112,7 @@ MainLayout {
                 // CONTENT
                 StackLayout {
                     id: stackLayout
-                    Layout.fillWidth:  true
+                    Layout.fillWidth: true
                     Layout.fillHeight: true
                     currentIndex: tabBar.currentIndex
 
@@ -124,20 +125,27 @@ MainLayout {
                             spacing: 0
 
                             OptionRow {
-                                id: masterVolumeRow
-                                rowLabel: "Master Volume"
-                                OptionSlider { id: masterSlider; initialValue: 80 }
+                                id: sfxVolumeRow
+                                rowLabel: "SFX Volume"
+                                OptionSlider { 
+                                    id: sfxSlider
+                                    initialValue: appSettings.sfxVolume * 100 
+                                    onValueChanged: {
+                                        appSettings.sfxVolume = value / 100
+                                    }
+                                }
                             }
 
                             OptionRow {
-                                id: sfxVolumeRow
-                                rowLabel: "SFX Volume"
-                                OptionSlider { id: sfxSlider; initialValue: 70 }
+                                id: pinnaRow
+                                rowLabel: "Pinna Setting"
+
+                                PresetSelector {}
                             }
                         }
                     }
 
-                    // AUDIO SUBPAGE
+                    // GRAPHIC SUBPAGE
                     Item {
                         id: graphicPage
                         ColumnLayout {
@@ -148,12 +156,17 @@ MainLayout {
                             OptionRow {
                                 id: resolutionRow
                                 rowLabel: "Resolution"
-                                OptionCycleButton { id: resolutionCycle; options: ["Low", "Medium", "High"] }
+                                OptionCycleButton { 
+                                    id: resolutionCycle
+                                    currentIndex: appSettings.graphicQuality == "Low" ? 0 : appSettings.graphicQuality == "Medium" ? 1 : 2
+                                    options: ["Low", "Medium", "High"] 
+                                    callback: (option) => { appSettings.graphicQuality = option }
+                                }
                             }
 
                             OptionRow {
                                 id: frustrumRow
-                                rowLabel: "Frustrum Culling"
+                                rowLabel: "Frustrum Culling (WIP)"
                                 OptionCycleButton { id: frustrumCycle; options: ["On", "Off"] }
                             }
 
@@ -161,18 +174,18 @@ MainLayout {
                                 id: fullscreenRow
                                 rowLabel: "Fullscreen"
                                 OptionCycleButton { 
-                                    id: fullscreenCycle; 
-                                    options: ["Windowed", "Borderless", "Fullscreen"] 
+                                    id: fullscreenCycle
+                                    currentIndex: appSettings.screenSize == "Windowed" ? 0 : 1
+                                    options: ["Windowed", "Fullscreen"]        
                                     callback: (option) => {
                                         switch(option) {
                                             case "Fullscreen":
                                                 mainWindow.visibility = Window.FullScreen
-                                                break
-                                            case "Borderless":
-                                                mainWindow.visibility = Window.Maximized
+                                                appSettings.screenSize = "Fullscreen"
                                                 break
                                             case "Windowed":
                                                 mainWindow.visibility = Window.Windowed
+                                                appSettings.screenSize = "Windowed"
                                                 break
                                         }
                                     }
@@ -225,7 +238,7 @@ MainLayout {
                         id: acceptButton
                         buttonText: "Accept"
                         Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
+                        Layout.fillWidth: true
                         font.pointSize: 18
                         onClicked: stackView.pop()
                     }
@@ -234,7 +247,7 @@ MainLayout {
                         id: returnButton
                         buttonText: "Return"
                         Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
+                        Layout.fillWidth: true
                         font.pointSize: 18
                         onClicked: stackView.pop()
                     }
@@ -249,7 +262,7 @@ MainLayout {
         default property alias rowControl: controlSlot.children
     
         Layout.fillWidth: true
-        height: 44
+        Layout.preferredHeight: 44 + controlSlot.implicitHeight
         color: "transparent"
     
         Rectangle {

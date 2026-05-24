@@ -11,6 +11,12 @@
 using namespace yutasound;
 using namespace juce;
 
+void setupProjectInfo(QGuiApplication& app) {
+    app.setOrganizationName("Rotten Peach");
+    app.setOrganizationDomain("rotten-peach.com");
+    app.setApplicationName("Echo Forge");
+}
+
 int main(int argc, char *argv[])
 {
     #if defined(Q_OS_WIN) && QT_VERSION_CHECK(5, 6, 0) <= QT_VERSION && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -22,6 +28,7 @@ int main(int argc, char *argv[])
     // Creation of the QGuiApplication
     // This object must reside inside the main
     QGuiApplication app(argc, argv);
+    setupProjectInfo(app);
     
     // This perfectly bridges JUCE's background requirements with Qt's main thread.
     ScopedJuceInitialiser_GUI juceInit;

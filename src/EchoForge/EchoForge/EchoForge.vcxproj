@@ -138,6 +138,7 @@
     <ClCompile Include="RayManager.cpp" />
     <ClCompile Include="ChunkInstancing.cpp" />
     <None Include="ArrowButton.qml" />
+    <None Include="EmittersRadar.qml" />
     <None Include="FrequencySlider.qml" />
     <None Include="HorizontalSeparator.qml" />
     <None Include="HudButton.qml" />
@@ -152,6 +153,7 @@
     <None Include="ray.frag" />
     <None Include="ray.vert" />
     <None Include="ReconBot.qml" />
+    <None Include="RippleEffect.qml" />
     <None Include="SimulationSelectionPage.qml" />
     <None Include="SoundDialBox.qml" />
     <None Include="SoundTestingPage.qml" />
@@ -164,6 +166,7 @@
     <None Include="SimulationPage.qml" />
     <None Include="Spacer.qml" />
     <None Include="SplashPage.qml" />
+    <None Include="VerticalSeparator.qml" />
     <None Include="voxel.frag" />
     <None Include="voxel.vert" />
     <QtRcc Include="assets.qrc" />

@@ -5,6 +5,11 @@ import QtQuick.Layouts
 MainLayout {
     maintitle: "ECHO FORGE"
 
+    // SETUP PINNA
+    Component.onCompleted: {
+        communicator.setSelectedPinnaId(appSettings.pinaId)
+    }
+
     ColumnLayout {
         width: 200
         Layout.fillHeight: true

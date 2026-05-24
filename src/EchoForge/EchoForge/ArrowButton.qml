@@ -16,7 +16,7 @@ Button {
     implicitWidth: 28
     implicitHeight: 28
     background: Rectangle {
-        color: nextBtn.hovered ? "#44000000" : "transparent"
+        color: nextBtn.hovered ? mainWindow.secondaryColor : "transparent"
         radius: 2
     }
 

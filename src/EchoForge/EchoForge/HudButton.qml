@@ -4,7 +4,7 @@ import QtQuick.Controls
 Rectangle {
     id: btn
     property string label: ""
-    property color borderColor: "#FFA500"
+    property color borderColor: mainWindow.secondaryColor
     signal activated()
 
     height: 32
