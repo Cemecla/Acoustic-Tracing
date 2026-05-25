@@ -41,7 +41,7 @@ class UICommunicator;
 			void addAmbient(const std::string& path) const;
 
 			int playSound(int soundFileId) const;
-			
+			const std::vector<yutasound::AmbientEntry>& getAmbientEntries() const;
 
 			int  registerSound(const std::string& path) const;
 			int  playSound(int soundFileId, float azimuth, float elevation, ef::Vector3F gain) const;

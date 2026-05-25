@@ -130,12 +130,8 @@ namespace yutasound {
                         auto stereo = delayLine.process(monoSample, smoothed);
                         auto filtered = m_activeChains[i].processSample(stereo.left, stereo.right);
 
-                        float gain = source.isAmbient
-                            ? m_audioManager.getAmbientGain(source.soundFileId)
-                            : 1.0f;
-
-                        *m_mixBuffer.getWritePointer(0, n) += filtered.left * gain;
-                        *m_mixBuffer.getWritePointer(1, n) += filtered.right * gain;
+                        *m_mixBuffer.getWritePointer(0, n) += filtered.left;
+                        *m_mixBuffer.getWritePointer(1, n) += filtered.right;
                     }
 
                     readPos += samplesThisBlock;

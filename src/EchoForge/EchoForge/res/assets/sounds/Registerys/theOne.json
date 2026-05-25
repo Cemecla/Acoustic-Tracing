@@ -1,5 +1,18 @@
 {
-  
+  "ambient": [
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Fireplace.mp3",
+            "gain": 0.5,
+            "id": 0,
+            "role": "ambient"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\mooo1945.mp3",
+            "gain": 0.5,
+            "id": 1,
+            "role": "ambient"
+        }
+    ],
     "sounds": [
         {
             "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Knocking.mp3",

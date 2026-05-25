@@ -292,3 +292,7 @@ void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
 
 	m_uiCommunicator->setEmitters(list);
 }
+
+const std::vector<yutasound::AmbientEntry>& EFView::getAmbientEntries() const {
+	return m_audioManager->getAmbientEntries();
+}
