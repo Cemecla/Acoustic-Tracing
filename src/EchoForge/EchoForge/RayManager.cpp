@@ -125,6 +125,30 @@ const void tracing::RayManager::next_colision() {
 	);
 	int losRemaining = std::max(30, activeEmitterCount * 4 * static_cast<int>(m_activeRays->size()) / 10);
 
+	// --- Check direct avatar → emitters (une fois par frame, hors ray tracing) ---
+	// Garantit un DTO isDirect=true quand l'émetteur est en LOS directe du listener,
+	// même si aucun ray ne passe par le voxel exact de l'émetteur ce frame-ci.
+	// Coût : un hasLineOfSight par emitter actif par frame.
+	const Eigen::Vector3f avatarPos = m_parent->getAvatar().value().getPosition().toEigen();
+	for (const auto& emitter : allEmitters) {
+		if (!emitter.isActive) continue;
+		if (!hasLineOfSight(avatarPos, emitter.position.toEigen())) continue;
+
+		Eigen::Vector3f dir   = (emitter.position.toEigen() - avatarPos).normalized();
+		float           dist  = (emitter.position.toEigen() - avatarPos).norm();
+		int             steps = std::max(1, static_cast<int>(dist / map.getUnitSize()));
+
+		m_receivedRays.emplace_back(
+			emitter.position.toEigen(),      // lastSeen = position exacte de l'émetteur
+			Eigen::Vector3f(1.f, 1.f, 1.f), // énergie fictive — sert uniquement à ancrer la direction
+			steps,
+			static_cast<std::uint8_t>(emitter.m_id),
+			std::vector<Eigen::Vector3f>{},
+			dir,
+			true                             // isDirect
+		);
+	}
+
 	for (Ray& r : *m_activeRays) {
 		r.advance();
 		Eigen::Vector3i pos = r.getVoxelPos();

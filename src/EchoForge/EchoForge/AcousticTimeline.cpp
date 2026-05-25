@@ -9,12 +9,14 @@ using namespace acoustic;
 
 void TimelineSlot::reset()
 {
-    weightedPos  = Eigen::Vector3f::Zero();
-    weightedGain = Eigen::Vector3f::Zero();
-    totalWeight  = 0.f;
-    rayCount     = 0;
-    hasDirect    = false;
-    isSynthetic  = false;
+    weightedPos       = Eigen::Vector3f::Zero();
+    directWeightedPos = Eigen::Vector3f::Zero();
+    weightedGain      = Eigen::Vector3f::Zero();
+    totalWeight       = 0.f;
+    directTotalWeight = 0.f;
+    rayCount          = 0;
+    hasDirect         = false;
+    isSynthetic       = false;
 }
 
 // ── AcousticTimeline ─────────────────────────────────────────────────────────
@@ -28,12 +30,19 @@ void AcousticTimeline::addDTO(const DTO_RecievedRay& dto)
     float w = dto.getEnergy().norm();
     if (w < 1e-8f) return;
 
-    slot.weightedPos  += dto.getLastSeen() * w;
-    slot.weightedGain += dto.getEnergy()   * w;
+    if (dto.isDirect()) {
+        // Ray direct : lastSeen = position exacte de l'émetteur → stocké séparément
+        slot.directWeightedPos += dto.getLastSeen() * w;
+        slot.directTotalWeight += w;
+        slot.hasDirect          = true;
+    } else {
+        // Ray indirect : lastSeen = position du rebond sur mur → ne pas mélanger
+        slot.weightedPos += dto.getLastSeen() * w;
+    }
+    slot.weightedGain += dto.getEnergy() * w;
     slot.totalWeight  += w;
     slot.rayCount++;
-    slot.hasDirect  |= dto.isDirect();
-    slot.isSynthetic  = false; // données réelles → pas synthétique
+    slot.isSynthetic = false;
 }
 
 void AcousticTimeline::decayAll()
@@ -41,9 +50,11 @@ void AcousticTimeline::decayAll()
     for (auto& slot : m_slots)
     {
         if (slot.isEmpty()) continue;
-        slot.weightedPos  *= SLOT_DECAY; // ← doit décayer avec totalWeight pour garder pos/total = emitter pos
-        slot.weightedGain *= SLOT_DECAY;
-        slot.totalWeight  *= SLOT_DECAY;
+        slot.weightedPos       *= SLOT_DECAY;
+        slot.directWeightedPos *= SLOT_DECAY;
+        slot.weightedGain      *= SLOT_DECAY;
+        slot.totalWeight       *= SLOT_DECAY;
+        slot.directTotalWeight *= SLOT_DECAY;
         if (slot.isEmpty()) slot.reset(); // purgé si trop faible
     }
 }
@@ -91,20 +102,40 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
         const auto& slot = m_slots[i];
         if (slot.isEmpty()) continue;
 
-        Eigen::Vector3f pos  = slot.weightedPos  / slot.totalWeight;
         Eigen::Vector3f gain = slot.weightedGain / slot.totalWeight;
 
-        // --- Direction : seulement les slots RÉELS (pas synthétiques) ---
-        // Les slots synthétiques (fillGaps) sont des interpolations du passé —
-        // les laisser contribuer à la position ferait dériver l'azimuth chaque frame.
+        // --- Direction : slots réels uniquement, position directe en priorité ---
         if (!slot.isSynthetic)
         {
-            float temporalW = slot.hasDirect    ? DIRECT_WEIGHT
-                            : (i < EARLY_CUTOFF) ? EARLY_WEIGHT
-                                                 : LATE_WEIGHT;
-            float dirW = temporalW * gain.norm();
-            dirWeightedPos += pos * dirW;
-            dirTotalW      += dirW;
+            bool hasDir = false;
+            Eigen::Vector3f pos = Eigen::Vector3f::Zero();
+            float temporalW = 0.f;
+
+            if (slot.hasDirect && slot.directTotalWeight > 1e-6f)
+            {
+                // Ray direct : position pure de l'émetteur, jamais contaminée par les rebonds
+                pos       = slot.directWeightedPos / slot.directTotalWeight;
+                temporalW = DIRECT_WEIGHT;
+                hasDir    = true;
+            }
+            else
+            {
+                // Ray indirect : position du rebond (fallback)
+                float indirectW = slot.totalWeight - slot.directTotalWeight;
+                if (indirectW > 1e-6f)
+                {
+                    pos       = slot.weightedPos / indirectW;
+                    temporalW = (i < EARLY_CUTOFF) ? EARLY_WEIGHT : LATE_WEIGHT;
+                    hasDir    = true;
+                }
+            }
+
+            if (hasDir)
+            {
+                float dirW  = temporalW * gain.norm();
+                dirWeightedPos += pos * dirW;
+                dirTotalW      += dirW;
+            }
         }
 
         // --- Gain : tous les slots contribuent (réels + synthétiques = réverbération) ---
