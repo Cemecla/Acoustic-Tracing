@@ -77,7 +77,7 @@ void AcousticTimeline::fillGaps()
 
 AcousticResult AcousticTimeline::collapse(int emitterId,
                                            const Eigen::Vector3f& listenerPos,
-                                           float listenerYaw)
+                                           float listenerYaw) const
 {
     AcousticResult result;
     result.emitterId = emitterId;
@@ -121,32 +121,18 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
     Eigen::Vector3f delta  = avgPos - listenerPos;
     float dist2D = std::sqrt(delta.x() * delta.x() + delta.z() * delta.z());
 
-    // Raw world azimuth → local azimuth
+    // Azimuth monde → azimuth local (relatif au regard de l'avatar).
+    // Sans cette soustraction, tourner la tête ne changerait pas la perception.
     float worldAz = std::atan2(delta.x(), -delta.z());
     float localAz = worldAz + listenerYaw;
 
-    // Elevation (raw — not smoothed, less sensitive to noise)
-    float rawElev = std::atan2(delta.y(), dist2D);
+    // Normalise dans [-π, +π]
+    while (localAz >  std::numbers::pi_v<float>) localAz -= 2.f * std::numbers::pi_v<float>;
+    while (localAz < -std::numbers::pi_v<float>) localAz += 2.f * std::numbers::pi_v<float>;
 
-    // Smooth direction as a (cos, sin) vector to handle ±π wrap correctly.
-    // Wall-contact positions change every batch, so we track a running average
-    // instead of using the raw angle directly.
-    Eigen::Vector2f rawDir(std::cos(localAz), std::sin(localAz));
-    if (!m_hasSmoothDir) {
-        m_smoothedDir  = rawDir;
-        m_smoothedElev = rawElev;
-        m_hasSmoothDir = true;
-    } else {
-        m_smoothedDir  += DIR_SMOOTH_ALPHA * (rawDir - m_smoothedDir);
-        m_smoothedElev += DIR_SMOOTH_ALPHA * (rawElev - m_smoothedElev);
-        if (m_smoothedDir.norm() > 1e-6f) m_smoothedDir.normalize();
-    }
-
-    float smoothAz = std::atan2(m_smoothedDir.y(), m_smoothedDir.x());
-
-    constexpr float RAD2DEG = 180.f / std::numbers::pi_v<float>;
-    result.azimuth   = smoothAz  * RAD2DEG;
-    result.elevation = m_smoothedElev * RAD2DEG;
+    result.azimuth   = localAz * (180.f / std::numbers::pi_v<float>);
+    result.elevation = std::atan2( delta.y(),  dist2D)
+                       * (180.f / std::numbers::pi_v<float>);
 
     // Gain: gainAccum already encodes distance via pow(0.78, slot).
     // Divide by the MAXIMUM possible gainTotalW (all slots full) so the scale is [0,1]
@@ -160,9 +146,6 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
 void AcousticTimeline::clear()
 {
     for (auto& slot : m_slots) slot.reset();
-    m_smoothedDir  = Eigen::Vector2f(1.f, 0.f);
-    m_smoothedElev = 0.f;
-    m_hasSmoothDir = false;
 }
 
 bool AcousticTimeline::hasAnyData() const
