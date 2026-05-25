@@ -5,7 +5,7 @@ import QtQuick.Dialogs
 
 MainLayout {
     id: mainLayout
-    maintitle: "Sound Testing"
+    maintitle: "Sound Lab"
 
     // STATES
     property var registrySounds: []       // [{id, path}]
