@@ -11,7 +11,7 @@
         "mapDepth": 64,
         "userSpawnPos": [
             300,
-            200,
+            300,
             3000
         ],
         "instantiableIndexes": {
