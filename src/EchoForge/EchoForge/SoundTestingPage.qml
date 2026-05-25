@@ -283,7 +283,7 @@ MainLayout {
 
                                                     Text {
                                                         text: (modelData.isAmbient ? "[A] " : "") + modelData.path.split("/").pop().split("\\").pop()
-                                                        color: mainLayout.selectedSoundFileId === modelData.id ? "#000" : "#ccc"
+                                                        color: mainLayout.selectedSoundFileId == modelData.id ? "#000" : "#ccc"
                                                         font.pixelSize: 11
                                                         elide: Text.ElideLeft
                                                         Layout.fillWidth: true
@@ -434,7 +434,7 @@ MainLayout {
                                         font.family: "Segoe UI Symbol"
                                         buttonText: "▶ Add Selected Sound"
                                         Layout.fillWidth: true
-                                        enabled: mainLayout.selectedSoundFileId !== -1
+                                        enabled: mainLayout.selectedSoundFileId != -1
                                         onClicked: {
                                             let emitterId = communicator.playFromFileId(mainLayout.selectedSoundFileId)
                                             mainLayout.activeEmitters = mainLayout.activeEmitters.concat([{
@@ -444,6 +444,7 @@ MainLayout {
                                                 azimuth: 0,
                                             }])
                                             mainLayout.selectedEmitterId = emitterId
+                                            communicator.updateTestSlider(mainLayout.selectedEmitterId, 0.0, 0.0)
                                         }
                                     }
 
@@ -455,7 +456,7 @@ MainLayout {
                                         MenuButton {
                                             buttonText: "Resume"
                                             Layout.fillWidth: true
-                                            enabled: mainLayout.selectedEmitterId !== -1
+                                            enabled: mainLayout.selectedEmitterId != -1
                                             onClicked: {
                                                 communicator.resumeEmitter(mainLayout.selectedEmitterId),
                                                 updateEmitterState(mainLayout.selectedEmitterId, "Playing")
