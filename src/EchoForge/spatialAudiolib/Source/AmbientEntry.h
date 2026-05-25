@@ -20,7 +20,7 @@ namespace yutasound {
         int id = -1;
         juce::String role;
         juce::String filePath;
-        float gain = 1.0f;
+        float gain = 0.0f;
         juce::AudioBuffer<float> buffer; 
     };
 }

@@ -15,9 +15,9 @@
 namespace yutasound {
      struct ILDGain
     {
-        float low  = 1.0f;
-        float mid  = 1.0f;
-        float high = 1.0f;
+        float low  = 0.0f;
+        float mid  = 0.0f;
+        float high = 0.0f;
     };
 }
 #endif 
