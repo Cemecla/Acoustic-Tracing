@@ -1,6 +1,7 @@
 {
-    "title": "DevTest",
-    "desc": "Map de test",
+    "title": "Map de Présentation",
+    "desc": "Map utile pour présenter les caractéristiques de EchoForge",
+    "soundRegistry": "../../EchoForge/res/assets/sounds/Registerys/presentation_reg.json",
     "data": {
         "voxelUnitSize": 100,
         "unitValue": 100,
@@ -9,9 +10,9 @@
         "mapHeight": 10,
         "mapDepth": 64,
         "userSpawnPos": [
-            500,
-            400,
-            400
+            300,
+            200,
+            3000
         ],
         "instantiableIndexes": {
             "isValid": false,
@@ -723,5 +724,111 @@
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
         ]
     },
-    "scenarioItems": []
+    "scenarioItems": [
+                {
+            "filename": "Fireplace.mp3",
+            "id": 10,
+            "volume": 1.0,
+            "loop": true,
+            "position": [
+                6000.0,
+                300.0,
+                3000.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 1000
+            }
+        },
+        {
+            "filename": "police_radio.mp3",
+            "id": 11,
+            "volume": 1.0,
+            "loop": true,
+            "position": [
+                4000.0,
+                300.0,
+                4300.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 20000
+            }
+        },
+                {
+            "filename": "Scream1.mp3",
+            "id": 12,
+            "volume": 1.0,
+            "loop": false,
+            "position": [
+                2500.0,
+                300.0,
+                3800.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 50000
+            }
+        },
+        {
+            "filename": "Knocking-door.mp3",
+            "id": 14,
+            "volume": 1.0,
+            "loop": true,
+            "position": [
+                600.0,
+                300.0,
+                5600.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 50000
+            }
+        },
+        {
+            "filename": "Laugh.mp3",
+            "id": 15,
+            "volume": 1.0,
+            "loop": false,
+            "position": [
+                5900.0,
+                300.0,
+                5000.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 100000
+            }
+        },
+        {
+            "filename": "Scream2.mp3",
+            "id": 13,
+            "volume": 1.0,
+            "loop": false,
+            "position": [
+                4700.0,
+                300.0,
+                1100.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 200000
+            }
+        },
+        {
+            "filename": "Knocking-window.mp3",
+            "id": 16,
+            "volume": 1.0,
+            "loop": true,
+            "position": [
+                1100.0,
+                300.0,
+                500.0
+            ],
+            "event": {
+                "type": "timer",
+                "time": 200000
+            }
+        }
+    ]
 }
