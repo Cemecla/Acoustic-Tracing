@@ -85,7 +85,6 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
     Eigen::Vector3f dirWeightedPos = Eigen::Vector3f::Zero();
     float           dirTotalW      = 0.f;
     Eigen::Vector3f gainAccum      = Eigen::Vector3f::Zero();
-    float           gainTotalW     = 0.f;
 
     for (int i = 0; i < MAX_SLOTS; ++i)
     {
@@ -109,9 +108,10 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
         }
 
         // --- Gain : tous les slots contribuent (réels + synthétiques = réverbération) ---
+        // slotW penalizes later (farther) slots — do NOT divide by gainTotalW or the
+        // decay cancels out and distance attenuation disappears entirely.
         float slotW = std::pow(0.78f, i);
         gainAccum  += gain  * slotW;
-        gainTotalW += slotW;
     }
 
     if (dirTotalW < 1e-6f) return result; // aucune donnée utilisable
@@ -134,9 +134,11 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
     result.elevation = std::atan2( delta.y(),  dist2D)
                        * (180.f / std::numbers::pi_v<float>);
 
-    // Gain normalisé [0,1]
-    if (gainTotalW > 1e-6f)
-        result.gain = (gainAccum / gainTotalW).cwiseMin(1.f).cwiseMax(0.f);
+    // Gain: gainAccum already encodes distance via pow(0.78, slot).
+    // Divide by the MAXIMUM possible gainTotalW (all slots full) so the scale is [0,1]
+    // but the geometric decay with distance is preserved.
+    constexpr float MAX_GAIN_TOTAL_W = 4.545f; // sum of pow(0.78, i) for i=0..31
+    result.gain = (gainAccum / MAX_GAIN_TOTAL_W).cwiseMin(1.f).cwiseMax(0.f);
 
     return result;
 }

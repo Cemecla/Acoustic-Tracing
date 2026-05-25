@@ -216,8 +216,13 @@ const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::
 
 		if (!map.isInBound(pos.x(), pos.y(), pos.z())) return false;
 
-		// skip the starting voxel (wall face) so we don't immediately fail
-		if (pos == startVoxel) continue;
+		// skip the starting voxel only if it's passable (floating-point boundary artifact)
+		// if it's solid, let it block LOS like any other wall
+		if (pos == startVoxel) {
+			ef::Material startMat = map.fetchMaterial(ef::Vector3I::fromEigenI(pos));
+			if (startMat.isPassable) continue;
+			return false;
+		}
 
 		ef::Material mat = map.fetchMaterial(ef::Vector3I::fromEigenI(pos));
 		if (!mat.isPassable) return false;
