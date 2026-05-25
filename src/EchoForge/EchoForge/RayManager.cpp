@@ -61,6 +61,15 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 	constexpr float LOS_ENERGY_THRESHOLD = 0.02f;
 
 	if (r.getEnergy().maxCoeff() < LOS_ENERGY_THRESHOLD) return 0;
+	if (budgetRemaining <= 0) return 0;
+
+	// Vérifie d'abord que le point de rebond est dans le MÊME ESPACE ACOUSTIQUE que l'avatar.
+	// Un rayon qui a traversé un mur par transmission se retrouve de l'autre côté :
+	// depuis là, il peut avoir LOS vers l'emitter, mais le son ne peut pas repartir
+	// vers l'avatar sans re-traverser le mur. Ce check filtre ces faux positifs.
+	--budgetRemaining;
+	const Eigen::Vector3f avatarPos = m_parent->getAvatar().value().getPosition().toEigen();
+	if (!hasLineOfSight(r.getPosition(), avatarPos)) return 0;
 
 	int checked = 0;
 	for (const auto& emitter : allEmitters) {
@@ -71,10 +80,10 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 
 		if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
 
-		// On stocke la POSITION DE L'EMITTER (pas du mur) pour que l'azimuth
-		// pointe vers la source sonore, pas vers le point de réflexion.
+		// lastSeen = position du rebond (mur visible depuis l'avatar et depuis l'emitter).
+		// Direction acoustique correcte : le son "entre" dans la pièce depuis ce mur.
 		m_receivedRays.emplace_back(
-			emitter.position.toEigen(),
+			r.getPosition(),
 			r.getEnergy(),
 			r.getStepCount(),
 			static_cast<std::uint8_t>(emitter.m_id),
@@ -182,7 +191,11 @@ const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::
 	float maxDist = delta.norm();
 	if (maxDist < 1e-4f) return true;
 	Ray shadowRay(from, delta.normalized(),map.getUnitSize());
-	Eigen::Vector3i targetVoxel = to.array().floor().cast<int>();
+	// targetVoxel doit être en coordonnées voxel (world / unitSize), pas en world units.
+	// Avant le fix de EFWorldLoader, emitter.position était déjà en voxel units donc ça
+	// marchait par accident. Maintenant les deux sont en world units → conversion explicite.
+	const float us = static_cast<float>(map.getUnitSize());
+	Eigen::Vector3i targetVoxel = (to.array() / us).floor().cast<int>();
 
 	int maxSteps = static_cast<int>(maxDist * 2.0f) + 5;
 	shadowRay.advance();

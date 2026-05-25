@@ -41,6 +41,7 @@ void AcousticTimeline::decayAll()
     for (auto& slot : m_slots)
     {
         if (slot.isEmpty()) continue;
+        slot.weightedPos  *= SLOT_DECAY; // ← doit décayer avec totalWeight pour garder pos/total = emitter pos
         slot.weightedGain *= SLOT_DECAY;
         slot.totalWeight  *= SLOT_DECAY;
         if (slot.isEmpty()) slot.reset(); // purgé si trop faible
@@ -64,7 +65,7 @@ void AcousticTimeline::fillGaps()
         }
         else if (prev != nullptr)
         {
-            slot.weightedPos  = prev->weightedPos;
+            slot.weightedPos  = prev->weightedPos  * GAP_DECAY; // ← idem : doit scaler avec totalWeight
             slot.weightedGain = prev->weightedGain * GAP_DECAY;
             slot.totalWeight  = prev->totalWeight  * GAP_DECAY;
             slot.hasDirect    = false;
@@ -94,16 +95,20 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
         Eigen::Vector3f pos  = slot.weightedPos  / slot.totalWeight;
         Eigen::Vector3f gain = slot.weightedGain / slot.totalWeight;
 
-        // --- Direction : pondération temporelle forte vers direct/précoce ---
-        float temporalW = slot.hasDirect    ? DIRECT_WEIGHT
-                        : (i < EARLY_CUTOFF) ? EARLY_WEIGHT
-                                             : LATE_WEIGHT;
-        float dirW = temporalW * gain.norm();
-        dirWeightedPos += pos   * dirW;
-        dirTotalW      += dirW;
+        // --- Direction : seulement les slots RÉELS (pas synthétiques) ---
+        // Les slots synthétiques (fillGaps) sont des interpolations du passé —
+        // les laisser contribuer à la position ferait dériver l'azimuth chaque frame.
+        if (!slot.isSynthetic)
+        {
+            float temporalW = slot.hasDirect    ? DIRECT_WEIGHT
+                            : (i < EARLY_CUTOFF) ? EARLY_WEIGHT
+                                                 : LATE_WEIGHT;
+            float dirW = temporalW * gain.norm();
+            dirWeightedPos += pos * dirW;
+            dirTotalW      += dirW;
+        }
 
-        // --- Gain : décroissance géométrique par index de slot ---
-        // Les premières réflexions contribuent plus au volume perçu.
+        // --- Gain : tous les slots contribuent (réels + synthétiques = réverbération) ---
         float slotW = std::pow(0.78f, i);
         gainAccum  += gain  * slotW;
         gainTotalW += slotW;

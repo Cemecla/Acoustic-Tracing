@@ -19,7 +19,7 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_rayManager{this, 200, 50}
+	m_rayManager{this, 500, 50}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
