@@ -1,14 +1,14 @@
 {
-  "ambient": [
+    "ambient": [
         {
             "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Fireplace.mp3",
-            "gain": 0.5,
+            "gain": 1.0,
             "id": 0,
             "role": "ambient"
         },
         {
             "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\mooo1945.mp3",
-            "gain": 0.5,
+            "gain": 1.0,
             "id": 1,
             "role": "ambient"
         }
