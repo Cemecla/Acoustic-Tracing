@@ -58,21 +58,13 @@ public:
     // - Gain : somme pondérée avec décroissance géométrique par index de slot
     // listenerYaw : angle de rotation Y de l'avatar (radians, depuis getHeadAngles().y).
     // Converti l'azimuth monde en azimuth relatif au regard du listener.
-    // Direction is exponentially smoothed frame-to-frame to avoid batch-to-batch jumping.
-    AcousticResult collapse(int emitterId, const Eigen::Vector3f& listenerPos, float listenerYaw);
+    AcousticResult collapse(int emitterId, const Eigen::Vector3f& listenerPos, float listenerYaw) const;
 
     void clear();
     bool hasAnyData() const;
 
-    // How fast the smoothed direction tracks new data: 0=frozen, 1=no smoothing.
-    static constexpr float DIR_SMOOTH_ALPHA = 0.15f;
-
 private:
     std::array<TimelineSlot, MAX_SLOTS> m_slots{};
-    // Smoothed direction as (cos, sin) of azimuth — avoids ±180° wrap issues.
-    Eigen::Vector2f m_smoothedDir  = Eigen::Vector2f(1.f, 0.f); // default: front
-    float           m_smoothedElev = 0.f;
-    bool            m_hasSmoothDir = false;
 };
 
 } // namespace acoustic
