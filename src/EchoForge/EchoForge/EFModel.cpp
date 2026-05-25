@@ -36,6 +36,13 @@ void EFModel::loadWorld(std::string& filename) {
 	for (auto& emitter : m_world->emitters) {
 		emitterIds.push_back(emitter.m_id);
 	}
+	// add ambient emitters to the id map and known emitters
+	for (const auto& ambient : m_parent->m_view->getAmbientEntries()) {
+		m_emitterIdMap[ambient.id] = ambient.id; // SAE emitter id == ambient id
+		emitterIds.push_back(ambient.id);
+	}
+
+
 	m_acousticInterpreter.setKnownEmitters(emitterIds);
 
 	buildScenario();
@@ -273,3 +280,4 @@ void EFModel::endWorld() {
 	m_emitterIdMap.clear();
 	m_world->emitters.clear();
 }
+ 
