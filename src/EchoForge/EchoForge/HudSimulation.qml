@@ -7,6 +7,7 @@ Item {
     signal stopRequested()
     signal quitRequested()
 
+    property bool isDebugMode: false
     property bool raysVisible: true
     property bool emittersVisible: true
     property color panelTitleColor: mainWindow.secondaryColor 
@@ -43,29 +44,54 @@ Item {
 
                 Text { text: "x"; color: root.panelTitleColor; font.family: root.fontFamily; font.pixelSize: 12 }
 
-                Text {
+                TextInput {
+                    width: 50
+                    enabled: root.isDebugMode
                     text: communicator.avatarPos.x.toFixed(1)
                     color: root.panelTextColor; font.family: root.fontFamily; font.pixelSize: 13
+                    validator: DoubleValidator {bottom: 1.0; top: 100.0}
+                    onTextChanged: {
+                        if (root.isDebugMode) {
+                            console.log("")
+                        }
+                    }
                 }
 
                 Text { text: "y"; color: root.panelTitleColor; font.family: root.fontFamily; font.pixelSize: 12 }
 
-                Text {
+                TextInput {
+                    width: 50
+                    enabled: root.isDebugMode
                     text: communicator.avatarPos.y.toFixed(1)
                     color: root.panelTextColor; font.family: root.fontFamily; font.pixelSize: 13
+                    validator: DoubleValidator {bottom: 1.0; top: 100.0}
+                    onTextChanged: {
+                        if (root.isDebugMode) {
+                            console.log("")
+                        }
+                    }
                 }
 
                 Text { text: "z"; color: root.panelTitleColor; font.family: root.fontFamily; font.pixelSize: 12 }
 
-                Text {
+                TextInput {
+                    width: 50
+                    enabled: root.isDebugMode
                     text: communicator.avatarPos.z.toFixed(1)
                     color: root.panelTextColor; font.family: root.fontFamily; font.pixelSize: 13
+                    validator: DoubleValidator {bottom: 1; top: 100}
+                    onTextChanged: {
+                        if (root.isDebugMode) {
+                            console.log("")
+                        }
+                    }
                 }
             }
 
-            HorizontalSeparator { color: root.panelTitleColor }
+            HorizontalSeparator { color: root.panelTitleColor; visible: !root.isDebugMode }
 
             Text {
+                visible: !root.isDebugMode
                 text: "RAYS"
                 color: root.panelTitleColor
                 font.family: root.fontFamily
@@ -74,6 +100,7 @@ Item {
             }
 
             RowLayout {
+                visible: !root.isDebugMode
                 spacing: 8
 
                 Text {
@@ -200,6 +227,7 @@ Item {
             }
 
             HudToggle {
+                visible: !root.isDebugMode
                 Layout.fillWidth: true
                 label: "Display rays"
                 checkedText: "True"
@@ -218,6 +246,13 @@ Item {
             }
 
             HudButton {
+                visible: root.isDebugMode
+                Layout.fillWidth: true
+                label: "Save (WIP)"
+                onActivated: root.quitRequested()
+            }
+
+            HudButton {
                 Layout.fillWidth: true
                 label: "Quit to menu (WIP)"
                 onActivated: root.quitRequested()
@@ -225,7 +260,7 @@ Item {
 
             HorizontalSeparator { color: root.panelTitleColor }
 
-            Text {
+            Text { 
                 text: "COMMANDS"
                 color: root.panelTitleColor
                 font.family: root.fontFamily
@@ -234,6 +269,7 @@ Item {
             }
 
             RowLayout {
+                visible: !root.isDebugMode
                 spacing: 8
 
                 Text {
@@ -260,10 +296,11 @@ Item {
             }
 
             RowLayout {
+                visible: !root.isDebugMode
                 spacing: 8
 
                 Text {
-                    text: "Rotation"
+                    text: "Top Camera Up/Down"
                     color: root.panelTitleColor; 
                     font.family: root.fontFamily; 
                     font.pixelSize: 12
@@ -277,13 +314,40 @@ Item {
                 }
 
                 Text {
-                    text: "Q/E"
+                    text: "Z/X"
+                    color:  root.panelTextColor
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 10
+                    font.letterSpacing: 1
+                }
+            }
+
+            RowLayout {
+                spacing: 8
+
+                Text {
+                    text: "Rotation"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily;
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    text: !root.isDebugMode ? "Q/E" : "Mouse + Click"
                     color: root.panelTextColor
                     font.family: root.fontFamily; 
                     font.pixelSize: 10
                     font.letterSpacing: 1
                 }
             }
+
 
             RowLayout {
                 spacing: 8

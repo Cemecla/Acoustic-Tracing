@@ -56,7 +56,7 @@ class UICommunicator;
 			void pauseEmitter(int emitterId) const;
 			void stopEmitter(int emitterId) const;
 
-
+			const ef::Map& getMap() const;
 			QVariantList getSounds() const;
 			void loadRegistry(const std::string& path) const;
 			void saveRegistry(const std::string& path) const;

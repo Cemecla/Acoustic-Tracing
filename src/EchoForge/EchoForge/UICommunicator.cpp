@@ -41,6 +41,14 @@ RayInstancing* UICommunicator::rayInstances() {
 	return m_rayInstances;
 }
 
+QVector3D UICommunicator::getWorldBound() const {
+	const ef::Map& map = m_parent->getMap();
+	float x = (float)map.getWidth();
+	float y = (float)map.getHeight();
+	float z = (float)map.getDepth();
+	return QVector3D{x, y, z};
+}
+
 void UICommunicator::startSimulation() {
 	m_parent->startSimulation();
 }

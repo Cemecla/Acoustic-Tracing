@@ -216,6 +216,54 @@ MainLayout {
                                     options: ["English", "Français", "Español", "日本語"]
                                 }
                             }
+
+                            OptionRow {
+                                id: avatarColor
+                                rowLabel: "Avatar Color"
+                                Rectangle {
+                                    id: avatarColorBox
+                                    height : 30
+                                    width: 30
+                                    color: appSettings.avatarColor
+
+                                    ColorDialog {
+                                        id: avatarColorDialog
+                                        selectedColor: rayColorBox.color
+                                        onAccepted: appSettings.avatarColor = selectedColor
+                                    }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            avatarColorDialog.open()  
+                                        }
+                                    }
+                                }
+                            }
+
+                            OptionRow {
+                                id: secondaryColor
+                                rowLabel: "Application Secondary Color"
+                                Rectangle {
+                                    id: secondaryColorBox
+                                    height : 30
+                                    width: 30
+                                    color: appSettings.secondaryColor
+
+                                    ColorDialog {
+                                        id: secondaryColorDialog
+                                        selectedColor: secondaryColorBox.color
+                                        onAccepted: appSettings.secondaryColor = selectedColor
+                                    }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            secondaryColorDialog.open()  
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

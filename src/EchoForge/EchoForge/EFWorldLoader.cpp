@@ -10,7 +10,7 @@ using namespace std;
 
 const Material EFWorldLoader::OUT_MATERIAL = Material("OutOfBound", false, false, Vector3F(1, 1, 1), 1.0, Vector3F(1, 1, 1), 0,0,0);
 
-const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0.001, 0.001, 0.001), 0.0, Vector3F(0, 0, 0), 0, 0, 0);
+const Material EFWorldLoader::EMPTY_MATERIAL = Material("Empty", true, false, Vector3F(0.01, 0.005, 0.002), 0.0, Vector3F(0, 0, 0), 0, 0, 0);
 
 EFWorld EFWorldLoader::build(const json& mapJson) {
 	if (isMapValid(mapJson)) {
