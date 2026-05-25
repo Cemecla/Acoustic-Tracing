@@ -122,7 +122,7 @@ const int Map::fetchMaterialId(const Vector3F& worldPosition) const {
 Vector3I Map::getPositionFromId(int index) const {
 	int x = index % m_width;
 	int y = (int)std::floor((index / m_width) % m_height);
-	int z = (int)std::floor(index / (m_width * m_height));
+	int z = (int)std::floor(index / (m_height * m_height));
 	return Vector3I(x, y, z);
 }
 

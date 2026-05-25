@@ -300,11 +300,3 @@ void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
 const std::vector<yutasound::AmbientEntry>& EFView::getAmbientEntries() const {
 	return m_audioManager->getAmbientEntries();
 }
-
-const float EFView::getRefreshTime() const {
-	return m_parent->m_model->getRefreshTime();
-}
-
-void EFView::setRefreshTime(float timeInSeconde) {
-	return m_parent->m_model->setRefreshTime(timeInSeconde);
-}

@@ -79,12 +79,8 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 
 		if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
 
-		// Use the emitter's actual position as lastSeen, not the ray's contact point.
-		// Wall-bounce contacts change every frame (different rays, different walls),
-		// causing the weighted-average position in each timeline slot to jump even
-		// when nothing is moving — the direction tracks the emitter stably instead.
 		m_receivedRays.emplace_back(
-			emitter.position.toEigen(),
+			r.getPosition(),
 			r.getEnergy(),
 			r.getStepCount(),
 			static_cast<std::uint8_t>(emitter.m_id),

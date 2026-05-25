@@ -51,9 +51,6 @@ public:
 	Q_INVOKABLE void addBlock(int x, int y, int z);
 	Q_INVOKABLE void destroyBlock(int x, int y, int z);
 
-	Q_INVOKABLE float getRayRefreshTime();
-	Q_INVOKABLE void setRayRefreshTime(float timeInSeconde);
-
 	// audio testing page stuff 
 
 	Q_INVOKABLE void resetEmitters();
