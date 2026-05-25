@@ -209,7 +209,7 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 	if (!mapJson.contains("scenarioItems")) return emitters;
 
 	const auto& items = mapJson["scenarioItems"];
-	int id = 0;
+	int id = 100;
 
 	for (const auto& item : items) {
 		std::string filename = "./res/assets/sounds/"+item.value("filename", "");

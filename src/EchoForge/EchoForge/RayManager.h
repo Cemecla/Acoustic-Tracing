@@ -9,6 +9,7 @@
 #include "Ray.h"
 #include "CollisionManager.h"
 #include "DTO_RecievedRay.h"
+#include "AmbientEntry.h"
 
 #ifndef RAYMANAGER_H
 	#define RAYMANAGER_H

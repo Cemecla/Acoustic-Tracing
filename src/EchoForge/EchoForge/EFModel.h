@@ -67,6 +67,8 @@ struct Inputs;
 
 			std::vector<ef::Emitter> getActiveSounds();
 
+			const std::vector<yutasound::AmbientEntry>& getAmbientEntries() const;
+
 			void moveAvatar(Inputs& inputs, float delta);
 			
 			void endWorld();

@@ -199,12 +199,21 @@ void EFModel::processBatch() {
 	const auto& results = m_acousticInterpreter.getResults();
 	for (const auto& [id, r] : results) {
 		auto it = m_emitterIdMap.find(id);
-		if (it == m_emitterIdMap.end()) continue;
+		if (it == m_emitterIdMap.end()) {
+			qDebug() << "[processBatch] id" << id << "NOT FOUND in emitterIdMap";
+			continue;
+		}
 		int saeId = it->second;
+
+		qDebug() << "[processBatch] id" << id << "-> SAE id" << saeId
+			<< "isAmbient=" << yutasound::ReservedIds::isAmbient(saeId)
+			<< "gain=" << r.gain.x() << r.gain.y() << r.gain.z();
+
+		// start ambient looping on first valid acoustic result
+		if (yutasound::ReservedIds::isAmbient(saeId) && r.gain.norm() > 1e-6f)
+			m_parent->m_view->loopEmitter(saeId);
+
 		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
-		qDebug() << "[Acoustic] Emitter" << id << "-> SAE id" << saeId
-			<< "| az:" << r.azimuth << "el:" << r.elevation
-			<< "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
 	}
 
 
@@ -269,6 +278,11 @@ std::vector<ef::Emitter> EFModel::getActiveSounds() {
 		[](const ef::Emitter& s) { return s.isActive; });
 
 	return result;
+}
+
+const std::vector<yutasound::AmbientEntry>& EFModel::getAmbientEntries() const
+{
+	return m_parent->m_view->getAmbientEntries();
 }
 
 

@@ -58,20 +58,19 @@ const void RayManager::createRays(Eigen::Vector3f position, int count) {
 
 int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, bool isDirect) {
 	const auto& allEmitters = m_parent->getEmitters();
+	const auto& ambientEntries = m_parent->getAmbientEntries();
 	constexpr float LOS_ENERGY_THRESHOLD = 0.02f;
 
 	if (r.getEnergy().maxCoeff() < LOS_ENERGY_THRESHOLD) return 0;
 	if (budgetRemaining <= 0) return 0;
 
-	// Vérifie d'abord que le point de rebond est dans le MÊME ESPACE ACOUSTIQUE que l'avatar.
-	// Un rayon qui a traversé un mur par transmission se retrouve de l'autre côté :
-	// depuis là, il peut avoir LOS vers l'emitter, mais le son ne peut pas repartir
-	// vers l'avatar sans re-traverser le mur. Ce check filtre ces faux positifs.
 	--budgetRemaining;
 	const Eigen::Vector3f avatarPos = m_parent->getAvatar().value().getPosition().toEigen();
 	if (!hasLineOfSight(r.getPosition(), avatarPos)) return 0;
 
 	int checked = 0;
+
+	// check dynamic emitters
 	for (const auto& emitter : allEmitters) {
 		if (!emitter.isActive)    continue;
 		if (budgetRemaining <= 0) break;
@@ -80,8 +79,6 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 
 		if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
 
-		// lastSeen = position du rebond (mur visible depuis l'avatar et depuis l'emitter).
-		// Direction acoustique correcte : le son "entre" dans la pièce depuis ce mur.
 		m_receivedRays.emplace_back(
 			r.getPosition(),
 			r.getEnergy(),
@@ -92,6 +89,28 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 			isDirect
 		);
 	}
+
+	// check ambient emitters
+	for (const auto& ambient : ambientEntries) {
+		if (budgetRemaining <= 0) break;
+		--budgetRemaining;
+		++checked;
+
+		// ambients don't have a world position — use avatar position
+		// as their "source" since they represent environmental sound
+		if (!hasLineOfSight(r.getPosition(), avatarPos)) continue;
+
+		m_receivedRays.emplace_back(
+			r.getPosition(),
+			r.getEnergy(),
+			r.getStepCount(),
+			static_cast<std::uint8_t>(ambient.id),
+			r.getBouncePositions(),
+			r.getVelocity(),
+			isDirect
+		);
+	}
+
 	return checked;
 }
 
@@ -112,15 +131,6 @@ const void tracing::RayManager::next_colision() {
 
 		// --- Hors bounds : DTO ambient ---
 		if (!map.isInBound(pos.x(), pos.y(), pos.z())) {
-			m_receivedRays.emplace_back(
-				r.getPosition(),
-				r.getEnergy(),
-				r.getStepCount(),
-				AMBIENT_EMITTER_ID,
-				r.getBouncePositions(),
-				r.getVelocity(),
-				false
-			);
 			r.loseEnergy(Eigen::Vector3f(1.0f, 1.0f, 1.0f));
 			continue;
 		}
