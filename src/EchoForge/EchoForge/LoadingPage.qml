@@ -60,7 +60,8 @@ Page {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                communicator.startSimulation();
+                if (!loadingPage.debugMode)
+                    communicator.startSimulation();
                 loadingPage.isLoading = false;
             }
         }

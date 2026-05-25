@@ -275,20 +275,20 @@ MainLayout {
                                                     Text {
                                                         text: "id:" + modelData.id
                                                         color: mainLayout.selectedSoundFileId === modelData.id ? "#000" 
-                                     : modelData.isAmbient ? "#1ba1e2" : mainWindow.secondaryColor
+                                                        : modelData.isAmbient ? "#1ba1e2" : mainWindow.secondaryColor
                                                         font.pixelSize: 11
                                                         font.family: mainLayout.fontFamily
                                                         Layout.preferredWidth: 36
                                                     }
 
-                            Text {
-                                text: (modelData.isAmbient ? "[A] " : "") + modelData.path.split("/").pop().split("\\").pop()
-                                color: mainLayout.selectedSoundFileId === modelData.id ? "#000" : "#ccc"
-                                font.pixelSize: 11
-                                elide: Text.ElideLeft
-                                Layout.fillWidth: true
-                            }
-                        }
+                                                    Text {
+                                                        text: (modelData.isAmbient ? "[A] " : "") + modelData.path.split("/").pop().split("\\").pop()
+                                                        color: mainLayout.selectedSoundFileId === modelData.id ? "#000" : "#ccc"
+                                                        font.pixelSize: 11
+                                                        elide: Text.ElideLeft
+                                                        Layout.fillWidth: true
+                                                    }
+                                                }
 
                                                 MouseArea {
                                                     anchors.fill: parent
@@ -304,11 +304,12 @@ MainLayout {
                                         Layout.fillWidth: true
                                         onClicked: openSoundDialog.open()
                                     }
-            MenuButton {
-                buttonText: "＋ Add Ambient"
-                Layout.fillWidth: true
-                onClicked: openAmbientDialog.open()
-            }
+
+                                    MenuButton {
+                                        buttonText: "+ Add Ambient"
+                                        Layout.fillWidth: true
+                                        onClicked: openAmbientDialog.open()
+                                    }
 
                                     MenuButton {
                                         buttonText: "Load Registry"

@@ -9,7 +9,7 @@ View3D {
     property int baseSize: 100
     property bool isRaysVisible: true
     property bool isEmittersVisible: true
-    property color avatarColor: "grey"
+    property color avatarColor: appSettings.avatarColor
     property var emitters: []
     camera: debugEnable ? freeCamera : isFirstPerson ? avatarCamera : topCamera
 
@@ -59,18 +59,21 @@ View3D {
     }
 
     PerspectiveCamera {
+        readonly property bool isActive: view3DMain.camera == topCamera
+        readonly property real speed: 5.0
+        property real height: 550 
         property var vec: Qt.vector3d(
             communicator.avatarPos.x,
-            communicator.avatarPos.y + 550,
+            communicator.avatarPos.y + height,
             communicator.avatarPos.z
         )
-
         id: topCamera
         position: vec
         clipNear: 5
         clipFar: 1000000
         frustumCullingEnabled: false
         lookAtNode: avatarModel
+
     }
 
     // AVATAR
@@ -136,7 +139,7 @@ View3D {
         visible: view3DMain.isRaysVisible;
         source: "#Cube"
         instancing: communicator.rayInstances
-        opacity: 1.0
+        opacity: 0.1
 
         castsShadows: false
         receivesShadows: false
@@ -146,17 +149,6 @@ View3D {
             property real intensity: 1.0
             vertexShader: "qrc:/shaders/ray.vert"
             fragmentShader: "qrc:/shaders/ray.frag"
-
-            SequentialAnimation {
-                NumberAnimation {
-                    target: rayModel
-                    property: "opacity"
-                    from: 1.0; 
-                    to: 0.5; 
-                    duration: 500; 
-                    loops: Animation.Infinite
-                }
-            }
         }
     }
 
@@ -196,8 +188,16 @@ View3D {
     }
 
     Keys.onPressed: (event) => {
-        if (event.key === Qt.Key_C) {
+        if (event.key == Qt.Key_C) {
             isFirstPerson = !isFirstPerson
+        }
+
+        if (event.key == Qt.Key_Z && topCamera.isActive) {
+            topCamera.height = Math.max(50, topCamera.height - topCamera.speed)
+        }
+
+        if (event.key == Qt.Key_X && topCamera.isActive) {
+            topCamera.height = Math.min(2000, topCamera.height + topCamera.speed)
         }
     }
 

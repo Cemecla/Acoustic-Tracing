@@ -41,7 +41,8 @@ public:
 	void setAvatarPos(QVector3D& v);
 	void setHeadAngles(QVector3D& v);
 	void setEmitters(QVariantList emitters);
-
+	
+	Q_INVOKABLE QVector3D getWorldBound() const;
 	Q_INVOKABLE void startSimulation();
 	Q_INVOKABLE void stopSimulation();
 	Q_INVOKABLE void saveSimulation(const QString& url);

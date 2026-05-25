@@ -27,6 +27,7 @@ Page {
             anchors.fill: parent
             z: 1
             emitters: viewportRoot.emitters
+            isDebugMode: debugEnable
 
             onRaysVisibleChanged: {
                 viewScreen.isRaysVisible = raysVisible

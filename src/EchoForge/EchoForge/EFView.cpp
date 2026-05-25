@@ -163,6 +163,10 @@ void EFView::stopAudio() const {
 		m_audioManager->stop();
 }
 
+const ef::Map& EFView::getMap() const {
+	return m_parent->m_model->getMap();
+}
+
 QVariantList EFView::getSounds() const
 {
 	QVariantList list;
