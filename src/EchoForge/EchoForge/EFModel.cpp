@@ -19,7 +19,7 @@ using namespace ef;
 // TODO : MAKE numbers of ray configurable
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
-	m_rayManager{this, 500, 50}
+	m_rayManager{this, 1000, 10}
 {}
 	//m_rayManager(tracing::RayManager(this,20))
 	//{}
@@ -185,12 +185,12 @@ void EFModel::processBatch() {
 		for (const auto& e : m_world->emitters) {
 			Eigen::Vector3f delta = e.position.toEigen() - listenerPos;
 			float rawAz = std::atan2(delta.x(), -delta.z()) * RAD2DEG;
-			qDebug() << "[AZ-DEBUG] Emitter" << e.m_id
-			         << "| emitterPos:" << e.position.x << e.position.z
-			         << "| listenerPos:" << listenerPos.x() << listenerPos.z()
-			         << "| delta:" << delta.x() << delta.z()
-			         << "| rawAz(deg):" << rawAz
-			         << "| yaw(deg):" << listenerYaw * RAD2DEG;
+			//qDebug() << "[AZ-DEBUG] Emitter" << e.m_id
+			//         << "| emitterPos:" << e.position.x << e.position.z
+			//         << "| listenerPos:" << listenerPos.x() << listenerPos.z()
+			//         << "| delta:" << delta.x() << delta.z()
+			//         << "| rawAz(deg):" << rawAz
+			//         << "| yaw(deg):" << listenerYaw * RAD2DEG;
 		}
 
 		m_acousticInterpreter.feed(batch, listenerPos, listenerYaw);
@@ -202,9 +202,9 @@ void EFModel::processBatch() {
 		if (it == m_emitterIdMap.end()) continue;
 		int saeId = it->second;
 		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
-		qDebug() << "[Acoustic] Emitter" << id << "-> SAE id" << saeId
-			<< "| az:" << r.azimuth << "el:" << r.elevation
-			<< "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
+		//qDebug() << "[Acoustic] Emitter" << id << "-> SAE id" << saeId
+		//	<< "| az:" << r.azimuth << "el:" << r.elevation
+		//	<< "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();
 	}
 
 
