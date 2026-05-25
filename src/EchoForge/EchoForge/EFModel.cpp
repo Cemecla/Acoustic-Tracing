@@ -101,7 +101,7 @@ void EFModel::update(float delta) {
 	processBatch();
 
 	m_updateRayTimer += delta;
-	if (m_updateRayTimer >= 1.0)
+	if (m_updateRayTimer >= m_refreshTime)
 	{
 		m_parent->updateViewRays();
 		m_updateRayTimer = 0.0;
@@ -297,4 +297,13 @@ void EFModel::endWorld() {
 	m_emitterIdMap.clear();
 	m_world->emitters.clear();
 }
+
+const float EFModel::getRefreshTime() const {
+	return m_refreshTime;
+}
+
+void EFModel::setRefreshTime(float timeInSeconde) {
+	m_refreshTime = timeInSeconde;
+}
+ 
  

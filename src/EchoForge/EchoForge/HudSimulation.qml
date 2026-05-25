@@ -22,7 +22,7 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.margins: 16
-        width: 260
+        width: 450
 
         ColumnLayout {
             anchors.fill: parent
@@ -126,6 +126,49 @@ Item {
                 }
             }
 
+            RowLayout {
+                visible: !root.isDebugMode
+                spacing: 8
+
+                Text {
+                    text: "Refresh Time"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    id: refreshTimeText
+                    text: communicator.getRayRefreshTime()
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                OptionSlider {
+                    id: raySlider
+                    from: 0.1
+                    to: 5.0
+                    stepSize: 0.1
+                    width: 30
+                    value: communicator.getRayRefreshTime()
+
+                    onValueChanged: {
+                        if (activeFocus || pressed) {
+                            communicator.setRayRefreshTime(value)
+                            refreshTimeText.text = value.toFixed(1)
+                        }
+                    }
+                }
+            }
+            
             HorizontalSeparator { color: root.panelTitleColor }
 
             Text {

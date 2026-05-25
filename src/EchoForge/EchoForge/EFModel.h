@@ -72,6 +72,9 @@ struct Inputs;
 			void moveAvatar(Inputs& inputs, float delta);
 			
 			void endWorld();
+			
+			const float getRefreshTime() const;
+			void setRefreshTime(float timeInSeconde);
 		
 		private:
 			const std::string MATERIAL_FILENAME = "";
@@ -88,6 +91,7 @@ struct Inputs;
 			void buildScenario();
 			int m_debugFrameCount = 0;
 			float m_updateRayTimer = 0.0;
+			float m_refreshTime = 0.5;
 			std::unordered_map<int, int> m_emitterIdMap; // world id -> SAE emitter id
 	};
 

@@ -76,6 +76,9 @@ class UICommunicator;
 
 			void setEmittersVisual(const std::vector<ef::Emitter>& emitters);
 		
+			
+			const float getRefreshTime() const;
+			void setRefreshTime(float timeInSeconde);
 		private:
 			EFController* m_parent;
 			QQmlApplicationEngine* m_qtEngine;

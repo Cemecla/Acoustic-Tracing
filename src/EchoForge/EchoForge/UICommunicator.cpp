@@ -279,5 +279,11 @@ void UICommunicator::setEmitters(QVariantList emitters) {
 	emittersChanged();
 }
 
+float UICommunicator::getRayRefreshTime() {
+	return m_parent->getRefreshTime();
+}
 
+void UICommunicator::setRayRefreshTime(float timeInSeconde) {
+	m_parent->setRefreshTime(timeInSeconde);
+}
 
