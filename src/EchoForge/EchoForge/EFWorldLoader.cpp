@@ -197,7 +197,6 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 		ColorRGBA colorRGB = ColorRGBA(colorBrut[0], colorBrut[1], colorBrut[2], colorBrut[3]);
 
 		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, topTile, sideTile, bottomTile, colorRGB, roughness, metalness, specular, transmissionCoefficient);
-
 		materials.push_back(nm);
 	}
 

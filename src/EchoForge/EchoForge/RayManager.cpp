@@ -184,33 +184,33 @@ void RayManager::clearAllRays() {
 
 
 const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::Vector3f& to) {
-// Détecter si un rayon traverse un bloc quand il arrive à une source
+	// Détecter si un rayon traverse un bloc quand il arrive à une source
 	const ef::Map& map = m_parent->getMap();
 
 	Eigen::Vector3f delta = to - from;
 	float maxDist = delta.norm();
 	if (maxDist < 1e-4f) return true;
-	Ray shadowRay(from, delta.normalized(),map.getUnitSize());
-	// targetVoxel doit être en coordonnées voxel (world / unitSize), pas en world units.
-	// Avant le fix de EFWorldLoader, emitter.position était déjà en voxel units donc ça
-	// marchait par accident. Maintenant les deux sont en world units → conversion explicite.
+
 	const float us = static_cast<float>(map.getUnitSize());
+	Ray shadowRay(from, delta.normalized(), map.getUnitSize());
 	Eigen::Vector3i targetVoxel = (to.array() / us).floor().cast<int>();
+	Eigen::Vector3i startVoxel = (from.array() / us).floor().cast<int>();
 
 	int maxSteps = static_cast<int>(maxDist * 2.0f) + 5;
-	shadowRay.advance();
 
 	for (int i : std::views::iota(0, maxSteps)) {
+		shadowRay.advance();
 		Eigen::Vector3i pos = shadowRay.getVoxelPos();
 
 		if (pos == targetVoxel) return true;
 
 		if (!map.isInBound(pos.x(), pos.y(), pos.z())) return false;
 
+		// skip the starting voxel (wall face) so we don't immediately fail
+		if (pos == startVoxel) continue;
+
 		ef::Material mat = map.fetchMaterial(ef::Vector3I::fromEigenI(pos));
 		if (!mat.isPassable) return false;
-
-		shadowRay.advance();
 	}
 
 	return false;
