@@ -136,6 +136,7 @@ MainLayout {
                     SoundEffect {
                         id: hoverSound
                         source: "qrc:/sounds/buttonSound"
+                        volume: appSettings.sfxVolume
                         loops: 1
                     }
 
