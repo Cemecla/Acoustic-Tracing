@@ -4,11 +4,11 @@ using namespace std;
 using namespace ef;
 
 // AVATAR SECTION
-Avatar::Avatar() : m_head(Vector3F(0,0,0)), m_position(Vector3F(0, 0, 0)), m_speed(200.0) {
+Avatar::Avatar() : m_head(Vector3F(0,0,0)), m_position(Vector3F(0, 0, 0)), m_speed(300.0) {
 
 }
 
-Avatar::Avatar(Vector3F position, Vector3F angles): m_head(angles), m_position(position), m_speed(200.0) {
+Avatar::Avatar(Vector3F position, Vector3F angles): m_head(angles), m_position(position), m_speed(300.0) {
 
 }
 

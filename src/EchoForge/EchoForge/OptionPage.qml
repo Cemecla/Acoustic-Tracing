@@ -213,7 +213,7 @@ MainLayout {
                                 rowLabel: "Language (WIP)"
                                 OptionCycleButton {
                                     id: languageCycle
-                                    options: ["English", "Français", "Español", "日本語"]
+                                    options: ["English", "Français", "Español"]
                                 }
                             }
 
@@ -228,7 +228,7 @@ MainLayout {
 
                                     ColorDialog {
                                         id: avatarColorDialog
-                                        selectedColor: rayColorBox.color
+                                        selectedColor: avatarColorBox.color
                                         onAccepted: appSettings.avatarColor = selectedColor
                                     }
 

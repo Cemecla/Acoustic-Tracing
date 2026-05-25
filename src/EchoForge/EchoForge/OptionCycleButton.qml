@@ -19,6 +19,7 @@ Row {
     
     Text {
         id: cycleLabel
+        font.family: "Segoe UI Symbol"
         anchors.verticalCenter: cycleRoot.verticalCenter
         text: cycleRoot.options[cycleRoot.currentIndex]
         font.pointSize: 13
