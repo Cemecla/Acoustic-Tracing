@@ -16,10 +16,10 @@ public:
 
 	int rayCount() const;
 
-	void setRays(const std::vector<DTO_RecievedRay>& rays);
+	void setRays(const std::vector<DTO_RecievedRay>& rays, const QVariantMap& emittersData);
 	void clearBuffer();
 	void prepareBuffer(QByteArray& buffer, int batchSize);
-	InstanceTableEntry makeEntry(const QVector3D& start, const QVector3D& end);
+	InstanceTableEntry makeEntry(const QVector3D& start, const QVector3D& end, QColor& color);
 
 signals:
 	void rayCountChanged();

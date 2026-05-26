@@ -14,7 +14,8 @@ Item {
     property color panelTextColor: "white"
     property string fontFamily: "Consolas"
     property int subTitleSize: 14
-    property var emitters: []
+    property var emitters: null
+    property var emittersId: []
 
     HudPanel {
         id: infoPanel
@@ -189,7 +190,7 @@ Item {
             
                 ListView {
                     id: emittersList
-                    model: root.emitters
+                    model: root.emittersId
                     spacing: 4
                     boundsBehavior: Flickable.StopAtBounds
             
@@ -210,7 +211,7 @@ Item {
                                 Layout.preferredWidth: 14
                                 Layout.preferredHeight: 14
                                 Layout.alignment: Qt.AlignVCenter
-                                color: modelData["color"]
+                                color: root.emitters[modelData]["color"]
                                 border.color: "#000000"
                                 border.width: 1
                                 radius: 50
@@ -222,7 +223,7 @@ Item {
             
                                 Text {
                                      text: {
-                                        const full = modelData["filename"] || ""
+                                        const full = root.emitters[modelData]["filename"] || ""
                                         const i = Math.max(full.lastIndexOf("/"), full.lastIndexOf("\\"))
                                         return i >= 0 ? full.substring(i + 1) : full
                                      }
@@ -234,9 +235,9 @@ Item {
                                 }
             
                                 Text {
-                                    text: `x: ${modelData["position"].x.toFixed(1)}   ` +
-                                          `y: ${modelData["position"].y.toFixed(1)}   ` +
-                                          `z: ${modelData["position"].z.toFixed(1)}`
+                                    text: `x: ${root.emitters[modelData]["position"].x.toFixed(1)}   ` +
+                                          `y: ${root.emitters[modelData]["position"].y.toFixed(1)}   ` +
+                                          `z: ${root.emitters[modelData]["position"].z.toFixed(1)}`
                                     color: "#aaaaaa"
                                     font.family: root.fontFamily
                                     font.pixelSize: 10

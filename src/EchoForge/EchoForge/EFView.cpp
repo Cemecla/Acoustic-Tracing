@@ -283,18 +283,19 @@ void EFView::setEmittersVisual(const std::vector<ef::Emitter>& emitters) {
 	std::mt19937 gen(rd());
 	std::uniform_real_distribution<double> dis(0.0, 255.0);
 
-	QVariantList list = {};
+	QVariantMap map = {};
 	for (auto& e : emitters)
 	{
-		QVariantMap map = {};
+		QVariantMap data = {};
 		QVector3D pos = { e.position.x, e.position.y, e.position.z};
-		map.insert("position", pos);
-		map.insert("filename", QString::fromStdString(e.filename));
-		map.insert("color", QColor(dis(rd), dis(rd), dis(rd)));
-		list.append(map);
+		data.insert("position", pos);
+		data.insert("filename", QString::fromStdString(e.filename));
+		data.insert("color", QColor(dis(rd), dis(rd), dis(rd)));
+
+		map.insert(QString::number(e.m_id), data);
 	}
 
-	m_uiCommunicator->setEmitters(list);
+	m_uiCommunicator->setEmitters(map);
 }
 
 const std::vector<yutasound::AmbientEntry>& EFView::getAmbientEntries() const {

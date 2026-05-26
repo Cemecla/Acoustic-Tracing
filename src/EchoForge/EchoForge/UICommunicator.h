@@ -30,17 +30,17 @@ public:
 	Q_PROPERTY(QVector3D headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
 	Q_PROPERTY(ChunkInstancing* voxelInstances READ voxelInstances NOTIFY chunkInstancingsChanged);
 	Q_PROPERTY(RayInstancing* rayInstances READ rayInstances NOTIFY rayInstancingsChanged);
-	Q_PROPERTY(QVariantList emitters READ emitters WRITE setEmitters NOTIFY emittersChanged);
+	Q_PROPERTY(QVariantMap emitters READ emitters WRITE setEmitters NOTIFY emittersChanged);
 
 	QVector3D avatarPos() const;
 	QVector3D headAngles() const;
 	ChunkInstancing* voxelInstances();
 	RayInstancing* rayInstances();
-	QVariantList emitters();
+	QVariantMap emitters();
 
 	void setAvatarPos(QVector3D& v);
 	void setHeadAngles(QVector3D& v);
-	void setEmitters(QVariantList emitters);
+	void setEmitters(QVariantMap emitters);
 	
 	Q_INVOKABLE QVector3D getWorldBound() const;
 	Q_INVOKABLE void startSimulation();
@@ -106,7 +106,7 @@ private:
 	ChunkInstancing* m_voxelInstances;
 	RayInstancing* m_rayInstances;
 	EFView* m_parent;
-	QVariantList m_emittersPositions{};
+	QVariantMap m_emittersPositions{};
 
 	Inputs m_inputs{};
 };

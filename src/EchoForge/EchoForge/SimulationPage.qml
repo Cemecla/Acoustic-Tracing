@@ -12,6 +12,11 @@ Page {
         id: viewportRoot
         anchors.fill: parent
         property var emitters: communicator.emitters
+        property var emittersId: []
+
+        onEmittersChanged: {
+            emittersId = Object.keys(emitters)
+        }
 
         SimulationScreen {
             id: viewScreen
@@ -20,6 +25,7 @@ Page {
             isRaysVisible: true
             isEmittersVisible: true
             emitters: viewportRoot.emitters
+            emittersId: viewportRoot.emittersId
         }
 
         HudSimulation {
@@ -27,6 +33,7 @@ Page {
             anchors.fill: parent
             z: 1
             emitters: viewportRoot.emitters
+            emittersId: viewportRoot.emittersId
             isDebugMode: debugEnable
 
             onRaysVisibleChanged: {
