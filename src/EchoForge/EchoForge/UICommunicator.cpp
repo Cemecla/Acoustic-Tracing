@@ -177,7 +177,7 @@ const Inputs& UICommunicator::getInputs() const {
 
 void UICommunicator::updateRayInstances(const std::vector<DTO_RecievedRay>& rays) {
 
-	m_rayInstances->setRays(rays);
+	m_rayInstances->setRays(rays, m_emittersPositions);
 }
 
 void UICommunicator::buildMap(const ef::Map& map) {	
@@ -242,7 +242,6 @@ QVariantList UICommunicator::loadPinnaSetting() {
 			map["description"] = QString::fromStdString(entry["description"].get<std::string>());
 
 
-
 		QVariantList orderedGains;
 
 		if (entry.contains("bands") && entry["bands"].is_object()) {
@@ -257,7 +256,6 @@ QVariantList UICommunicator::loadPinnaSetting() {
 		}
 
 		map["ordered_gains"] = orderedGains;
-
 		out.append(map);
 
 	}
@@ -270,11 +268,11 @@ void UICommunicator::setSelectedPinnaId(int id) {
 	m_parent->setSelectedPinnaId(id);
 }
 
-QVariantList UICommunicator::emitters() {
+QVariantMap UICommunicator::emitters() {
 	return m_emittersPositions;
 }
 
-void UICommunicator::setEmitters(QVariantList emitters) {
+void UICommunicator::setEmitters(QVariantMap emitters) {
 	m_emittersPositions = emitters;
 	emittersChanged();
 }

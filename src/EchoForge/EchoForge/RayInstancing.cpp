@@ -16,7 +16,7 @@ void RayInstancing::prepareBuffer(QByteArray& buffer, int batchSize) {
 	buffer.reserve(batchSize * sizeof(InstanceTableEntry));
 }
 
-void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
+void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays, const QVariantMap& emittersData) {
 
 	int rayCount = 0;
 	for (const auto& ray : rays)
@@ -41,7 +41,9 @@ void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
 			const Eigen::Vector3f& s = points[i];
 			const Eigen::Vector3f& e = (i + 1 < points.size()) ? points[i + 1] : lastPoint;
 
-			InstanceTableEntry entry = makeEntry( { s.x(), s.y(), s.z() }, { e.x(), e.y(), e.z() } );
+			QString eId = QString::number(ray.getEmitterID());
+			QColor color = emittersData[eId].value<QVariantMap>()["color"].value<QColor>();
+			InstanceTableEntry entry = makeEntry( { s.x(), s.y(), s.z() }, { e.x(), e.y(), e.z() }, color);
 
 			tempBuffer.append(reinterpret_cast<const char*>(&entry), sizeof(entry));
 		}
@@ -54,7 +56,7 @@ void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays) {
 	markDirty();
 }
 
-RayInstancing::InstanceTableEntry RayInstancing::makeEntry(const QVector3D& start, const QVector3D& end)
+RayInstancing::InstanceTableEntry RayInstancing::makeEntry(const QVector3D& start, const QVector3D& end, QColor& color)
 {
 	QVector3D dir = end - start;
 	const float length = dir.length();
@@ -76,7 +78,7 @@ RayInstancing::InstanceTableEntry RayInstancing::makeEntry(const QVector3D& star
 
 	return calculateTableEntryFromQuaternion(
 		position, scale, rotation,
-		QColor(255, 0, 0, 100), QVector4D());
+		color, QVector4D());
 }
 
 QByteArray RayInstancing::getInstanceBuffer(int* instanceCount) {

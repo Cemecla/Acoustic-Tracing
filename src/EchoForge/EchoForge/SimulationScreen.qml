@@ -10,7 +10,8 @@ View3D {
     property bool isRaysVisible: true
     property bool isEmittersVisible: true
     property color avatarColor: appSettings.avatarColor
-    property var emitters: []
+    property var emitters: null
+    property var emittersId: []
     camera: debugEnable ? freeCamera : isFirstPerson ? avatarCamera : topCamera
 
     // ENVIRONMENT
@@ -118,15 +119,16 @@ View3D {
     Node {
         visible: view3DMain.isEmittersVisible;
         Repeater3D {
-            model: view3DMain.emitters
+            model: view3DMain.emittersId
             delegate: Model {
-                position: Qt.vector3d(modelData["position"].x, modelData["position"].y, modelData["position"].z)
+                property string eid: modelData
+                position: Qt.vector3d(view3DMain.emitters[eid]["position"].x, view3DMain.emitters[eid]["position"].y, view3DMain.emitters[eid]["position"].z)
                 scale: Qt.vector3d(0.4, 0.4, 0.4)
                 
                 source: "#Sphere"
                 materials: [
                     DefaultMaterial {
-                        diffuseColor: modelData["color"]
+                        diffuseColor: view3DMain.emitters[eid]["color"]
                     }
                 ]
             }
