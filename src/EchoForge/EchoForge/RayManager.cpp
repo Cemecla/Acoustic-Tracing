@@ -79,12 +79,15 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 
 		if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
 
+		auto bouncePoints = r.getBouncePositions();
+		bouncePoints.push_back(r.getPosition());
+
 		m_receivedRays.emplace_back(
-			r.getPosition(),
+			emitter.position.toEigen(),
 			r.getEnergy(),
 			r.getStepCount(),
 			static_cast<std::uint8_t>(emitter.m_id),
-			r.getBouncePositions(),
+			bouncePoints,
 			r.getVelocity(),
 			isDirect
 		);
@@ -168,12 +171,15 @@ const void tracing::RayManager::next_colision() {
 			Eigen::Vector3i emitterVoxel = (emitter.position.toEigen().array() / map.getUnitSize()).floor().cast<int>();
 			if (pos != emitterVoxel) continue;
 
+			auto directBouncePoints = r.getBouncePositions();
+			directBouncePoints.push_back(r.getPosition());
+
 			m_receivedRays.emplace_back(
 				emitter.position.toEigen(),   // position exacte de l'emitter
 				r.getEnergy(),
 				r.getStepCount(),
 				static_cast<std::uint8_t>(emitter.m_id),
-				r.getBouncePositions(),
+				directBouncePoints,
 				r.getVelocity(),
 				true                          // isDirect = true
 			);

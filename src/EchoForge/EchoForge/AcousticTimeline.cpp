@@ -36,8 +36,11 @@ void AcousticTimeline::addDTO(const DTO_RecievedRay& dto)
         slot.directTotalWeight += w;
         slot.hasDirect          = true;
     } else {
-        // Ray indirect : lastSeen = position du rebond sur mur → ne pas mélanger
-        slot.weightedPos += dto.getLastSeen() * w;
+        // Ray indirect : utilise le dernier point de rebond (r.getPosition()) comme position audio,
+        // pas lastSeen (= emitter.position) qui sert uniquement à l'affichage visuel.
+        const auto& bp = dto.getBouncePoints();
+        Eigen::Vector3f audioPos = bp.empty() ? dto.getLastSeen() : bp.back();
+        slot.weightedPos += audioPos * w;
     }
     slot.weightedGain += dto.getEnergy() * w;
     slot.totalWeight  += w;
