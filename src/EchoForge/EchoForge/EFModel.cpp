@@ -198,12 +198,12 @@ void EFModel::processBatch() {
 
 	const auto& results = m_acousticInterpreter.getResults();
 	for (const auto& [id, r] : results) {
-		auto it = m_emitterIdMap.find(id);
-		if (it == m_emitterIdMap.end()) {
+		auto it = m_emitterIdMap.search(id);
+		if (it == nullptr) {
 			qDebug() << "[processBatch] id" << id << "NOT FOUND in emitterIdMap";
 			continue;
 		}
-		int saeId = it->second;
+		int saeId = *it;
 
 		qDebug() << "[processBatch] id" << id << "-> SAE id" << saeId
 			<< "isAmbient=" << yutasound::ReservedIds::isAmbient(saeId)

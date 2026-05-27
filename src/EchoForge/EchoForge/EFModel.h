@@ -12,6 +12,7 @@
 #include "Scenario.h"
 #include "AcousticInterpreter.h"
 #include "Vector.h"
+#include "TreeMap.h"
 
 class EFController;
 struct Inputs;
@@ -92,7 +93,7 @@ struct Inputs;
 			int m_debugFrameCount = 0;
 			float m_updateRayTimer = 0.0;
 			float m_refreshTime = 0.5;
-			std::unordered_map<int, int> m_emitterIdMap; // world id -> SAE emitter id
+			ef::TreeMap<int, int> m_emitterIdMap; // world id -> SAE emitter id
 	};
 
 #endif

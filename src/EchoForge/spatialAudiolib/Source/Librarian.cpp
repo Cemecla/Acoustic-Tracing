@@ -157,7 +157,7 @@ namespace yutasound {
     {
         m_entries.clear();
         m_ambientEntries.clear();
-        m_nextId = 0;
+        m_nextId = ReservedIds::DYNAMIC_START;
         DBG("Librarian: unloaded all sounds");
     }
     const juce::AudioBuffer<float>& Librarian::getBuffer(int id) const
@@ -230,6 +230,7 @@ namespace yutasound {
                 return true;
         return false;
     }
+
     int Librarian::getExistingId_(const juce::String& md5) const
     {
 
@@ -238,6 +239,7 @@ namespace yutasound {
                 return entry.id;
         return -1;
     }
+
     const std::vector<SoundFileEntry>& Librarian::getEntries() const
     {
         return m_entries;

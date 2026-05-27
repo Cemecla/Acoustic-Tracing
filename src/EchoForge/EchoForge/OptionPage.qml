@@ -164,11 +164,12 @@ MainLayout {
                                 }
                             }
 
-                            OptionRow {
-                                id: frustrumRow
-                                rowLabel: "Frustrum Culling (WIP)"
-                                OptionCycleButton { id: frustrumCycle; options: ["On", "Off"] }
-                            }
+                            // WIP
+                            //OptionRow {
+                            //    id: frustrumRow
+                            //    rowLabel: "Frustrum Culling (WIP)"
+                            //    OptionCycleButton { id: frustrumCycle; options: ["On", "Off"] }
+                            //}
 
                             OptionRow {
                                 id: fullscreenRow
@@ -202,20 +203,21 @@ MainLayout {
                             anchors { left: configPage.left; right: configPage.right; top: configPage.top }
                             spacing: 0
 
-                            OptionRow {
-                                id: autoSaveRow
-                                rowLabel: "Auto-Save (WIP)"
-                                OptionCycleButton { id: autoSaveCycle; options: ["Off", "On"] }
-                            }
-
-                            OptionRow {
-                                id: languageRow
-                                rowLabel: "Language (WIP)"
-                                OptionCycleButton {
-                                    id: languageCycle
-                                    options: ["English", "Français", "Español"]
-                                }
-                            }
+                            // WIP
+                            //OptionRow {
+                            //    id: autoSaveRow
+                            //    rowLabel: "Auto-Save (WIP)"
+                            //    OptionCycleButton { id: autoSaveCycle; options: ["Off", "On"] }
+                            //}
+                            //
+                            //OptionRow {
+                            //    id: languageRow
+                            //    rowLabel: "Language (WIP)"
+                            //    OptionCycleButton {
+                            //        id: languageCycle
+                            //        options: ["English", "Français", "Español"]
+                            //    }
+                            //}
 
                             OptionRow {
                                 id: avatarColor

@@ -38,6 +38,7 @@ MainLayout {
                     model: creditPage.creditSections
 
                     ColumnLayout {
+                        id: modelLayout
                         required property var modelData
                         Layout.fillWidth: true
                         Layout.topMargin: 20
@@ -49,7 +50,7 @@ MainLayout {
 
                             Text {
                                 Layout.alignment: Qt.AlignHCenter
-                                text: modelData.title
+                                text: modelLayout.modelData.title
                                 font.pixelSize: 28
                                 font.italic: true
                                 color: "#000000"
@@ -64,7 +65,7 @@ MainLayout {
                         }
 
                         Repeater {
-                            model: modelData.content
+                            model: modelLayout.modelData.content
 
                             Text {
                                 required property string modelData
