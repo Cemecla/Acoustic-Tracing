@@ -57,7 +57,7 @@ const void RayManager::createRays(Eigen::Vector3f position, int count) {
 	}
 }
 
-int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, bool isDirect) {
+int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining) {
 	const auto& allEmitters = m_parent->getEmitters();
 	const auto& ambientEntries = m_parent->getAmbientEntries();
 	constexpr float LOS_ENERGY_THRESHOLD = 0.02f;
@@ -94,6 +94,7 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 
 		auto bouncePoints = r.getBouncePositions();
 		bouncePoints.push_back(r.getPosition());
+		bool direct = m_directLosCache.count(emitter.m_id) && m_directLosCache.at(emitter.m_id);
 
 		m_receivedRays.emplace_back(
 			emitter.position.toEigen(),
@@ -102,7 +103,7 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 			static_cast<std::uint8_t>(emitter.m_id),
 			bouncePoints,
 			r.getVelocity(),
-			isDirect
+			direct
 		);
 	}
 
@@ -121,7 +122,7 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 			static_cast<std::uint8_t>(ambient.id),
 			r.getBouncePositions(),
 			r.getVelocity(),
-			isDirect
+			false
 		);
 	}
 
@@ -140,13 +141,19 @@ const void tracing::RayManager::next_colision() {
 	int losRemaining = std::max(30, activeEmitterCount * 4 * static_cast<int>(m_activeRays->size()) / 10);
 
 	// --- Check direct avatar → emitters (une fois par frame, hors ray tracing) ---
-	// Garantit un DTO isDirect=true quand l'émetteur est en LOS directe du listener,
-	// même si aucun ray ne passe par le voxel exact de l'émetteur ce frame-ci.
-	// Coût : un hasLineOfSight par emitter actif par frame.
+	// Pré-calcule la LOS directe pour chaque emitter actif.
+	// Ce résultat sert à la fois au DTO direct ci-dessous ET à décider isDirect
+	// dans checkLosToEmitters (via m_directLosCache).
 	const Eigen::Vector3f avatarPos = m_parent->getAvatar().value().getPosition().toEigen();
+	m_directLosCache.clear();
 	for (const auto& emitter : allEmitters) {
 		if (!emitter.isActive) continue;
-		if (!hasLineOfSight(avatarPos, emitter.position.toEigen())) continue;
+		m_directLosCache[emitter.m_id] = hasLineOfSight(avatarPos, emitter.position.toEigen());
+	}
+
+	for (const auto& emitter : allEmitters) {
+		if (!emitter.isActive) continue;
+		if (!m_directLosCache[emitter.m_id]) continue;
 
 		Eigen::Vector3f dir   = (emitter.position.toEigen() - avatarPos).normalized();
 		float           dist  = (emitter.position.toEigen() - avatarPos).norm();
@@ -176,23 +183,31 @@ const void tracing::RayManager::next_colision() {
 		ef::Material mat = map.fetchMaterial(ef::Vector3I::fromEigenI(pos));
 		r.loseEnergy(mat.energyLoss.toEigen());
 
-		// --- Son direct : le ray passe par le voxel d'un emitter actif ---
+		// --- Ray passant par le voxel d'un emitter actif ---
+		// isDirect = LOS directe avatar→emitter : un ray contournant le mur par l'air
+		// sans rebond n'est pas perceptuellement "direct" si l'avatar n'a pas de LOS réelle.
 		for (const auto& emitter : allEmitters) {
 			if (!emitter.isActive) continue;
 			Eigen::Vector3i emitterVoxel = (emitter.position.toEigen().array() / map.getUnitSize()).floor().cast<int>();
 			if (pos != emitterVoxel) continue;
 
-			auto directBouncePoints = r.getBouncePositions();
-			directBouncePoints.push_back(r.getPosition());
+			bool direct = m_directLosCache.count(emitter.m_id) && m_directLosCache.at(emitter.m_id);
+
+			// Pour un DTO indirect, ne pas pousser r.getPosition() (≈ emitter) dans les
+			// bouncePoints : bp.back() serait la position de l'émetteur et non le dernier
+			// rebond réel, ce qui ferait pointer la direction vers l'émetteur malgré isDirect=false.
+			auto bouncePoints = r.getBouncePositions();
+			if (direct) bouncePoints.push_back(r.getPosition());
+			else if (bouncePoints.empty()) continue; // pas de rebond réel → pas de direction utile
 
 			m_receivedRays.emplace_back(
-				emitter.position.toEigen(),   // position exacte de l'emitter
+				emitter.position.toEigen(),
 				r.getEnergy(),
 				r.getStepCount(),
 				static_cast<std::uint8_t>(emitter.m_id),
-				directBouncePoints,
+				bouncePoints,
 				r.getVelocity(),
-				true                          // isDirect = true
+				direct
 			);
 		}
 
@@ -200,7 +215,7 @@ const void tracing::RayManager::next_colision() {
 		if (!mat.isPassable) {
 			if (!r.wasInSolid()) {
 				// Première entrée dans le solide : LOS check + décision de stratégie
-				checkLosToEmitters(r, losRemaining, false);
+				checkLosToEmitters(r, losRemaining);
 
 				auto strategy   = m_collisionManager.decision(r, mat.scatteringCoefficient, mat.transmissionCoefficient, m_rng);
 				Eigen::Vector3f newDir = strategy->getNextDirection(r.getVelocity(), r.getHitNormal(), m_rng);
@@ -219,7 +234,7 @@ const void tracing::RayManager::next_colision() {
 			// Le rayon vient de sortir d'un solide (transmission) → LOS depuis
 			// l'espace libre de l'autre côté du mur, position correcte.
 			if (r.wasInSolid())
-				checkLosToEmitters(r, losRemaining, false);
+				checkLosToEmitters(r, losRemaining);
 			r.setInSolid(false);
 		}
 	}

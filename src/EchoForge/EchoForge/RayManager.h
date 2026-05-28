@@ -2,6 +2,7 @@
 #include <random>
 #include <numbers>
 #include <ranges>
+#include <unordered_map>
 #include <Eigen/StdVector>
 
 #include "Vector.h"
@@ -49,7 +50,11 @@ namespace tracing {
 
 		// Vérifie LOS vers tous les emitters actifs depuis un point de contact et génère les DTOs.
 		// Retourne le nombre de LOS checks consommés dans le budget.
-		int checkLosToEmitters(const Ray& r, int& budgetRemaining, bool isDirect);
+		int checkLosToEmitters(const Ray& r, int& budgetRemaining);
+
+		// Cache de LOS directe avatar→emitter, mis à jour chaque frame dans next_colision().
+		// Permet à checkLosToEmitters de savoir si isDirect=true pour chaque emitter.
+		std::unordered_map<int, bool> m_directLosCache;
 
 		std::mt19937 m_rng{ std::random_device{}() };
 		CollisionManager m_collisionManager;

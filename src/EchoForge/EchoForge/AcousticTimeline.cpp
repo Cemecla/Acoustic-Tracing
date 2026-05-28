@@ -154,6 +154,7 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
 
     // Azimuth / élévation depuis la position moyenne pondérée
     Eigen::Vector3f avgPos = dirWeightedPos / dirTotalW;
+
     Eigen::Vector3f delta  = avgPos - listenerPos;
     float dist2D = std::sqrt(delta.x() * delta.x() + delta.z() * delta.z());
 
