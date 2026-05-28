@@ -16,9 +16,10 @@ struct TimelineSlot
     Eigen::Vector3f weightedPos       = Eigen::Vector3f::Zero(); // somme(pos * w) — rays indirects
     Eigen::Vector3f directWeightedPos = Eigen::Vector3f::Zero(); // somme(pos * w) — rays directs uniquement
     Eigen::Vector3f weightedGain      = Eigen::Vector3f::Zero(); // somme(energy * w)
-    float           totalWeight       = 0.f;
-    float           directTotalWeight = 0.f;
-    int             rayCount          = 0;
+    float totalWeight = 0.f;
+    float directTotalWeight = 0.f;
+    float weightedPathLength = 0.f;
+    int rayCount = 0;
     bool            hasDirect         = false; // au moins un DTO isDirect dans ce slot
     bool            isSynthetic       = false; // slot reconstruit par fillGaps()
 

@@ -10,27 +10,30 @@ class DTO_RecievedRay
 {
 public:
 	DTO_RecievedRay(Eigen::Vector3f lastSeen, Eigen::Vector3f energy, int stepCount, std::uint8_t emitterID,
-	                std::vector<Eigen::Vector3f> bouncePoints, Eigen::Vector3f direction, bool isDirect = false)
+	                std::vector<Eigen::Vector3f> bouncePoints, Eigen::Vector3f direction, bool isDirect = false,
+	                float totalPathLength = 0.f)
 		: m_lastSeen(lastSeen), m_energy(energy), m_stepCount(stepCount), m_emitterID(emitterID),
-		  m_bouncePoints(std::move(bouncePoints)), m_direction(direction), m_isDirect(isDirect) {}
+		  m_bouncePoints(std::move(bouncePoints)), m_direction(direction), m_isDirect(isDirect),
+		  m_totalPathLength(totalPathLength) {}
 
-	const Eigen::Vector3f&              getLastSeen()     const { return m_lastSeen; }
-	const Eigen::Vector3f&              getEnergy()       const { return m_energy; }
-	int                                 getStepCount()    const { return m_stepCount; }
-	std::uint8_t                        getEmitterID()    const { return m_emitterID; }
+	const Eigen::Vector3f& getLastSeen() const { return m_lastSeen; }
+	const Eigen::Vector3f& getEnergy() const { return m_energy; }
+	int getStepCount() const { return m_stepCount; }
+	std::uint8_t getEmitterID() const { return m_emitterID; }
 	const std::vector<Eigen::Vector3f>& getBouncePoints() const { return m_bouncePoints; }
-	const Eigen::Vector3f&              getDirection()    const { return m_direction; }
-	// true = chemin direct ray→emitter (aucun rebond), false = réflexion/transmission
-	bool                                isDirect()        const { return m_isDirect; }
+	const Eigen::Vector3f& getDirection() const { return m_direction; }
+	bool isDirect() const { return m_isDirect; }
+	float getTotalPathLength() const { return m_totalPathLength; }
 
 private:
-	Eigen::Vector3f              m_lastSeen;
-	Eigen::Vector3f              m_energy;
-	int                          m_stepCount;
-	std::uint8_t                 m_emitterID;
+	Eigen::Vector3f m_lastSeen;
+	Eigen::Vector3f m_energy;
+	int m_stepCount;
+	std::uint8_t m_emitterID;
 	std::vector<Eigen::Vector3f> m_bouncePoints;
-	Eigen::Vector3f              m_direction;
-	bool                         m_isDirect;
+	Eigen::Vector3f m_direction;
+	bool m_isDirect;
+	float m_totalPathLength;
 };
 
 #endif // !DTO_RECIEVEDRAY_H

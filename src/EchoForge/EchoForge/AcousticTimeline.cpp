@@ -9,14 +9,15 @@ using namespace acoustic;
 
 void TimelineSlot::reset()
 {
-    weightedPos       = Eigen::Vector3f::Zero();
+    weightedPos = Eigen::Vector3f::Zero();
     directWeightedPos = Eigen::Vector3f::Zero();
-    weightedGain      = Eigen::Vector3f::Zero();
-    totalWeight       = 0.f;
+    weightedGain = Eigen::Vector3f::Zero();
+    totalWeight = 0.f;
     directTotalWeight = 0.f;
-    rayCount          = 0;
-    hasDirect         = false;
-    isSynthetic       = false;
+    weightedPathLength = 0.f;
+    rayCount = 0;
+    hasDirect = false;
+    isSynthetic = false;
 }
 
 // ── AcousticTimeline ─────────────────────────────────────────────────────────
@@ -43,7 +44,8 @@ void AcousticTimeline::addDTO(const DTO_RecievedRay& dto)
         slot.weightedPos += audioPos * w;
     }
     slot.weightedGain += dto.getEnergy() * w;
-    slot.totalWeight  += w;
+    slot.totalWeight += w;
+    slot.weightedPathLength += dto.getTotalPathLength() * w;
     slot.rayCount++;
     slot.isSynthetic = false;
 }
@@ -53,11 +55,12 @@ void AcousticTimeline::decayAll()
     for (auto& slot : m_slots)
     {
         if (slot.isEmpty()) continue;
-        slot.weightedPos       *= SLOT_DECAY;
+        slot.weightedPos *= SLOT_DECAY;
         slot.directWeightedPos *= SLOT_DECAY;
-        slot.weightedGain      *= SLOT_DECAY;
-        slot.totalWeight       *= SLOT_DECAY;
+        slot.weightedGain *= SLOT_DECAY;
+        slot.totalWeight *= SLOT_DECAY;
         slot.directTotalWeight *= SLOT_DECAY;
+        slot.weightedPathLength *= SLOT_DECAY;
         if (slot.isEmpty()) slot.reset(); // purgé si trop faible
     }
 }
@@ -79,9 +82,10 @@ void AcousticTimeline::fillGaps()
         }
         else if (prev != nullptr)
         {
-            slot.weightedPos  = prev->weightedPos  * GAP_DECAY; // ← idem : doit scaler avec totalWeight
+            slot.weightedPos = prev->weightedPos * GAP_DECAY;
             slot.weightedGain = prev->weightedGain * GAP_DECAY;
-            slot.totalWeight  = prev->totalWeight  * GAP_DECAY;
+            slot.totalWeight = prev->totalWeight * GAP_DECAY;
+            slot.weightedPathLength = prev->weightedPathLength * GAP_DECAY;
             slot.hasDirect    = false;
             slot.isSynthetic  = true;
             prev = &slot; // chaîne : le prochain slot décadera depuis celui-ci
@@ -97,8 +101,10 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
     result.emitterId = emitterId;
 
     Eigen::Vector3f dirWeightedPos = Eigen::Vector3f::Zero();
-    float           dirTotalW      = 0.f;
-    Eigen::Vector3f gainAccum      = Eigen::Vector3f::Zero();
+    float dirTotalW = 0.f;
+    Eigen::Vector3f gainAccum = Eigen::Vector3f::Zero();
+    float pathLengthAccum = 0.f;
+    float pathWeightAccum = 0.f;
 
     for (int i = 0; i < MAX_SLOTS; ++i)
     {
@@ -116,7 +122,7 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
 
             if (slot.hasDirect && slot.directTotalWeight > 1e-6f)
             {
-                // Ray direct : position pure de l'émetteur, jamais contaminée par les rebonds
+                result.hasDirect = true;
                 pos       = slot.directWeightedPos / slot.directTotalWeight;
                 temporalW = DIRECT_WEIGHT;
                 hasDir    = true;
@@ -146,7 +152,9 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
         // maintiendrait gain=(1,1,1) indépendamment des murs).
         if (!slot.isSynthetic) {
             float slotW = std::pow(0.78f, i);
-            gainAccum  += gain  * slotW;
+            gainAccum += gain * slotW;
+            pathLengthAccum += slot.weightedPathLength;
+            pathWeightAccum += slot.totalWeight;
         }
     }
 
@@ -188,6 +196,7 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
     // gainAccum encodes distance via pow(0.78, slot): slot 0 = 1.0, farther slots decay.
     // cwiseMin clamps reverberant sums (many slots filled) at 1.
     result.gain = gainAccum.cwiseMin(1.f).cwiseMax(0.f);
+    result.avgPathLength = (pathWeightAccum > 1e-6f) ? pathLengthAccum / pathWeightAccum : 0.f;
 
     return result;
 }

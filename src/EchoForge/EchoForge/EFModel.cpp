@@ -199,13 +199,17 @@ void EFModel::processBatch() {
 		if (!yutasound::ReservedIds::isAmbient(saeId))
 		{
 			const float REF_DIST = static_cast<float>(m_world->map.getUnitSize()) * 5.0f;
-			for (const auto& emitter : m_world->emitters)
-			{
-				if (emitter.m_id != id) continue;
-				float dist = (emitter.position.toEigen() - listenerPos).norm();
-				masterGain = std::min(1.0f, (REF_DIST * REF_DIST) / std::max(REF_DIST * REF_DIST, dist * dist));
-				break;
+			float dist = REF_DIST;
+			if (r.hasDirect) {
+				for (const auto& emitter : m_world->emitters) {
+					if (emitter.m_id != id) continue;
+					dist = (emitter.position.toEigen() - listenerPos).norm();
+					break;
+				}
+			} else if (r.avgPathLength > 1e-3f) {
+				dist = r.avgPathLength;
 			}
+			masterGain = std::min(1.0f, (REF_DIST * REF_DIST) / std::max(REF_DIST * REF_DIST, dist * dist));
 		}
 
 		//qDebug() << "[processBatch] id" << id << "-> SAE id" << saeId

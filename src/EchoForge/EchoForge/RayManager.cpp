@@ -83,6 +83,8 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining) 
 
 	int checked = 0;
 
+	const float wallToAvatar = (checkPos - avatarPos).norm();
+
 	// check dynamic emitters
 	for (const auto& emitter : allEmitters) {
 		if (!emitter.isActive)    continue;
@@ -95,6 +97,7 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining) 
 		auto bouncePoints = r.getBouncePositions();
 		bouncePoints.push_back(r.getPosition());
 		bool direct = m_directLosCache.count(emitter.m_id) && m_directLosCache.at(emitter.m_id);
+		float totalPath = wallToAvatar + (checkPos - emitter.position.toEigen()).norm();
 
 		m_receivedRays.emplace_back(
 			emitter.position.toEigen(),
@@ -103,7 +106,8 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining) 
 			static_cast<std::uint8_t>(emitter.m_id),
 			bouncePoints,
 			r.getVelocity(),
-			direct
+			direct,
+			totalPath
 		);
 	}
 
@@ -160,13 +164,14 @@ const void tracing::RayManager::next_colision() {
 		int             steps = std::max(1, static_cast<int>(dist / map.getUnitSize()));
 
 		m_receivedRays.emplace_back(
-			emitter.position.toEigen(),      // lastSeen = position exacte de l'émetteur
-			Eigen::Vector3f(1.f, 1.f, 1.f), // énergie fictive — sert uniquement à ancrer la direction
+			emitter.position.toEigen(),
+			Eigen::Vector3f(1.f, 1.f, 1.f),
 			steps,
 			static_cast<std::uint8_t>(emitter.m_id),
 			std::vector<Eigen::Vector3f>{},
 			dir,
-			true                             // isDirect
+			true,
+			dist
 		);
 	}
 
@@ -200,6 +205,7 @@ const void tracing::RayManager::next_colision() {
 			if (direct) bouncePoints.push_back(r.getPosition());
 			else if (bouncePoints.empty()) continue; // pas de rebond réel → pas de direction utile
 
+			float voxelPath = (r.getPosition() - avatarPos).norm();
 			m_receivedRays.emplace_back(
 				emitter.position.toEigen(),
 				r.getEnergy(),
@@ -207,7 +213,8 @@ const void tracing::RayManager::next_colision() {
 				static_cast<std::uint8_t>(emitter.m_id),
 				bouncePoints,
 				r.getVelocity(),
-				direct
+				direct,
+				voxelPath
 			);
 		}
 
