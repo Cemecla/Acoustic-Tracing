@@ -26,14 +26,12 @@ namespace yutasound {
             return -1;
         }
 
-        // check duplicate
         if (isDuplicate_(entry.md5Name))
         {
             DBG("Librarian: duplicate file, returning existing id");
             return getExistingId_(entry.md5Name);
         }
 
-        // assign id
         int newId = m_nextId++;
         entry.id = newId;
         m_entries.push_back(std::move(entry));
@@ -86,7 +84,7 @@ namespace yutasound {
             .getParentDirectory()
             .getChildFile(jsonPath);
 
-        file.replaceWithText(output.dump(4)); //nice indentattion!
+        file.replaceWithText(output.dump(4));
         DBG("Librarian: save registery to" + jsonPath);
     }
 
@@ -127,13 +125,11 @@ namespace yutasound {
             entry.id = id;
             m_entries.push_back(std::move(entry));
 
-            // keep track of highest id
             if (id >= m_nextId)
                 m_nextId = id + 1;
         }
         DBG("Librarian: loaded " + juce::String(m_entries.size()) + " sounds");
 
-        // for the ambient sounds
         if (input.contains("ambient"))
         {
             for (const auto& ambientEntry : input["ambient"])
@@ -166,7 +162,7 @@ namespace yutasound {
             if (entry.id == id)
                 return entry.buffer;
     
-        jassertfalse; //suggestion of ai because if id valid should never go here 
+        jassertfalse; 
         return m_entries[0].buffer;
     }
     juce::String Librarian::getFilePath(int id) const

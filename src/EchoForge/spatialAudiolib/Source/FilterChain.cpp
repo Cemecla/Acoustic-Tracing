@@ -14,10 +14,8 @@ namespace yutasound {
     {
         m_sampleRate = sampleRate;
 
-        // prepare SVF 
         m_svfILD.prepare(sampleRate, bufferSize);
 
-        // prepare 7 pinna EQ filters
         juce::dsp::ProcessSpec spec;
         spec.sampleRate = sampleRate;
         spec.numChannels = (juce::uint32)bufferSize;
@@ -40,17 +38,14 @@ namespace yutasound {
 
     StereoSample FilterChain::processSample(float left, float right)
     {
-        // SVF ILD - head shadow
         auto stereo = m_svfILD.processSample(left, right);
 
-        // 2. Pinna EQ — 7 bands both ears
         for (auto& filter : m_pinnaFilters)
         {
             stereo.left = filter.processSample(stereo.left);
             stereo.right = filter.processSample(stereo.right);
         }
 
-        // crossover filter
         stereo = m_crossover.processSample(stereo.left, stereo.right);
 
         return stereo;
@@ -84,7 +79,6 @@ namespace yutasound {
     }
     void FilterChain::setPinnaEQ(PinnaPreset preset)
     {
-        // update 7 pinna EQ bands
         float gains[7] = {
             preset.gain4000,  preset.gain6000,  preset.gain8000,
             preset.gain10000, preset.gain12000, preset.gain14000,

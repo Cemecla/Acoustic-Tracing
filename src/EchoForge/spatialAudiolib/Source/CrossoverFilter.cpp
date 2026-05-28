@@ -30,7 +30,6 @@ namespace yutasound {
         m_highpass300L.prepare(spec);
         m_highpass300R.prepare(spec);
 
-        //default both filters tp lowpass
         m_lowpassL.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
         m_lowpassR.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
         m_lowpass3000L.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
@@ -41,7 +40,6 @@ namespace yutasound {
         m_highpass300L.setType(juce::dsp::StateVariableTPTFilterType::highpass);
         m_highpass300R.setType(juce::dsp::StateVariableTPTFilterType::highpass);
 
-        //default cutoff in front, minimal shadow
         m_lowpassL.setCutoffFrequency(300.0f);
         m_lowpassR.setCutoffFrequency(300.0f);
         m_lowpass3000L.setCutoffFrequency(3000.0f);
@@ -60,17 +58,14 @@ namespace yutasound {
     }
     StereoSample CrossoverFilter::processSample(float left, float right)
     {
-        //low band
         float lowL = m_lowpassL.processSample(0, left);
         float lowR = m_lowpassR.processSample(0, right);
         float restL = m_highpass300L.processSample(0, left);
         float restR = m_highpass300R.processSample(0, right);
-        
-        // mid bands
+
         float midL = m_lowpass3000L.processSample(0, restL);
         float midR = m_lowpass3000R.processSample(0, restR);
 
-        // high band
         float highL = m_highpassL.processSample(0, restL);
         float highR = m_highpassR.processSample(0, restR);
 

@@ -18,8 +18,7 @@ namespace yutasound {
 
     SpatialAudioEngine::~SpatialAudioEngine()
     {
-        // 2. Safely stop the thread before the engine is destroyed!
-        stop(); 
+        stop();
     }
 
     void SpatialAudioEngine::prepare(double sampleRate, int bufferSize)
@@ -44,12 +43,10 @@ namespace yutasound {
         smoothed.reset(m_sampleRate, 0.05);
         m_smoothedITD.push_back(std::move(smoothed));
 
-        // active filter chain 
         FilterChain active;
         active.prepare(m_sampleRate, m_bufferSize);
         m_activeChains.push_back(std::move(active));
 
-        // chadow filter chain 
         FilterChain shadow;
         shadow.prepare(m_sampleRate, m_bufferSize);
         m_shadowChains.push_back(std::move(shadow));
@@ -76,7 +73,6 @@ namespace yutasound {
 
             if (m_circularBuffer.getFreeSpace() >= m_bufferSize)
             {
-                // drain command queue every block
                 drainCommandQueue_();
 
                 for (int i = 0; i < (int)m_sources.size(); i++)
@@ -91,28 +87,16 @@ namespace yutasound {
                     }
                 }
 
-                //const auto& currentPreset = m_audioManager.getCurrentPinnaPreset();
-                //for (int i = 0; i < (int)m_sources.size(); i++)
-                //{
-                //    if (!m_sources[i].isAmbient)
-                //        m_shadowChains[i].setParameters(
-                //            m_sources[i].azimuth,
-                //            m_sources[i].elevation,
-                //            currentPreset);
-                //}
-                
                 m_mixBuffer.clear();
 
                 for (int i = 0; i < (int)m_sources.size(); i++)
                 {
                     auto& source = m_sources[i];
 
-                    // skip paused or stopped emitters
                     if (source.state != EmitterState::Playing &&
                         source.state != EmitterState::Looping)
                         continue;
 
-                    // get buffer from Librarian via AudioManager
                     const auto& buffer = m_audioManager.getBuffer(source.soundFileId);
 
                     auto& delayLine = m_delayLines[i];
@@ -140,7 +124,6 @@ namespace yutasound {
                         readPos = 0;
                         if (source.state == EmitterState::Looping || source.isAmbient)
                         {
-                            // keep playing — readPos already reset
                         }
                         else
                         {
@@ -170,7 +153,6 @@ namespace yutasound {
         else
             DBG("AudioDeviceManager initialized OK");
         m_deviceManager.addAudioCallback(&m_audioCallback);
-        // 2. Start the background loop
         DBG("AudioCallback added");
 
         startThread();

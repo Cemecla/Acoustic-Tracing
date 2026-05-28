@@ -22,7 +22,6 @@ namespace yutasound {
         m_filterL.prepare(spec);
         m_filterR.prepare(spec);
 
-        //default both filters tp lowpass
         m_filterL.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
         m_filterR.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
 
@@ -31,7 +30,6 @@ namespace yutasound {
         m_cutoffL.setCurrentAndTargetValue(10000.0f);
         m_cutoffR.setCurrentAndTargetValue(10000.0f);
 
-        //default cutoff in front, minimal shadow
         m_filterL.setCutoffFrequency(10000.0f);
         m_filterR.setCutoffFrequency(10000.0f);
     }

@@ -53,41 +53,30 @@ namespace yutasound {
         void resumeAll();
         void reset();
 
-        // emitter race condition to protect 
         bool           hasCommands() const;
         EmitterCommand popCommand();
 
         void updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining);
-        
-        // TODO: void compute_(Listener, SoundSource, SpatialFilterChain& shadow);
-        // TODO: void updateListener(position, azimuth, elevation);
-        //std::function<void(int)> onSourceAdded;
-         
-        // pinna preset - public 
+
+        // pinna preset
         void loadPinnaPresets(const juce::String& path);
         void setPinnaPreset(int presetId);
         int getPinnaPreset() const;
         const PinnaPreset& getCurrentPinnaPreset() const;
         int getPinnaPresetCount() const;
         
-        //SAE access
-        //const std::vector<SoundSource>& getSources() const;
         const juce::AudioBuffer<float>& getBuffer(int soundFileId) const;
 
         //callback for the SAE
         std::function<void(int)> onEmitterAdded;
         std::function<void(int)> onEmitterRemoved;
 
-        // ambinet
         std::vector<AmbientEntry>& getAmbientEntries();
         float getAmbientGain(int ambientId) const;
         void setAmbientGain(int ambientId, float gain);
 
     private:
-        //void loadSource_(int id);
-        
         Librarian m_librarian;
-        //std::vector<SoundSource>  m_sources; // emitters
         double m_sampleRate = 0.0;
         int m_nextEmitterId = ReservedIds::DYNAMIC_START;
         std::atomic<bool> m_isPlaying {false};

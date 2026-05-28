@@ -24,15 +24,12 @@ namespace yutasound {
 
         if (reader != nullptr)
         {
-            //create buffer of size of the audio file  (number of channel,size)
             m_audioBuffer.setSize(1, (int)reader->lengthInSamples);
-            //filing up the buffer 
             reader->read(&m_audioBuffer, 0, (int)reader->lengthInSamples, 0, true, false);
             DBG("SUCCESS: Loaded WAV file! Samples: " + juce::String(reader->lengthInSamples));
         }
         else
         {
-            // Optional: Print a warning if the file isn't found so you aren't left guessing!
             DBG("Failed to load: " + file.getFullPathName());
         }
     }

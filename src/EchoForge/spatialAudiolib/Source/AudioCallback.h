@@ -30,7 +30,6 @@ namespace yutasound {
 			const juce::AudioIODeviceCallbackContext& context
 		)override;
 
-		//no need beacose my code not need to prepare it only read when nessesary --------------
 		void audioDeviceAboutToStart(juce::AudioIODevice* device) override;
 		void audioDeviceStopped() override;
 
