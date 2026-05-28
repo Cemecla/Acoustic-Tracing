@@ -140,6 +140,9 @@
     <ClCompile Include="AcousticInterpreter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AcousticTimeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -201,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>Header Files\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="AcousticTimeline.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -268,9 +274,6 @@
     </None>
     <None Include="ray.vert">
       <Filter>Source Files\qml\Shaders</Filter>
-    </None>
-    <None Include="SoundDialBox.qml">
-      <Filter>Source Files\qml\Components</Filter>
     </None>
     <None Include="HudSimulation.qml">
       <Filter>Source Files\qml\Components</Filter>

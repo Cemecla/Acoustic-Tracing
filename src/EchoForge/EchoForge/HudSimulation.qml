@@ -195,6 +195,9 @@ Item {
                     boundsBehavior: Flickable.StopAtBounds
             
                     delegate: Rectangle {
+                        id: emitterContainer
+                        required property var modelData
+                        required property var index
                         width: ListView.view.width
                         height: 52
                         color: index % 2 == 0 ? "#1a1a1a" : "#222222"
@@ -211,7 +214,7 @@ Item {
                                 Layout.preferredWidth: 14
                                 Layout.preferredHeight: 14
                                 Layout.alignment: Qt.AlignVCenter
-                                color: root.emitters[modelData]["color"]
+                                color: root.emitters[emitterContainer.modelData]["color"]
                                 border.color: "#000000"
                                 border.width: 1
                                 radius: 50
@@ -223,7 +226,7 @@ Item {
             
                                 Text {
                                      text: {
-                                        const full = root.emitters[modelData]["filename"] || ""
+                                        const full = root.emitters[emitterContainer.modelData]["filename"] || ""
                                         const i = Math.max(full.lastIndexOf("/"), full.lastIndexOf("\\"))
                                         return i >= 0 ? full.substring(i + 1) : full
                                      }
@@ -235,9 +238,9 @@ Item {
                                 }
             
                                 Text {
-                                    text: `x: ${root.emitters[modelData]["position"].x.toFixed(1)}   ` +
-                                          `y: ${root.emitters[modelData]["position"].y.toFixed(1)}   ` +
-                                          `z: ${root.emitters[modelData]["position"].z.toFixed(1)}`
+                                    text: `x: ${root.emitters[emitterContainer.modelData]["position"].x.toFixed(1)}   ` +
+                                          `y: ${root.emitters[emitterContainer.modelData]["position"].y.toFixed(1)}   ` +
+                                          `z: ${root.emitters[emitterContainer.modelData]["position"].z.toFixed(1)}`
                                     color: "#aaaaaa"
                                     font.family: root.fontFamily
                                     font.pixelSize: 10

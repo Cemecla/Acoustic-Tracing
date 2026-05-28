@@ -17,6 +17,14 @@ namespace ef {
 			clear();
 		}
 
+		V& operator[](const K& key) {
+			V* found = searchNode(key, m_root);
+			if (found) return *found;
+
+			m_root = insertNode(key, V{}, m_root);
+			return *searchNode(key, m_root);
+		}
+
 		void insert(const K& key, const V& value) {
 			m_root = insertNode(key, value, m_root);
 		}

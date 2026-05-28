@@ -230,6 +230,7 @@ namespace yutasound {
                 return true;
         return false;
     }
+
     int Librarian::getExistingId_(const juce::String& md5) const
     {
 
@@ -238,6 +239,7 @@ namespace yutasound {
                 return entry.id;
         return -1;
     }
+
     const std::vector<SoundFileEntry>& Librarian::getEntries() const
     {
         return m_entries;

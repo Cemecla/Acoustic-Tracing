@@ -185,12 +185,12 @@ void EFModel::processBatch() {
 
 	const auto& results = m_acousticInterpreter.getResults();
 	for (const auto& [id, r] : results) {
-		auto it = m_emitterIdMap.find(id);
-		if (it == m_emitterIdMap.end()) {
+		auto it = m_emitterIdMap.search(id);
+		if (it == nullptr) {
 			qDebug() << "[processBatch] id" << id << "NOT FOUND in emitterIdMap";
 			continue;
 		}
-		int saeId = it->second;
+		int saeId = *it;
 
 		// Physical 1/r² distance gain: look up the emitter's world position and scale down.
 		// REF_DIST is the "full volume" radius in world units. Sounds beyond it roll off as 1/r².

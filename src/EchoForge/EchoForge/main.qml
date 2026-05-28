@@ -7,11 +7,13 @@ import QtQuick.Controls
 Window {
     id: mainWindow
     property color secondaryColor: appSettings.secondaryColor
+
     visible: true
     minimumWidth: 800
     minimumHeight: 600
     title: "Echo Forge"
 
+    // APPLICATION SETTINGS
     Settings {
         id: appSettings
         property string screenSize: "Windowed"
@@ -23,9 +25,9 @@ Window {
     }
     
     visibility: appSettings.screenSize == "Windowed" ? Window.Windowed : Window.FullScreen
-
     color: "#d4d4d4"
 
+    // NAVIGATION
     StackView {
         id: stackView
         anchors.fill: parent
