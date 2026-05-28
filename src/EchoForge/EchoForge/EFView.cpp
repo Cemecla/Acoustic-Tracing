@@ -309,3 +309,19 @@ const float EFView::getRefreshTime() const {
 void EFView::setRefreshTime(float timeInSeconde) {
 	return m_parent->m_model->setRefreshTime(timeInSeconde);
 }
+
+const int EFView::getMaxRayCount() const {
+	return m_parent->m_model->getMaxRayCount();
+}
+
+void EFView::setMaxRayCount(int rayCount) {
+	m_parent->m_model->setMaxRayCount(rayCount);
+}
+
+const int EFView::getRayPerFrame() const {
+	return m_parent->m_model->getRayPerFrame();
+}
+
+void EFView::setRayPerFrame(int rayPerFrame) {
+	m_parent->m_model->setRayPerFrame(rayPerFrame);
+}

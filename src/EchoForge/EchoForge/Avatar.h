@@ -59,7 +59,7 @@
 
 				float getSpeed() const;
 
-				float setSpeed(float speed);
+				void setSpeed(float speed);
 
 				const float getRotationSpeed() const;
 

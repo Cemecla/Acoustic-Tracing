@@ -12,10 +12,10 @@ Rectangle {
 
     height: 32
     color: mouseArea.containsMouse ? "#1f2428" : "transparent"
-    border.color: root.checked ? "#5a5a5a" : root.themeColor
+    border.color: root.checked ? root.themeColor : "#5a5a5a"
     border.width: 1
     radius: 2
-    opacity: root.checked ? 0.6 : 1.0
+    opacity: root.checked ? 1.0 : 0.6
 
     Row {
         anchors.fill: parent
@@ -46,7 +46,7 @@ Rectangle {
 
         Text {
             text: root.checked ? root.checkedText : root.uncheckedText
-            color: "#f0b040"
+            color: root.themeColor
             font.family: root.fontFamily
             font.pixelSize: 10
             font.letterSpacing: 1

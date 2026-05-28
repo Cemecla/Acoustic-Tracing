@@ -63,11 +63,10 @@ class UICommunicator;
 			void removeSound(int id) const;
 			void unloadRegistry() const;
 
-
 			void setupQGuiApplication(QGuiApplication& app) const;
 			void setupAudioManager(yutasound::AudioManager* audioManager);
 			void setupAvatar(const ef::Avatar& avatar);
-			void updateSoundSource(int emitterId, float azimuth, float elevation) const; // this is for the test page 
+			void updateSoundSource(int emitterId, float azimuth, float elevation) const;
 			void buildMap(const ef::Map& map);
 			void simulationLoaded() const;
 			const Inputs& getLastInput() const;
@@ -78,6 +77,12 @@ class UICommunicator;
 
 			const float getRefreshTime() const;
 			void setRefreshTime(float timeInSeconde);
+
+			const int getMaxRayCount() const;
+			void setMaxRayCount(int rayCount);
+
+			const int getRayPerFrame() const;
+			void setRayPerFrame(int rayPerFrame);
 		
 		private:
 			EFController* m_parent;

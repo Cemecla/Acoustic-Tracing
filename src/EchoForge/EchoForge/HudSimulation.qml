@@ -22,8 +22,8 @@ Item {
 
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.margins: 16
-        width: 450
+        anchors.margins: 0
+        width: 420
 
         ColumnLayout {
             anchors.fill: parent
@@ -105,7 +105,7 @@ Item {
                 spacing: 8
 
                 Text {
-                    text: "count"
+                    text: "Active Ray Count"
                     color: root.panelTitleColor; 
                     font.family: root.fontFamily; 
                     font.pixelSize: 12
@@ -147,8 +147,8 @@ Item {
 
                 Text {
                     id: refreshTimeText
-                    text: communicator.getRayRefreshTime()
-                    color: "#5a5a5a"; 
+                    text: ""
+                    color: root.panelTextColor; 
                     font.family: root.fontFamily; 
                     font.pixelSize: 13
                 }
@@ -159,12 +159,110 @@ Item {
                     to: 5.0
                     stepSize: 0.1
                     width: 30
-                    value: communicator.getRayRefreshTime()
+
+                    Component.onCompleted: {
+                        raySlider.value = communicator.getRayRefreshTime()
+                        refreshTimeText.text = value.toFixed(1)
+                    }
 
                     onValueChanged: {
                         if (activeFocus || pressed) {
                             communicator.setRayRefreshTime(value)
                             refreshTimeText.text = value.toFixed(1)
+                        }
+                    }
+                }
+            }
+
+            RowLayout {
+                visible: !root.isDebugMode
+                spacing: 8
+
+                Text {
+                    text: "Max Ray Count"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    id: maxRayCountText
+                    text: ""
+                    color: root.panelTextColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                OptionSlider {
+                    id: maxRaySlider
+                    from: 100
+                    to: 4000
+                    stepSize: 10
+                    width: 30
+
+                    Component.onCompleted: {
+                        maxRaySlider.value = communicator.getMaxRayCount()
+                        maxRayCountText.text = value
+                    }
+
+                    onValueChanged: {
+                        if (activeFocus || pressed) {
+                            communicator.setMaxRayCount(value)
+                            maxRayCountText.text = value
+                        }
+                    }
+                }
+            }
+
+            RowLayout {
+                visible: !root.isDebugMode
+                spacing: 8
+
+                Text {
+                    text: "Ray Per Frame"
+                    color: root.panelTitleColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    text: "—"
+                    color: "#5a5a5a"; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                Text {
+                    id: rayPerFrameText
+                    text: ""
+                    color: root.panelTextColor; 
+                    font.family: root.fontFamily; 
+                    font.pixelSize: 13
+                }
+
+                OptionSlider {
+                    id: rayPerFrameSlider
+                    from: 10
+                    to: 100
+                    stepSize: 1
+                    width: 30
+
+                    Component.onCompleted: {
+                        rayPerFrameSlider.value = communicator.getRayPerFrame()
+                        rayPerFrameText.text = value
+                    }
+
+                    onValueChanged: {
+                        if (activeFocus || pressed) {
+                            communicator.setRayPerFrame(value)
+                            rayPerFrameText.text = value
                         }
                     }
                 }
@@ -257,7 +355,7 @@ Item {
         id: controlPanel
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: 16
+        anchors.margins: 0
         width: 220
 
         ColumnLayout {
@@ -301,7 +399,7 @@ Item {
 
             HudButton {
                 Layout.fillWidth: true
-                label: "Quit to menu (WIP)"
+                label: "Quit to menu"
                 onActivated: root.quitRequested()
             }
 

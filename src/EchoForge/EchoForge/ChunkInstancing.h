@@ -4,6 +4,9 @@
 #include <QtQuick3D/QQuick3DObject>
 #include "Map.h"
 
+// Documentations
+// https://doc.qt.io/qt-6/qtquick3d-custominstancing-example.html
+
 class ChunkInstancing : public QQuick3DInstancing
 {
 	Q_OBJECT

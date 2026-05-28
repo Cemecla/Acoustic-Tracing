@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+// Documentations
+// https://en.wikipedia.org/wiki/AVL_tree
 
 namespace ef {
 
@@ -9,6 +11,7 @@ namespace ef {
 	class TreeMap
 	{
 	public:
+
 		TreeMap() : m_root(nullptr), m_size(0) {
 
 		}
@@ -137,7 +140,6 @@ namespace ef {
 			}
 			return node;
 		}
-
 
 		V* searchNode(const K& key, Node* node) const {
 			if (node == nullptr)

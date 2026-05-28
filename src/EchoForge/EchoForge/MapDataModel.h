@@ -8,6 +8,7 @@ struct MapData {
 	int size;
 };
 
+// Documentations
 // https://stackoverflow.com/questions/27400025/using-qabstractlistmodel-in-listview
 
 class MapDataModel : public QAbstractListModel

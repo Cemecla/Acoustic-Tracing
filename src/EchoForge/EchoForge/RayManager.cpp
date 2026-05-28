@@ -234,3 +234,19 @@ const bool RayManager::hasLineOfSight(const Eigen::Vector3f& from, const Eigen::
 
 	return false;
 }
+
+const int RayManager::getRaysPerFrame() const {
+	return m_raysPerFrame;
+}
+
+void RayManager::setRaysPerFrame(const int raysPerFrame) {
+	m_raysPerFrame = raysPerFrame;
+}
+
+const int RayManager::getRayCount() const {
+	return m_rayCount;
+}
+
+void RayManager::setRaycount(const int rayCount) {
+	m_rayCount = rayCount;
+}

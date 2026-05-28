@@ -7,7 +7,18 @@
 
 ## Description
 Projet de synthèse dans le cardre du DEC en technique de l'informatique au CVM.
-Logiciel de simulation d'un environnement sonore.
+Logiciel de simulation sonore d'un environnement en 3D.
+
+### Utilisation
+Le menu principal permet d'accéder à différente page du programme.
+
+#### Simulation
+
+#### Dev Mode
+
+#### Sound Lab
+
+#### Option
 
 ## Crédits
 ### Libraries
@@ -17,11 +28,11 @@ Logiciel de simulation d'un environnement sonore.
 - Eigen C++ par The Eigen Authors
 
 ### Assets
--
--
--
+- 
 
-### Documentations
--
--
--
+### Sommaire utilisation IA
+- Recherche sommaire sur Google (Gemini)
+- Écrire de documentation (Claude)
+- Création de test (Claude)
+- Génération de carte (Claude)
+- Création d'un outil de création de carte (Claude)

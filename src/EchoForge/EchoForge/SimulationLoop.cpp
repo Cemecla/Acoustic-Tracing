@@ -1,6 +1,5 @@
 #include "SimulationLoop.h"
 
-// https://stackoverflow.com/questions/15236340/how-i-can-pass-callable-object-to-function-as-parameter
 SimulationLoop::SimulationLoop(QObject* parent, int intervalMsec): QObject(parent), m_timer(QTimer(this)), m_elapsedTimer(QElapsedTimer()) {
 	init(intervalMsec);
 }

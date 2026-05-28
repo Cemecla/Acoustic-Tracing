@@ -8,12 +8,37 @@ Map::Map(): m_width(16), m_height(16), m_depth(16), m_voxelUnitValueCm(100), m_v
 	buildEmptyMap();
 }
 
-Map::Map(unsigned width, unsigned height, unsigned depth): m_width(width), m_height(height), m_depth(depth), m_voxelUnitValueCm(100), m_voxelUnitSize(100), m_voxels({}), m_materials({}) {
-	buildEmptyMap();
-}
+Map::Map(
+	unsigned width, 
+	unsigned height, 
+	unsigned depth
+): 
+	m_width(width), 
+	m_height(height), 
+	m_depth(depth), 
+	m_voxelUnitValueCm(100), 
+	m_voxelUnitSize(100), 
+	m_voxels({}),
+	m_materials({}) 
+{ buildEmptyMap(); }
 
-Map::Map(unsigned width, unsigned height, unsigned depth, int voxelUnitValueCm, int voxelUnitSize, std::vector<int> voxels, std::vector<Material> materials): m_width(width), m_height(height), m_depth(depth), m_voxelUnitValueCm(voxelUnitValueCm), m_voxelUnitSize(voxelUnitSize), m_voxels(voxels), m_materials(materials) {
-}
+Map::Map(
+	unsigned width, 
+	unsigned height, 
+	unsigned depth, 
+	int voxelUnitValueCm, 
+	int voxelUnitSize, 
+	std::vector<int> voxels, 
+	std::vector<Material> materials
+): 
+	m_width(width),
+	m_height(height),
+	m_depth(depth),
+	m_voxelUnitValueCm(voxelUnitValueCm),
+	m_voxelUnitSize(voxelUnitSize),
+	m_voxels(voxels),
+	m_materials(materials) 
+{}
 
 const Material& Map::fetchMaterial(const int x, const int y, const int z) const {
 	int mapIndex = findMapIndex(x, y, z);
@@ -126,14 +151,13 @@ Vector3I Map::getPositionFromId(int index) const {
 	return Vector3I(x, y, z);
 }
 
-const std::vector<int>& Map::getActiveVoxelsId() const {
-	return m_activeVoxelsId;
-}
+const std::vector<int>& Map::getActiveVoxelsId() const { return m_activeVoxelsId; }
 
-//// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
-//inline const bool Map::isInBound(const int x, const int y, const int z) const {
-//	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
-//}
+// Documentations
+// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
+const bool Map::isInBound(const int x, const int y, const int z) const {
+	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
+}
 
 void Map::buildEmptyMap() {
 	m_voxels.clear();
@@ -142,40 +166,20 @@ void Map::buildEmptyMap() {
 		m_voxels.push_back(1);
 }
 
+const unsigned Map::getWidth() const { return m_width; }
 
+const unsigned Map::getHeight() const { return m_height; }
 
-const unsigned Map::getWidth() const {
-	return m_width;
-}
+const unsigned Map::getDepth() const { return m_depth; }
 
-const unsigned Map::getHeight() const {
-	return m_height;
-}
+const int Map::countVoxels() const { return m_voxels.size(); }
 
-const unsigned Map::getDepth() const {
-	return m_depth;
-}
+const int Map::getUnitSize() const { return m_voxelUnitSize; }
 
-const int Map::countVoxels() const {
-	return m_voxels.size();
-}
+const int Map::getUnitValue() const { return m_voxelUnitValueCm; }
 
-const int Map::getUnitSize() const {
-	return m_voxelUnitSize;
-}
+const std::string Map::getName() const { return m_name; }
 
-const int Map::getUnitValue() const {
-	return m_voxelUnitValueCm;
-}
+const std::vector<int>& Map::getVoxels() const { return m_voxels; }
 
-const std::string Map::getName() const {
-	return m_name;
-}
-
-const std::vector<int>& Map::getVoxels() const {
-	return m_voxels;
-}
-
-const std::vector<Material>& Map::getRawMaterials() const {
-	return m_materials;
-}
+const std::vector<Material>& Map::getRawMaterials() const { return m_materials; }

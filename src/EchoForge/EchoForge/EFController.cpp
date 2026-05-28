@@ -33,7 +33,7 @@ void EFController::loadSimulation(std::string& url) {
 
 	m_model->loadWorld(url);
 	ef::Map map = m_model->getMap();
-	ef::Avatar avatar = m_model->getAvatar(true);
+	ef::Avatar avatar = *m_model->getAvatar();
 	m_view->buildMap(map);
 	m_view->setupAvatar(avatar);
 	m_view->setEmittersVisual(m_model->getEmitters());
