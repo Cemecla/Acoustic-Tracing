@@ -222,6 +222,7 @@ namespace yutasound {
                         m_activeChains[i].setAzimuth(cmd.azimuth);
                         // crossover gains - direct update on on active chain
                         m_activeChains[i].setGains(cmd.ildGain);
+                        m_shadowChains[i].setGains(cmd.ildGain);
                         break;
                     }
             }

@@ -175,24 +175,11 @@ const std::vector<DTO_RecievedRay>& EFModel::getDTORays() const {
 void EFModel::processBatch() {
 	const auto& batch = m_rayManager.getReceivedRays();
 
+	Eigen::Vector3f listenerPos = Eigen::Vector3f::Zero();
 	if (m_world.has_value())
 	{
-		Eigen::Vector3f listenerPos = m_world->avatar.getPosition().toEigen();
-		float           listenerYaw = m_world->avatar.getHeadAngles().y;
-
-		// DEBUG — À retirer une fois le problème d'azimuth résolu
-		constexpr float RAD2DEG = 57.2957795f;
-		for (const auto& e : m_world->emitters) {
-			Eigen::Vector3f delta = e.position.toEigen() - listenerPos;
-			float rawAz = std::atan2(delta.x(), -delta.z()) * RAD2DEG;
-			//qDebug() << "[AZ-DEBUG] Emitter" << e.m_id
-			//         << "| emitterPos:" << e.position.x << e.position.z
-			//         << "| listenerPos:" << listenerPos.x() << listenerPos.z()
-			//         << "| delta:" << delta.x() << delta.z()
-			//         << "| rawAz(deg):" << rawAz
-			//         << "| yaw(deg):" << listenerYaw * RAD2DEG;
-		}
-
+		listenerPos             = m_world->avatar.getPosition().toEigen();
+		float listenerYaw       = m_world->avatar.getHeadAngles().y;
 		m_acousticInterpreter.feed(batch, listenerPos, listenerYaw);
 	}
 
@@ -205,15 +192,31 @@ void EFModel::processBatch() {
 		}
 		int saeId = it->second;
 
+		// Physical 1/r² distance gain: look up the emitter's world position and scale down.
+		// REF_DIST is the "full volume" radius in world units. Sounds beyond it roll off as 1/r².
+		// Tune the multiplier (5.0f) to change the audible range: larger = louder at distance.
+		float masterGain = 1.0f;
+		if (!yutasound::ReservedIds::isAmbient(saeId))
+		{
+			const float REF_DIST = static_cast<float>(m_world->map.getUnitSize()) * 5.0f;
+			for (const auto& emitter : m_world->emitters)
+			{
+				if (emitter.m_id != id) continue;
+				float dist = (emitter.position.toEigen() - listenerPos).norm();
+				masterGain = std::min(1.0f, (REF_DIST * REF_DIST) / std::max(REF_DIST * REF_DIST, dist * dist));
+				break;
+			}
+		}
+
 		qDebug() << "[processBatch] id" << id << "-> SAE id" << saeId
-			<< "isAmbient=" << yutasound::ReservedIds::isAmbient(saeId)
+			<< "dist_gain=" << masterGain
 			<< "gain=" << r.gain.x() << r.gain.y() << r.gain.z();
 
 		// start ambient looping on first valid acoustic result
 		if (yutasound::ReservedIds::isAmbient(saeId) && r.gain.norm() > 1e-6f)
 			m_parent->m_view->loopEmitter(saeId);
 
-		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain));
+		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain * masterGain));
 		//qDebug() << "[Acoustic] Emitter" << id << "-> SAE id" << saeId
 		//	<< "| az:" << r.azimuth << "el:" << r.elevation
 		//	<< "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();

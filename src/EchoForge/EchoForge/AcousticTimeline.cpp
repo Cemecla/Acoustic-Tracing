@@ -182,11 +182,9 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
     result.azimuth   = smoothAz  * RAD2DEG;
     result.elevation = m_smoothedElev * RAD2DEG;
 
-    // Gain: gainAccum already encodes distance via pow(0.78, slot).
-    // Divide by the MAXIMUM possible gainTotalW (all slots full) so the scale is [0,1]
-    // but the geometric decay with distance is preserved.
-    constexpr float MAX_GAIN_TOTAL_W = 4.545f; // sum of pow(0.78, i) for i=0..31
-    result.gain = (gainAccum / MAX_GAIN_TOTAL_W).cwiseMin(1.f).cwiseMax(0.f);
+    // gainAccum encodes distance via pow(0.78, slot): slot 0 = 1.0, farther slots decay.
+    // cwiseMin clamps reverberant sums (many slots filled) at 1.
+    result.gain = gainAccum.cwiseMin(1.f).cwiseMax(0.f);
 
     return result;
 }

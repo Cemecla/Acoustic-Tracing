@@ -24,10 +24,11 @@ namespace yutasound {
         StereoSample processSample(float left, float right);
         void reset();
     private:
-        juce::dsp::StateVariableTPTFilter<float> m_lowpassL;
-        juce::dsp::StateVariableTPTFilter<float> m_lowpassR;
-        juce::dsp::StateVariableTPTFilter<float> m_highpassL;
-        juce::dsp::StateVariableTPTFilter<float> m_highpassR;
+        juce::dsp::StateVariableTPTFilter<float> m_lowpassL, m_lowpassR;
+        juce::dsp::StateVariableTPTFilter<float> m_lowpass3000L, m_lowpass3000R;
+
+        juce::dsp::StateVariableTPTFilter<float> m_highpassL, m_highpassR;
+        juce::dsp::StateVariableTPTFilter<float> m_highpass300L, m_highpass300R;
         
         ILDGain m_gains;
         double m_sampleRate = 0.0;
