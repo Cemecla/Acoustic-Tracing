@@ -280,10 +280,6 @@ namespace yutasound {
         return m_librarian.getEntries();
     }
 
-    //const std::vector<SoundSource>& AudioManager::getSources()const {
-    //    return m_sources;
-    //}
-
     const juce::AudioBuffer<float>& AudioManager::getBuffer(int soundFileId) const
     {
         if (ReservedIds::isAmbient(soundFileId))
@@ -328,16 +324,16 @@ namespace yutasound {
 
         float thetaEff = std::cos(elRad) * std::sin(azRad);
         float ITD = (r / c) * (std::asin(thetaEff) + thetaEff);
-        return ITD * (float)m_sampleRate; // convertion into samples
+        return ITD * (float)m_sampleRate;
     }
 
     ILDGain AudioManager::computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining)
     {
         float azRAD = azimuth * (juce::MathConstants<float>::pi / 180.0f);
 
-        // aproximate calcule for testing - replace with Brown-Duda filter later
         // Reference: Brown & Duda 1998 "A Structural Model for Binaural Sound Synthesis"
-        float baseILD = (1.0f + std::cos(azRAD)) / 2.0f;
+        // Scale to [0.2, 1.0] so rear sources (~180 deg) stay audible at ~-14 dB rather than going silent
+        float baseILD = 0.2f + 0.8f * (1.0f + std::cos(azRAD)) / 2.0f;
         ILDGain gain;
         gain.low = baseILD * soundRemaining.lowRemaining;
         gain.mid = baseILD * soundRemaining.midRemaining;
