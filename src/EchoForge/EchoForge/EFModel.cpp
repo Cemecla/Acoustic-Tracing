@@ -208,9 +208,9 @@ void EFModel::processBatch() {
 			}
 		}
 
-		qDebug() << "[processBatch] id" << id << "-> SAE id" << saeId
-			<< "dist_gain=" << masterGain
-			<< "gain=" << r.gain.x() << r.gain.y() << r.gain.z();
+		//qDebug() << "[processBatch] id" << id << "-> SAE id" << saeId
+		//	<< "dist_gain=" << masterGain
+		//	<< "gain=" << r.gain.x() << r.gain.y() << r.gain.z();
 
 		// start ambient looping on first valid acoustic result
 		if (yutasound::ReservedIds::isAmbient(saeId) && r.gain.norm() > 1e-6f)

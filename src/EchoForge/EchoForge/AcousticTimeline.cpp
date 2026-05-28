@@ -141,11 +141,13 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
             }
         }
 
-        // --- Gain : tous les slots contribuent (réels + synthétiques = réverbération) ---
-        // slotW penalizes later (farther) slots — do NOT divide by gainTotalW or the
-        // decay cancels out and distance attenuation disappears entirely.
-        float slotW = std::pow(0.78f, i);
-        gainAccum  += gain  * slotW;
+        // --- Gain : réels uniquement (les synthétiques conservent le ratio gain/totalWeight
+        // du slot source via GAP_DECAY, donc les inclure annulerait la décroissance et
+        // maintiendrait gain=(1,1,1) indépendamment des murs).
+        if (!slot.isSynthetic) {
+            float slotW = std::pow(0.78f, i);
+            gainAccum  += gain  * slotW;
+        }
     }
 
     if (dirTotalW < 1e-6f) return result; // aucune donnée utilisable

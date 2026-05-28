@@ -18,7 +18,8 @@ Material::Material(
 	float roughness,
 	float metalness,
 	float specular,
-	float transmissionCoefficient)
+	float transmissionCoefficient,
+	Vector3F transmissionLoss)
 	:
 	name(name),
 	isPassable(isPassable),
@@ -33,7 +34,8 @@ Material::Material(
 	roughness(roughness),
 	metalness(metalness),
 	specular(specular),
-	transmissionCoefficient(transmissionCoefficient)
+	transmissionCoefficient(transmissionCoefficient),
+	transmissionLoss(transmissionLoss)
 {}
 
 const bool Material::operator==(Material& other) const {

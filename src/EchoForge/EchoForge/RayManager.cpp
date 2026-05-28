@@ -2,6 +2,7 @@
 #include <cmath>
 #include <numbers>
 #include <ranges>
+#include <QDebug>
 
 #include "Map.h"
 #include "Material.h"
@@ -28,9 +29,9 @@ const void RayManager::update() {
 		return r.getEnergy().maxCoeff() <= 0.01f;
 	});
 
-	int slots = m_rayCount - static_cast<int>(m_activeRays->size());
-	if (slots > 0)
-		createRays(position, std::min(m_raysPerFrame, slots));
+	int freeSlots = m_rayCount - static_cast<int>(m_activeRays->size());
+	if (freeSlots > 0)
+		createRays(position, std::min(m_raysPerFrame, freeSlots));
 }
 
 const void RayManager::createRays(Eigen::Vector3f position, int count) {
@@ -66,7 +67,19 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 
 	--budgetRemaining;
 	const Eigen::Vector3f avatarPos = m_parent->getAvatar().value().getPosition().toEigen();
-	if (!hasLineOfSight(r.getPosition(), avatarPos)) return 0;
+
+	// Nudge the ray position off any voxel boundary to avoid the DDA floating-point
+	// boundary bug: when r.getPosition() lies exactly on a wall face, startVoxel is
+	// the solid voxel and the first DDA step escapes to the other side without
+	// ever testing the wall, producing a false-positive LOS through solid geometry.
+	const float us = static_cast<float>(m_parent->getMap().getUnitSize());
+	Eigen::Vector3i curVoxel = r.getVoxelPos();
+	ef::Material curMat = m_parent->getMap().fetchMaterial(ef::Vector3I::fromEigenI(curVoxel));
+	const Eigen::Vector3f checkPos = !curMat.isPassable
+		? r.getPosition() + r.getHitNormal() * us          // entering solid: nudge back to air
+		: r.getPosition() + r.getVelocity() * (us * 0.5f); // exiting solid: nudge into air
+
+	if (!hasLineOfSight(checkPos, avatarPos)) return 0;
 
 	int checked = 0;
 
@@ -77,7 +90,7 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 		--budgetRemaining;
 		++checked;
 
-		if (!hasLineOfSight(r.getPosition(), emitter.position.toEigen())) continue;
+		if (!hasLineOfSight(checkPos, emitter.position.toEigen())) continue;
 
 		auto bouncePoints = r.getBouncePositions();
 		bouncePoints.push_back(r.getPosition());
@@ -99,9 +112,7 @@ int tracing::RayManager::checkLosToEmitters(const Ray& r, int& budgetRemaining, 
 		--budgetRemaining;
 		++checked;
 
-		// ambients don't have a world position — use avatar position
-		// as their "source" since they represent environmental sound
-		if (!hasLineOfSight(r.getPosition(), avatarPos)) continue;
+		if (!hasLineOfSight(checkPos, avatarPos)) continue;
 
 		m_receivedRays.emplace_back(
 			r.getPosition(),
@@ -193,15 +204,22 @@ const void tracing::RayManager::next_colision() {
 
 				auto strategy   = m_collisionManager.decision(r, mat.scatteringCoefficient, mat.transmissionCoefficient, m_rng);
 				Eigen::Vector3f newDir = strategy->getNextDirection(r.getVelocity(), r.getHitNormal(), m_rng);
+				if (strategy->isTransmission())
+					r.loseEnergy(mat.transmissionLoss.toEigen());
 				r.redirect(newDir);
 				r.setInSolid(strategy->isTransmission());
 			} else {
-				// Transmission en cours : LOS depuis l'intérieur du mur
-				// (le son peut "sortir" vers un emitter de l'autre côté)
-				checkLosToEmitters(r, losRemaining, false);
+				// Transmission en cours : on reste dans le solide, pas de LOS check.
+				// Le LOS check depuis l'intérieur du mur crée des faux positifs :
+				// le shadow ray démarre dans le voxel solide, en sort immédiatement,
+				// et voit l'émetteur de l'autre côté sans être bloqué par le mur.
 				r.setInSolid(true);
 			}
 		} else {
+			// Le rayon vient de sortir d'un solide (transmission) → LOS depuis
+			// l'espace libre de l'autre côté du mur, position correcte.
+			if (r.wasInSolid())
+				checkLosToEmitters(r, losRemaining, false);
 			r.setInSolid(false);
 		}
 	}

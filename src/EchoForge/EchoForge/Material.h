@@ -23,6 +23,9 @@ namespace ef {
 		// Fraction [0,1] de l'énergie sonore qui traverse le matériau (transmission acoustique).
 		// 0 = opaque au son, 1 = totalement transparent. Physiquement : béton ~0.03, verre ~0.40.
 		float transmissionCoefficient{};
+		// Perte d'énergie unique appliquée quand un rayon entre en mode transmission (insertion loss).
+		// Indépendante de energyLoss (absorption de surface). Physiquement : béton ~0.97, verre ~0.50.
+		Vector3F transmissionLoss{};
 
 		Material();
 
@@ -40,7 +43,8 @@ namespace ef {
 			float roughness = 0,
 			float metalness = 0,
 			float specular = 0,
-			float transmissionCoefficient = 0.0f
+			float transmissionCoefficient = 0.0f,
+			Vector3F transmissionLoss = Vector3F(0.0f, 0.0f, 0.0f)
 		);
 
 		const bool operator==(Material& other) const;

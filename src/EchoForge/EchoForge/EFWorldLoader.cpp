@@ -191,12 +191,15 @@ std::vector<Material> EFWorldLoader::buildMaterials(const json& materialJson) {
 		float roughness = materialData["roughness"];
 		// transmissionCoefficient est optionnel — défaut 0 (opaque au son) si absent du JSON
 		float transmissionCoefficient = materialData.value("transmissionCoefficient", 0.0f);
+		// transmissionLoss : perte unique appliquée à l'entrée en mode transmission, optionnelle
+		auto transmissionLossBrut = materialData.value("transmissionLoss", std::vector<float>{0.f, 0.f, 0.f});
 
 		Vector3F energyLoss = Vector3F(energyLossBrut[0], energyLossBrut[1], energyLossBrut[2]);
 		Vector3F normal = Vector3F(normalBrut[0], normalBrut[1], normalBrut[2]);
 		ColorRGBA colorRGB = ColorRGBA(colorBrut[0], colorBrut[1], colorBrut[2], colorBrut[3]);
+		Vector3F transmissionLoss = Vector3F(transmissionLossBrut[0], transmissionLossBrut[1], transmissionLossBrut[2]);
 
-		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, topTile, sideTile, bottomTile, colorRGB, roughness, metalness, specular, transmissionCoefficient);
+		Material nm = Material(name, isPassable, isInstantiable, energyLoss, scatteringCoefficient, normal, topTile, sideTile, bottomTile, colorRGB, roughness, metalness, specular, transmissionCoefficient, transmissionLoss);
 		materials.push_back(nm);
 	}
 
