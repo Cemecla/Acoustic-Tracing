@@ -4,6 +4,9 @@
 #include <QtQuick3D/QQuick3DInstancing>
 #include <QtQuick3D/QQuick3DObject>
 
+// Documentations
+// https://doc.qt.io/qt-6/qtquick3d-custominstancing-example.html
+
 class RayInstancing : public QQuick3DInstancing
 {
 	Q_OBJECT
@@ -30,5 +33,8 @@ protected:
 private:
 	QByteArray m_buffer;
 	int m_count = 0;
+	int m_rayCount = 0;
+
+	void setRayCount(int rayCount);
 };
 

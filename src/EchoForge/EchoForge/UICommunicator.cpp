@@ -261,7 +261,6 @@ QVariantList UICommunicator::loadPinnaSetting() {
 	}
 
 	return out;
-
 }
 
 void UICommunicator::setSelectedPinnaId(int id) {
@@ -284,4 +283,22 @@ float UICommunicator::getRayRefreshTime() {
 void UICommunicator::setRayRefreshTime(float timeInSeconde) {
 	m_parent->setRefreshTime(timeInSeconde);
 }
+
+const int UICommunicator::getMaxRayCount() const {
+	return m_parent->getMaxRayCount();
+}
+
+void UICommunicator::setMaxRayCount(int rayCount) {
+	m_parent->setMaxRayCount(rayCount);
+}
+
+const int UICommunicator::getRayPerFrame() const {
+	return m_parent->getRayPerFrame();
+}
+
+void UICommunicator::setRayPerFrame(int rayPerFrame) {
+	m_parent->setRayPerFrame(rayPerFrame);
+}
+
+
 

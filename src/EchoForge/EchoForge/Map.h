@@ -49,20 +49,18 @@
 				const unsigned getWidth() const;
 				const unsigned getHeight() const;
 				const unsigned getDepth() const;
+
 				const int countVoxels() const;
 				const int getUnitSize() const;
 				const int getUnitValue() const;
+
 				const std::vector<int>& getActiveVoxelsId() const;
 				const std::vector<Material>& getRawMaterials() const;
 				const std::vector<int>& getVoxels() const;
 				const std::string getName() const;
 
-				// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
-				const bool isInBound(const int x, const int y, const int z) const {
-					return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
-				}
+				const bool isInBound(const int x, const int y, const int z) const;
 
-	
 			private:
 				unsigned m_width;
 				unsigned m_height;
@@ -76,11 +74,9 @@
 	
 
 				const int findWorldPositionIndex(const Vector3F& worldPosition) const;
-
 				const int findWorldPositionIndex(const float x, const float y, const float z) const;
 
 				const int findMapIndex(const int x, const int y, const int z) const;
-	
 				const int findMapIndex(const Vector3I& position) const;
 
 				void buildEmptyMap();

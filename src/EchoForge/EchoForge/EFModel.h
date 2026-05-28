@@ -58,8 +58,6 @@ struct Inputs;
 
 			const std::optional<ef::Avatar>& getAvatar() const;
 
-			const ef::Avatar& getAvatar(int temporary) const;
-
 			const ef::Map& getMap() const;
 
 			const std::vector<DTO_RecievedRay>& getDTORays() const;
@@ -76,6 +74,12 @@ struct Inputs;
 			
 			const float getRefreshTime() const;
 			void setRefreshTime(float timeInSeconde);
+
+			const int getMaxRayCount() const;
+			void setMaxRayCount(int rayCount);
+
+			const int getRayPerFrame() const;
+			void setRayPerFrame(int rayPerFrame);
 		
 		private:
 			const std::string MATERIAL_FILENAME = "";

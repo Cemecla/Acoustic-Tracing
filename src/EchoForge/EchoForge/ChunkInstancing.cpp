@@ -3,12 +3,10 @@
 
 #include "Vector.h"
 
-// https://doc.qt.io/qt-6/qtquick3d-custominstancing-example.html
+// Documentations
+// https://www.cs.cornell.edu/courses/cs3410/2024fa/notes/bitpack.html
 
-ChunkInstancing::ChunkInstancing(QQuick3DObject *parent): QQuick3DInstancing(parent)
-{
-
-}
+ChunkInstancing::ChunkInstancing(QQuick3DObject *parent): QQuick3DInstancing(parent) {}
 
 void ChunkInstancing::setChunk(const ef::Map& map) {
 

@@ -38,6 +38,4 @@ Material::Material(
 	transmissionLoss(transmissionLoss)
 {}
 
-const bool Material::operator==(Material& other) const {
-	return name == other.name;
-}
+const bool Material::operator==(Material& other) const { return name == other.name; }

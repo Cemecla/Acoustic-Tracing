@@ -122,7 +122,11 @@ View3D {
             model: view3DMain.emittersId
             delegate: Model {
                 property string eid: modelData
-                position: Qt.vector3d(view3DMain.emitters[eid]["position"].x, view3DMain.emitters[eid]["position"].y, view3DMain.emitters[eid]["position"].z)
+                position: Qt.vector3d(
+                    view3DMain.emitters[eid]["position"].x, 
+                    view3DMain.emitters[eid]["position"].y, 
+                    view3DMain.emitters[eid]["position"].z
+                )
                 scale: Qt.vector3d(0.4, 0.4, 0.4)
                 
                 source: "#Sphere"
@@ -139,7 +143,9 @@ View3D {
     Model {
         id: rayModel
         visible: view3DMain.isRaysVisible;
-        source: "#Cube"
+        source: appSettings.graphicQuality == "Low" ? "#Rectangle" 
+        : appSettings.graphicQuality == "Medium" ? "#Cube" 
+        : "#Cylinder"
         instancing: communicator.rayInstances
         opacity: 0.1
 

@@ -15,14 +15,11 @@
 
 using namespace ef;
 
-// TEMPORARY : m_avatar
-// TODO : MAKE numbers of ray configurable
+
 EFModel::EFModel(EFController* parent) :
 	m_parent(parent),
 	m_rayManager{this, 1000, 10}
 {}
-	//m_rayManager(tracing::RayManager(this,20))
-	//{}
 
 void EFModel::loadWorld(std::string& filename) {
 	json mapfile = loadJson(filename);
@@ -80,7 +77,6 @@ void EFModel::buildScenario() {
 		);
 	}
 }
-
 
 void EFModel::startScenario() {
 	m_scenario.start();
@@ -267,10 +263,6 @@ const std::optional<Avatar>& EFModel::getAvatar() const {
 	return m_world->avatar;
 }
 
-const Avatar& EFModel::getAvatar(int temporary) const {
-	return m_world->avatar;
-}
-
 const Map& EFModel::getMap() const {
 	return m_world->map;
 }
@@ -312,5 +304,20 @@ const float EFModel::getRefreshTime() const {
 void EFModel::setRefreshTime(float timeInSeconde) {
 	m_refreshTime = timeInSeconde;
 }
- 
+
+const int EFModel::getMaxRayCount() const {
+	return m_rayManager.getRayCount();
+}
+
+void EFModel::setMaxRayCount(int rayCount) {
+	m_rayManager.setRaycount(rayCount);
+}
+
+const int EFModel::getRayPerFrame() const {
+	return m_rayManager.getRaysPerFrame();
+}
+
+void EFModel::setRayPerFrame(int rayPerFrame) {
+	m_rayManager.setRaysPerFrame(rayPerFrame);
+}
  

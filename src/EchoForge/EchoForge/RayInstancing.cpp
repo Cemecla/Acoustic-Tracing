@@ -1,14 +1,12 @@
 #include "RayInstancing.h"
 #include <QQuaternion>
 
-RayInstancing::RayInstancing(QQuick3DObject* parent)
-	: QQuick3DInstancing(parent)
-{}
+RayInstancing::RayInstancing(QQuick3DObject* parent) : QQuick3DInstancing(parent) {}
 
 void RayInstancing::clearBuffer() {
 	m_buffer.clear();
 	m_count = 0;
-	rayCountChanged();
+	setRayCount(0);
 	markDirty();
 }
 
@@ -18,18 +16,18 @@ void RayInstancing::prepareBuffer(QByteArray& buffer, int batchSize) {
 
 void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays, const QVariantMap& emittersData) {
 
-	int rayCount = 0;
+	int segmentCount = 0;
 	for (const auto& ray : rays)
-		rayCount += static_cast<int>(ray.getBouncePoints().size());
+		segmentCount += static_cast<int>(ray.getBouncePoints().size());
 
-	if (rayCount == 0) {
+	if (segmentCount == 0) {
 		clearBuffer();
 		return;
 	}
 
 	QByteArray tempBuffer;
 
-	prepareBuffer(tempBuffer, rayCount);
+	prepareBuffer(tempBuffer, segmentCount);
 
 	for (const auto& ray : rays)
 	{
@@ -50,9 +48,10 @@ void RayInstancing::setRays(const std::vector<DTO_RecievedRay>& rays, const QVar
 	}
 
 	clearBuffer();
-	m_count = rayCount;
+	m_count = segmentCount;
 	m_buffer = tempBuffer;
-	rayCountChanged();
+
+	setRayCount(rays.size());
 	markDirty();
 }
 
@@ -88,5 +87,10 @@ QByteArray RayInstancing::getInstanceBuffer(int* instanceCount) {
 
 
 int RayInstancing::rayCount() const {
-	return m_count;
+	return m_rayCount;
+}
+
+void RayInstancing::setRayCount(int rayCount) {
+	m_rayCount = rayCount;
+	rayCountChanged();
 }

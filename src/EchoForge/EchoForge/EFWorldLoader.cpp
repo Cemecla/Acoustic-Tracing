@@ -254,6 +254,5 @@ std::vector<Emitter> EFWorldLoader::buildEmitters(const json& mapJson) {
 		id++;
 	}
 
-	//qDebug() << "[EFWorldLoader] scenarioItems chargés :" << emitters.size();
 	return emitters;
 }

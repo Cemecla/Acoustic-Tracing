@@ -4,6 +4,8 @@
 #include <QElapsedTimer>
 
 
+// Documentation
+// https://stackoverflow.com/questions/15236340/how-i-can-pass-callable-object-to-function-as-parameter
 
 class SimulationLoop: public QObject {
 	Q_OBJECT

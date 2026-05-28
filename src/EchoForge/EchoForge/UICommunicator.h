@@ -15,16 +15,17 @@
 class EFView;
 class DTO_RecievedRay;
 
-/// <summary>
-/// Documentation
-/// https://doc.qt.io/qt-6/qtqml-cppintegration-exposecppattributes.html
-/// https://ekkesapps.wordpress.com/qt-6-qmake/qmetatype/
-/// </summary>
+// Documentations
+// https://doc.qt.io/qt-6/qtqml-cppintegration-exposecppattributes.html
+// https://ekkesapps.wordpress.com/qt-6-qmake/qmetatype/
+
 class UICommunicator : public QObject {
 	Q_OBJECT
+
 public:
 	UICommunicator(EFView* view);
 	UICommunicator(EFView* view, ef::Vector3F pos, ef::Vector3F angles);
+
 	// READ -> Getter WRITE -> Setter NOTIFY -> SIGNAL
 	Q_PROPERTY(QVector3D avatarPos READ avatarPos WRITE setAvatarPos NOTIFY avatarPosChanged);
 	Q_PROPERTY(QVector3D headAngles READ headAngles WRITE setHeadAngles NOTIFY headAnglesChanged);
@@ -52,9 +53,7 @@ public:
 	Q_INVOKABLE void destroyBlock(int x, int y, int z);
 
 	Q_INVOKABLE float getRayRefreshTime();
-	Q_INVOKABLE void setRayRefreshTime(float timeInSeconde);
-
-	// audio testing page stuff 
+	Q_INVOKABLE void setRayRefreshTime(float timeInSeconde); 
 
 	Q_INVOKABLE void resetEmitters();
 	Q_INVOKABLE void resumeAll();
@@ -67,6 +66,12 @@ public:
 	Q_INVOKABLE void loopEmitter(int emitterId);
 	Q_INVOKABLE void pauseEmitter(int emitterId);
 	Q_INVOKABLE void stopEmitter(int emitterId);
+
+	Q_INVOKABLE const int getMaxRayCount() const;
+	Q_INVOKABLE void setMaxRayCount(int rayCount);
+
+	Q_INVOKABLE const int getRayPerFrame() const;
+	Q_INVOKABLE void setRayPerFrame(int rayPerFrame);
 
 
 	Q_INVOKABLE void addSound(const QString& path);
@@ -82,8 +87,6 @@ public:
 	Q_INVOKABLE void savePinnaSetting(QVariantMap& settings);
 
 	Q_INVOKABLE void setSelectedPinnaId(int id);
-
-	//fin
 
 	void buildMap(const ef::Map& map);
 	void updateRayInstances(const std::vector<DTO_RecievedRay>& rays);
