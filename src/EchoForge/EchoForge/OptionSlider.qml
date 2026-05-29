@@ -1,6 +1,9 @@
 ﻿import QtQuick
 import QtQuick.Controls
 
+// Documentations
+// https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
+
 Slider {
 	id: sliderRoot
 	property int initialValue: 50
@@ -10,7 +13,6 @@ Slider {
     implicitWidth: 200
     implicitHeight: 28
 
-    // https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
 	handle: Rectangle {
         x: sliderRoot.leftPadding + sliderRoot.visualPosition * (sliderRoot.availableWidth - width)
         y: sliderRoot.topPadding + sliderRoot.availableHeight / 2 - height / 2

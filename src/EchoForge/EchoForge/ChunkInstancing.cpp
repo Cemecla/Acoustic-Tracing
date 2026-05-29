@@ -3,8 +3,6 @@
 
 #include "Vector.h"
 
-// Documentations
-// https://www.cs.cornell.edu/courses/cs3410/2024fa/notes/bitpack.html
 
 ChunkInstancing::ChunkInstancing(QQuick3DObject *parent): QQuick3DInstancing(parent) {}
 

@@ -153,8 +153,6 @@ Vector3I Map::getPositionFromId(int index) const {
 
 const std::vector<int>& Map::getActiveVoxelsId() const { return m_activeVoxelsId; }
 
-// Documentations
-// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
 const bool Map::isInBound(const int x, const int y, const int z) const {
 	return (unsigned)x < m_width && (unsigned)y < m_height && (unsigned)z < m_depth;
 }

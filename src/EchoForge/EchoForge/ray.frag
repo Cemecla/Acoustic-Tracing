@@ -4,11 +4,9 @@ VARYING vec2 vUV;
 
 void MAIN()
 {
-    float tipFade = 1.0 - pow(vUV.y, 2.0);
+    vec3 emissive = vInstanceColor.rgb * intensity;
 
-    vec3 emissive = vInstanceColor.rgb * intensity * tipFade;
-
-    BASE_COLOR = vec4(vInstanceColor.rgb, vInstanceColor.a * tipFade);
+    BASE_COLOR = vInstanceColor;
     EMISSIVE_COLOR = emissive;
     ROUGHNESS = 1.0;
     METALNESS = 0.0;

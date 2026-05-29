@@ -6,6 +6,7 @@
 
 // Documentations
 // https://doc.qt.io/qt-6/qtquick3d-custominstancing-example.html
+// https://www.cs.cornell.edu/courses/cs3410/2024fa/notes/bitpack.html
 
 class ChunkInstancing : public QQuick3DInstancing
 {

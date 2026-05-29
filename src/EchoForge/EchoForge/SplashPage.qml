@@ -63,26 +63,12 @@ Page {
             duration: 800;
         }
 
-        // NumberAnimation { 
-        //     target: logo1
-        //     property: "opacity"
-        //     to: 1.0;
-        //     duration: 800;
-        // }
-
         NumberAnimation { 
             target: logo2
             property: "opacity"
             to: 1.0;
             duration: 800;
         }
-
-        // NumberAnimation { 
-        //     target: logo3
-        //     property: "opacity"
-        //     to: 1.0;
-        //     duration: 800;
-        // }
 
         onFinished: {
             pageTimer.start()

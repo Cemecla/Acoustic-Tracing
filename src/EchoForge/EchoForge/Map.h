@@ -7,14 +7,8 @@
 #include "Vector.h"
 #include "Material.h"
 
-
-//enum class Materiel: uint8_t {
-//	EMPTY,
-//	STONE,
-//	GLASS,
-//	WOOD,
-//	OUT_OF_BOUND
-//};
+// Documentations
+// https://lemire.me/blog/2025/03/24/unsigned-comparisons-using-signed-types/
 
 #ifndef MAP_H
 	#define MAP_H

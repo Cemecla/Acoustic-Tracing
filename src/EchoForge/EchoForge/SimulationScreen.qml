@@ -130,11 +130,9 @@ View3D {
                 scale: Qt.vector3d(0.4, 0.4, 0.4)
                 
                 source: "#Sphere"
-                materials: [
-                    DefaultMaterial {
-                        diffuseColor: view3DMain.emitters[eid]["color"]
-                    }
-                ]
+                materials: DefaultMaterial {
+                    diffuseColor: view3DMain.emitters[eid]["color"]
+                }
             }
         }
     }
@@ -147,14 +145,14 @@ View3D {
         : appSettings.graphicQuality == "Medium" ? "#Cube" 
         : "#Cylinder"
         instancing: communicator.rayInstances
-        opacity: 0.1
+        opacity: 0.5
 
         castsShadows: false
         receivesShadows: false
         materials: CustomMaterial {
             id: customMaterialRoot
             shadingMode: CustomMaterial.Shaded
-            property real intensity: 1.0
+            property real intensity: 0.8
             vertexShader: "qrc:/shaders/ray.vert"
             fragmentShader: "qrc:/shaders/ray.frag"
         }
