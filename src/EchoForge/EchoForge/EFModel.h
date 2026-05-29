@@ -17,6 +17,15 @@
 class EFController;
 struct Inputs;
 
+
+// IA Usage
+// Utilisation: Writing documentation
+// Model: Claude Sonnet 4.6
+// Prompt: Analyze the provided C++ header file and add professional documentation 
+//         comments for all classes, structs, enums, constructors, destructors, 
+//         properties, and public methods.
+// Developper: Joël Mailly-Niquay
+
 #ifndef EF_MODEL_H
 	#define EF_MODEL_H
 

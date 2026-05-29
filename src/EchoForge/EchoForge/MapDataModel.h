@@ -11,6 +11,8 @@ struct MapData {
 // Documentations
 // https://stackoverflow.com/questions/27400025/using-qabstractlistmodel-in-listview
 
+// WARNING - Unused and unfinished
+
 class MapDataModel : public QAbstractListModel
 {
 	Q_OBJECT

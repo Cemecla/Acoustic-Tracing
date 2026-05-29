@@ -3,7 +3,13 @@
 #include <cmath>
 #include <Eigen/Dense>
 
-// temporay -> prompt : Don't change the code and don't comment on it. I wish to modify/add <summary> comment for all the function. Can you modify and add those comments
+// IA Usage
+// Utilisation: Writing documentation
+// Model: Claude Sonnet 4.6
+// Prompt: Analyze the provided C++ header file and add professional documentation 
+//         comments for all classes, structs, enums, constructors, destructors, 
+//         properties, and public methods.
+// Developper: Joël Mailly-Niquay
 
 namespace ef {
 	struct Vector2 {

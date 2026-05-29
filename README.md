@@ -32,8 +32,9 @@ Il est ici possible de sélectionner une carte préconstruite pour débuter une 
 - Le dev mode sert pour le moment au visuellement de la carte en Free Camera pour
 l'équipe de développement.
 - Il était prévu plus de fonctionnalitée pour la conception de cartes, cependant le temps manque.
+
 #### Sound Lab
-La page du Sound Lab permet de tester différents sons avec Pinna, la rotation et l'élévation.
+La page du Sound Lab permet de tester différents sons avec Pinna, la rotation et l'élévation avec un visuel en 2D.
 Il est aussi possible de créer des Registeries utilisables dans une carte 3D.
 
 #### Option
@@ -60,7 +61,9 @@ Les options sont garder en mémoire par QT Settings.
 
 ### Sommaire d'utilisation IA
 - Recherche sommaire sur Google (Gemini)
+- Documentation (Claude, Gemini, ChatGpt)
 - Écrire de documentation (Claude)
 - Création de tests (Claude)
+- Aide debugging configuration Visual Studio Code / QT (Claude, Gemini, ChatGpt)
 - Génération de carte JSON (Claude)
 - Création d'un outil de création de carte JSON (Claude)
