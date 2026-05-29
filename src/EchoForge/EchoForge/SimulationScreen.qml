@@ -1,5 +1,5 @@
 ﻿import QtQuick
-import QtQuick3D 6.11
+import QtQuick3D
 import QtQuick3D.Helpers
 
 View3D {

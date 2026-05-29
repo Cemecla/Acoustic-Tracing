@@ -225,5 +225,23 @@
         "energyLoss": [0.13, 0.085, 0.065],
         "transmissionCoefficient": 0.08,
         "transmissionLoss": [0.65, 0.62, 0.58]
+    },
+    {
+        "name": "placated_glass",
+        "isPassable": false,
+        "isInstantiable": true,
+        "color": [255, 255, 255, 100],
+        "tiles": {
+            "sides": 53,
+            "top": 53,
+            "bottom": 53
+        },
+        "metalness": 0.0,
+        "specular": 0.9,
+        "roughness": 0.1,
+        "scatteringCoefficient": 0.1,
+        "normal": [0, 0, 0],
+        "energyLoss": [0.35, 0.18, 0.04],
+        "transmissionCoefficient": 0.40
     }
 ]
