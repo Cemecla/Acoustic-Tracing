@@ -17,7 +17,7 @@ Window {
     Settings {
         id: appSettings
         property string screenSize: "Windowed"
-        property string graphicQuality: "Low"
+        property string graphicQuality: "Medium"
         property double sfxVolume: 1.0
         property int pinaId: 14
         property color secondaryColor: "#FFA500"

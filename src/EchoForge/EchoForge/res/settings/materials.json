@@ -76,23 +76,23 @@
         "transmissionLoss": [0.70, 0.68, 0.65]
     },
     {
-        "name": "obsidian",
+        "name": "grey_brick",
         "isPassable": false,
         "isInstantiable": true,
-        "color": [0, 0, 0, 255],
+        "color": [120, 120, 120, 255],
         "tiles": {
-            "sides": 3,
-            "top": 3,
-            "bottom": 3
+            "sides": 22,
+            "top": 22,
+            "bottom": 22
         },
         "metalness": 0.0,
-        "specular": 0.6,
-        "roughness": 0.3,
-        "scatteringCoefficient": 0.05,
+        "specular": 0.1,
+        "roughness": 1.0,
+        "scatteringCoefficient": 0.8,
         "normal": [0, 0, 0],
         "energyLoss": [0.01, 0.02, 0.025],
-        "transmissionCoefficient": 0.02,
-        "transmissionLoss": [0.95, 0.94, 0.93]
+        "transmissionCoefficient": 0.03,
+        "transmissionLoss": [0.92, 0.90, 0.88]
     },
     {
         "name": "gold",
@@ -242,6 +242,26 @@
         "scatteringCoefficient": 0.1,
         "normal": [0, 0, 0],
         "energyLoss": [0.35, 0.18, 0.04],
-        "transmissionCoefficient": 0.40
+        "transmissionCoefficient": 0.40,
+        "transmissionLoss": [0.50, 0.45, 0.35]
+    },
+    {
+        "name": "fire",
+        "isPassable": true,
+        "isInstantiable": true,
+        "color": [125, 100, 49, 255],
+        "tiles": {
+            "sides": 62,
+            "top": 89,
+            "bottom": 89
+        },
+        "metalness": 0.0,
+        "specular": 0.2,
+        "roughness": 0.9,
+        "scatteringCoefficient": 0.0,
+        "normal": [0, 0, 0],
+        "energyLoss": [0.002, 0.001, 0.0005],
+        "transmissionCoefficient": 0.0,
+        "transmissionLoss": [0.0, 0.0, 0.0]
     }
 ]

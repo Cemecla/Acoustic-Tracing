@@ -1,0 +1,25 @@
+{
+    "ambient": [],
+    "sounds": [
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\creepy-whispering-1.mp3",
+            "id": 10,
+            "md5": "527b032abea0e0aa24535cf2b7d2c5f6"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Fireplace.mp3",
+            "id": 11,
+            "md5": "3868067b654509c064c510a1ecd0a314"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Music_Box.mp3",
+            "id": 12,
+            "md5": "e4e7f5a355be32a28cf03f3c025561fc"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\ghost-whispers.mp3",
+            "id": 13,
+            "md5": "8dce91f2282eba45ca63159fd76c1af5"
+        }
+    ]
+}

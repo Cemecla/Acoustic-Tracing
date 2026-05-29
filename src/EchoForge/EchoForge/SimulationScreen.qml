@@ -5,7 +5,7 @@ import QtQuick3D.Helpers
 View3D {
     id: view3DMain
     required property bool debugEnable
-    property bool isFirstPerson: false
+    property bool isFirstPerson: true
     property int baseSize: 100
     property bool isRaysVisible: true
     property bool isEmittersVisible: true

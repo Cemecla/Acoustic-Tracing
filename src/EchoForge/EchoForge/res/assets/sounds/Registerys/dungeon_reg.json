@@ -1,0 +1,20 @@
+{
+    "ambient": [],
+    "sounds": [
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\BATTERING_RAM_HITTING_WOOD_DOOR.mp3",
+            "id": 10,
+            "md5": "2afb98588ec1ec497068f60f8cdb3888"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\Laugh.mp3",
+            "id": 11,
+            "md5": "6525e8c1b41b4ba4c416d5a17f164254"
+        },
+        {
+            "filePath": "..\\..\\EchoForge\\res\\assets\\sounds\\ghost-whispers.mp3",
+            "id": 12,
+            "md5": "8dce91f2282eba45ca63159fd76c1af5"
+        }
+    ]
+}
