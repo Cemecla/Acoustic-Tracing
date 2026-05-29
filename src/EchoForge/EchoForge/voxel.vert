@@ -5,8 +5,8 @@ VARYING vec4 vCustomData;
 // Utilisation: Generating "Cheat Sheet"
 // Model: Claude Sonnet 4.6
 // Prompt: Can you provide a comprehensive list of all built-in variables, 
-		   functions, macros, uniforms, attributes, varyings, and Qt-specific 
-		   shader features available in Qt Quick 3D GLSL shaders.
+//		   functions, macros, uniforms, attributes, varyings, and Qt-specific 
+//		   shader features available in Qt Quick 3D GLSL shaders.
 // Developper: Joël Mailly-Niquay
 // Notes: Some where incorrect or outdated
 
