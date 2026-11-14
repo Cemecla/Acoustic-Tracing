@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "Map.h"
 #include "Material.h"
 
