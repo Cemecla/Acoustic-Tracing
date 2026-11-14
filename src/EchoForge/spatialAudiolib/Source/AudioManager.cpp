@@ -339,18 +339,51 @@ namespace yutasound {
         return ITD * (float)m_sampleRate;
     }
 
+    namespace {
+        // Extra attenuation of the far ear (head shadow) in dB when the source is fully to the side.
+        // Scaled by |sin(azimuth) * cos(elevation)|: 0 in front, behind and above, full at +-90 deg.
+        // Rough values for a real head, tune by ear. The high band needs little extra because
+        // SVFILDFilter already low-passes the far ear.
+        constexpr float kFarEarLowDb  = 3.0f;   // < 300 Hz
+        constexpr float kFarEarMidDb  = 7.0f;   // 300 Hz - 3 kHz
+        constexpr float kFarEarHighDb = 0.0f;   // > 3 kHz
+    }
+
     ILDGain AudioManager::computeILD_(float azimuth, float elevation, SoundRemaining soundRemaining)
     {
-        float azRAD = azimuth * (juce::MathConstants<float>::pi / 180.0f);
+        const float azRad = azimuth * (juce::MathConstants<float>::pi / 180.0f);
+        const float elRad = elevation * (juce::MathConstants<float>::pi / 180.0f);
 
+        // front/back level, same on both ears
         // Reference: Brown & Duda 1998 "A Structural Model for Binaural Sound Synthesis"
         // Scale to [0.2, 1.0] so rear sources (~180 deg) stay audible at ~-14 dB rather than going silent
-        float baseILD = 0.2f + 0.8f * (1.0f + std::cos(azRAD)) / 2.0f;
-        ILDGain gain;
-        gain.low = baseILD * soundRemaining.lowRemaining;
-        gain.mid = baseILD * soundRemaining.midRemaining;
-        gain.high = baseILD * soundRemaining.highRemaining;
+        const float frontBack = 0.2f + 0.8f * (1.0f + std::cos(azRad)) / 2.0f;
 
+        ILDGain gain;
+        gain.lowL  = gain.lowR  = frontBack * soundRemaining.lowRemaining;
+        gain.midL  = gain.midR  = frontBack * soundRemaining.midRemaining;
+        gain.highL = gain.highR = frontBack * soundRemaining.highRemaining;
+
+        // interaural level difference: only the far ear is turned down (the near ear is never
+        // boosted, the mix has no limiter). lateral > 0: source on the right, the left ear is far
+        const float lateral = std::cos(elRad) * std::sin(azRad);
+        const float amount = std::abs(lateral);
+        const float farLow  = juce::Decibels::decibelsToGain(-kFarEarLowDb  * amount);
+        const float farMid  = juce::Decibels::decibelsToGain(-kFarEarMidDb  * amount);
+        const float farHigh = juce::Decibels::decibelsToGain(-kFarEarHighDb * amount);
+
+        if (lateral > 0.0f)
+        {
+            gain.lowL  *= farLow;
+            gain.midL  *= farMid;
+            gain.highL *= farHigh;
+        }
+        else
+        {
+            gain.lowR  *= farLow;
+            gain.midR  *= farMid;
+            gain.highR *= farHigh;
+        }
         return gain;
     }
 }

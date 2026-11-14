@@ -17,77 +17,66 @@ namespace yutasound {
 
         juce::dsp::ProcessSpec spec;
         spec.sampleRate = sampleRate;
-        spec.numChannels = 1;
+        spec.numChannels = 2; // 0 = left ear, 1 = right ear
         spec.maximumBlockSize = (juce::uint32)bufferSize;
 
-        m_lowpassL.prepare(spec);
-        m_lowpassR.prepare(spec);
-        m_lowpass3000L.prepare(spec);
-        m_lowpass3000R.prepare(spec);
+        m_lowpass300.prepare(spec);
+        m_lowpass3000.prepare(spec);
 
-        m_highpassL.prepare(spec);
-        m_highpassR.prepare(spec);
-        m_highpass300L.prepare(spec);
-        m_highpass300R.prepare(spec);
+        m_lowpass300.setType(juce::dsp::FirstOrderTPTFilterType::lowpass);
+        m_lowpass3000.setType(juce::dsp::FirstOrderTPTFilterType::lowpass);
 
-        m_lowpassL.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
-        m_lowpassR.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
-        m_lowpass3000L.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
-        m_lowpass3000R.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
+        m_lowpass300.setCutoffFrequency(300.0f);
+        m_lowpass3000.setCutoffFrequency(3000.0f);
 
-        m_highpassL.setType(juce::dsp::StateVariableTPTFilterType::highpass);
-        m_highpassR.setType(juce::dsp::StateVariableTPTFilterType::highpass);
-        m_highpass300L.setType(juce::dsp::StateVariableTPTFilterType::highpass);
-        m_highpass300R.setType(juce::dsp::StateVariableTPTFilterType::highpass);
-
-        m_lowpassL.setCutoffFrequency(300.0f);
-        m_lowpassR.setCutoffFrequency(300.0f);
-        m_lowpass3000L.setCutoffFrequency(3000.0f);
-        m_lowpass3000R.setCutoffFrequency(3000.0f);
-
-        m_highpassL.setCutoffFrequency(3000.0f);
-        m_highpassR.setCutoffFrequency(3000.0f);
-        m_highpass300L.setCutoffFrequency(300.0f);
-        m_highpass300R.setCutoffFrequency(300.0f);
-
-        m_gains = ILDGain();
+        // gains start at 0 (silent) like before; the first setGains() fades in over 50 ms
+        for (auto* gain : allGains_())
+        {
+            gain->reset(sampleRate, 0.05);
+            gain->setCurrentAndTargetValue(0.0f);
+        }
     }
     void CrossoverFilter::setGains(ILDGain gains)
     {
-        m_gains = gains;
+        m_lowGainL.setTargetValue(gains.lowL);
+        m_midGainL.setTargetValue(gains.midL);
+        m_highGainL.setTargetValue(gains.highL);
+        m_lowGainR.setTargetValue(gains.lowR);
+        m_midGainR.setTargetValue(gains.midR);
+        m_highGainR.setTargetValue(gains.highR);
     }
     StereoSample CrossoverFilter::processSample(float left, float right)
     {
-        float lowL = m_lowpassL.processSample(0, left);
-        float lowR = m_lowpassR.processSample(0, right);
-        float restL = m_highpass300L.processSample(0, left);
-        float restR = m_highpass300R.processSample(0, right);
+        const float below300L  = m_lowpass300.processSample(0, left);
+        const float below3000L = m_lowpass3000.processSample(0, left);
+        const float below300R  = m_lowpass300.processSample(1, right);
+        const float below3000R = m_lowpass3000.processSample(1, right);
 
-        float midL = m_lowpass3000L.processSample(0, restL);
-        float midR = m_lowpass3000R.processSample(0, restR);
-
-        float highL = m_highpassL.processSample(0, restL);
-        float highR = m_highpassR.processSample(0, restR);
+        const float lowL = m_lowGainL.getNextValue();
+        const float midL = m_midGainL.getNextValue();
+        const float highL = m_highGainL.getNextValue();
+        const float lowR = m_lowGainR.getNextValue();
+        const float midR = m_midGainR.getNextValue();
+        const float highR = m_highGainR.getNextValue();
 
         StereoSample result;
-
-        result.left = lowL * m_gains.low + midL * m_gains.mid + highL * m_gains.high;
-        result.right = lowR * m_gains.low + midR * m_gains.mid + highR * m_gains.high;
+        result.left = highL * left + (midL - highL) * below3000L + (lowL - midL) * below300L;
+        result.right = highR * right + (midR - highR) * below3000R + (lowR - midR) * below300R;
         return result;
     }
     void CrossoverFilter::reset()
     {
-        m_lowpassL.reset();
-        m_lowpassR.reset();
-        m_lowpass3000L.reset();
-        m_lowpass3000R.reset();
+        m_lowpass300.reset();
+        m_lowpass3000.reset();
 
-        m_highpassL.reset();
-        m_highpassR.reset();
-        m_highpass300L.reset();
-        m_highpass300R.reset();
+        // reset() only clears the filter memory, like JUCE's reset(): the gains keep their target
+        // and jump straight to it. Zeroing them would silence a chain right after a shadow swap.
+        for (auto* gain : allGains_())
+            gain->setCurrentAndTargetValue(gain->getTargetValue());
+    }
 
-        // m_gains is kept on purpose: reset() only clears the filter memory, like JUCE's
-        // reset(). Zeroing the gains here would silence a chain right after a shadow swap.
+    std::array<juce::SmoothedValue<float>*, 6> CrossoverFilter::allGains_()
+    {
+        return { &m_lowGainL, &m_midGainL, &m_highGainL, &m_lowGainR, &m_midGainR, &m_highGainR };
     }
 }

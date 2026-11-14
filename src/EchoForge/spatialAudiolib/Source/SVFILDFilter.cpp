@@ -35,28 +35,28 @@ namespace yutasound {
     }
     void SVFILDFilter::setAzimuth(float azimuthDegrees)
     {
-        float azRad = azimuthDegrees * (juce::MathConstants<float>::pi / 180.0f);
-        // Brown-Duda cutoff formula
-        float fcFar = 1500.0f + 8500.0f * (1.0f - std::abs(std::sin(azRad))) / 2.0f;
-        float fcNear = 10000.0f;
+        const float azRad = azimuthDegrees * (juce::MathConstants<float>::pi / 180.0f);
 
-        if (azimuthDegrees > 0.0f)
+        // Head shadow on the far ear: its low-pass cutoff goes from fcNear (source in front or
+        // behind, no shadow) down to fcFarMin (source fully to the side), log-interpolated with
+        // |sin(azimuth)|. Continuous through 0 and 180 deg: no jump when the source crosses them,
+        // and a source straight behind is centred.
+        constexpr float fcNear = 10000.0f;
+        constexpr float fcFarMin = 1500.0f;
+        const float lateral = std::sin(azRad); // > 0: source on the right
+        const float fcFar = fcNear * std::pow(fcFarMin / fcNear, std::abs(lateral));
+
+        if (lateral > 0.0f)
         {
-            //source is on the RIGHT  so left is far  so attenuation on the high freq on left 
-            m_cutoffL.setTargetValue(fcFar); // far ear → shadow
-            m_cutoffR.setTargetValue(fcNear); // near ear → minimal attenuation
-        }
-        else if (azimuthDegrees < 0.0f)
-        {
-            //source is on the LEFT so right is far  
-            m_cutoffL.setTargetValue(fcNear); // near ear → minimal attenuation
-            m_cutoffR.setTargetValue(fcFar); // far ear → shadow
-        }
-        else 
-        {
-            // front equal on both ear 
-            m_cutoffL.setTargetValue(fcNear);
+            // source on the RIGHT: left ear is far -> shadow on the left
+            m_cutoffL.setTargetValue(fcFar);
             m_cutoffR.setTargetValue(fcNear);
+        }
+        else
+        {
+            // source on the LEFT: right ear is far (in front / behind fcFar == fcNear)
+            m_cutoffL.setTargetValue(fcNear);
+            m_cutoffR.setTargetValue(fcFar);
         }
 
     }

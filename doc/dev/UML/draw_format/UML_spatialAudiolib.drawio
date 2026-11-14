@@ -289,7 +289,7 @@
         <mxCell id="c_AudioManager_m31" value="- computeITD_(azimuth: float, elevation: float): float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// Woodworth, in samples&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
           <mxGeometry as="geometry" x="0" y="856" width="640" height="20" />
         </mxCell>
-        <mxCell id="c_AudioManager_m32" value="- computeILD_(azimuth: float, elevation: float, soundRemaining: SoundRemaining): ILDGain" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+        <mxCell id="c_AudioManager_m32" value="- computeILD_(azimuth: float, elevation: float, soundRemaining: SoundRemaining): ILDGain&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// per ear&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
           <mxGeometry as="geometry" x="0" y="876" width="640" height="20" />
         </mxCell>
         <mxCell id="c_EmitterCommand" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;EmitterCommand" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
@@ -419,16 +419,13 @@
           <mxGeometry as="geometry" x="0" y="82" width="160" height="20" />
         </mxCell>
         <mxCell id="c_ILDGain" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;ILDGain" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="970" y="1282" width="150" height="102" />
+          <mxGeometry as="geometry" x="970" y="1282" width="240" height="82" />
         </mxCell>
-        <mxCell id="c_ILDGain_a0" value="+ low: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
-          <mxGeometry as="geometry" x="0" y="42" width="150" height="20" />
+        <mxCell id="c_ILDGain_a0" value="+ lowL, midL, highL: float = 0.0&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// left ear&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
+          <mxGeometry as="geometry" x="0" y="42" width="240" height="20" />
         </mxCell>
-        <mxCell id="c_ILDGain_a1" value="+ mid: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
-          <mxGeometry as="geometry" x="0" y="62" width="150" height="20" />
-        </mxCell>
-        <mxCell id="c_ILDGain_a2" value="+ high: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
-          <mxGeometry as="geometry" x="0" y="82" width="150" height="20" />
+        <mxCell id="c_ILDGain_a1" value="+ lowR, midR, highR: float = 0.0&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// right ear&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
+          <mxGeometry as="geometry" x="0" y="62" width="240" height="20" />
         </mxCell>
         <mxCell id="c_SAE" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«processing thread»&lt;/span&gt;&lt;br&gt;SpatialAudioEngine" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="1420" y="714" width="320" height="510" />
@@ -622,7 +619,7 @@
         <mxCell id="c_FilterChain_m2" value="+ setAzimuth(azimuth: float): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
           <mxGeometry as="geometry" x="0" y="216" width="460" height="20" />
         </mxCell>
-        <mxCell id="c_FilterChain_m3" value="+ setPinnaEQ(preset: PinnaPreset): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// L + R, sets dirty&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+        <mxCell id="c_FilterChain_m3" value="+ setPinnaEQ(preset: PinnaPreset): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// solved gains, Q = f/2800, sets dirty&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
           <mxGeometry as="geometry" x="0" y="236" width="460" height="20" />
         </mxCell>
         <mxCell id="c_FilterChain_m4" value="+ setGains(gains: ILDGain): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
@@ -644,67 +641,67 @@
           <mxGeometry as="geometry" x="0" y="356" width="460" height="20" />
         </mxCell>
         <mxCell id="c_SVF" value="SVFILDFilter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="1420" y="1770" width="360" height="176" />
+          <mxGeometry as="geometry" x="1420" y="1770" width="420" height="176" />
         </mxCell>
         <mxCell id="c_SVF_a0" value="- m_filterL, m_filterR: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// lowpass&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="28" width="360" height="20" />
+          <mxGeometry as="geometry" x="0" y="28" width="420" height="20" />
         </mxCell>
         <mxCell id="c_SVF_a1" value="- m_cutoffL, m_cutoffR: SmoothedValue&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 50 ms&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="48" width="360" height="20" />
+          <mxGeometry as="geometry" x="0" y="48" width="420" height="20" />
         </mxCell>
         <mxCell id="c_SVF_a2" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="68" width="360" height="20" />
+          <mxGeometry as="geometry" x="0" y="68" width="420" height="20" />
         </mxCell>
         <mxCell id="c_SVF_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="88" width="360" height="8" />
+          <mxGeometry as="geometry" x="0" y="88" width="420" height="8" />
         </mxCell>
         <mxCell id="c_SVF_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="96" width="360" height="20" />
+          <mxGeometry as="geometry" x="0" y="96" width="420" height="20" />
         </mxCell>
-        <mxCell id="c_SVF_m1" value="+ setAzimuth(azimuthDegrees: float): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="116" width="360" height="20" />
+        <mxCell id="c_SVF_m1" value="+ setAzimuth(azimuthDegrees: float): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// far-ear cutoff 10k -&amp;gt; 1.5k with |sin|&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="116" width="420" height="20" />
         </mxCell>
         <mxCell id="c_SVF_m2" value="+ processSample(left: float, right: float): StereoSample" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="136" width="360" height="20" />
+          <mxGeometry as="geometry" x="0" y="136" width="420" height="20" />
         </mxCell>
         <mxCell id="c_SVF_m3" value="+ resetState(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
-          <mxGeometry as="geometry" x="0" y="156" width="360" height="20" />
+          <mxGeometry as="geometry" x="0" y="156" width="420" height="20" />
         </mxCell>
         <mxCell id="c_Crossover" value="CrossoverFilter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="1980" y="1770" width="450" height="236" />
+          <mxGeometry as="geometry" x="1980" y="1770" width="520" height="236" />
         </mxCell>
-        <mxCell id="c_Crossover_a0" value="- m_lowpassL, m_lowpassR: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// LP 300 Hz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="28" width="450" height="20" />
+        <mxCell id="c_Crossover_a0" value="- m_lowpass300: dsp::FirstOrderTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 2 ch&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="28" width="520" height="20" />
         </mxCell>
-        <mxCell id="c_Crossover_a1" value="- m_highpass300L, m_highpass300R: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// HP 300 Hz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="48" width="450" height="20" />
+        <mxCell id="c_Crossover_a1" value="- m_lowpass3000: dsp::FirstOrderTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 2 ch&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="48" width="520" height="20" />
         </mxCell>
-        <mxCell id="c_Crossover_a2" value="- m_lowpass3000L, m_lowpass3000R: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// LP 3 kHz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="68" width="450" height="20" />
+        <mxCell id="c_Crossover_a2" value="- m_lowGainL, m_midGainL, m_highGainL: SmoothedValue&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 50 ms&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="68" width="520" height="20" />
         </mxCell>
-        <mxCell id="c_Crossover_a3" value="- m_highpassL, m_highpassR: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// HP 3 kHz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="88" width="450" height="20" />
+        <mxCell id="c_Crossover_a3" value="- m_lowGainR, m_midGainR, m_highGainR: SmoothedValue&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 50 ms&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="88" width="520" height="20" />
         </mxCell>
-        <mxCell id="c_Crossover_a4" value="- m_gains: ILDGain" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="108" width="450" height="20" />
-        </mxCell>
-        <mxCell id="c_Crossover_a5" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="128" width="450" height="20" />
+        <mxCell id="c_Crossover_a4" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="108" width="520" height="20" />
         </mxCell>
         <mxCell id="c_Crossover_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="148" width="450" height="8" />
+          <mxGeometry as="geometry" x="0" y="128" width="520" height="8" />
         </mxCell>
         <mxCell id="c_Crossover_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="156" width="450" height="20" />
+          <mxGeometry as="geometry" x="0" y="136" width="520" height="20" />
         </mxCell>
         <mxCell id="c_Crossover_m1" value="+ setGains(gains: ILDGain): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="176" width="450" height="20" />
+          <mxGeometry as="geometry" x="0" y="156" width="520" height="20" />
         </mxCell>
-        <mxCell id="c_Crossover_m2" value="+ processSample(left: float, right: float): StereoSample" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="196" width="450" height="20" />
+        <mxCell id="c_Crossover_m2" value="+ processSample(left: float, right: float): StereoSample&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// high*x + (mid-high)*LP3k + (low-mid)*LP300&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="176" width="520" height="20" />
         </mxCell>
-        <mxCell id="c_Crossover_m3" value="+ reset(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
-          <mxGeometry as="geometry" x="0" y="216" width="450" height="20" />
+        <mxCell id="c_Crossover_m3" value="+ reset(): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// keeps gains&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="196" width="520" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_m4" value="- allGains_(): array&amp;lt;SmoothedValue&amp;lt;float&amp;gt;*, 6&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="216" width="520" height="20" />
         </mxCell>
         <mxCell id="c_PinnaCalibration" value="PinnaCalibration" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="510" y="2136" width="270" height="156" />
@@ -766,8 +763,8 @@
         <mxCell id="n_n_threads" value="&lt;b&gt;Threads&lt;/b&gt;&lt;br&gt;&lt;b&gt;Game thread&lt;/b&gt; (EFView, main.cpp) calls the AudioManager API. Each&lt;br&gt;play / pause / resume / loop / stop / update / reset call pushes&lt;br&gt;one EmitterCommand into m_commandFifo (lock-free, 64 slots).&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Processing thread&lt;/b&gt; (SpatialAudioEngine::run, juce::Thread) runs&lt;br&gt;drainCommandQueue_() before each block, renders every emitter&lt;br&gt;into m_mixBuffer, then writes it into the CircularStereoBuffer.&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Audio thread&lt;/b&gt; (AudioCallback) reads the CircularStereoBuffer&lt;br&gt;into the device outputs. It never blocks: silence on underrun." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="20" y="1550" width="400" height="176" />
         </mxCell>
-        <mxCell id="n_n_path" value="&lt;b&gt;Per-emitter signal path&lt;/b&gt; (SpatialAudioEngine::run, per sample)&lt;br&gt;mono buffer (AudioManager::getBuffer -&amp;gt; Librarian)&lt;br&gt;-&amp;gt; StereoDelayLine: ITD, Thiran fractional delay on the far ear&lt;br&gt;-&amp;gt; FilterChain [active]:&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1. SVFILDFilter: head-shadow LP on the far ear (1.5-5.75 kHz)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2. 7 x IIR peak per ear: pinna EQ 4/6/8/10/12/14/16 kHz&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3. CrossoverFilter: 3 bands (300 Hz / 3 kHz) x ILDGain&lt;br&gt;-&amp;gt; summed into m_mixBuffer&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Pinna change&lt;/b&gt;: setPinnaPreset() -&amp;gt; cmd SetPinnaPreset&lt;br&gt;-&amp;gt; SAE stores m_pinnaPreset, setPinnaEQ() on every shadow (dirty)&lt;br&gt;-&amp;gt; next block: shadow.resetState() + warmUp() -&amp;gt; swap(active, shadow)&lt;br&gt;-&amp;gt; new shadow gets the preset too. Azimuth + gains go to both chains." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="20" y="1750" width="420" height="204" />
+        <mxCell id="n_n_path" value="&lt;b&gt;Per-emitter signal path&lt;/b&gt; (SpatialAudioEngine::run, per sample)&lt;br&gt;mono buffer (AudioManager::getBuffer -&amp;gt; Librarian)&lt;br&gt;-&amp;gt; StereoDelayLine: ITD, Thiran fractional delay on the far ear&lt;br&gt;-&amp;gt; FilterChain [active]:&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1. SVFILDFilter: head-shadow LP on the far ear (10 -&amp;gt; 1.5 kHz)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2. 7 x IIR peak per ear: pinna EQ 4..16 kHz, gains solved&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;so the curve hits the preset values&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3. CrossoverFilter: per-ear low / mid / high gains (ILDGain):&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;front-back level x wall absorption, far ear -3 / -7 dB at 90 deg&lt;br&gt;-&amp;gt; summed into m_mixBuffer&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Pinna change&lt;/b&gt;: setPinnaPreset() -&amp;gt; cmd SetPinnaPreset&lt;br&gt;-&amp;gt; SAE stores m_pinnaPreset, setPinnaEQ() on every shadow (dirty)&lt;br&gt;-&amp;gt; next block: shadow.resetState() + warmUp() -&amp;gt; swap(active, shadow)&lt;br&gt;-&amp;gt; new shadow gets the preset too. Azimuth + gains go to both chains." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="1750" width="420" height="232" />
         </mxCell>
         <mxCell id="n_n_legend" value="&lt;b&gt;Legend&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;background-color:#F5AB50;border:1px solid #909090;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&amp;nbsp;orange: class&lt;br&gt;&lt;span style=&quot;background-color:#FAD7A0;border:1px solid #909090;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&amp;nbsp;light orange: struct / enum / namespace&lt;br&gt;&lt;span style=&quot;background-color:#E3E3E3;border:1px solid #909090;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&amp;nbsp;grey: JUCE base class&lt;br&gt;◆——&amp;nbsp;&amp;nbsp;composition (owner holds the part by value)&lt;br&gt;——&amp;gt;&amp;nbsp;&amp;nbsp;association (holds a reference)&lt;br&gt;- - -&amp;gt;&amp;nbsp;&amp;nbsp;dependency («create» / «use»)&lt;br&gt;——▷&amp;nbsp;&amp;nbsp;inheritance&lt;br&gt;⊕——&amp;nbsp;&amp;nbsp;nested type&lt;br&gt;juce:: and std:: prefixes are omitted for File, String,&lt;br&gt;AudioBuffer, AbstractFifo, SmoothedValue, vector." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="1980" y="2136" width="320" height="176" />
@@ -784,13 +781,13 @@
         <mxCell id="sepline0" value="" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeWidth=2;strokeColor=#A0A0A0;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint x="0" y="514" as="sourcePoint" />
-            <mxPoint x="2470" y="514" as="targetPoint" />
+            <mxPoint x="2510" y="514" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="sepline1" value="" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeWidth=2;strokeColor=#A0A0A0;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint x="0" y="2056" as="sourcePoint" />
-            <mxPoint x="2470" y="2056" as="targetPoint" />
+            <mxPoint x="2510" y="2056" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e0" value="m_entries  0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.1862;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5738;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_Librarian" target="c_SoundFileEntry">
@@ -842,7 +839,7 @@
         <mxCell id="e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.2667;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SoundSource" target="c_SoundRemaining">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.8333;exitY=1.0;exitDx=0;exitDy=0;entryX=0.3333;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SoundSource" target="c_ILDGain">
+        <mxCell id="e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.8333;exitY=1.0;exitDx=0;exitDy=0;entryX=0.2083;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SoundSource" target="c_ILDGain">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
         <mxCell id="e14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_JuceThread">
@@ -884,11 +881,11 @@
         <mxCell id="e23" value="m_svfILD" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.0;exitY=0.867;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_FilterChain" target="c_SVF">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="1600" y="1640" />
+              <mxPoint x="1630" y="1640" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e24" value="m_crossover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.1739;exitY=1.0;exitDx=0;exitDy=0;entryX=0.1778;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_FilterChain" target="c_Crossover">
+        <mxCell id="e24" value="m_crossover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.1739;exitY=1.0;exitDx=0;exitDy=0;entryX=0.1538;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_FilterChain" target="c_Crossover">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
         <mxCell id="e25" value="«create»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=0.1818;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5333;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SDL" target="c_StereoSample">
