@@ -1,4 +1,11 @@
 # Echo Forge
+## Guide de lancement
+Dernière version: [Téléchager EchoForge](https://github.com/Cemecla/Echo-Forge/releases/tag/v1.0.3) 
+
+## Installation
+1. Téléchargez le fichier depuis la page de release.
+2. Décompressez l'archive.
+3. Lancez l'exécutable (Fichier EchoForge.exe
 
 ## Partenaires
 - Mailly-Niquay Joël
