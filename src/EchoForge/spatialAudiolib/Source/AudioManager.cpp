@@ -252,11 +252,23 @@ namespace yutasound {
     {
         m_pinnaCalibration.loadFromJson(path);
         DBG("AudioManager: pinna presets loaded");
+
+        // send the current (default) preset to the engine so the EQ is active from the start
+        if (m_pinnaCalibration.getCount() > 0)
+            setPinnaPreset(m_currentPinnaPresetId);
     }
 
     void AudioManager::setPinnaPreset(int presetId)
     {
         m_currentPinnaPresetId = presetId;
+
+        // the SAE applies it to the shadow chains, which get swapped in at the next block boundary
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+        {
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetPinnaPreset;
+            m_commandBuffer[scope.startIndex1].pinnaPreset = m_pinnaCalibration.getPreset(presetId);
+        }
         DBG("AudioManager: pinna preset set to " + juce::String(presetId));
     }
 

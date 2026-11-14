@@ -10,6 +10,7 @@
 
 #pragma once
 #include "SoundSource.h"
+#include "PinnaPreset.h"
 
 #ifndef EMITTERCOMMAND_H
 #define EMITTERCOMMAND_H
@@ -17,7 +18,7 @@
 namespace yutasound {
     struct EmitterCommand
     {
-        enum class Type {Add, Remove, SetState, UpdateSpatial, Reset};
+        enum class Type {Add, Remove, SetState, UpdateSpatial, Reset, SetPinnaPreset};
         Type type;
         SoundSource emitter; // used for Add
         int emitterId; // used for Remove
@@ -27,6 +28,7 @@ namespace yutasound {
         ILDGain      ildGain;
         float azimuth = 0.0f;
         float elevation = 0.0f;
+        PinnaPreset  pinnaPreset; // used for SetPinnaPreset (applies to every emitter)
     };
 }
 #endif 

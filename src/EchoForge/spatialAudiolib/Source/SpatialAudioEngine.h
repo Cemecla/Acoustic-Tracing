@@ -52,6 +52,8 @@ namespace yutasound {
 
         std::vector<FilterChain>      m_activeChains;
         std::vector<FilterChain>      m_shadowChains;
+        // pinna preset currently applied to every chain (set by EmitterCommand::Type::SetPinnaPreset)
+        PinnaPreset                   m_pinnaPreset;
 
         CircularStereoBuffer m_circularBuffer;
         AudioCallback m_audioCallback { m_circularBuffer };

@@ -86,7 +86,8 @@ namespace yutasound {
         m_highpassR.reset();
         m_highpass300L.reset();
         m_highpass300R.reset();
-        
-        m_gains = ILDGain();
+
+        // m_gains is kept on purpose: reset() only clears the filter memory, like JUCE's
+        // reset(). Zeroing the gains here would silence a chain right after a shadow swap.
     }
 }

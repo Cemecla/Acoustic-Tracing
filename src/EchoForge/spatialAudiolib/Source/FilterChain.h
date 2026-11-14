@@ -35,7 +35,10 @@ namespace yutasound {
 
     private:
         SVFILDFilter m_svfILD;
-        std::array<juce::dsp::IIR::Filter<float>, 7> m_pinnaFilters;
+        // one filter set per ear: an IIR filter keeps the history of the samples it processed,
+        // so left and right must not share the same instance
+        std::array<juce::dsp::IIR::Filter<float>, 7> m_pinnaFiltersL;
+        std::array<juce::dsp::IIR::Filter<float>, 7> m_pinnaFiltersR;
         bool m_isDirty { false };
         float m_azimuth = 0.0f;
         float m_elevation = 0.0f;

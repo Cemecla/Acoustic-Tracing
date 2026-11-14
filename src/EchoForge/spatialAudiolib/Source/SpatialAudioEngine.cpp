@@ -43,12 +43,17 @@ namespace yutasound {
         smoothed.reset(m_sampleRate, 0.05);
         m_smoothedITD.push_back(std::move(smoothed));
 
+        // new emitters start with the current pinna preset on both chains (no swap needed)
         FilterChain active;
         active.prepare(m_sampleRate, m_bufferSize);
+        active.setPinnaEQ(m_pinnaPreset);
+        active.clearDirty();
         m_activeChains.push_back(std::move(active));
 
         FilterChain shadow;
         shadow.prepare(m_sampleRate, m_bufferSize);
+        shadow.setPinnaEQ(m_pinnaPreset);
+        shadow.clearDirty();
         m_shadowChains.push_back(std::move(shadow));
     }
 
@@ -78,12 +83,19 @@ namespace yutasound {
                 for (int i = 0; i < (int)m_sources.size(); i++)
                 {
                     // shadow to active swap
+                    // the shadow already has the same azimuth and gains as the active chain
+                    // (UpdateSpatial writes to both), only its filter memory is stale
                     if (m_shadowChains[i].isDirty())
                     {
                         m_shadowChains[i].resetState();
                         m_shadowChains[i].warmUp();
                         std::swap(m_activeChains[i], m_shadowChains[i]);
                         m_activeChains[i].clearDirty();
+
+                        // the old active chain is now the shadow: give it the new preset too,
+                        // so both chains stay identical until the next change
+                        m_shadowChains[i].setPinnaEQ(m_pinnaPreset);
+                        m_shadowChains[i].clearDirty();
                     }
                 }
 
@@ -200,13 +212,22 @@ namespace yutasound {
                         m_sources[i].ildGain = cmd.ildGain;
                         m_sources[i].azimuth = cmd.azimuth;
                         m_sources[i].elevation = cmd.elevation;
-                        // SVF — direct update on active chain, no swap
+                        // SVF + crossover gains: direct update, no swap. The shadow is kept in
+                        // sync so it is correct when it gets swapped in after a pinna change
                         m_activeChains[i].setAzimuth(cmd.azimuth);
-                        // crossover gains - direct update on on active chain
+                        m_shadowChains[i].setAzimuth(cmd.azimuth);
                         m_activeChains[i].setGains(cmd.ildGain);
                         m_shadowChains[i].setGains(cmd.ildGain);
                         break;
                     }
+            }
+            else if (cmd.type == EmitterCommand::Type::SetPinnaPreset)
+            {
+                // coefficients go to the shadow chains (marks them dirty);
+                // run() swaps them in at the start of the block
+                m_pinnaPreset = cmd.pinnaPreset;
+                for (auto& shadow : m_shadowChains)
+                    shadow.setPinnaEQ(m_pinnaPreset);
             }
             else if (cmd.type == EmitterCommand::Type::Reset)
             {

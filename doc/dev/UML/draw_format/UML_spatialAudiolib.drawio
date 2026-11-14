@@ -1,0 +1,914 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="yutasound-spatialAudiolib" name="spatialAudiolib">
+    <mxGraphModel dx="2000" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c_FileScanner" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«unused»&lt;/span&gt;&lt;br&gt;FileScanner" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="50" width="290" height="110" />
+        </mxCell>
+        <mxCell id="c_FileScanner_a0" value="+ rootFolder: File" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileScanner">
+          <mxGeometry as="geometry" x="0" y="42" width="290" height="20" />
+        </mxCell>
+        <mxCell id="c_FileScanner_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_FileScanner">
+          <mxGeometry as="geometry" x="0" y="62" width="290" height="8" />
+        </mxCell>
+        <mxCell id="c_FileScanner_m0" value="+ scanDirectory(): vector&amp;lt;File&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// .wav .mp3 .aiff .flac&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileScanner">
+          <mxGeometry as="geometry" x="0" y="70" width="290" height="20" />
+        </mxCell>
+        <mxCell id="c_FileScanner_m1" value="- isValidAudio_(file: File): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileScanner">
+          <mxGeometry as="geometry" x="0" y="90" width="290" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor" value="FileProcessor" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="210" width="350" height="176" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_a0" value="- m_sourceFile: File" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="28" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="48" width="350" height="8" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_m0" value="+ FileProcessor(file: File)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="56" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_m1" value="+ process(): SoundFileEntry" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="76" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_m2" value="- createMd5_(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="96" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_m3" value="- existsAsFile_(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="116" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_m4" value="- unifyToMono_(buffer: AudioBuffer&amp;lt;float&amp;gt;&amp;amp;): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="136" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_FileProcessor_m5" value="- applyGain_(buffer: AudioBuffer&amp;lt;float&amp;gt;&amp;amp;): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// peak normalize&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FileProcessor">
+          <mxGeometry as="geometry" x="0" y="156" width="350" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian" value="Librarian" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="530" y="50" width="390" height="376" />
+        </mxCell>
+        <mxCell id="c_Librarian_a0" value="- m_entries: vector&amp;lt;SoundFileEntry&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="28" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_a1" value="- m_ambientEntries: vector&amp;lt;AmbientEntry&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="48" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_a2" value="- m_nextId: int = ReservedIds::DYNAMIC_START" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="68" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="88" width="390" height="8" />
+        </mxCell>
+        <mxCell id="c_Librarian_m0" value="+ addItem(filePath: String): int&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// dedup by MD5&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="96" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m1" value="+ removeItem(id: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="116" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m2" value="+ saveSoundRegistry(jsonPath: String): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="136" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m3" value="+ loadSoundRegistry(jsonPath: String): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="156" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m4" value="+ unloadSoundRegistry(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="176" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m5" value="+ getEntries(): const vector&amp;lt;SoundFileEntry&amp;gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="196" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m6" value="+ getBuffer(id: int): const AudioBuffer&amp;lt;float&amp;gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="216" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m7" value="+ getFilePath(id: int): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="236" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m8" value="+ getCount(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="256" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m9" value="+ addAmbientItem(id: int, role: String, filePath: String, gain: float = 1.0): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="276" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m10" value="+ removeAmbientItem(id: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="296" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m11" value="+ getAmbientEntries(): [const] vector&amp;lt;AmbientEntry&amp;gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="316" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m12" value="- isDuplicate_(md5: String): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="336" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_Librarian_m13" value="- getExistingId_(md5: String): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Librarian">
+          <mxGeometry as="geometry" x="0" y="356" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundFileEntry" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;SoundFileEntry" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1050" y="50" width="270" height="122" />
+        </mxCell>
+        <mxCell id="c_SoundFileEntry_a0" value="+ id: int = -1&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 10+&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundFileEntry">
+          <mxGeometry as="geometry" x="0" y="42" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundFileEntry_a1" value="+ md5Name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundFileEntry">
+          <mxGeometry as="geometry" x="0" y="62" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundFileEntry_a2" value="+ filePath: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundFileEntry">
+          <mxGeometry as="geometry" x="0" y="82" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundFileEntry_a3" value="+ buffer: AudioBuffer&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// mono, normalized&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundFileEntry">
+          <mxGeometry as="geometry" x="0" y="102" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_AmbientEntry" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;AmbientEntry" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1050" y="212" width="270" height="142" />
+        </mxCell>
+        <mxCell id="c_AmbientEntry_a0" value="+ id: int = -1&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 0-9&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AmbientEntry">
+          <mxGeometry as="geometry" x="0" y="42" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_AmbientEntry_a1" value="+ role: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AmbientEntry">
+          <mxGeometry as="geometry" x="0" y="62" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_AmbientEntry_a2" value="+ filePath: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AmbientEntry">
+          <mxGeometry as="geometry" x="0" y="82" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_AmbientEntry_a3" value="+ gain: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AmbientEntry">
+          <mxGeometry as="geometry" x="0" y="102" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_AmbientEntry_a4" value="+ buffer: AudioBuffer&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// mono, normalized&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AmbientEntry">
+          <mxGeometry as="geometry" x="0" y="122" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_ReservedIds" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«namespace»&lt;/span&gt;&lt;br&gt;ReservedIds" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1390" y="70" width="170" height="150" />
+        </mxCell>
+        <mxCell id="c_ReservedIds_a0" value="+ AMBIENT_MIN: int = 0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ReservedIds">
+          <mxGeometry as="geometry" x="0" y="42" width="170" height="20" />
+        </mxCell>
+        <mxCell id="c_ReservedIds_a1" value="+ AMBIENT_MAX: int = 9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ReservedIds">
+          <mxGeometry as="geometry" x="0" y="62" width="170" height="20" />
+        </mxCell>
+        <mxCell id="c_ReservedIds_a2" value="+ DYNAMIC_START: int = 10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ReservedIds">
+          <mxGeometry as="geometry" x="0" y="82" width="170" height="20" />
+        </mxCell>
+        <mxCell id="c_ReservedIds_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_ReservedIds">
+          <mxGeometry as="geometry" x="0" y="102" width="170" height="8" />
+        </mxCell>
+        <mxCell id="c_ReservedIds_m0" value="+ isAmbient(id: int): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ReservedIds">
+          <mxGeometry as="geometry" x="0" y="110" width="170" height="20" />
+        </mxCell>
+        <mxCell id="c_ReservedIds_m1" value="+ isDynamic(id: int): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ReservedIds">
+          <mxGeometry as="geometry" x="0" y="130" width="170" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager" value="AudioManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="604" width="640" height="896" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a0" value="+ onEmitterAdded: std::function&amp;lt;void(int)&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// never invoked&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="28" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a1" value="+ onEmitterRemoved: std::function&amp;lt;void(int)&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// never invoked&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="48" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a2" value="- m_librarian: Librarian" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="68" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a3" value="- m_pinnaCalibration: PinnaCalibration" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="88" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a4" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="108" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a5" value="- m_nextEmitterId: int = ReservedIds::DYNAMIC_START" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="128" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a6" value="- m_isPlaying: std::atomic&amp;lt;bool&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="148" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a7" value="- m_currentPinnaPresetId: int = 13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="168" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a8" value="- m_commandFifo: AbstractFifo {64}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="188" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_a9" value="- m_commandBuffer: std::array&amp;lt;EmitterCommand, 64&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="208" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="228" width="640" height="8" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="236" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m1" value="+ play(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="256" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m2" value="+ stop(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="276" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m3" value="+ isPlaying(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="296" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m4" value="+ registerSound(filePath: String): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="316" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m5" value="+ registerAmbient(filePath: String): int&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// next free id 0-9&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="336" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m6" value="+ removeSound(id: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="356" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m7" value="+ loadSoundRegistry(jsonPath: String): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// + Add per ambient&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="376" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m8" value="+ saveSoundRegistry(jsonPath: String): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="396" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m9" value="+ unloadSoundRegistry(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="416" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m10" value="+ getEntries(): const vector&amp;lt;SoundFileEntry&amp;gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="436" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m11" value="+ getBuffer(soundFileId: int): const AudioBuffer&amp;lt;float&amp;gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="456" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m12" value="+ playSound(soundFileId: int, azimuth: float, elevation: float, soundRemaining: SoundRemaining): int&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// Add, Paused&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="476" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m13" value="+ updateSoundSource(emitterId: int, azimuth: float, elevation: float, soundRemaining: SoundRemaining): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// UpdateSpatial&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="496" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m14" value="+ pauseSound(emitterId: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetState&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="516" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m15" value="+ resumeSound(emitterId: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetState&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="536" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m16" value="+ loopSound(emitterId: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetState&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="556" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m17" value="+ stopSound(emitterId: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// Remove&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="576" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m18" value="+ pauseAll(): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetState x (10 + n)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="596" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m19" value="+ resumeAll(): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetState x (10 + n)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="616" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m20" value="+ reset(): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// Reset&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="636" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m21" value="+ hasCommands(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="656" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m22" value="+ popCommand(): EmitterCommand" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="676" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m23" value="+ loadPinnaPresets(path: String): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// + SetPinnaPreset&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="696" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m24" value="+ setPinnaPreset(presetId: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetPinnaPreset&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="716" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m25" value="+ getPinnaPreset(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="736" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m26" value="+ getCurrentPinnaPreset(): const PinnaPreset&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="756" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m27" value="+ getPinnaPresetCount(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="776" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m28" value="+ getAmbientEntries(): vector&amp;lt;AmbientEntry&amp;gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="796" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m29" value="+ getAmbientGain(ambientId: int): float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="816" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m30" value="+ setAmbientGain(ambientId: int, gain: float): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="836" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m31" value="- computeITD_(azimuth: float, elevation: float): float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// Woodworth, in samples&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="856" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioManager_m32" value="- computeILD_(azimuth: float, elevation: float, soundRemaining: SoundRemaining): ILDGain" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioManager">
+          <mxGeometry as="geometry" x="0" y="876" width="640" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;EmitterCommand" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="770" y="604" width="260" height="242" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a0" value="+ type: Type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="42" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a1" value="+ emitter: SoundSource&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// Add&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="62" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a2" value="+ emitterId: int&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// all except Reset&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="82" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a3" value="+ index: int&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// unused&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="102" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a4" value="+ newState: EmitterState&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetState&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="122" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a5" value="+ itdSamples: float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// UpdateSpatial&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="142" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a6" value="+ ildGain: ILDGain&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// UpdateSpatial&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="162" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a7" value="+ azimuth: float = 0&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// UpdateSpatial&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="182" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a8" value="+ elevation: float = 0&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// UpdateSpatial&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="202" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterCommand_a9" value="+ pinnaPreset: PinnaPreset&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// SetPinnaPreset&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterCommand">
+          <mxGeometry as="geometry" x="0" y="222" width="260" height="20" />
+        </mxCell>
+        <mxCell id="c_CmdType" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«enum class»&lt;/span&gt;&lt;br&gt;EmitterCommand::Type" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="604" width="180" height="162" />
+        </mxCell>
+        <mxCell id="c_CmdType_a0" value="Add" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CmdType">
+          <mxGeometry as="geometry" x="0" y="42" width="180" height="20" />
+        </mxCell>
+        <mxCell id="c_CmdType_a1" value="Remove" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CmdType">
+          <mxGeometry as="geometry" x="0" y="62" width="180" height="20" />
+        </mxCell>
+        <mxCell id="c_CmdType_a2" value="SetState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CmdType">
+          <mxGeometry as="geometry" x="0" y="82" width="180" height="20" />
+        </mxCell>
+        <mxCell id="c_CmdType_a3" value="UpdateSpatial" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CmdType">
+          <mxGeometry as="geometry" x="0" y="102" width="180" height="20" />
+        </mxCell>
+        <mxCell id="c_CmdType_a4" value="Reset" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CmdType">
+          <mxGeometry as="geometry" x="0" y="122" width="180" height="20" />
+        </mxCell>
+        <mxCell id="c_CmdType_a5" value="SetPinnaPreset" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CmdType">
+          <mxGeometry as="geometry" x="0" y="142" width="180" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterState" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«enum class»&lt;/span&gt;&lt;br&gt;EmitterState" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="916" width="150" height="122" />
+        </mxCell>
+        <mxCell id="c_EmitterState_a0" value="Playing" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterState">
+          <mxGeometry as="geometry" x="0" y="42" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterState_a1" value="Looping" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterState">
+          <mxGeometry as="geometry" x="0" y="62" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterState_a2" value="Paused" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterState">
+          <mxGeometry as="geometry" x="0" y="82" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_EmitterState_a3" value="Stopped" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_EmitterState">
+          <mxGeometry as="geometry" x="0" y="102" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource" value="SoundSource" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="770" y="916" width="300" height="296" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a0" value="+ emitterId: int = -1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="28" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a1" value="+ soundFileId: int = -1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="48" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a2" value="+ azimuth: float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// deg, -180..+180&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="68" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a3" value="+ elevation: float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// deg, -90..+90&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="88" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a4" value="+ itdSamples: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="108" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a5" value="+ ildGain: ILDGain" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="128" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a6" value="+ soundRemaining: SoundRemaining" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="148" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a7" value="+ readPosition: int = 0&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// unused&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="168" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a8" value="+ state: EmitterState = Playing" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="188" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a9" value="+ isAmbient: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="208" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_a10" value="- m_audioBuffer: AudioBuffer&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// legacy&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="228" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="248" width="300" height="8" />
+        </mxCell>
+        <mxCell id="c_SoundSource_m0" value="+ loadFromPath(filePath: String): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// legacy&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="256" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundSource_m1" value="+ getAudioBuffer(): const AudioBuffer&amp;lt;float&amp;gt;&amp;amp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// legacy&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundSource">
+          <mxGeometry as="geometry" x="0" y="276" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundRemaining" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;SoundRemaining" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="770" y="1282" width="160" height="102" />
+        </mxCell>
+        <mxCell id="c_SoundRemaining_a0" value="+ lowRemaining: float = 1.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundRemaining">
+          <mxGeometry as="geometry" x="0" y="42" width="160" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundRemaining_a1" value="+ midRemaining: float = 1.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundRemaining">
+          <mxGeometry as="geometry" x="0" y="62" width="160" height="20" />
+        </mxCell>
+        <mxCell id="c_SoundRemaining_a2" value="+ highRemaining: float = 1.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SoundRemaining">
+          <mxGeometry as="geometry" x="0" y="82" width="160" height="20" />
+        </mxCell>
+        <mxCell id="c_ILDGain" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;ILDGain" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="970" y="1282" width="150" height="102" />
+        </mxCell>
+        <mxCell id="c_ILDGain_a0" value="+ low: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
+          <mxGeometry as="geometry" x="0" y="42" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_ILDGain_a1" value="+ mid: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
+          <mxGeometry as="geometry" x="0" y="62" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_ILDGain_a2" value="+ high: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_ILDGain">
+          <mxGeometry as="geometry" x="0" y="82" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«processing thread»&lt;/span&gt;&lt;br&gt;SpatialAudioEngine" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1420" y="714" width="320" height="510" />
+        </mxCell>
+        <mxCell id="c_SAE_a0" value="- m_audioManager: AudioManager&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="42" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a1" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="62" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a2" value="- m_bufferSize: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="82" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a3" value="- m_sources: vector&amp;lt;SoundSource&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="102" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a4" value="- m_delayLines: vector&amp;lt;StereoDelayLine&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="122" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a5" value="- m_readPositions: vector&amp;lt;int&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="142" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a6" value="- m_smoothedITD: vector&amp;lt;SmoothedValue&amp;lt;float&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 50 ms&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="162" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a7" value="- m_activeChains: vector&amp;lt;FilterChain&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="182" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a8" value="- m_shadowChains: vector&amp;lt;FilterChain&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="202" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a9" value="- m_pinnaPreset: PinnaPreset&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// current preset&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="222" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a10" value="- m_mixBuffer: AudioBuffer&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 2 ch&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="242" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a11" value="- m_circularBuffer: CircularStereoBuffer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="262" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a12" value="- m_audioCallback: AudioCallback" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="282" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_a13" value="- m_deviceManager: AudioDeviceManager" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="302" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="322" width="320" height="8" />
+        </mxCell>
+        <mxCell id="c_SAE_m0" value="+ SpatialAudioEngine(audioManager: AudioManager&amp;amp;)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="330" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m1" value="+ ~SpatialAudioEngine()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="350" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m2" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="370" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m3" value="+ start(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="390" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m4" value="+ stop(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="410" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m5" value="+ run(): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// override&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="430" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m6" value="+ addProcessingSlot(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="450" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m7" value="+ removeProcessingSlot(index: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="470" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_SAE_m8" value="- drainCommandQueue_(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SAE">
+          <mxGeometry as="geometry" x="0" y="490" width="320" height="20" />
+        </mxCell>
+        <mxCell id="c_JuceThread" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«JUCE»&lt;/span&gt;&lt;br&gt;juce::Thread" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E3E3E3;strokeColor=#909090;fontColor=#1A1A1A;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1505" y="604" width="150" height="42" />
+        </mxCell>
+        <mxCell id="c_JuceAIODC" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«JUCE»&lt;/span&gt;&lt;br&gt;juce::AudioIODeviceCallback" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E3E3E3;strokeColor=#909090;fontColor=#1A1A1A;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2115" y="604" width="210" height="42" />
+        </mxCell>
+        <mxCell id="c_AudioCallback" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«audio thread - never blocks»&lt;/span&gt;&lt;br&gt;AudioCallback" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1980" y="714" width="480" height="150" />
+        </mxCell>
+        <mxCell id="c_AudioCallback_a0" value="- m_circularBuffer: CircularStereoBuffer&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioCallback">
+          <mxGeometry as="geometry" x="0" y="42" width="480" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioCallback_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_AudioCallback">
+          <mxGeometry as="geometry" x="0" y="62" width="480" height="8" />
+        </mxCell>
+        <mxCell id="c_AudioCallback_m0" value="+ AudioCallback(circularBuffer: CircularStereoBuffer&amp;amp;)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioCallback">
+          <mxGeometry as="geometry" x="0" y="70" width="480" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioCallback_m1" value="+ audioDeviceIOCallbackWithContext(..., outputChannelData, ..., numSamples, context): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioCallback">
+          <mxGeometry as="geometry" x="0" y="90" width="480" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioCallback_m2" value="+ audioDeviceAboutToStart(device: AudioIODevice*): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioCallback">
+          <mxGeometry as="geometry" x="0" y="110" width="480" height="20" />
+        </mxCell>
+        <mxCell id="c_AudioCallback_m3" value="+ audioDeviceStopped(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_AudioCallback">
+          <mxGeometry as="geometry" x="0" y="130" width="480" height="20" />
+        </mxCell>
+        <mxCell id="c_CSB" value="CircularStereoBuffer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1980" y="934" width="390" height="156" />
+        </mxCell>
+        <mxCell id="c_CSB_a0" value="- m_fifo: AbstractFifo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="28" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_CSB_a1" value="- m_buffer: AudioBuffer&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 2 ch&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="48" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_CSB_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="68" width="390" height="8" />
+        </mxCell>
+        <mxCell id="c_CSB_m0" value="+ prepare(capacity: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 4 x bufferSize + 1&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="76" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_CSB_m1" value="+ write(left: float*, right: float*, numSamples: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="96" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_CSB_m2" value="+ read(left: float*, right: float*, numSamples: int): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// silence if underrun&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="116" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_CSB_m3" value="+ getFreeSpace(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_CSB">
+          <mxGeometry as="geometry" x="0" y="136" width="390" height="20" />
+        </mxCell>
+        <mxCell id="c_SDL" value="StereoDelayLine" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1420" y="1314" width="440" height="136" />
+        </mxCell>
+        <mxCell id="c_SDL_a0" value="- m_delayL, m_delayR: dsp::DelayLine&amp;lt;float, Thiran&amp;gt; {64}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SDL">
+          <mxGeometry as="geometry" x="0" y="28" width="440" height="20" />
+        </mxCell>
+        <mxCell id="c_SDL_a1" value="- m_bufferSize: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SDL">
+          <mxGeometry as="geometry" x="0" y="48" width="440" height="20" />
+        </mxCell>
+        <mxCell id="c_SDL_a2" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SDL">
+          <mxGeometry as="geometry" x="0" y="68" width="440" height="20" />
+        </mxCell>
+        <mxCell id="c_SDL_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_SDL">
+          <mxGeometry as="geometry" x="0" y="88" width="440" height="8" />
+        </mxCell>
+        <mxCell id="c_SDL_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SDL">
+          <mxGeometry as="geometry" x="0" y="96" width="440" height="20" />
+        </mxCell>
+        <mxCell id="c_SDL_m1" value="+ process(monoSample: float, delaySamples: float): StereoSample&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// delays far ear&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SDL">
+          <mxGeometry as="geometry" x="0" y="116" width="440" height="20" />
+        </mxCell>
+        <mxCell id="c_StereoSample" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;StereoSample" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1420" y="1510" width="150" height="82" />
+        </mxCell>
+        <mxCell id="c_StereoSample_a0" value="+ left: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_StereoSample">
+          <mxGeometry as="geometry" x="0" y="42" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_StereoSample_a1" value="+ right: float = 0.0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_StereoSample">
+          <mxGeometry as="geometry" x="0" y="62" width="150" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain" value="FilterChain" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1980" y="1314" width="460" height="376" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a0" value="- m_svfILD: SVFILDFilter" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="28" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a1" value="- m_pinnaFiltersL, m_pinnaFiltersR: std::array&amp;lt;dsp::IIR::Filter&amp;lt;float&amp;gt;, 7&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 1 set per ear&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="48" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a2" value="- m_crossover: CrossoverFilter" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="68" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a3" value="- m_isDirty: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="88" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a4" value="- m_azimuth: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="108" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a5" value="- m_elevation: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="128" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_a6" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="148" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="168" width="460" height="8" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="176" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m1" value="+ setParameters(azimuth: float, elevation: float, preset: PinnaPreset): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="196" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m2" value="+ setAzimuth(azimuth: float): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="216" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m3" value="+ setPinnaEQ(preset: PinnaPreset): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// L + R, sets dirty&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="236" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m4" value="+ setGains(gains: ILDGain): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="256" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m5" value="+ processSample(left: float, right: float): StereoSample" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="276" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m6" value="+ isDirty(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="296" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m7" value="+ clearDirty(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="316" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m8" value="+ resetState(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="336" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_FilterChain_m9" value="+ warmUp(): void&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 64 zero samples&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_FilterChain">
+          <mxGeometry as="geometry" x="0" y="356" width="460" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF" value="SVFILDFilter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1420" y="1770" width="360" height="176" />
+        </mxCell>
+        <mxCell id="c_SVF_a0" value="- m_filterL, m_filterR: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// lowpass&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="28" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF_a1" value="- m_cutoffL, m_cutoffR: SmoothedValue&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// 50 ms&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="48" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF_a2" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="68" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="88" width="360" height="8" />
+        </mxCell>
+        <mxCell id="c_SVF_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="96" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF_m1" value="+ setAzimuth(azimuthDegrees: float): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="116" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF_m2" value="+ processSample(left: float, right: float): StereoSample" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="136" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_SVF_m3" value="+ resetState(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_SVF">
+          <mxGeometry as="geometry" x="0" y="156" width="360" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover" value="CrossoverFilter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1980" y="1770" width="450" height="236" />
+        </mxCell>
+        <mxCell id="c_Crossover_a0" value="- m_lowpassL, m_lowpassR: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// LP 300 Hz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="28" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_a1" value="- m_highpass300L, m_highpass300R: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// HP 300 Hz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="48" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_a2" value="- m_lowpass3000L, m_lowpass3000R: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// LP 3 kHz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="68" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_a3" value="- m_highpassL, m_highpassR: dsp::StateVariableTPTFilter&amp;lt;float&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// HP 3 kHz&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="88" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_a4" value="- m_gains: ILDGain" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="108" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_a5" value="- m_sampleRate: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="128" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="148" width="450" height="8" />
+        </mxCell>
+        <mxCell id="c_Crossover_m0" value="+ prepare(sampleRate: double, bufferSize: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="156" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_m1" value="+ setGains(gains: ILDGain): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="176" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_m2" value="+ processSample(left: float, right: float): StereoSample" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="196" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_Crossover_m3" value="+ reset(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_Crossover">
+          <mxGeometry as="geometry" x="0" y="216" width="450" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration" value="PinnaCalibration" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#F5AB50;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="510" y="2136" width="270" height="156" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_a0" value="- m_presets: vector&amp;lt;PinnaPreset&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="28" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_a1" value="- m_defaultPreset: PinnaPreset&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// fallback&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="48" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#909090;labelBackgroundColor=none;fontColor=#1A1A1A;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="68" width="270" height="8" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_m0" value="+ loadFromJson(path: String): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="76" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_m1" value="+ getPreset(id: int): const PinnaPreset&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="96" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_m2" value="+ getDefaultPreset(): const PinnaPreset&amp;amp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// id 13&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="116" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaCalibration_m3" value="+ getCount(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaCalibration">
+          <mxGeometry as="geometry" x="0" y="136" width="270" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset" value="&lt;span style=&quot;font-weight:normal;font-size:10px;&quot;&gt;«struct»&lt;/span&gt;&lt;br&gt;PinnaPreset" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAD7A0;swimlaneFillColor=#FFFFFF;strokeColor=#909090;fontColor=#1A1A1A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="920" y="2136" width="300" height="182" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a0" value="+ id: int = -1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="42" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a1" value="+ cipicSubject: int = -1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="62" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a2" value="+ category: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="82" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a3" value="+ earSizeCm: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="102" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a4" value="+ description: String&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// not read from JSON&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="122" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a5" value="+ gain4000, gain6000, gain8000, gain10000: float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// dB&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="142" width="300" height="20" />
+        </mxCell>
+        <mxCell id="c_PinnaPreset_a6" value="+ gain12000, gain14000, gain16000: float&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#6B6B6B&quot;&gt;// dB&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=nowrap;html=1;labelBackgroundColor=none;fontColor=#1A1A1A;fontSize=11;" vertex="1" parent="c_PinnaPreset">
+          <mxGeometry as="geometry" x="0" y="162" width="300" height="20" />
+        </mxCell>
+        <mxCell id="n_n_fp" value="&lt;b&gt;FileProcessor::process()&lt;/b&gt;&lt;br&gt;read (AudioFormatManager) -&amp;gt; unifyToMono_() -&amp;gt; applyGain_()&lt;br&gt;-&amp;gt; createMd5_() -&amp;gt; SoundFileEntry (id set by Librarian)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="410" width="380" height="64" />
+        </mxCell>
+        <mxCell id="n_n_ids" value="&lt;b&gt;Shared id space (ReservedIds)&lt;/b&gt;&lt;br&gt;0-9&amp;nbsp;&amp;nbsp;: ambient sounds; ambient emitter id = sound id, always loops&lt;br&gt;10+&amp;nbsp;&amp;nbsp;: registered sounds (Librarian::m_nextId)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;and dynamic emitters (AudioManager::m_nextEmitterId)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1390" y="244" width="400" height="78" />
+        </mxCell>
+        <mxCell id="n_n_json" value="&lt;b&gt;Sound registry JSON&lt;/b&gt; (save / loadSoundRegistry)&lt;br&gt;{ &amp;quot;sounds&amp;quot;:&amp;nbsp;&amp;nbsp;[ { id, md5, filePath } ],&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;quot;ambient&amp;quot;: [ { id, role, gain, filePath } ] }&lt;br&gt;filePath is relative to the executable folder" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1390" y="342" width="300" height="78" />
+        </mxCell>
+        <mxCell id="n_n_threads" value="&lt;b&gt;Threads&lt;/b&gt;&lt;br&gt;&lt;b&gt;Game thread&lt;/b&gt; (EFView, main.cpp) calls the AudioManager API. Each&lt;br&gt;play / pause / resume / loop / stop / update / reset call pushes&lt;br&gt;one EmitterCommand into m_commandFifo (lock-free, 64 slots).&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Processing thread&lt;/b&gt; (SpatialAudioEngine::run, juce::Thread) runs&lt;br&gt;drainCommandQueue_() before each block, renders every emitter&lt;br&gt;into m_mixBuffer, then writes it into the CircularStereoBuffer.&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Audio thread&lt;/b&gt; (AudioCallback) reads the CircularStereoBuffer&lt;br&gt;into the device outputs. It never blocks: silence on underrun." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="1550" width="400" height="176" />
+        </mxCell>
+        <mxCell id="n_n_path" value="&lt;b&gt;Per-emitter signal path&lt;/b&gt; (SpatialAudioEngine::run, per sample)&lt;br&gt;mono buffer (AudioManager::getBuffer -&amp;gt; Librarian)&lt;br&gt;-&amp;gt; StereoDelayLine: ITD, Thiran fractional delay on the far ear&lt;br&gt;-&amp;gt; FilterChain [active]:&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1. SVFILDFilter: head-shadow LP on the far ear (1.5-5.75 kHz)&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2. 7 x IIR peak per ear: pinna EQ 4/6/8/10/12/14/16 kHz&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3. CrossoverFilter: 3 bands (300 Hz / 3 kHz) x ILDGain&lt;br&gt;-&amp;gt; summed into m_mixBuffer&lt;br&gt;&amp;nbsp;&lt;br&gt;&lt;b&gt;Pinna change&lt;/b&gt;: setPinnaPreset() -&amp;gt; cmd SetPinnaPreset&lt;br&gt;-&amp;gt; SAE stores m_pinnaPreset, setPinnaEQ() on every shadow (dirty)&lt;br&gt;-&amp;gt; next block: shadow.resetState() + warmUp() -&amp;gt; swap(active, shadow)&lt;br&gt;-&amp;gt; new shadow gets the preset too. Azimuth + gains go to both chains." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="1750" width="420" height="204" />
+        </mxCell>
+        <mxCell id="n_n_legend" value="&lt;b&gt;Legend&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;background-color:#F5AB50;border:1px solid #909090;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&amp;nbsp;orange: class&lt;br&gt;&lt;span style=&quot;background-color:#FAD7A0;border:1px solid #909090;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&amp;nbsp;light orange: struct / enum / namespace&lt;br&gt;&lt;span style=&quot;background-color:#E3E3E3;border:1px solid #909090;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&amp;nbsp;grey: JUCE base class&lt;br&gt;◆——&amp;nbsp;&amp;nbsp;composition (owner holds the part by value)&lt;br&gt;——&amp;gt;&amp;nbsp;&amp;nbsp;association (holds a reference)&lt;br&gt;- - -&amp;gt;&amp;nbsp;&amp;nbsp;dependency («create» / «use»)&lt;br&gt;——▷&amp;nbsp;&amp;nbsp;inheritance&lt;br&gt;⊕——&amp;nbsp;&amp;nbsp;nested type&lt;br&gt;juce:: and std:: prefixes are omitted for File, String,&lt;br&gt;AudioBuffer, AbstractFifo, SmoothedValue, vector." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=14;fillColor=#FFF8E1;strokeColor=#C9B77A;fontColor=#1A1A1A;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=10;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1980" y="2136" width="320" height="176" />
+        </mxCell>
+        <mxCell id="sec0" value="[ Sound Loader System ]" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="0" width="320" height="24" />
+        </mxCell>
+        <mxCell id="sec1" value="[ Spatial Audio System ]" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="536" width="320" height="24" />
+        </mxCell>
+        <mxCell id="sec2" value="[ Pinna Calibration System ]" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="2078" width="320" height="24" />
+        </mxCell>
+        <mxCell id="sepline0" value="" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeWidth=2;strokeColor=#A0A0A0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="0" y="514" as="sourcePoint" />
+            <mxPoint x="2470" y="514" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sepline1" value="" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;strokeWidth=2;strokeColor=#A0A0A0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="0" y="2056" as="sourcePoint" />
+            <mxPoint x="2470" y="2056" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e0" value="m_entries  0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.1862;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5738;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_Librarian" target="c_SoundFileEntry">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" value="m_ambientEntries  0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.617;exitDx=0;exitDy=0;entryX=0.0;entryY=0.493;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_Librarian" target="c_AmbientEntry">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" value="«create»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=0.0;exitY=0.5851;exitDx=0;exitDy=0;entryX=1.0;entryY=0.3409;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_Librarian" target="c_FileProcessor">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" value="#include only" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=0.0;exitY=0.133;exitDx=0;exitDy=0;entryX=1.0;entryY=0.4545;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_Librarian" target="c_FileScanner">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=0.8718;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_Librarian" target="c_ReservedIds">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="870" y="22" />
+              <mxPoint x="1475" y="22" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="m_librarian" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.8984;exitY=0.0;exitDx=0;exitDy=0;entryX=0.1667;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_AudioManager" target="c_Librarian">
+          <mxGeometry as="geometry" relative="1" x="0.55" />
+        </mxCell>
+        <mxCell id="e6" value="m_commandBuffer  64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.0893;exitDx=0;exitDy=0;entryX=0.0;entryY=0.3306;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_AudioManager" target="c_EmitterCommand">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" value="«create»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=1.0;exitY=0.4375;exitDx=0;exitDy=0;entryX=0.0;entryY=0.2703;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_AudioManager" target="c_SoundSource">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" value="emitter" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.2692;exitY=1.0;exitDx=0;exitDy=0;entryX=0.2333;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_EmitterCommand" target="c_SoundSource">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=circlePlus;startFill=0;endArrow=none;exitX=1.0;exitY=0.2893;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4321;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_EmitterCommand" target="c_CmdType">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" value="newState" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=open;endFill=0;endSize=10;exitX=0.8462;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_EmitterCommand" target="c_EmitterState">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="990" y="881" />
+              <mxPoint x="1195" y="881" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" value="state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=open;endFill=0;endSize=10;exitX=1.0;exitY=0.2703;exitDx=0;exitDy=0;entryX=0.0;entryY=0.6557;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SoundSource" target="c_EmitterState">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.2667;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SoundSource" target="c_SoundRemaining">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.8333;exitY=1.0;exitDx=0;exitDy=0;entryX=0.3333;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SoundSource" target="c_ILDGain">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_JuceThread">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e15" value="m_audioManager&amp;amp;   hasCommands() / popCommand() / getBuffer()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=open;endFill=0;endSize=10;exitX=0.125;exitY=0.0;exitDx=0;exitDy=0;entryX=0.9219;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_AudioManager">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1460" y="564" />
+              <mxPoint x="610" y="564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" value="m_sources  0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.0;exitY=0.898;exitDx=0;exitDy=0;entryX=1.0;entryY=0.8649;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_SoundSource">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e17" value="m_audioCallback" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.1569;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5333;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_AudioCallback">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e18" value="m_circularBuffer  (write)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.5686;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4487;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_CSB">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e19" value="m_circularBuffer&amp;amp;  (read)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=open;endFill=0;endSize=10;exitX=0.4062;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_AudioCallback" target="c_CSB">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_AudioCallback" target="c_JuceAIODC">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e21" value="m_delayLines  0..*  (1 per emitter)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.25;exitY=1.0;exitDx=0;exitDy=0;entryX=0.1818;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_SDL">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e22" value="m_activeChains + m_shadowChains  0..*  (2 per emitter)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.9412;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SAE" target="c_FilterChain">
+          <mxGeometry as="geometry" relative="1" x="0.25">
+            <Array as="points">
+              <mxPoint x="2210" y="1194" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e23" value="m_svfILD" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.0;exitY=0.867;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_FilterChain" target="c_SVF">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1600" y="1640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" value="m_crossover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.1739;exitY=1.0;exitDx=0;exitDy=0;entryX=0.1778;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_FilterChain" target="c_Crossover">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e25" value="«create»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=0.1818;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5333;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_SDL" target="c_StereoSample">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e26" value="m_pinnaCalibration" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=0.9062;exitY=1.0;exitDx=0;exitDy=0;entryX=0.3333;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_AudioManager" target="c_PinnaCalibration">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e27" value="m_presets  0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;startArrow=diamondThin;startFill=1;startSize=16;endArrow=none;endFill=0;exitX=1.0;exitY=0.4487;exitDx=0;exitDy=0;entryX=0.0;entryY=0.3846;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_PinnaCalibration" target="c_PinnaPreset">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e28" value="«use»  setPinnaEQ()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#FFFFFF;strokeColor=#182E3E;fontColor=#1A1A1A;fontSize=10;dashed=1;endArrow=open;endFill=0;endSize=10;exitX=0.0;exitY=0.9468;exitDx=0;exitDy=0;entryX=1.0;entryY=0.6044;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_FilterChain" target="c_PinnaPreset">
+          <mxGeometry as="geometry" relative="1" x="0.6">
+            <Array as="points">
+              <mxPoint x="1925" y="1670" />
+              <mxPoint x="1925" y="2246" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

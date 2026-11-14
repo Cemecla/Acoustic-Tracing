@@ -73,9 +73,10 @@ namespace yutasound {
     }
     void SVFILDFilter::resetState()
     {
+        // clear the filter memory only; keep the azimuth-based cutoff (jump straight to it)
         m_filterL.reset();
         m_filterR.reset();
-        m_cutoffL.setCurrentAndTargetValue(10000.0f);
-        m_cutoffR.setCurrentAndTargetValue(10000.0f);
+        m_cutoffL.setCurrentAndTargetValue(m_cutoffL.getTargetValue());
+        m_cutoffR.setCurrentAndTargetValue(m_cutoffR.getTargetValue());
     }
 }

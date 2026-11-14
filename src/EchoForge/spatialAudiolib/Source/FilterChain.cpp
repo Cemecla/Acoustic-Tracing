@@ -18,10 +18,12 @@ namespace yutasound {
 
         juce::dsp::ProcessSpec spec;
         spec.sampleRate = sampleRate;
-        spec.numChannels = (juce::uint32)bufferSize;
+        spec.maximumBlockSize = (juce::uint32)bufferSize;
         spec.numChannels = 1;
 
-        for (auto& filter : m_pinnaFilters)
+        for (auto& filter : m_pinnaFiltersL)
+            filter.prepare(spec);
+        for (auto& filter : m_pinnaFiltersR)
             filter.prepare(spec);
 
         m_crossover.prepare(sampleRate, bufferSize);
@@ -40,10 +42,10 @@ namespace yutasound {
     {
         auto stereo = m_svfILD.processSample(left, right);
 
-        for (auto& filter : m_pinnaFilters)
+        for (size_t b = 0; b < m_pinnaFiltersL.size(); b++)
         {
-            stereo.left = filter.processSample(stereo.left);
-            stereo.right = filter.processSample(stereo.right);
+            stereo.left = m_pinnaFiltersL[b].processSample(stereo.left);
+            stereo.right = m_pinnaFiltersR[b].processSample(stereo.right);
         }
 
         stereo = m_crossover.processSample(stereo.left, stereo.right);
@@ -62,7 +64,9 @@ namespace yutasound {
     }
     void FilterChain::resetState()
     {
-        for (auto& filter : m_pinnaFilters)
+        for (auto& filter : m_pinnaFiltersL)
+            filter.reset();
+        for (auto& filter : m_pinnaFiltersR)
             filter.reset();
         m_svfILD.resetState();
         m_crossover.reset();
@@ -91,9 +95,10 @@ namespace yutasound {
         for (int b = 0; b < 7; b++)
         {
             float linearGain = std::pow(10.0f, gains[b] / 20.0f);
-            *m_pinnaFilters[b].coefficients =
-                *juce::dsp::IIR::Coefficients<float>::makePeakFilter(
-                    m_sampleRate, freqs[b], 1.0f, linearGain);
+            auto coefficients = juce::dsp::IIR::Coefficients<float>::makePeakFilter(
+                m_sampleRate, freqs[b], 1.0f, linearGain);
+            *m_pinnaFiltersL[b].coefficients = *coefficients;
+            *m_pinnaFiltersR[b].coefficients = *coefficients;
         }
         m_isDirty = true; // signal SAE to swap at next block boundary
     }
