@@ -234,7 +234,8 @@ namespace yutasound {
         return m_commandBuffer[scope.startIndex1];
     }
 
-    void AudioManager::updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining)
+    void AudioManager::updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining,
+                                         float reverbSend)
     {
         const auto scope = m_commandFifo.write(1);
         if (scope.blockSize1 > 0)
@@ -245,7 +246,25 @@ namespace yutasound {
             m_commandBuffer[scope.startIndex1].elevation = elevation;
             m_commandBuffer[scope.startIndex1].itdSamples = computeITD_(azimuth, elevation);
             m_commandBuffer[scope.startIndex1].ildGain = computeILD_(azimuth, elevation, soundRemaining);
+            m_commandBuffer[scope.startIndex1].reverbSend = juce::jlimit(0.0f, 1.0f, reverbSend);
         }
+    }
+
+    void AudioManager::setReverbSettings(const ReverbSettings& settings)
+    {
+        m_reverbSettings = settings;
+
+        const auto scope = m_commandFifo.write(1);
+        if (scope.blockSize1 > 0)
+        {
+            m_commandBuffer[scope.startIndex1].type = EmitterCommand::Type::SetReverbSettings;
+            m_commandBuffer[scope.startIndex1].reverbSettings = settings;
+        }
+    }
+
+    const ReverbSettings& AudioManager::getReverbSettings() const
+    {
+        return m_reverbSettings;
     }
 
     void AudioManager::loadPinnaPresets(const juce::String& path)

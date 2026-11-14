@@ -56,7 +56,13 @@ namespace yutasound {
         bool           hasCommands() const;
         EmitterCommand popCommand();
 
-        void updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining);
+        // reverbSend: 0..1, how much of this sound goes to the shared room reverb
+        void updateSoundSource(int emitterId, float azimuth, float elevation, SoundRemaining soundRemaining,
+                               float reverbSend = 0.0f);
+
+        // shared room reverb (room size, damping, overall level)
+        void setReverbSettings(const ReverbSettings& settings);
+        const ReverbSettings& getReverbSettings() const;
 
         // pinna preset
         void loadPinnaPresets(const juce::String& path);
@@ -86,6 +92,8 @@ namespace yutasound {
 
         PinnaCalibration m_pinnaCalibration;
         int m_currentPinnaPresetId = 13;
+
+        ReverbSettings m_reverbSettings;
 
         juce::AbstractFifo                     m_commandFifo{ 64 };
         std::array<EmitterCommand, 64>         m_commandBuffer;

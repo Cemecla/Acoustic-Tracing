@@ -148,14 +148,14 @@ int EFView::playSound(int soundFileId, float azimuth, float elevation, ef::Vecto
 	return -1;
 }
 
-void EFView::updateSoundSource(int emitterId, float azimuth, float elevation, ef::Vector3F gain) const {
+void EFView::updateSoundSource(int emitterId, float azimuth, float elevation, ef::Vector3F gain, float reverbSend) const {
 	yutasound::SoundRemaining remaining;
 	remaining.highRemaining = gain.x;
 	remaining.midRemaining = gain.y;
 	remaining.lowRemaining = gain.z;
 
 	if (m_audioManager)
-		m_audioManager->updateSoundSource(emitterId, azimuth, elevation, remaining);
+		m_audioManager->updateSoundSource(emitterId, azimuth, elevation, remaining, reverbSend);
 }
 
 void EFView::stopAudio() const {

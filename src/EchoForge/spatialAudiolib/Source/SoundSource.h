@@ -36,6 +36,7 @@ namespace yutasound {
         float itdSamples = 0.0f;
         ILDGain ildGain;
         SoundRemaining soundRemaining;
+        float reverbSend = 0.0f; // 0..1, how much of the dry signal goes to the room reverb
 
         //position of starting to read sound  can be use to do rdelay calculs like in the session prject of state machine 
         int readPosition = 0;

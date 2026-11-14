@@ -29,6 +29,7 @@ namespace yutasound {
         m_circularBuffer.prepare(bufferSize * 4 + 1);
         for (auto& delayline : m_delayLines)
             delayline.prepare(m_sampleRate, m_bufferSize);
+        m_masterBus.prepare(sampleRate, bufferSize);
     }
 
     void SpatialAudioEngine::addProcessingSlot()
@@ -42,6 +43,10 @@ namespace yutasound {
         juce::SmoothedValue<float> smoothed;
         smoothed.reset(m_sampleRate, 0.05);
         m_smoothedITD.push_back(std::move(smoothed));
+
+        juce::SmoothedValue<float> reverbSend;
+        reverbSend.reset(m_sampleRate, 0.2);
+        m_smoothedReverbSend.push_back(std::move(reverbSend));
 
         // new emitters start with the current pinna preset on both chains (no swap needed)
         FilterChain active;
@@ -62,6 +67,7 @@ namespace yutasound {
         m_delayLines.erase(m_delayLines.begin() + index);
         m_readPositions.erase(m_readPositions.begin() + index);
         m_smoothedITD.erase(m_smoothedITD.begin() + index);
+        m_smoothedReverbSend.erase(m_smoothedReverbSend.begin() + index);
         m_activeChains.erase(m_activeChains.begin() + index);
         m_shadowChains.erase(m_shadowChains.begin() + index);
     }
@@ -118,6 +124,8 @@ namespace yutasound {
                     auto samplesThisBlock = juce::jmin(m_bufferSize, samplesAvailable);
 
                     m_smoothedITD[i].setTargetValue(source.itdSamples);
+                    m_smoothedReverbSend[i].setTargetValue(source.reverbSend);
+                    float* reverbSend = m_masterBus.getSendWritePointer();
 
                     for (int n = 0; n < samplesThisBlock; n++)
                     {
@@ -128,6 +136,9 @@ namespace yutasound {
 
                         *m_mixBuffer.getWritePointer(0, n) += filtered.left;
                         *m_mixBuffer.getWritePointer(1, n) += filtered.right;
+
+                        // dry mono signal to the room reverb (diffuse: no direction)
+                        reverbSend[n] += monoSample * m_smoothedReverbSend[i].getNextValue();
                     }
 
                     readPos += samplesThisBlock;
@@ -143,6 +154,9 @@ namespace yutasound {
                         }
                     }
                 }
+
+                // room reverb + safety limiter on the whole mix
+                m_masterBus.process(m_mixBuffer, m_bufferSize);
 
                 m_circularBuffer.write(
                     m_mixBuffer.getWritePointer(0),
@@ -212,6 +226,7 @@ namespace yutasound {
                         m_sources[i].ildGain = cmd.ildGain;
                         m_sources[i].azimuth = cmd.azimuth;
                         m_sources[i].elevation = cmd.elevation;
+                        m_sources[i].reverbSend = cmd.reverbSend;
                         // SVF + crossover gains: direct update, no swap. The shadow is kept in
                         // sync so it is correct when it gets swapped in after a pinna change
                         m_activeChains[i].setAzimuth(cmd.azimuth);
@@ -229,12 +244,18 @@ namespace yutasound {
                 for (auto& shadow : m_shadowChains)
                     shadow.setPinnaEQ(m_pinnaPreset);
             }
+            else if (cmd.type == EmitterCommand::Type::SetReverbSettings)
+            {
+                m_masterBus.setReverbSettings(cmd.reverbSettings);
+            }
             else if (cmd.type == EmitterCommand::Type::Reset)
             {
                 m_sources.clear();
                 m_delayLines.clear();
                 m_readPositions.clear();
                 m_smoothedITD.clear();
+                m_smoothedReverbSend.clear();
+                m_masterBus.reset(); // drop the reverb tail of the old scene
                 m_activeChains.clear();
                 m_shadowChains.clear();
                 DBG("SAE: reset all emitters");

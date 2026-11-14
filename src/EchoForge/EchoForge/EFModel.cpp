@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+#include <cmath>
 #include <map>
 #include <chrono>
 #include <QDebug>
@@ -216,7 +217,15 @@ void EFModel::processBatch() {
 		if (yutasound::ReservedIds::isAmbient(saeId) && r.gain.norm() > 1e-6f)
 			m_parent->m_view->loopEmitter(saeId);
 
-		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain * masterGain));
+		// Room reverb send: share of late energy x energy left in the arriving rays (wall
+		// absorption) x distance attenuation. A sound behind a wall (weak rays) stays low.
+		// REVERB_DISTANCE_EXP = 1: the reverb fades with distance exactly like the dry sound
+		// (masterGain). Lower it (e.g. 0.5 = half as steep in dB) to let far sources sound
+		// wetter than near ones, like inside a single big room.
+		constexpr float REVERB_DISTANCE_EXP = 1.0f;
+		const float reverbSend = r.reverb * r.rayEnergy * std::pow(masterGain, REVERB_DISTANCE_EXP);
+
+		m_parent->m_view->updateSoundSource(saeId, r.azimuth, r.elevation, Vector3F::fromEigen(r.gain * masterGain), reverbSend);
 		//qDebug() << "[Acoustic] Emitter" << id << "-> SAE id" << saeId
 		//	<< "| az:" << r.azimuth << "el:" << r.elevation
 		//	<< "| gain HMF:" << r.gain.x() << r.gain.y() << r.gain.z();

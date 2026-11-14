@@ -45,7 +45,7 @@ class UICommunicator;
 
 			int  registerSound(const std::string& path) const;
 			int  playSound(int soundFileId, float azimuth, float elevation, ef::Vector3F gain) const;
-			void updateSoundSource(int emitterId, float azimuth, float elevation, ef::Vector3F gain) const; // this is for the senarios and scene 
+			void updateSoundSource(int emitterId, float azimuth, float elevation, ef::Vector3F gain, float reverbSend) const; // this is for the senarios and scene
 			void stopAudio() const;
 
 			void resetEmitters() const;

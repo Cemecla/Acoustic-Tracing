@@ -158,6 +158,30 @@ AcousticResult AcousticTimeline::collapse(int emitterId,
         }
     }
 
+    // --- Reverb : part de l'énergie qui arrive tard. Compté depuis la première arrivée réelle
+    // (le son direct d'une source lointaine tombe lui aussi dans un slot tardif). Slots réels
+    // uniquement : la queue synthétique de fillGaps() est une supposition, pas une mesure.
+    // Énergie moyenne des rays reçus (absorption des murs, sans pondération de distance).
+    float earlyEnergy = 0.f;
+    float lateEnergy = 0.f;
+    Eigen::Vector3f rayEnergySum = Eigen::Vector3f::Zero();
+    int firstSlot = -1;
+    for (int i = 0; i < MAX_SLOTS; ++i)
+    {
+        const auto& slot = m_slots[i];
+        if (slot.isEmpty() || slot.isSynthetic) continue;
+        if (firstSlot < 0) firstSlot = i;
+        if (i - firstSlot < EARLY_CUTOFF) earlyEnergy += slot.totalWeight;
+        else                              lateEnergy  += slot.totalWeight;
+        rayEnergySum += slot.weightedGain;
+    }
+    const float totalEnergy = earlyEnergy + lateEnergy;
+    if (totalEnergy > 1e-6f)
+    {
+        result.reverb = lateEnergy / totalEnergy;
+        result.rayEnergy = std::clamp((rayEnergySum / totalEnergy).mean(), 0.f, 1.f);
+    }
+
     if (dirTotalW < 1e-6f) return result; // aucune donnée utilisable
 
     // Azimuth / élévation depuis la position moyenne pondérée

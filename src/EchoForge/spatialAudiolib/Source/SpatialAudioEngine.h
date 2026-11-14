@@ -16,7 +16,8 @@
 #include "CircularStereoBuffer.h"
 #include "StereoDelayLine.h"
 #include "FilterChain.h"
-    
+#include "MasterBus.h"
+
 #ifndef SPATIALAUDIOENGINE_H
 #define SPATIALAUDIOENGINE_H
 
@@ -54,6 +55,11 @@ namespace yutasound {
         std::vector<FilterChain>      m_shadowChains;
         // pinna preset currently applied to every chain (set by EmitterCommand::Type::SetPinnaPreset)
         PinnaPreset                   m_pinnaPreset;
+
+        // reverb send per emitter, smoothed (200 ms) so updates from the game don't zipper
+        std::vector<juce::SmoothedValue<float>> m_smoothedReverbSend;
+        // shared room reverb + safety limiter on the final mix
+        MasterBus m_masterBus;
 
         CircularStereoBuffer m_circularBuffer;
         AudioCallback m_audioCallback { m_circularBuffer };

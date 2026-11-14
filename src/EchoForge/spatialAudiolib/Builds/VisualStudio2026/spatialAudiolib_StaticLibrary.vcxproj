@@ -1371,6 +1371,7 @@
     <ClInclude Include="..\..\Source\CircularStereoBuffer.h" />
     <ClInclude Include="..\..\Source\SoundSource.h" />
     <ClInclude Include="..\..\Source\SpatialAudioEngine.h" />
+    <ClInclude Include="..\..\Source\MasterBus.h" />
     <ClInclude Include="..\..\Source\StereoDelayLine.h" />
     <ClInclude Include="..\..\Source\FilterChain.h" />
     <ClInclude Include="..\..\Source\SVFILDFilter.h" />

@@ -1592,6 +1592,9 @@
     <ClInclude Include="..\..\Source\SpatialAudioEngine.h">
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\MasterBus.h">
+      <Filter>spatialAudiolib\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\StereoDelayLine.h">
       <Filter>spatialAudiolib\Source</Filter>
     </ClInclude>
